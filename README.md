@@ -44,13 +44,13 @@ Five new B2 candidates failed the registered training gates: more detections cam
 
 Sensor mask/restore effects were mixed. On ten original train events, full inputs gave 9 detections and 2 correct types; removing vibration/temperature gave 8 and 0. Removing flow/power lost a detection but gained a correct type. Restoration reproduced the full-input features. These are information-ablation results for an unchanged detector, not hardware ROI. See [paired results and adverse cases](results/sensor_ablation/FINDINGS.md).
 
-The proposed fleet reference has no channel supported by three eligible fit assets under the registered comparability rules. It remains a fixture-only prototype. The separate regime/abstention experiment is in progress. See [the registered experiment and exposure log](docs/experiments/followup/2026-11-07-e3-e4-manifest.json).
+The proposed fleet reference has no channel supported by three eligible fit assets under the registered comparability rules. It remains a fixture-only prototype. The regime/abstention candidates also failed their gates; causal B1 remains retained. All seven bounded hypotheses are summarized in [research outcomes](docs/experiments/RESULTS.md). See [the registered experiment and exposure log](docs/experiments/followup/2026-11-07-e3-e4-manifest.json).
 
 ## Limits that matter
 
 All data are synthetic: seven training pumps, two previously inspected validation pumps, three blind test pumps. Validation is descriptive, not independent field evidence. The browser contains the full validation-week bundle and filters it by clock for display; this is not secure concealment of future data. Test assets are metadata-only in the UI.
 
-The app is static batch replay, not a persistent edge service. Real arrival delays, restart recovery, installation quality, maintenance effort and field diagnostic performance have not been demonstrated. Confidence is a heuristic, not calibrated probability. The proposed measurement package is not certified or priced by a supplier. Controls, trips and interlocks are outside the assistant.
+The app is static batch replay, not a persistent edge service. Real arrival delays, restart recovery, installation quality, maintenance effort and field diagnostic performance have not been demonstrated. Confidence is a heuristic, not calibrated probability. Inherited B1 set iteration can change a diagnosis across Python hash seeds; reproducible inference requires the recorded environment and seed 0 at interpreter startup. The proposed measurement package is not certified or priced by a supplier. Controls, trips and interlocks are outside the assistant.
 
 Planner economics use stated user assumptions, never synthetic recall converted to revenue. The included example gives EUR −2,200 annual net and EUR −15,500 over five years at zero discount; it is not a forecast for PUMP-08. [Planner review](docs/tasks/003-coordinator-review.md) lists remaining scope, including partial shared-cost allocation and provenance limitations.
 

@@ -38,13 +38,13 @@ The first B2 experiment did not. Five candidates used cadence/quality states and
 
 A specific lesson was false “stuck sensor” alerts on normally quantized, sparse bearing temperatures. Identical successive readings are not enough evidence that an instrument has failed. Sources: results/causal_b2/CAUSAL_B2_FINDINGS.md and selection.json. This result does not establish that all cadence-aware methods fail.
 
-The bounded sparse-sensor follow-up also retained the control. Its reference-aware rule reduced sparse alerts outside true stuck events from 23 to 6, but total false plus excessive repeat burden remained 14 versus the control's 6. It failed the workload gate. Only one labeled sparse stuck event was eligible, so this does not establish general effectiveness. Source: results/sparse_stuck_followup/FINDINGS.md and docs/tasks/008-coordinator-review.md. The separate regime/abstention experiment is still in progress at this revision.
+The bounded sparse-sensor follow-up also retained the control. Its reference-aware rule reduced sparse alerts outside true stuck events from 23 to 6, but total false plus excessive repeat burden remained 14 versus the control's 6. It failed the workload gate. Only one labeled sparse stuck event was eligible, so this does not establish general effectiveness. Source: results/sparse_stuck_followup/FINDINGS.md and docs/tasks/008-coordinator-review.md. The regime-support candidate did not reduce nuisance burden; the abstention candidate removed one correct diagnosis. Both failed the registered cross-seed correctness gate, and the abstention candidate also failed the type gate. We retain the original configured baseline. See results/regime_reference/FINDINGS.md.
 
 ## Where is the AI?
 
 The current inference uses auditable statistical normalization and explicit diagnostic rules. The product is not presented as a trained language model diagnosing equipment, and no generative model invents the live evidence. We use coding/design assistants in development. More complex inference would have to outperform the retained baseline under the same causal, diagnostic and workload checks before replacing it.
 
-Source: src/retrofit_doctor/causal_b1.py; results/causal_b2/CAUSAL_B2_FINDINGS.md.
+Source: src/retrofit_doctor/causal_b1.py; results/causal_b2/CAUSAL_B2_FINDINGS.md. Reproducibility requires the recorded Python/dependency environment and PYTHONHASHSEED=0 at startup: inherited set iteration can change fault types under other seeds. We do not claim seed invariance.
 
 ## Why would another sensor help?
 

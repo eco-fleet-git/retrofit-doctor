@@ -1,5 +1,7 @@
 # Retrofit Doctor
 
+> Архив рабочих заметок до финальной интеграции, 7 ноября 2026. Актуальный статус: [English README](README.md) и [итоги гипотез](docs/experiments/RESULTS.md).
+
 Помощник инженера для ранней диагностики охлаждающих насосов на синтетическом бенчмарке RETROFIT AI 2026.
 
 **Цель демо:** первая рабочая версия 7 ноября 2026 к 12:00 Europe/Berlin, затем две итерации. [План и критерии готовности](docs/PROJECT_PLAN.md) · [UX Pilot prompts](docs/ux/UX_PILOT_PROMPTS.md) · [Задача Claude Code](docs/tasks/001-local-demo.md) · [Todoist](https://app.todoist.com/app/project/6hwchMHXFQVmmj9M). Физическое устройство не собираем: показываем диагностику, границы данных и обоснование модернизации.
