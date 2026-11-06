@@ -6,6 +6,8 @@ The questions are whether normal operating transitions cause avoidable nuisance,
 
 ## Register before executing
 
+Use two internal handoffs. First implement the exact candidate definitions and constructed-fixture checks and write the proposed manifest, then return to Codex for a focused review before any new benchmark scoring. This is a coordinator review, not a request for user permission. After that review, freeze the hashes and complete the registered train/eligible-validation run and findings. This avoids discovering a changed experiment definition only after outcome exposure.
+
 Create a separate, dated experiment manifest and explanation under docs/experiments/followup/. Specify exact equations/thresholds, consumed channels, time-availability rules, reference sample requirements, training/fitting roles, fixed candidate IDs, seed, denominators and selection rules. A generic “regime-aware” label is insufficient. Use public sensor metadata and train information only to define the candidates. Do not derive parameters from validation outcomes or hidden generator scenarios. Record prior train and validation exposure honestly.
 
 Maximum budget: control plus two regime/abstention variants and two reference variants. No iterative expansion after seeing their results. These are separate E3/E4 experiments, not B2 v1 reruns. Preserve causal B1 and the selected Task002 artifact as unchanged controls. Regime suppression must report loss of diagnostic coverage, not replace missing support with healthy. An UNKNOWN variant must retain the anomaly alert and distinguish uncertain class from the scorer's required class label.
