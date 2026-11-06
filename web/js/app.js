@@ -5,6 +5,7 @@ import {
   channelFreshness, packetState, diagnosticState, alertFeatures, visibleCount,
 } from './replay.js';
 import { CHANNEL_LABELS, CHANNEL_PLACEMENT, ALL_CHANNELS, knowledgeFor } from './knowledge.js';
+import { renderPlannerPage, bindPlanner } from './planner.js';
 
 // Documented starting checkpoints (issue times of stored causal alerts); replay starts paused here.
 const CHECKPOINTS = { 'PUMP-08': '2025-09-10T12:38:00Z', 'PUMP-09': '2026-02-10T06:28:00Z' };
@@ -449,50 +450,7 @@ function svgChart({ points, x0, x1, sparse, unit, title, alerts, labels, thresho
 function renderPlanner(route) {
   const asset = assetById(route.assetId);
   if (!asset) return '<h1>Pump not found</h1><p><a class="button primary" href="#/fleet">Back to Fleet</a></p>';
-  const installed = asset.channelsAvailable;
-  const absent = ALL_CHANNELS.filter((c) => !installed.includes(c));
-  const decisions = {
-    flow_m3_h: 'Separate discharge restriction, suction restriction and impeller wear by locating the operating point on the pump curve.',
-    suction_pressure_kpa: 'Distinguish suction-side restriction / NPSH issues from discharge-side changes.',
-    motor_power_kw: 'Cross-check hydraulic changes against shaft power.',
-    motor_speed_rpm: 'Normalise hydraulic readings by speed on variable-speed drives.',
-    motor_winding_temp_c: 'Separate motor thermal issues from pump-side mechanical faults.',
-    bearing_temp_c: 'Corroborate bearing / misalignment vibration findings.',
-    vibration_rms_mm_s: 'Detect imbalance / misalignment trends at the bearing housing.',
-    vibration_accel_rms_g: 'Detect bearing wear and cavitation signatures.',
-    vibration_crest_factor: 'Indicate impacting from bearing defects.',
-    valve_position_pct: 'Tell valve throttling apart from fouling as the cause of flow loss.',
-    discharge_pressure_kpa: 'Basic hydraulic head monitoring.',
-    motor_current_a: 'Basic load monitoring.', fluid_temp_c: 'Process temperature context.', ambient_temp_c: 'Ambient context.',
-  };
-  return `${pumpHeader(asset, 'planner')}
-    <div class="note" role="note">Skeleton planner. Every proposal is an <b>engineering hypothesis</b>: no diagnostic uplift, cost, installation time or compliance has been measured. Nothing here changes installed channels, predictions or scores.</div>
-    <p></p>
-    <div class="grid-2">
-      <div>
-        <section class="panel" aria-labelledby="pl-ex"><h2 id="pl-ex">Existing measured channels (${installed.length})</h2>
-          <ul class="tight">${installed.map((c) => `<li>${esc(label(c))} <span class="small muted mono">${c}</span> ${pill('s-info', 'Measured (synthetic benchmark)')}</li>`).join('')}</ul></section>
-        <section class="panel" aria-labelledby="pl-pr"><h2 id="pl-pr">Proposed additional hardware candidates (${absent.length})</h2>
-          ${absent.length ? `<div class="table-wrap" role="region" aria-label="Proposed hardware candidates" tabindex="0"><table><thead><tr><th scope="col">Candidate</th><th scope="col">Decision it could support</th><th scope="col">Evidence</th><th scope="col">Integration / cost</th></tr></thead><tbody>
-          ${absent.map((c) => `<tr><th scope="row">${esc(label(c))}<div class="small muted">${esc(CHANNEL_PLACEMENT[c])} (to verify on site)</div></th><td class="small">${esc(decisions[c])}</td><td>${pill('s-attn', 'Untested hypothesis')}</td><td>${pill('s-gray', 'Not assessed')}</td></tr>`).join('')}
-          </tbody></table></div>` : '<p>This pump already has every channel modelled by the benchmark.</p>'}
-          ${asset.control === 'FIXED_SPEED' ? '<p class="small muted">Fixed-speed pump: rated speed is passport metadata, not a measurement.</p>' : ''}
-        </section>
-      </div>
-      <div>
-        <section class="panel" aria-labelledby="pl-as"><h2 id="pl-as">Assumptions and open questions</h2>
-          <ul class="tight small">
-            <li>Mounting location, process connection and access: not assessed.</li>
-            <li>Interface, protocol and timestamp alignment with existing telemetry: not assessed.</li>
-            <li>Maintenance, calibration and battery/radio for wireless options: not assessed.</li>
-            <li>Site, class-society or certification review: question for responsible engineering review; no compliance claimed.</li>
-            <li>Validation plan: shadow-mode comparison against existing alerts before any reliance.</li>
-          </ul></section>
-        <section class="panel" aria-labelledby="pl-cmp"><h2 id="pl-cmp">Retrofit comparison</h2>
-          <label class="check"><input type="checkbox" disabled aria-describedby="pl-cmp-d"> Compare with added sensors</label>
-          <p id="pl-cmp-d" class="small">${pill('s-gray', 'Not yet evaluated')} No sensor-ablation experiment output has been supplied. The comparison stays disabled until real results exist.</p></section>
-      </div>
-    </div>`;
+  return renderPlannerPage(asset, pumpHeader(asset, 'planner'));
 }
 
 function renderEvidence() {
@@ -545,6 +503,7 @@ function bind(main, route) {
   const reset = () => { state.filters = { q: '', split: 'all', site: 'all' }; render(); };
   on('f-reset', 'click', reset); on('f-reset-empty', 'click', reset);
   on('retry-replay', 'click', (e) => { delete state.replays[e.target.dataset.asset]; render(); });
+  if (route.name === 'planner') { const asset = assetById(route.assetId); if (asset) bindPlanner(main, asset, render); return; }
   if (route.name !== 'pump') return;
   const id = route.assetId;
   const step = (m) => () => setClock(id, Math.floor(state.clocks[id] / MINUTE_MS) * MINUTE_MS + m * MINUTE_MS);

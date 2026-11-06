@@ -1,0 +1,48 @@
+PASS  ENG-06/07 Empty model: incomplete costs, benefit not estimated, no NPV
+PASS  ENG-01    Three options plus defer with decision/burden/when
+PASS  ENG-01    Existing-only has integration cost fields
+PASS  ENG-03    Flow candidate requires survey, no trace/efficiency claim, no exchanger location from pump taps
+PASS  ENG-04    Vibration: location/direction, mounting, bandwidth, cadence separate; no unique fault promise
+PASS  ENG-02    Removing one candidate keeps the other
+PASS  ENG-15    Not assessed answers → Needs evidence, no Ready
+PASS  ENG-08    Preset renders every fixture result with illustrative label
+PASS  ENG-09    Zero-nuisance sensitivity shown
+PASS  ENG-09    n = 0: annual net −EUR 400, NPV −EUR 6,500, no payback
+PASS  ENG-10    u = 0: benefit EUR 0, net −EUR 2,500, NPV −EUR 17,000, no finite break-even, no NaN
+PASS  ENG-11    Invalid u and H show inline errors, raw values kept, NPV not estimated
+PASS  ENG-06    Blank installation labour → Cost estimate incomplete, known subtotal EUR 3,300
+PASS  ENG-12    NOK line without dated conversion is excluded, not summed
+PASS  ENG-12    Organizer BOM dated 30 Oct 2026, hardware only, not quotes
+PASS  ENG-13    Architecture separate from replay; no secure/certified/approved conclusion
+PASS  ENG-17    Baseline named, sunk excluded, bundled lines referenced
+PASS  ENG-18    Positive case → Candidate for engineering review + simple payback; no approval wording
+PASS  ENG-18    Scheduled cost → cumulative recovery year, no level-flow payback
+PASS  ENG-15    Drafted answers → Ready for engineering review, separate from economic Defer; no Certified/Installed
+PASS  ENG-14    Save → reload keeps choice, notes, preset values, readiness and saved date
+PASS  ENG-14    PUMP-09 draft is independent (empty, not saved)
+PASS  ENG-14    Switching back keeps PUMP-08 state; unsaved PUMP-09 edit held in memory
+PASS  ENG-14    Unsaved PUMP-09 edit kept in this tab with Unsaved marker
+PASS  ENG-02    Pump Detail inventory and alerts unchanged after planner edits
+PASS  Reset     Reset asks for confirmation (focus on Keep editing); confirm removes saved draft
+PASS  ENG-05    PUMP-12 planner: metadata only, fixed speed rpm not measured
+PASS  ENG-16    Offline after load: preset, edit and local save work
+PASS  Keyboard  Radio by Space, Tab reaches Save with visible focus, Enter saves
+PASS  Console   No console errors in main session
+PASS  ENG-14    Failed storage → actionable error, edits kept, no success shown
+PASS  Console   No console errors in storage-failure session
+PASS  Narrow    390 px: no page overflow; inline numeric error visible within viewport  [overflow 0px]
+PASS  Console   No console errors at 390 px
+PASS  Provenance Edited preset value → user assumption, entry date today, original source and value preserved, total 4,800
+PASS  Provenance Benefit group edit → user assumption with entry date and original λ=0.3 kept
+PASS  Provenance Supplier quote without scope/validity/tax basis is excluded
+PASS  Provenance Completed quote fields → summed again (EUR 4,800)
+PASS  Allocation Project total editable; allocation above total rejected; cross-pump sums disclosed as unchecked
+PASS  Allocation Entering a project total relabels the line as user assumption with original kept
+PASS  Provenance Source, source date, basis, original and project total persist after save + reload
+PASS  Console   No console errors in provenance session
+PASS  Review-3  Broken stored draft (economics:null) → planner renders with notice; original untouched
+PASS  Review-3  Save after corrupt load keeps the original as backup and says so
+PASS  Review-1  Horizon 1e11 → "Supported horizon is 1–50 whole years", no result, no crash
+PASS  Review-2  2 × 1e308 → inline error, no Infinity/NaN, economics Needs evidence
+PASS  Console   No console errors in review-regression session
+47/47 passed
