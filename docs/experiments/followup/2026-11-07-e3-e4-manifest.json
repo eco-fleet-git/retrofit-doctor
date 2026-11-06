@@ -1,22 +1,39 @@
 {
-  "experiment_ids": {"E3": "retrofit-doctor-e3-regime-abstention-v1", "E4": "retrofit-doctor-e4-reference-v1"},
-  "status": "PROPOSED_REVISION_2_AFTER_REVIEW_ROUND_1_NOT_FROZEN_NOT_SCORED",
+  "experiment_ids": {
+    "E3": "retrofit-doctor-e3-regime-abstention-v1",
+    "E4": "retrofit-doctor-e4-reference-v1"
+  },
+  "status": "APPROVED_REVISION_2_PHASE2_E3_ONLY (docs/tasks/005-phase1-coordinator-review.md); frozen hashes in results/regime_reference/frozen.json before first candidate evaluation",
   "proposed_at": "2026-11-07",
   "revision_history": [
     "r1: initial proposal (pd in prior; R1 overwrote steady; prior ignored installed metadata; P1 provenance labelled as B1)",
-    "r2: review round 1 (docs/tasks/005-review-round1.md) items 1-5 and coordinator decisions applied before any scoring"
+    "r2: review round 1 (docs/tasks/005-review-round1.md) items 1-5 and coordinator decisions applied before any scoring",
+    "approved 2026-11-07: phase-2 E3 runner modes + evaluator added (scripts/run_regime_reference.py, tests/test_regime_reference_eval.py); confidence comparator labelled offline event-matched descriptive; R1 AVAILABLE restriction labelled descriptive common-window comparison; no definition changes"
   ],
   "data_origin": "synthetic",
-  "hypotheses": {"E3": ["H2_regime_changes", "H6_unknown"], "E4": ["H3_contaminated_reference_warmup"]},
+  "hypotheses": {
+    "E3": [
+      "H2_regime_changes",
+      "H6_unknown"
+    ],
+    "E4": [
+      "H3_contaminated_reference_warmup"
+    ]
+  },
   "exposure": {
     "train": "PUMP-01..07 telemetry, labels and per-event outcomes of causal B1, Task002 C0..C5 and Task008 S0..S3 already seen by this implementer",
     "validation": "PUMP-08/09 inspected before Task002; PUMP-09 also used descriptively in Task004; any check here is descriptive only",
     "test": "not accessed; excluded",
     "phase1_reads": "train telemetry + train labels of fit assets for the E4 prior-support feasibility check only (two versions, both preserved); no candidate run on a held-out asset, nothing scored"
   },
-  "control": {"id": "R0", "definition": "unchanged causal B1, k=6, persistence=15, 24 h reference; equals released S0 and Task002-selected C0",
-              "sha256": {"src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
-                         "results/causal_b2/selection.json": "15948cb251bde6e2039ec1ac8357d2908d8e21d930f6c64fb495a1dc869150c0"}},
+  "control": {
+    "id": "R0",
+    "definition": "unchanged causal B1, k=6, persistence=15, 24 h reference; equals released S0 and Task002-selected C0",
+    "sha256": {
+      "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+      "results/causal_b2/selection.json": "15948cb251bde6e2039ec1ac8357d2908d8e21d930f6c64fb495a1dc869150c0"
+    }
+  },
   "E3_candidates": {
     "R1": {
       "hypothesis": "H2",
@@ -43,8 +60,16 @@
   "E4": {
     "decision": "OPTION A (coordinator, docs/tasks/005-review-round1.md): H3 NOT TESTABLE with this registered near-rated, label-screened, nameplate-normalised prior on this train set; no E4 benchmark evaluation path; no replacement definition registered; support thresholds not loosened",
     "evidence": {
-      "v1_pre_review": {"artifact": "results/regime_reference/prior_feasibility_v1_pre_review.json", "sha256": "f5977bc83823038735800fd52e671acf017cff342f5becd46208b11a1aa2ad47", "result": "0 supported channels in 7/7 folds"},
-      "v2_corrected_inputs": {"artifact": "results/regime_reference/prior_feasibility.json", "sha256": "bb918132bbb29f34be0b89bed12a1bee5c652e2f9529d9cf533d0d58e5edb9b0", "result": "0 supported channels in 7/7 folds; 0 eligible label-free minutes on every fit asset"},
+      "v1_pre_review": {
+        "artifact": "results/regime_reference/prior_feasibility_v1_pre_review.json",
+        "sha256": "f5977bc83823038735800fd52e671acf017cff342f5becd46208b11a1aa2ad47",
+        "result": "0 supported channels in 7/7 folds"
+      },
+      "v2_corrected_inputs": {
+        "artifact": "results/regime_reference/prior_feasibility.json",
+        "sha256": "bb918132bbb29f34be0b89bed12a1bee5c652e2f9529d9cf533d0d58e5edb9b0",
+        "result": "0 supported channels in 7/7 folds; 0 eligible label-free minutes on every fit asset"
+      },
       "reason": "VFD PUMP-01/02/07 run at speed ratio 0.50-0.62 (never in [0.90, 1.05]); PUMP-03/05 (fixed speed) and PUMP-04 have no label-free minutes (open-ended pre-existing/ongoing events); PUMP-06 (FLOW_VALVE) has no speed channel and is not assumed rated"
     },
     "P1_P2_status": "constructed-fixture prototypes only, not benchmark-tested improvements",
@@ -65,11 +90,20 @@
     }
   },
   "phase2_E3_evaluation": {
-    "candidates_scored": ["R0", "R1", "R2"],
+    "candidates_scored": [
+      "R0",
+      "R1",
+      "R2"
+    ],
     "train": "7 independent held-out-asset replays, PYTHONHASHSEED=0, official scorer unchanged, original denominators: 26 observable events, 49 asset-days; no fitted parameters in E3 (fold fit IDs recorded, unused)",
     "freeze": "manifest, code hashes and run IDs saved before the first held-out evaluation; no change after outputs",
     "correctness_gate": "zero failures: R0 equals causal-B1 train report; 162 stored causal-B1 train cutpoints with prefix-replay equality and drastic future-value mutation for R1/R2; PYTHONHASHSEED 0/1/7/9 produce identical candidate outputs (inherited B1 set-order behaviour that diverges = failed check, deployment rejected, gate not weakened)",
-    "non_regression_gates": {"detected_min": 18, "class_correct_min": 14, "type_correct_min": 8, "false_plus_excess_max": 6},
+    "non_regression_gates": {
+      "detected_min": 18,
+      "class_correct_min": 14,
+      "type_correct_min": 8,
+      "false_plus_excess_max": 6
+    },
     "selection": "among R1/R2 passing all gates: max sensor type+channel, then correct type, then composite, then lower ID; none passing -> R0 retained",
     "metrics": {
       "official": "detection, class, type, false episodes, excess repeats, composite, benign-window nuisance count",
@@ -79,12 +113,12 @@
       "unknown": "UNKNOWN first diagnoses and UNKNOWN alerts",
       "anomaly_alert_coverage": "detected events / 26 (and alert count)",
       "specific_diagnosis_coverage": "events whose first diagnosis is a specific type / 26",
-      "specific_coverage_comparison": "R2 vs an R0 confidence-abstention reference at equal specific coverage: from R0 first diagnoses, relabel as UNKNOWN the n specific first diagnoses with lowest confidence (ties: earlier alert, then asset ID), n = number of R2 abstentions among first diagnoses; compare correct-type and wrong-specific counts",
+      "specific_coverage_comparison": "R2 vs an R0 confidence-abstention reference at equal specific coverage: from R0 first diagnoses, relabel as UNKNOWN the n specific first diagnoses with lowest confidence (ties: earlier alert, then asset ID), n = number of R2 abstentions among first diagnoses; compare correct-type and wrong-specific counts -- offline, event-matched DESCRIPTIVE comparator, not a deployable policy",
       "time_without_diagnosis": "minutes per diagnostic_status (R1) and per reference status (all)",
       "first_correct_type_delay": "first assigned burst with the correct emitted type, from detectable_utc; missed listed",
       "first_useful_diagnosis_delay": "as registered: correct emitted type and, for SENSOR events, correct channel; missed listed; reported separately from first_correct_type_delay",
       "strata": "pre_existing events, 0-24 h and later periods reported separately for detection/delay/burden",
-      "r1_coverage_matched": "R0 alerts restricted to minutes R1 marks AVAILABLE vs R1"
+      "r1_coverage_matched": "descriptive common-window comparison: R0 alerts at minutes R1 marks AVAILABLE vs R1; not proof of equivalent operational coverage (quality alerts can occur outside AVAILABLE); coverage losses reported explicitly"
     },
     "validation": "only for a selected, sealed, gate-passing E3 candidate: one descriptive check vs R0 on PUMP-08/09; never for failed candidates; no retuning afterwards",
     "budget": "R0 + R1 + R2 scored; P1/P2 not scored (E4 option A); no further variants"

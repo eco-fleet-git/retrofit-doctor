@@ -1,0 +1,40 @@
+{
+  "R2_vs_R0_confidence_comparator": {
+    "label": "offline, event-matched descriptive comparator; selection uses evaluator matching; not deployable",
+    "R2": {
+      "type_correct": 7,
+      "wrong_specific_first": 8,
+      "specific_diagnosis_coverage": 15
+    },
+    "R0_confidence_relabelled": {
+      "n_relabelled": 1,
+      "relabelled_events": [
+        "PUMP-01-E03"
+      ],
+      "type_correct": 7,
+      "wrong_specific_first": 8,
+      "specific_diagnosis_coverage": 15
+    }
+  },
+  "R1_common_window": {
+    "label": "descriptive common-window comparison, not proof of equivalent operational coverage",
+    "r0_alerts_by_r1_status": {
+      "AVAILABLE": 39,
+      "INSUFFICIENT_REGIME_SUPPORT": 2,
+      "GATEWAY_GAP": 1,
+      "TRANSITION": 1
+    },
+    "r0_restricted_to_r1_available": {
+      "alerts": 39,
+      "detected": 17,
+      "type_correct": 7,
+      "false_plus_excess": 6
+    },
+    "R1": {
+      "alerts": 46,
+      "detected": 18,
+      "type_correct": 8,
+      "false_plus_excess": 6
+    }
+  }
+}

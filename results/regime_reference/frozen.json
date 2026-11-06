@@ -1,0 +1,43 @@
+{
+  "experiment": "retrofit-doctor-e3-regime-abstention-v1",
+  "candidates": [
+    "R0",
+    "R1",
+    "R2"
+  ],
+  "deployable": [
+    "R1",
+    "R2"
+  ],
+  "gates": {
+    "detected_min": 18,
+    "class_correct_min": 14,
+    "type_correct_min": 8,
+    "false_plus_excess_max": 6
+  },
+  "seeds": [
+    "0",
+    "1",
+    "7",
+    "9"
+  ],
+  "sha256": {
+    "scripts/run_regime_reference.py": "a8f6292f2789e143067ac43ee36ffe356eb3103d3f1d9585eef58271328d4f53",
+    "src/retrofit_doctor/regime_reference.py": "da5489f76360a97181ab78063beda0cabd17954c8a1b15753834ff73eb5a6619",
+    "docs/experiments/followup/2026-11-07-e3-e4-manifest.json": "499e820be8fc444c34f063f091bcdfd1a562ebf75fd8e34a1e86c97dd9d73d64",
+    "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+    "src/retrofit_doctor/causal_b2.py": "9976d47a7b06298a6a6fa287efd3c812610c14d8110ca23dcb3bea4a85eb4b82",
+    "scripts/run_b1.py": "83c6b591ddcd1d07b15dbdba08e26f7731f237c420201a87339ba0d0e39a4d3e",
+    "scripts/run_causal_b2.py": "d77afebd33210805c72812ef9c3cbfe5a79031f7c55a3821f0a3aec88c65816b",
+    "scripts/run_sensor_ablation.py": "57fa0191d724a82fa1e00166ec3008b3edab78a7953c7bd69b3a17700b059d49",
+    "vendor/benchmark/src/retrofit_sim/baselines.py": "4bf291d6a1834aa79ced8d2d862d0331fb60e3210630c4c1aa25744ebd7a27dc",
+    "vendor/benchmark/src/retrofit_sim/scoring.py": "5293c2e427d6181e0f24cfd64d617fc96d284c31a949410d3c88769a7e1802c2",
+    "results/causal_b2/selection.json": "15948cb251bde6e2039ec1ac8357d2908d8e21d930f6c64fb495a1dc869150c0"
+  },
+  "inputs_sha256": {
+    "assets.csv": "bf80906062ee87861adcf0d94accbf303b49b6c8c4f9060bbd3d5318dbeaef69",
+    "events_train.csv": "08b607f38a64a34601de1b578896ca2c8314977bc76eecdec8dddb253f641392",
+    "benign_windows_train_validation.csv": "d1f6e8040e4d616aeed60cbae67a836fa4c1e0381aaff56c7976c73be3e7e649"
+  },
+  "frozen_at": "2026-11-06T23:16:44.671644+00:00"
+}
