@@ -22,4 +22,6 @@ Verify a fresh checkout can serve the committed demo bundle using the documented
 
 Collect the final English presentation/PDF, three-minute script, fallback screenshots, experiment status, limitations, code revision and prediction filename in one release README. Align screenshots and numbers to that revision. Record user review feedback when actually received; do not claim it from automated smoke tests. A video is optional if the completed presentation satisfies the supplied brief.
 
+The jury-facing repository entry point and release README must be in English. Keep the existing Russian working analyses available through links rather than discarding them. A fresh reader should find the local demo command, what works, the current model choice, the proposal for optional hardware, measured evidence and limitations without reading the planning history. User approval covers the light visual direction only; distinguish it from final application acceptance.
+
 Verify private Git visibility and push the reviewed release through the main coordinator. No public hosting, competition upload, external messages, physical hardware build or operational control. Return docs/tasks/007-handoff.md and the completed release checklist, including anything still unverified.

@@ -20,6 +20,8 @@ An optional expanded cooling concept may show separate seawater and closed fresh
 
 Add one compact explanatory view: existing historian/export and optional measurement points → local gateway/buffer/advisory analysis → engineering evidence and review. Clearly mark this as proposed field architecture; the current app is static synthetic replay. Show the concrete integration questions at each boundary: timestamp/quality/tag mapping, permitted reads and polling load, mounting/power/cables or radio/battery upkeep, local offline behavior and applicable site/class review. Existing controls/interlocks remain independent. No certification badge, claimed edge deployment or fixed BOM price.
 
+Make the physical proposal concrete enough to discuss without building hardware: identify the optional bearing-housing sensor point or pressure/flow instrument, its mounting/process connection, cable or radio link, gateway/IO enclosure and power, and local engineering display. Explain which parts are already present, proposed, or still to be selected after a survey. A functional schematic is sufficient; do not invent an enclosure photograph, product specification, supplier quote, certification or measured installation time. The proposed package must follow the selected diagnostic question, including the valid outcome of adding no permanent device.
+
 ## Integrate reviewed experiments
 
 Add measured B2 candidate results and reasons for rejection to Evidence. Display train/validation separately, denominator and false+excess burden explicitly; retain original-vs-causal B1 comparison and disclose invalid r1. Avoid calling score accuracy. Do not put rejected candidate predictions in operator replay by default.

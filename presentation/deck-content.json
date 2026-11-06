@@ -1,6 +1,20 @@
 [
   {
     "id": "sl/kxr8wu",
+    "kind": "slide",
+    "index": 0,
+    "layout": {
+      "id": "ly/a9gzmts3",
+      "name": "Blank"
+    },
+    "title": "Retrofit",
+    "position": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    },
+    "backgroundColor": "rgba(16,43,53,1)",
     "elements": [
       {
         "id": "sh/ryx87yps",
@@ -212,10 +226,46 @@
           "uri": "library-file:fde1_bGliZmlsZV93RDlMLUF6RktzRHcyNjVFVEtYWEtB_FileDrive_dcce2ba5c4b881918df5697f961b5033"
         }
       }
+    ],
+    "notes": {
+      "id": "nt/kxr8wu",
+      "kind": "notes",
+      "text": "We connect an alert to its evidence and a reviewable retrofit proposal. The screenshot is the implemented local dashboard, commit b783fce, reviewed 6 November 2026. All measurements are synthetic. No physical device is built. Source: README.md and review/task001/pump-detail-desktop.png in the private retrofit-doctor repository."
+    },
+    "inheritedLayers": [
+      {
+        "scope": "layout",
+        "id": "ly/a9gzmts3",
+        "name": "Blank",
+        "type": "blank",
+        "parentLayoutId": "ly/8369cze9",
+        "elements": []
+      },
+      {
+        "scope": "master",
+        "id": "ly/8369cze9",
+        "name": "Master",
+        "type": "master",
+        "elements": []
+      }
     ]
   },
   {
     "id": "sl/plgk3a",
+    "kind": "slide",
+    "index": 1,
+    "layout": {
+      "id": "ly/a9gzmts3",
+      "name": "Blank"
+    },
+    "title": "Twelve independent pump assets",
+    "position": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    },
+    "backgroundColor": "rgba(255,255,255,1)",
     "elements": [
       {
         "id": "sh/twfi54j2",
@@ -721,10 +771,46 @@
         ],
         "lineWidth": 0
       }
+    ],
+    "notes": {
+      "id": "nt/plgk3a",
+      "kind": "notes",
+      "text": "The dataset contains twelve independent synthetic pumps, not six hydraulically coupled pairs. Seven are training, two are validation, and three are blind test assets. Public equipment metadata supports coverage planning, including the test assets. Test telemetry and labels are not used for development. Source: vendor/benchmark/data/full/assets.csv; diagrams/README.md; AGENTS.md."
+    },
+    "inheritedLayers": [
+      {
+        "scope": "layout",
+        "id": "ly/a9gzmts3",
+        "name": "Blank",
+        "type": "blank",
+        "parentLayoutId": "ly/8369cze9",
+        "elements": []
+      },
+      {
+        "scope": "master",
+        "id": "ly/8369cze9",
+        "name": "Master",
+        "type": "master",
+        "elements": []
+      }
     ]
   },
   {
     "id": "sl/5892ye",
+    "kind": "slide",
+    "index": 2,
+    "layout": {
+      "id": "ly/a9gzmts3",
+      "name": "Blank"
+    },
+    "title": "Diagnostic evidence and limits",
+    "position": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    },
+    "backgroundColor": "rgba(255,255,255,1)",
     "elements": [
       {
         "id": "sh/wrmlwjq5",
@@ -1256,10 +1342,46 @@
         ],
         "lineWidth": 0
       }
+    ],
+    "notes": {
+      "id": "nt/5892ye",
+      "kind": "notes",
+      "text": "The first causal alert for PUMP-08-E01 is 2025-09-10 12:38 UTC with suction_pressure_kpa z=-6.7. This is an inference from pump pressure, not a direct measurement of strainer differential pressure. E02 bearing wear matches an unknown-cause alert; E04 pressure-sensor noise has no matched alert. Sources: results/causal_b1/report_causal_validation.json and predictions_causal_validation.csv. No labels are fed into replay diagnosis."
+    },
+    "inheritedLayers": [
+      {
+        "scope": "layout",
+        "id": "ly/a9gzmts3",
+        "name": "Blank",
+        "type": "blank",
+        "parentLayoutId": "ly/8369cze9",
+        "elements": []
+      },
+      {
+        "scope": "master",
+        "id": "ly/8369cze9",
+        "name": "Master",
+        "type": "master",
+        "elements": []
+      }
     ]
   },
   {
     "id": "sl/azu784",
+    "kind": "slide",
+    "index": 3,
+    "layout": {
+      "id": "ly/a9gzmts3",
+      "name": "Blank"
+    },
+    "title": "Causal baseline validation",
+    "position": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    },
+    "backgroundColor": "rgba(255,255,255,1)",
     "elements": [
       {
         "id": "sh/snahsnq9",
@@ -1946,10 +2068,1025 @@
         ],
         "lineWidth": 0
       }
+    ],
+    "notes": {
+      "id": "nt/azu784",
+      "kind": "notes",
+      "text": "Exact scores: causal 76.01253946; original 78.01253946. Score is not accuracy. The two-point decrease follows a later first match for PUMP-09-E04: 2026-02-11 06:28 UTC versus original 2026-02-09 12:46, a 41 h 42 min delay. The type remains wrong and evidence points at vibration instead of the drifting current sensor. Diagnostic rules did not improve. The first 24-hour reference may contain degradation. Checks are recorded software evidence, not a universal proof for all inputs. Source: CAUSAL_B1_FINDINGS.md; results/causal_b1/comparison.csv and verification.json. Subsequent B2 experiments are not claimed by this slide.\nNew evidence, reviewed 6 November 2026: Task002 r2 train control C0 detected18/26, correctly typed8/26, false+excess6 over49 asset-days. C1:21/26,7/26,21; C2–C5:21/26,6/26,20. All five fail registered gates, so C0 remains selected. None of the rejected candidates was scored on validation. 59 tests passed;1547 new prefix comparisons and810 supplemental original train-cut comparisons had no failures. R1 is archived invalid due None/NaN representation instability; corrected r2 disclosed. Source: results/causal_b2/CAUSAL_B2_FINDINGS.md and selection.json, commit0b3fb89. This does not establish that all cadence-aware approaches fail."
+    },
+    "inheritedLayers": [
+      {
+        "scope": "layout",
+        "id": "ly/a9gzmts3",
+        "name": "Blank",
+        "type": "blank",
+        "parentLayoutId": "ly/8369cze9",
+        "elements": []
+      },
+      {
+        "scope": "master",
+        "id": "ly/8369cze9",
+        "name": "Master",
+        "type": "master",
+        "elements": []
+      }
+    ]
+  },
+  {
+    "id": "sl/79gsei",
+    "kind": "slide",
+    "index": 4,
+    "layout": {
+      "id": "ly/a9gzmts3",
+      "name": "Blank"
+    },
+    "title": "Measured value of sensor information",
+    "position": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    },
+    "backgroundColor": "rgba(255,255,255,1)",
+    "elements": [
+      {
+        "id": "sh/7y1cjy9w",
+        "kind": "textbox",
+        "name": "title",
+        "order": 1,
+        "scope": "slide",
+        "editable": true,
+        "text": "Measured value of sensor information",
+        "position": {
+          "left": 72,
+          "top": 60,
+          "width": 1136,
+          "height": 68
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 44,
+          "typeface": "Arial",
+          "color": "#173640",
+          "bold": true,
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Measured value of sensor information",
+            "style": {
+              "fontSize": 44,
+              "typeface": "Arial",
+              "color": "#173640",
+              "bold": true
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Measured value of sensor information",
+                "fontSize": 44,
+                "typeface": "Arial",
+                "color": "#173640",
+                "bold": true
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/mxsvatsb",
+        "kind": "textbox",
+        "name": "scope",
+        "order": 2,
+        "scope": "slide",
+        "editable": true,
+        "text": "Same causal B1 detector · 3 train assets · 10 original events",
+        "position": {
+          "left": 72,
+          "top": 132,
+          "width": 1136,
+          "height": 44
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 26,
+          "typeface": "Arial",
+          "color": "#173640",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Same causal B1 detector · 3 train assets · 10 original events",
+            "style": {
+              "fontSize": 26,
+              "typeface": "Arial",
+              "color": "#173640",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Same causal B1 detector · 3 train assets · 10 original events",
+                "fontSize": 26,
+                "typeface": "Arial",
+                "color": "#173640",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "tb/m1g3m9kb",
+        "kind": "table",
+        "order": 3,
+        "scope": "slide",
+        "editable": true,
+        "text": "Information available\tDetected / 10\tCorrect type / 10\tFalse + excess\nAll installed groups\t9\t2\t6\nWithout vibration / bearing temperature\t8\t0\t6\nWithout suction pressure\t9\t2\t6\nWithout flow / power\t8\t3\t5",
+        "rows": 5,
+        "cols": 4,
+        "position": {
+          "left": 64,
+          "top": 202,
+          "width": 1152,
+          "height": 300
+        },
+        "cells": [
+          {
+            "index": 1,
+            "row": 1,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 202,
+              "width": 492,
+              "height": 60
+            },
+            "text": "Information available",
+            "fillColor": "#173640",
+            "style": {
+              "fontSize": 24,
+              "typeface": "Arial",
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Information available",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Information available",
+                    "fontSize": 24,
+                    "typeface": "Arial",
+                    "color": "#FFFFFF",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 2,
+            "row": 1,
+            "column": 2,
+            "position": {
+              "left": 556,
+              "top": 202,
+              "width": 220,
+              "height": 60
+            },
+            "text": "Detected / 10",
+            "fillColor": "#173640",
+            "style": {
+              "fontSize": 24,
+              "typeface": "Arial",
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Detected / 10",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Detected / 10",
+                    "fontSize": 24,
+                    "typeface": "Arial",
+                    "color": "#FFFFFF",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 3,
+            "row": 1,
+            "column": 3,
+            "position": {
+              "left": 776,
+              "top": 202,
+              "width": 220,
+              "height": 60
+            },
+            "text": "Correct type / 10",
+            "fillColor": "#173640",
+            "style": {
+              "fontSize": 24,
+              "typeface": "Arial",
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Correct type / 10",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Correct type / 10",
+                    "fontSize": 24,
+                    "typeface": "Arial",
+                    "color": "#FFFFFF",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 4,
+            "row": 1,
+            "column": 4,
+            "position": {
+              "left": 996,
+              "top": 202,
+              "width": 220,
+              "height": 60
+            },
+            "text": "False + excess",
+            "fillColor": "#173640",
+            "style": {
+              "fontSize": 24,
+              "typeface": "Arial",
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "False + excess",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "False + excess",
+                    "fontSize": 24,
+                    "typeface": "Arial",
+                    "color": "#FFFFFF",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 5,
+            "row": 2,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 262,
+              "width": 492,
+              "height": 60
+            },
+            "text": "All installed groups",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 26,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "All installed groups",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "All installed groups",
+                    "fontSize": 26,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 6,
+            "row": 2,
+            "column": 2,
+            "position": {
+              "left": 556,
+              "top": 262,
+              "width": 220,
+              "height": 60
+            },
+            "text": "9",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 26,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "9",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "9",
+                    "fontSize": 26,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 7,
+            "row": 2,
+            "column": 3,
+            "position": {
+              "left": 776,
+              "top": 262,
+              "width": 220,
+              "height": 60
+            },
+            "text": "2",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 26,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "2",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "2",
+                    "fontSize": 26,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 8,
+            "row": 2,
+            "column": 4,
+            "position": {
+              "left": 996,
+              "top": 262,
+              "width": 220,
+              "height": 60
+            },
+            "text": "6",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 26,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "6",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "6",
+                    "fontSize": 26,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 9,
+            "row": 3,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 322,
+              "width": 492,
+              "height": 60
+            },
+            "text": "Without vibration / bearing temperature",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 26,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Without vibration / bearing temperature",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Without vibration / bearing temperature",
+                    "fontSize": 26,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 10,
+            "row": 3,
+            "column": 2,
+            "position": {
+              "left": 556,
+              "top": 322,
+              "width": 220,
+              "height": 60
+            },
+            "text": "8",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 26,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "8",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "8",
+                    "fontSize": 26,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 11,
+            "row": 3,
+            "column": 3,
+            "position": {
+              "left": 776,
+              "top": 322,
+              "width": 220,
+              "height": 60
+            },
+            "text": "0",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 26,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "0",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "0",
+                    "fontSize": 26,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 12,
+            "row": 3,
+            "column": 4,
+            "position": {
+              "left": 996,
+              "top": 322,
+              "width": 220,
+              "height": 60
+            },
+            "text": "6",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 26,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "6",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "6",
+                    "fontSize": 26,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 13,
+            "row": 4,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 382,
+              "width": 492,
+              "height": 60
+            },
+            "text": "Without suction pressure",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 26,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Without suction pressure",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Without suction pressure",
+                    "fontSize": 26,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 14,
+            "row": 4,
+            "column": 2,
+            "position": {
+              "left": 556,
+              "top": 382,
+              "width": 220,
+              "height": 60
+            },
+            "text": "9",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 26,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "9",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "9",
+                    "fontSize": 26,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 15,
+            "row": 4,
+            "column": 3,
+            "position": {
+              "left": 776,
+              "top": 382,
+              "width": 220,
+              "height": 60
+            },
+            "text": "2",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 26,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "2",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "2",
+                    "fontSize": 26,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 16,
+            "row": 4,
+            "column": 4,
+            "position": {
+              "left": 996,
+              "top": 382,
+              "width": 220,
+              "height": 60
+            },
+            "text": "6",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 26,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "6",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "6",
+                    "fontSize": 26,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 17,
+            "row": 5,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 442,
+              "width": 492,
+              "height": 60
+            },
+            "text": "Without flow / power",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 26,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Without flow / power",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Without flow / power",
+                    "fontSize": 26,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 18,
+            "row": 5,
+            "column": 2,
+            "position": {
+              "left": 556,
+              "top": 442,
+              "width": 220,
+              "height": 60
+            },
+            "text": "8",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 26,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "8",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "8",
+                    "fontSize": 26,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 19,
+            "row": 5,
+            "column": 3,
+            "position": {
+              "left": 776,
+              "top": 442,
+              "width": 220,
+              "height": 60
+            },
+            "text": "3",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 26,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "3",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "3",
+                    "fontSize": 26,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 20,
+            "row": 5,
+            "column": 4,
+            "position": {
+              "left": 996,
+              "top": 442,
+              "width": 220,
+              "height": 60
+            },
+            "text": "5",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 26,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "5",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "5",
+                    "fontSize": 26,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sh/8zadc3ah",
+        "kind": "textbox",
+        "name": "restoration",
+        "order": 4,
+        "scope": "slide",
+        "editable": true,
+        "text": "Restoring each group reproduces the original result.",
+        "position": {
+          "left": 72,
+          "top": 526,
+          "width": 1136,
+          "height": 42
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 27,
+          "typeface": "Arial",
+          "color": "#173640",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Restoring each group reproduces the original result.",
+            "style": {
+              "fontSize": 27,
+              "typeface": "Arial",
+              "color": "#173640",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Restoring each group reproduces the original result.",
+                "fontSize": 27,
+                "typeface": "Arial",
+                "color": "#173640",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/zu1cfy9k",
+        "kind": "textbox",
+        "name": "tradeoff",
+        "order": 5,
+        "scope": "slide",
+        "editable": true,
+        "text": "Vibration / temperature helps overall; other effects are mixed.\nMore sensors do not guarantee better diagnosis.",
+        "position": {
+          "left": 72,
+          "top": 580,
+          "width": 1136,
+          "height": 75
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 26,
+          "typeface": "Arial",
+          "color": "#007C83",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Vibration / temperature helps overall; other effects are mixed.",
+            "style": {
+              "fontSize": 26,
+              "typeface": "Arial",
+              "color": "#007C83",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Vibration / temperature helps overall; other effects are mixed.",
+                "fontSize": 26,
+                "typeface": "Arial",
+                "color": "#007C83",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          },
+          {
+            "index": 2,
+            "text": "More sensors do not guarantee better diagnosis.",
+            "style": {
+              "fontSize": 26,
+              "typeface": "Arial",
+              "color": "#007C83",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "More sensors do not guarantee better diagnosis.",
+                "fontSize": 26,
+                "typeface": "Arial",
+                "color": "#007C83",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/ytsv6tsz",
+        "kind": "textbox",
+        "name": "limits",
+        "order": 6,
+        "scope": "slide",
+        "editable": true,
+        "text": "Synthetic information ablation. No physical installation benefit or ROI established.",
+        "position": {
+          "left": 72,
+          "top": 674,
+          "width": 1136,
+          "height": 32
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 21,
+          "typeface": "Arial",
+          "color": "#173640",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Synthetic information ablation. No physical installation benefit or ROI established.",
+            "style": {
+              "fontSize": 21,
+              "typeface": "Arial",
+              "color": "#173640",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Synthetic information ablation. No physical installation benefit or ROI established.",
+                "fontSize": 21,
+                "typeface": "Arial",
+                "color": "#173640",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      }
+    ],
+    "notes": {
+      "id": "nt/79gsei",
+      "kind": "notes",
+      "text": "Source: results/sensor_ablation/FINDINGS.md, train_group_summary.csv, train_paired_events.csv and manifest.json, reviewed at private Git revision 50eae57. Original 10-event denominator retained in every branch. Correct type is official first matched diagnosis, not an accuracy percentage. Burden is false episodes plus excess repeats over 21 asset-days. Mask removes channel-derived columns and working installed-channel metadata from the beginning; causal reference is recomputed. Vibration/temperature removes two detections but adds one UNKNOWN detection, net -1, and loses two correct first types. PUMP-04-E04 is detected only without this group. Flow/power mask loses PUMP-07 air-entrainment detection but improves calibration-shift first type; this is fixed-detector dependence, not a recommendation to remove instruments. Restores: 9 train + 3 descriptive PUMP-09 checks pass; causal prefix checks 414+138 pass. PUMP-09 is already inspected, descriptive only; not included in the train table. First correct-type delay does not require correct sensor channel and is not the full useful-diagnosis-delay metric."
+    },
+    "inheritedLayers": [
+      {
+        "scope": "layout",
+        "id": "ly/a9gzmts3",
+        "name": "Blank",
+        "type": "blank",
+        "parentLayoutId": "ly/8369cze9",
+        "elements": []
+      },
+      {
+        "scope": "master",
+        "id": "ly/8369cze9",
+        "name": "Master",
+        "type": "master",
+        "elements": []
+      }
     ]
   },
   {
     "id": "sl/txk2ap",
+    "kind": "slide",
+    "index": 5,
+    "layout": {
+      "id": "ly/a9gzmts3",
+      "name": "Blank"
+    },
+    "title": "A retrofit must justify its full cost",
+    "position": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    },
+    "backgroundColor": "rgba(255,255,255,1)",
     "elements": [
       {
         "id": "sh/yxcbupkz",
@@ -2480,10 +3617,46 @@
         ],
         "lineWidth": 0
       }
+    ],
+    "notes": {
+      "id": "nt/txk2ap",
+      "kind": "notes",
+      "text": "Measurement hypothesis: flow, head and input power may support operating-point assessment, but flow alone does not locate an exchanger restriction or prove savings. Costs are an independent illustrative fixture, not a proposed BOM for PUMP-08. Initial 4500 EUR; annual benefit = 0.3 relevant events/year × 0.5 additional actionable fraction × 2000 EUR avoidable repair difference = 300. No production loss assumed because of hypothetical healthy standby. Nuisance =24 checks ×75 EUR=1800; upkeep=700. Annual net=−2200; 5-year value=−4500+5×−2200=−15500. With zero nuisance checks, annual net is still −400 and 5-year value −6500. No simple payback. All parameters are illustrative assumptions. Source: docs/engineering/COST_MODEL_SPEC.md and DECISION_BRIEF.md; PUMP-08 channel absence from assets.csv. Never infer field economic value from synthetic detector recall."
+    },
+    "inheritedLayers": [
+      {
+        "scope": "layout",
+        "id": "ly/a9gzmts3",
+        "name": "Blank",
+        "type": "blank",
+        "parentLayoutId": "ly/8369cze9",
+        "elements": []
+      },
+      {
+        "scope": "master",
+        "id": "ly/8369cze9",
+        "name": "Master",
+        "type": "master",
+        "elements": []
+      }
     ]
   },
   {
     "id": "sl/eatu6s",
+    "kind": "slide",
+    "index": 6,
+    "layout": {
+      "id": "ly/a9gzmts3",
+      "name": "Blank"
+    },
+    "title": "Pilot pathway",
+    "position": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    },
+    "backgroundColor": "rgba(16,43,53,1)",
     "elements": [
       {
         "id": "sh/614rydov",
@@ -3018,6 +4191,28 @@
           }
         ],
         "lineWidth": 0
+      }
+    ],
+    "notes": {
+      "id": "nt/eatu6s",
+      "kind": "notes",
+      "text": "Start with one maintenance decision and an accountable owner. Existing signals may be sufficient. Trial a targeted additional measurement with a reference or handheld route; do not induce damaging faults. Review actionable lead time, nuisance workload, outages and integration/service burden against existing practice. Retain a defer/no-install outcome. The proposed field architecture is read-only telemetry and optional sensors to local buffered advisory analysis; it is separate from the current replay prototype. Control, SIS and operational alarms remain independent. Site/class/flag applicability needs engineering review. No certification or customer pilot has occurred. Source: docs/engineering/DECISION_BRIEF.md and SOURCES_AND_UNKNOWNS.md."
+    },
+    "inheritedLayers": [
+      {
+        "scope": "layout",
+        "id": "ly/a9gzmts3",
+        "name": "Blank",
+        "type": "blank",
+        "parentLayoutId": "ly/8369cze9",
+        "elements": []
+      },
+      {
+        "scope": "master",
+        "id": "ly/8369cze9",
+        "name": "Master",
+        "type": "master",
+        "elements": []
       }
     ]
   }
