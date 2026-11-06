@@ -1,6 +1,6 @@
 # Task 007 — final release and one-shot blind prediction export
 
-Do not start until the main Codex coordinator has recorded the release gate after Tasks003–006 and the final experiment decision. This is within the user's existing project authorization; it does not require another generic permission request. It is a real data-access boundary, so an unfinished manifest or missing correctness check is not approval. Claude implements the runner; Codex owns the release decision, Git and verification. No online submission or external publication is authorized by this task.
+Do not start until the main Codex coordinator has recorded the release gate after Tasks003–006, Task008 and the final experiment decision. This is within the user's existing project authorization; it does not require another generic permission request. It is a real data-access boundary, so an unfinished manifest or missing correctness check is not approval. Claude implements the runner; Codex owns the release decision, Git and verification. No online submission or external publication is authorized by this task.
 
 Read AGENTS.md, docs/experiments/FROZEN_PROTOCOL.md section 6, vendor/benchmark/CHALLENGE_BRIEF.md and BENCHMARK_RULES.md. The supplied challenge requires a prediction file for the three test assets as well as prototype/repository/presentation/baseline comparison/limitations.
 

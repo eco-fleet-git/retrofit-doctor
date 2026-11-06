@@ -1,6 +1,10 @@
 # Task 006 — integrate evidence and the physical measurement concept
 
-Claude Code implementation after Task003/004/005 handoffs and Codex evidence review. One writer, no Git mutation. Budget 90 minutes. Retain the four-view product structure. Read AGENTS.md, the current UI, diagrams/README.md, sensor-inventory.csv, engineering contracts and reviewed experiment manifests. Do not run new detector searches or access test telemetry.
+Claude Code implementation after Task003/004/008/005 handoffs and Codex evidence review. One writer, no Git mutation. Budget 90 minutes. Retain the four-view product structure. Read AGENTS.md, the current UI, diagrams/README.md, sensor-inventory.csv, engineering contracts and reviewed experiment manifests. Do not run new detector searches or access test telemetry.
+
+## Apply the reviewed UX Pilot direction
+
+The one authorized generation is complete: `design/uxpilot/README.md` and its screenshot preserve the visual reference; receipt in `docs/tasks/UXPILOT_CONNECTION.md`. Use its hierarchy, calm light palette, sidebar and separated evidence/action areas when they improve the existing workflow. All generated telemetry, inventory counts/states and source names are rejected. Implement the seven documented corrections with actual exported data and honest unavailable states. Do not copy external CDN dependencies into the offline app. No paid regeneration, review, export or external publication. The final application screenshot, not the uncorrected mockup, goes into the presentation.
 
 ## Make the measurement locations understandable
 

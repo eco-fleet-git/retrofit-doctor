@@ -19,6 +19,8 @@ Four views: Fleet Overview (12 independent assets and actual sensor coverage), P
 
 ## Acceptance
 
+Current implementation queue after the reviewed negative B2 result: Task003 Planner → Task004 fixed sensor ablation → Task008 bounded sparse-stuck follow-up → Task005 regime/reference experiments → Task006 integrated demo and corrected UX Pilot direction → Task007 final sealed export/release. Task008 is explicitly a new experiment registered after observing quantization-related false warnings, not a hidden change to B2 v1. Each experiment has a finite candidate budget; negative results do not trigger an open-ended search. No second paid UX Pilot generation is planned.
+
 - Fresh local run instructions work; core demo operates without cloud services after dependencies are installed.
 - 12 assets use verified metadata; missing inputs are not zero/healthy.
 - Replay never renders signal/evidence later than its as-of clock. Ground-truth overlays are visibly separate evaluation views.

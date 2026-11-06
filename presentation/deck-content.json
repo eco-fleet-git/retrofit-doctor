@@ -209,8 +209,7 @@
         "fit": "contain",
         "asset": {
           "contentType": "image/png",
-          "uri": "library-file:fde1_bGliZmlsZV93RDlMLUF6RktzRHcyNjVFVEtYWEtB_FileDrive_dcce2ba5c4b881918df5697f961b5033",
-          "byteLength": 189344
+          "uri": "library-file:fde1_bGliZmlsZV93RDlMLUF6RktzRHcyNjVFVEtYWEtB_FileDrive_dcce2ba5c4b881918df5697f961b5033"
         }
       }
     ]
@@ -1847,7 +1846,7 @@
         "order": 4,
         "scope": "slide",
         "editable": true,
-        "text": "Causal B1: 209 causality checks and 18 regression tests\npassed in the recorded run.",
+        "text": "Five B2 candidates rejected on train: fewer correct fault types\nand higher alert burden. Causal B1 retained.",
         "position": {
           "left": 64,
           "top": 573,
@@ -1864,7 +1863,7 @@
         "paragraphs": [
           {
             "index": 1,
-            "text": "Causal B1: 209 causality checks and 18 regression tests",
+            "text": "Five B2 candidates rejected on train: fewer correct fault types",
             "style": {
               "fontSize": 25,
               "color": "#006D70",
@@ -1873,7 +1872,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "Causal B1: 209 causality checks and 18 regression tests",
+                "text": "Five B2 candidates rejected on train: fewer correct fault types",
                 "fontSize": 25,
                 "color": "#006D70",
                 "bold": false
@@ -1883,7 +1882,7 @@
           },
           {
             "index": 2,
-            "text": "passed in the recorded run.",
+            "text": "and higher alert burden. Causal B1 retained.",
             "style": {
               "fontSize": 25,
               "color": "#006D70",
@@ -1892,7 +1891,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "passed in the recorded run.",
+                "text": "and higher alert burden. Causal B1 retained.",
                 "fontSize": 25,
                 "color": "#006D70",
                 "bold": false

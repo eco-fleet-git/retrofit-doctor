@@ -1,0 +1,9 @@
+# UX Pilot visual reference — data rejected
+
+One user-approved Standard desktop screen, no generated images. Completed 6 November 2026, **9 credits charged**. Page: https://uxpilot.ai/a/ui-design?page=Gg4kE9AeBl6or2bSTnsK ; design `6umz4u8tBcLUj7Tk3BKA`; job `TQPZZzEqfNXvFzmYmjbu`. Nothing published. Receipt and detailed review: docs/tasks/UXPILOT_CONNECTION.md.
+
+`pump-detail-generated-unverified.png` is the unmodified generated design, **not an application screenshot or valid diagnostic evidence**. Both Claude and the main coordinator inspected it. The layout can inform visual hierarchy, sidebar, evidence/action separation and sensor-table structure. Its displayed measurements, equipment coverage and provenance are rejected.
+
+Required corrections before any product/demo use: replace invented pressure values with verified replay or an honest unavailable state; use the actual 11-channel PUMP-08 passport and real freshness/reference data; remove invented source names and floating callouts; keep the chart at the as-of boundary; display the full baseline/engineering-review qualification; keep uncalibrated confidence in details; separate proposed points from installed inventory; show bearing housing, motor winding and drive context with correct placement caveats. Do not copy CDN scripts or fictional values into the offline app.
+
+The correct implementation must reuse the existing verified data/replay contract. Task006 incorporates these corrections as part of local UI implementation. No second paid generation, review or export is required or authorized by this reference. On 6 November the user approved developing this light visual style with sidebar navigation and a separate evidence card. This is approval of the visual direction, not of the mockup's fabricated measurements or the finished application.
