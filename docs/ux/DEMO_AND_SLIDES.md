@@ -1,4 +1,6 @@
-# Three-minute demo and six-slide outline
+# Original UX proposal — archived walkthrough and outline
+
+**Superseded for the current build on 7 November 2026.** Use [the implemented live walkthrough](../tasks/006-demo-script.md), [the current presentation](../../presentation/README.md) and [its eight-slide speaking script](../../presentation/PITCH_SCRIPT.md). The six-slide proposal and pre-implementation statements below are preserved as design history, not current delivery status or a slide-count requirement.
 
 All narration and slide copy below is English. This is a content and rehearsal plan. No app or deck has been created by this handoff.
 
