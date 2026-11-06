@@ -1,0 +1,616 @@
+{
+  "purpose": "pre-scoring support check of the registered E4 prior; no candidate outputs or scores",
+  "reads": "train telemetry + train labels of fit assets per fold (fit-window selection only)",
+  "folds": {
+    "PUMP-01": {
+      "fit_assets": [
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "channels": {
+        "i": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "motor_current_a/motor_rated_current_a",
+          "unit": "1"
+        },
+        "pw": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "motor_power_kw/motor_rated_kw",
+          "unit": "1"
+        },
+        "q": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "flow_m3_h/design_flow_m3_h",
+          "unit": "1"
+        },
+        "v": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "vibration_rms_mm_s/vibration_alarm_mm_s",
+          "unit": "1"
+        },
+        "bt": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "bearing_temp_c-fluid_temp_c",
+          "unit": "K"
+        }
+      },
+      "fit_minutes": {
+        "PUMP-02": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-03": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-04": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-05": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-06": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-07": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        }
+      },
+      "prior_id": "d1a3a4dbe78ac68c"
+    },
+    "PUMP-02": {
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "channels": {
+        "i": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "motor_current_a/motor_rated_current_a",
+          "unit": "1"
+        },
+        "pw": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "motor_power_kw/motor_rated_kw",
+          "unit": "1"
+        },
+        "q": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "flow_m3_h/design_flow_m3_h",
+          "unit": "1"
+        },
+        "v": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "vibration_rms_mm_s/vibration_alarm_mm_s",
+          "unit": "1"
+        },
+        "bt": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "bearing_temp_c-fluid_temp_c",
+          "unit": "K"
+        }
+      },
+      "fit_minutes": {
+        "PUMP-01": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-03": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-04": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-05": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-06": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-07": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        }
+      },
+      "prior_id": "d1a3a4dbe78ac68c"
+    },
+    "PUMP-03": {
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "channels": {
+        "i": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "motor_current_a/motor_rated_current_a",
+          "unit": "1"
+        },
+        "pw": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "motor_power_kw/motor_rated_kw",
+          "unit": "1"
+        },
+        "q": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "flow_m3_h/design_flow_m3_h",
+          "unit": "1"
+        },
+        "v": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "vibration_rms_mm_s/vibration_alarm_mm_s",
+          "unit": "1"
+        },
+        "bt": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "bearing_temp_c-fluid_temp_c",
+          "unit": "K"
+        }
+      },
+      "fit_minutes": {
+        "PUMP-01": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-02": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-04": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-05": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-06": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-07": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        }
+      },
+      "prior_id": "d1a3a4dbe78ac68c"
+    },
+    "PUMP-04": {
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "channels": {
+        "i": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "motor_current_a/motor_rated_current_a",
+          "unit": "1"
+        },
+        "pw": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "motor_power_kw/motor_rated_kw",
+          "unit": "1"
+        },
+        "q": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "flow_m3_h/design_flow_m3_h",
+          "unit": "1"
+        },
+        "v": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "vibration_rms_mm_s/vibration_alarm_mm_s",
+          "unit": "1"
+        },
+        "bt": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "bearing_temp_c-fluid_temp_c",
+          "unit": "K"
+        }
+      },
+      "fit_minutes": {
+        "PUMP-01": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-02": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-03": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-05": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-06": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-07": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        }
+      },
+      "prior_id": "d1a3a4dbe78ac68c"
+    },
+    "PUMP-05": {
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "channels": {
+        "i": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "motor_current_a/motor_rated_current_a",
+          "unit": "1"
+        },
+        "pw": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "motor_power_kw/motor_rated_kw",
+          "unit": "1"
+        },
+        "q": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "flow_m3_h/design_flow_m3_h",
+          "unit": "1"
+        },
+        "v": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "vibration_rms_mm_s/vibration_alarm_mm_s",
+          "unit": "1"
+        },
+        "bt": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "bearing_temp_c-fluid_temp_c",
+          "unit": "K"
+        }
+      },
+      "fit_minutes": {
+        "PUMP-01": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-02": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-03": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-04": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-06": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-07": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        }
+      },
+      "prior_id": "d1a3a4dbe78ac68c"
+    },
+    "PUMP-06": {
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-07"
+      ],
+      "channels": {
+        "i": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "motor_current_a/motor_rated_current_a",
+          "unit": "1"
+        },
+        "pw": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "motor_power_kw/motor_rated_kw",
+          "unit": "1"
+        },
+        "q": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "flow_m3_h/design_flow_m3_h",
+          "unit": "1"
+        },
+        "v": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "vibration_rms_mm_s/vibration_alarm_mm_s",
+          "unit": "1"
+        },
+        "bt": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "bearing_temp_c-fluid_temp_c",
+          "unit": "K"
+        }
+      },
+      "fit_minutes": {
+        "PUMP-01": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-02": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-03": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-04": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-05": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-07": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        }
+      },
+      "prior_id": "d1a3a4dbe78ac68c"
+    },
+    "PUMP-07": {
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06"
+      ],
+      "channels": {
+        "i": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "motor_current_a/motor_rated_current_a",
+          "unit": "1"
+        },
+        "pw": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "motor_power_kw/motor_rated_kw",
+          "unit": "1"
+        },
+        "q": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "flow_m3_h/design_flow_m3_h",
+          "unit": "1"
+        },
+        "v": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "vibration_rms_mm_s/vibration_alarm_mm_s",
+          "unit": "1"
+        },
+        "bt": {
+          "supported": false,
+          "fit_assets": [],
+          "quantity": "bearing_temp_c-fluid_temp_c",
+          "unit": "K"
+        }
+      },
+      "fit_minutes": {
+        "PUMP-01": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-02": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-03": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-04": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-05": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-06": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "v": 0,
+          "bt": 0
+        }
+      },
+      "prior_id": "d1a3a4dbe78ac68c"
+    }
+  },
+  "created_at": "2026-11-06T23:10:17.658186+00:00"
+}

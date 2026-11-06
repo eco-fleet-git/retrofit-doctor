@@ -1,0 +1,609 @@
+{
+  "purpose": "pre-scoring support check of the registered E4 prior; no candidate outputs or scores",
+  "reads": "train telemetry + train labels of fit assets per fold (fit-window selection only)",
+  "folds": {
+    "PUMP-01": {
+      "fit_assets": [
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "channels": {
+        "i": {
+          "supported": false,
+          "assets": []
+        },
+        "pw": {
+          "supported": false,
+          "assets": []
+        },
+        "q": {
+          "supported": false,
+          "assets": []
+        },
+        "pd": {
+          "supported": false,
+          "assets": []
+        },
+        "v": {
+          "supported": false,
+          "assets": []
+        },
+        "bt": {
+          "supported": false,
+          "assets": []
+        }
+      },
+      "fit_minutes": {
+        "PUMP-02": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-03": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-04": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-05": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-06": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-07": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        }
+      }
+    },
+    "PUMP-02": {
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "channels": {
+        "i": {
+          "supported": false,
+          "assets": []
+        },
+        "pw": {
+          "supported": false,
+          "assets": []
+        },
+        "q": {
+          "supported": false,
+          "assets": []
+        },
+        "pd": {
+          "supported": false,
+          "assets": []
+        },
+        "v": {
+          "supported": false,
+          "assets": []
+        },
+        "bt": {
+          "supported": false,
+          "assets": []
+        }
+      },
+      "fit_minutes": {
+        "PUMP-01": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-03": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-04": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-05": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-06": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-07": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        }
+      }
+    },
+    "PUMP-03": {
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "channels": {
+        "i": {
+          "supported": false,
+          "assets": []
+        },
+        "pw": {
+          "supported": false,
+          "assets": []
+        },
+        "q": {
+          "supported": false,
+          "assets": []
+        },
+        "pd": {
+          "supported": false,
+          "assets": []
+        },
+        "v": {
+          "supported": false,
+          "assets": []
+        },
+        "bt": {
+          "supported": false,
+          "assets": []
+        }
+      },
+      "fit_minutes": {
+        "PUMP-01": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-02": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-04": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-05": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-06": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-07": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        }
+      }
+    },
+    "PUMP-04": {
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "channels": {
+        "i": {
+          "supported": false,
+          "assets": []
+        },
+        "pw": {
+          "supported": false,
+          "assets": []
+        },
+        "q": {
+          "supported": false,
+          "assets": []
+        },
+        "pd": {
+          "supported": false,
+          "assets": []
+        },
+        "v": {
+          "supported": false,
+          "assets": []
+        },
+        "bt": {
+          "supported": false,
+          "assets": []
+        }
+      },
+      "fit_minutes": {
+        "PUMP-01": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-02": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-03": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-05": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-06": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-07": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        }
+      }
+    },
+    "PUMP-05": {
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "channels": {
+        "i": {
+          "supported": false,
+          "assets": []
+        },
+        "pw": {
+          "supported": false,
+          "assets": []
+        },
+        "q": {
+          "supported": false,
+          "assets": []
+        },
+        "pd": {
+          "supported": false,
+          "assets": []
+        },
+        "v": {
+          "supported": false,
+          "assets": []
+        },
+        "bt": {
+          "supported": false,
+          "assets": []
+        }
+      },
+      "fit_minutes": {
+        "PUMP-01": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-02": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-03": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-04": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-06": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-07": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        }
+      }
+    },
+    "PUMP-06": {
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-07"
+      ],
+      "channels": {
+        "i": {
+          "supported": false,
+          "assets": []
+        },
+        "pw": {
+          "supported": false,
+          "assets": []
+        },
+        "q": {
+          "supported": false,
+          "assets": []
+        },
+        "pd": {
+          "supported": false,
+          "assets": []
+        },
+        "v": {
+          "supported": false,
+          "assets": []
+        },
+        "bt": {
+          "supported": false,
+          "assets": []
+        }
+      },
+      "fit_minutes": {
+        "PUMP-01": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-02": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-03": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-04": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-05": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-07": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        }
+      }
+    },
+    "PUMP-07": {
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06"
+      ],
+      "channels": {
+        "i": {
+          "supported": false,
+          "assets": []
+        },
+        "pw": {
+          "supported": false,
+          "assets": []
+        },
+        "q": {
+          "supported": false,
+          "assets": []
+        },
+        "pd": {
+          "supported": false,
+          "assets": []
+        },
+        "v": {
+          "supported": false,
+          "assets": []
+        },
+        "bt": {
+          "supported": false,
+          "assets": []
+        }
+      },
+      "fit_minutes": {
+        "PUMP-01": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-02": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-03": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-04": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-05": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        },
+        "PUMP-06": {
+          "i": 0,
+          "pw": 0,
+          "q": 0,
+          "pd": 0,
+          "v": 0,
+          "bt": 0
+        }
+      }
+    }
+  },
+  "created_at": "2026-11-06T23:05:50.121289+00:00"
+}

@@ -1,0 +1,100 @@
+{
+  "experiment_ids": {"E3": "retrofit-doctor-e3-regime-abstention-v1", "E4": "retrofit-doctor-e4-reference-v1"},
+  "status": "PROPOSED_REVISION_2_AFTER_REVIEW_ROUND_1_NOT_FROZEN_NOT_SCORED",
+  "proposed_at": "2026-11-07",
+  "revision_history": [
+    "r1: initial proposal (pd in prior; R1 overwrote steady; prior ignored installed metadata; P1 provenance labelled as B1)",
+    "r2: review round 1 (docs/tasks/005-review-round1.md) items 1-5 and coordinator decisions applied before any scoring"
+  ],
+  "data_origin": "synthetic",
+  "hypotheses": {"E3": ["H2_regime_changes", "H6_unknown"], "E4": ["H3_contaminated_reference_warmup"]},
+  "exposure": {
+    "train": "PUMP-01..07 telemetry, labels and per-event outcomes of causal B1, Task002 C0..C5 and Task008 S0..S3 already seen by this implementer",
+    "validation": "PUMP-08/09 inspected before Task002; PUMP-09 also used descriptively in Task004; any check here is descriptive only",
+    "test": "not accessed; excluded",
+    "phase1_reads": "train telemetry + train labels of fit assets for the E4 prior-support feasibility check only (two versions, both preserved); no candidate run on a held-out asset, nothing scored"
+  },
+  "control": {"id": "R0", "definition": "unchanged causal B1, k=6, persistence=15, 24 h reference; equals released S0 and Task002-selected C0",
+              "sha256": {"src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+                         "results/causal_b2/selection.json": "15948cb251bde6e2039ec1ac8357d2908d8e21d930f6c64fb495a1dc869150c0"}},
+  "E3_candidates": {
+    "R1": {
+      "hypothesis": "H2",
+      "consumed_inputs": "causal B1 inputs; regime = round(motor_speed_rpm__mean / motor_rated_rpm / 0.05) (unchanged B1 bin); no speed -> regime 0",
+      "regime_support": "bin SUPPORTED iff the frozen 24 h commissioning reference has >= 60 B1-steady minutes in that bin; after commissioning, unsupported bins withhold every z_* and zs_* (status INSUFFICIENT_REGIME_SUPPORT; never z=0)",
+      "transition": "bin changes between consecutive minutes that both have a finite speed ratio -> that minute and the next 9 are TRANSITION; missing-speed minutes are not transitions",
+      "scope_of_transition": "amplitude path only: amplitude_steady = B1 steady AND NOT transition gates the z flag; the original B1 steady is kept for flatline/stuck flags and for diagnosis",
+      "persistence": "single shared B1 run counter unchanged: a TRANSITION minute continues the run only if a gap or flatline flag is set; otherwise it breaks the run, as a non-steady minute does in B1",
+      "unchanged": "reference composition, gateway gap, flatline/stuck flags, k, persistence, refractory, diagnosis rules",
+      "coverage_output": "per-minute diagnostic_status: GATEWAY_GAP | COLLECTING_REFERENCE | NOT_STEADY | TRANSITION | INSUFFICIENT_REGIME_SUPPORT | AVAILABLE"
+    },
+    "R2": {
+      "hypothesis": "H6",
+      "alerts": "identical alert times, classes and refractory to R0 (suppression keyed on the B1 type)",
+      "coverage_statement": "anomaly-alert coverage is matched to R0; specific-diagnosis coverage is REDUCED by every abstention and is reported separately; a precision gain is not called coverage-matched on that basis",
+      "abstain_rules": [
+        "B1 single-channel sensor rule (SENSOR_CALIBRATION_SHIFT / SENSOR_NOISE_SPIKES) with < 2 coupled channels carrying a finite reference z",
+        "B1 machine type differs from the same machine rules evaluated with missing operands kept missing (causal_b2._machine_rules), i.e. the B1 decision relied on NaN -> 0"
+      ],
+      "abstained_output": "fault_type UNKNOWN, class_status UNCERTAIN, event_class = unchanged B1 class (scorer-required label), original_fault_type = B1 type (stored alternative only)",
+      "type_gate_note": "R2 can only keep or lower correct-type counts; it passes type >= 8 only if every abstention replaces a wrong type"
+    }
+  },
+  "E4": {
+    "decision": "OPTION A (coordinator, docs/tasks/005-review-round1.md): H3 NOT TESTABLE with this registered near-rated, label-screened, nameplate-normalised prior on this train set; no E4 benchmark evaluation path; no replacement definition registered; support thresholds not loosened",
+    "evidence": {
+      "v1_pre_review": {"artifact": "results/regime_reference/prior_feasibility_v1_pre_review.json", "sha256": "f5977bc83823038735800fd52e671acf017cff342f5becd46208b11a1aa2ad47", "result": "0 supported channels in 7/7 folds"},
+      "v2_corrected_inputs": {"artifact": "results/regime_reference/prior_feasibility.json", "sha256": "bb918132bbb29f34be0b89bed12a1bee5c652e2f9529d9cf533d0d58e5edb9b0", "result": "0 supported channels in 7/7 folds; 0 eligible label-free minutes on every fit asset"},
+      "reason": "VFD PUMP-01/02/07 run at speed ratio 0.50-0.62 (never in [0.90, 1.05]); PUMP-03/05 (fixed speed) and PUMP-04 have no label-free minutes (open-ended pre-existing/ongoing events); PUMP-06 (FLOW_VALVE) has no speed channel and is not assumed rated"
+    },
+    "P1_P2_status": "constructed-fixture prototypes only, not benchmark-tested improvements",
+    "prototype_definitions": {
+      "quantities": {
+        "i": "motor_current_a / motor_rated_current_a [1]",
+        "pw": "motor_power_kw / motor_rated_kw [1]",
+        "q": "flow_m3_h / design_flow_m3_h [1]",
+        "v": "vibration_rms_mm_s / vibration_alarm_mm_s [1]",
+        "bt": "bearing_temp_c - fluid_temp_c [K] (a temperature rise, not the untransformed bearing temperature)"
+      },
+      "excluded": "discharge pressure: pd/(g*H_design) is not normalised pump head (inlet pressure/reference and hydraulic losses vary); own-reference z_pd unchanged after commissioning and in the control",
+      "status_of_ratios": "tentative statistical transfer hypotheses with between-asset uncertainty; not physical performance residuals; not health certification",
+      "input_validity": "installed in channels_available AND observed in the minute (count > 0, finite mean) AND nameplate scale present, finite, > 0; temperature rise needs both temperatures installed and observed; otherwise unsupported (NaN)",
+      "eligible_minutes": "B1 steady, no gateway gap, observed speed ratio in [0.90, 1.05]; without an installed speed channel only control == FIXED_SPEED counts as rated",
+      "fit": "LOAO on the other six train assets; labels select fit windows by excluding every labelled event [onset, end) of a fit asset (end missing -> window end); per asset >= 60 minutes; median of asset medians; scale = max(hypot(1.4826*MAD(asset medians), median within-asset 1.4826*MAD), floor); floors 0.02 (i, pw, q), 0.05 (v), 1.0 K (bt); < 3 fit assets -> unsupported; prior_id = first 16 hex of SHA-256 of the canonical prior JSON",
+      "provenance": "P1 alerts before 24 h: rule_id fleet_prior_cold_start, evidence names the quantities, detail = {reference: fleet_prior, prior_id, quantities with unit, z, fit_assets, prior median/scale}; after commissioning: own-reference B1 alerts with detail reference own_commissioning; P2: rule_id reference_vs_fleet_prior with prior_id, own minutes/median, prior median/scale and z per quantity"
+    }
+  },
+  "phase2_E3_evaluation": {
+    "candidates_scored": ["R0", "R1", "R2"],
+    "train": "7 independent held-out-asset replays, PYTHONHASHSEED=0, official scorer unchanged, original denominators: 26 observable events, 49 asset-days; no fitted parameters in E3 (fold fit IDs recorded, unused)",
+    "freeze": "manifest, code hashes and run IDs saved before the first held-out evaluation; no change after outputs",
+    "correctness_gate": "zero failures: R0 equals causal-B1 train report; 162 stored causal-B1 train cutpoints with prefix-replay equality and drastic future-value mutation for R1/R2; PYTHONHASHSEED 0/1/7/9 produce identical candidate outputs (inherited B1 set-order behaviour that diverges = failed check, deployment rejected, gate not weakened)",
+    "non_regression_gates": {"detected_min": 18, "class_correct_min": 14, "type_correct_min": 8, "false_plus_excess_max": 6},
+    "selection": "among R1/R2 passing all gates: max sensor type+channel, then correct type, then composite, then lower ID; none passing -> R0 retained",
+    "metrics": {
+      "official": "detection, class, type, false episodes, excess repeats, composite, benign-window nuisance count",
+      "benign_exposure": "nuisance count with total benign-window minutes per asset",
+      "sensor_type_and_channel": "emitted type must equal the event type AND the evidence channel must equal sensor_tag (Task002 C0 parse rule); an UNKNOWN never receives credit from its stored alternative",
+      "wrong_specific_causes": "first diagnoses with a specific (non-UNKNOWN) wrong type, plus unmatched specific alerts",
+      "unknown": "UNKNOWN first diagnoses and UNKNOWN alerts",
+      "anomaly_alert_coverage": "detected events / 26 (and alert count)",
+      "specific_diagnosis_coverage": "events whose first diagnosis is a specific type / 26",
+      "specific_coverage_comparison": "R2 vs an R0 confidence-abstention reference at equal specific coverage: from R0 first diagnoses, relabel as UNKNOWN the n specific first diagnoses with lowest confidence (ties: earlier alert, then asset ID), n = number of R2 abstentions among first diagnoses; compare correct-type and wrong-specific counts",
+      "time_without_diagnosis": "minutes per diagnostic_status (R1) and per reference status (all)",
+      "first_correct_type_delay": "first assigned burst with the correct emitted type, from detectable_utc; missed listed",
+      "first_useful_diagnosis_delay": "as registered: correct emitted type and, for SENSOR events, correct channel; missed listed; reported separately from first_correct_type_delay",
+      "strata": "pre_existing events, 0-24 h and later periods reported separately for detection/delay/burden",
+      "r1_coverage_matched": "R0 alerts restricted to minutes R1 marks AVAILABLE vs R1"
+    },
+    "validation": "only for a selected, sealed, gate-passing E3 candidate: one descriptive check vs R0 on PUMP-08/09; never for failed candidates; no retuning afterwards",
+    "budget": "R0 + R1 + R2 scored; P1/P2 not scored (E4 option A); no further variants"
+  },
+  "phase1_sha256": {
+    "src/retrofit_doctor/regime_reference.py": "da5489f76360a97181ab78063beda0cabd17954c8a1b15753834ff73eb5a6619",
+    "tests/test_regime_reference.py": "37493709277aaf391e43b6a8284d04883a2b48d66afb8f90171a585e833649d7",
+    "scripts/run_regime_reference.py": "43c184c09a3885a944be00bfb1ac2fe2409185170231a2b4aba895469745fcb7",
+    "src/retrofit_doctor/causal_b2.py": "9976d47a7b06298a6a6fa287efd3c812610c14d8110ca23dcb3bea4a85eb4b82",
+    "vendor/benchmark/src/retrofit_sim/baselines.py": "4bf291d6a1834aa79ced8d2d862d0331fb60e3210630c4c1aa25744ebd7a27dc",
+    "vendor/benchmark/src/retrofit_sim/scoring.py": "5293c2e427d6181e0f24cfd64d617fc96d284c31a949410d3c88769a7e1802c2"
+  }
+}
