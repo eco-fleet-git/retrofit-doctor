@@ -1,0 +1,23 @@
+{
+  "manifest_sha256": "a98b0285bef1869e944ac3a7f5552b1d48634cdf4ca3f98df22e9e28ba1b1aeb",
+  "gate": {
+    "approved": true,
+    "manifest_sha256": "a98b0285bef1869e944ac3a7f5552b1d48634cdf4ca3f98df22e9e28ba1b1aeb",
+    "reviewed_commit": "1a8760144f72346a1b45b9c3465c3a30bed5f396",
+    "approved_at": "2026-11-06T23:50:55.340573+00:00",
+    "coordinator": "Codex",
+    "scope": "One fixed-model export, PUMP-10/11/12; no retuning, labels or online submission. Registered prefix audit only.",
+    "exposure_decision": "Pre-gate PUMP-10 process-memory read disclosed. No pristine blind claim. See docs/tasks/007-coordinator-review.md."
+  },
+  "rows": 23,
+  "rows_per_asset": {
+    "PUMP-10": 3,
+    "PUMP-11": 4,
+    "PUMP-12": 16
+  },
+  "predictions_sha256": "093be3f660fdeb397dafed8707a880f15c9219b5afcff23d4cb21dda67781da9",
+  "schema_problems": [],
+  "prefix_audit_failures": 0,
+  "statement": "Test predictions exported; quality unknown",
+  "executed_at": "2026-11-06T23:51:20.547561+00:00"
+}

@@ -5,7 +5,7 @@ Eight-slide alternative to the live demo, not an additional three minutes to app
 | Time | Slide | Suggested narration |
 |---|---|---|
 | 0:00–0:20 | Retrofit Doctor | “A pump warning should help an engineer decide what to inspect and whether another measurement is worth installing. Retrofit Doctor connects the warning, its evidence and that engineering decision. This is a working software demonstration; we have not built a physical device.” |
-| 0:20–0:35 | Twelve independent pumps | “The data are synthetic: seven training pumps, two validation pumps and three blind test pumps. Instrumentation differs between assets. These are independent pumps, not six cooling circuits. Public metadata tells us which signals exist.” |
+| 0:20–0:35 | Twelve independent pumps | “The data are synthetic: seven training pumps, two validation pumps and three test pumps. Instrumentation differs between assets. These are independent pumps, not six cooling circuits. Public metadata tells us which signals exist.” |
 | 0:35–0:58 | Diagnostic evidence and limits | “Here is a correctly identified suction-strainer event. But bearing wear received an unknown cause, and pressure-sensor noise was missed. We keep these failures visible. The detector's evidence and the retrospective labels are separate; one pressure reading does not measure loss across a strainer.” |
 | 0:58–1:22 | Causal baseline validation | “We removed future-reference use. The composite score fell from 78.01 to 76.01; both versions detected eight of nine events and named four types correctly. This is not field accuracy. Nine bounded candidates failed to justify replacement, so the configured causal baseline remains. Its environment and seed must be pinned.” |
 | 1:22–1:45 | Sensor ablation | “We measured information sensitivity by hiding and restoring existing sensor groups. Across ten train events, removing vibration and temperature reduced detections from nine to eight and correct types from two to zero. Other changes helped some cases and harmed others. This is useful evidence, but it does not prove installation benefit or savings.” |
@@ -22,3 +22,5 @@ Eight-slide alternative to the live demo, not an additional three minutes to app
 - Blind prediction export, once verified in the release checklist, can be described as exported with quality unknown. Do not infer test quality without organizer scoring.
 
 Sources for narration: `deck-content.json`, `docs/experiments/RESULTS.md`, `results/sensor_ablation/FINDINGS.md`, `docs/engineering/COST_MODEL_SPEC.md` and the coordinator reviews. The cover screenshot is refreshed after final UI review; its exact build is recorded in the release package.
+
+Release disclosure for Q&A: the fixed-model test CSV contains 23 rows and passed 42 prefix checks; diagnostic quality is unknown. A pre-gate PUMP-10 read into a mutation-test process is disclosed in `../docs/tasks/007-coordinator-review.md`. Do not call this a pristine untouched blind evaluation.

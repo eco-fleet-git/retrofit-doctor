@@ -1,6 +1,6 @@
-# Task 007 handoff — phase 1 (preparation), ready for the blind gate review
+# Task 007 handoff — phase 1 (preparation) and phase 2 (gated export)
 
-Date 2026-11-07. Implementer: Claude Code (sole code writer). Status: **phase 1 complete, including review round 1 (`007-review-round1.md`). The blind gate is NOT recorded. No export has run. One exposure incident is disclosed below.**
+Date 2026-11-07. Implementer: Claude Code (sole code writer). Status: **phase 2 complete. One gated export was executed; test predictions exported; quality unknown. This is a fixed-model test export with disclosed pre-gate access, not a pristine blind evaluation.** The phase-2 section is at the end. The phase-1 record below is kept as written at that gate (its "not recorded / no export" statements describe that time).
 
 What did not change:
 - No Git mutation or web code change; only the `web/README.md` text was corrected.
@@ -120,9 +120,74 @@ To confirm the suite stays valid after an approved release, I briefly created a 
 
 The manifest records `git.head = 971fbaf` with the uncommitted phase-1 files listed. After you commit, either gate this manifest as-is (its code hashes stay valid) or re-run `manifest` to name the release commit. Re-running changes the manifest's SHA-256, which the gate must then contain.
 
-## Next (coordinator)
+## Next (coordinator) — as of phase 1
 
 1. Review and commit.
 2. Decide on the exposure incident.
 3. Write `results/release/BLIND_GATE.json` for the exact manifest SHA-256.
 4. Hand phase 2 back to me: `../../work/.venv/bin/python -B scripts/release_export.py export`, then the release README.
+
+---
+
+# Phase 2 — gated export (2026-11-07)
+
+## Preconditions verified before running
+
+- Gate `results/release/BLIND_GATE.json`: `approved: true`, `manifest_sha256 = a98b0285bef1869e944ac3a7f5552b1d48634cdf4ca3f98df22e9e28ba1b1aeb`, reviewed commit `1a87601`.
+- The manifest on disk has exactly that digest. It is the coordinator-corrected exposure log; I did not regenerate or overwrite it.
+- The adapter is `0476ec79…`, unchanged since phase 1.
+- The working tree was clean at gate commit `5ba7881`, and no prior output existed.
+
+## Execution (once)
+
+```
+../../work/.venv/bin/python -B scripts/release_export.py export
+→ exit 0, stderr empty
+→ exported results/release/predictions_test.csv rows=23 sha256=093be3f660fdeb397dafed8707a880f15c9219b5afcff23d4cb21dda67781da9
+```
+
+The command was started without PYTHONHASHSEED, so the guard relaunched it pinned. The seed pin, environment, gate, code, data, template and target checks all passed before features were read.
+
+## Post-export verification (schema, checksums and counts only)
+
+| Check | Result |
+|---|---|
+| Header equals the organizer template | yes |
+| `validate_submission` problems | none |
+| Rows | 23 (PUMP-10: 3, PUMP-11: 4, PUMP-12: 16) |
+| CSV SHA-256 | equals `predictions_test.sha256` and `execution_manifest.json` |
+| Execution manifest | `manifest_sha256` equals the gated manifest; `prefix_audit_failures` 0; statement "Test predictions exported; quality unknown" |
+| Prefix audit (`test_prefix_audit.json`) | 42 registered cutpoints, 0 failures, 14 per asset |
+
+No prediction values were displayed or inspected, nothing was retuned, and no labels or organizer predictions were loaded. The coordinator independently verified 23 rows, the hash match and 42/42.
+
+Artifacts in `results/release/`:
+- `predictions_test.csv` and `predictions_test.sha256`
+- `execution_manifest.json` and `test_prefix_audit.json`
+- `export_stdout.txt` and `export_stderr.txt`
+
+## Release documentation
+
+- `docs/release/README.md` (new), the English release entry. It covers:
+  - the local run command (`python3 -m http.server 8765 --bind 127.0.0.1 -d web`) and what works;
+  - the model choice and the seed constraint;
+  - the prediction file, hash and exposure disclosure;
+  - the PDF `presentation/retrofit-doctor-pitch.pdf`, `presentation/PITCH_SCRIPT.md`, `docs/tasks/006-demo-script.md`, `presentation/JURY_QA.md` and the seven `review/task006/` fallback screenshots in order;
+  - the hardware proposal boundary, limitations and pending items;
+  - separate analysis-reproduction steps.
+- `docs/release/RELEASE_CHECKLIST.md` updated for phase 2. The phase-1 overclaim is **corrected**: refusal branches with dedicated tests (no gate, changed `assets.csv`, changed template, changed targets, loader scope) are now listed separately from branches implemented without a dedicated test (wrong manifest digest in the gate, code hash, parquet hash, existing output, returned feature IDs).
+
+## Still pending or unverified
+
+- **Rehearsal:** a timed three-minute spoken rehearsal by a human.
+- **Browser check:** rendering of a fresh checkout in an isolated browser profile.
+- **Accessibility:** no screen-reader or 200% zoom audit.
+- **User acceptance:** final acceptance of the application; only the light visual direction is approved.
+- **Test coverage:** dedicated tests for the five untested refusal branches listed above.
+- **Coordinator:** the final release commit, private push and visibility check.
+
+## Constraints respected in phase 2
+
+- No manifest regeneration, detector edit, Git operation, main README or presentation edit.
+- No test-outcome inspection.
+- Docs were written with built-in file tools only after the interruption; no further shell checks.

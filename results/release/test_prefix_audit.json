@@ -1,0 +1,274 @@
+{
+  "registered_offsets_from_window_start_s": [
+    2700,
+    21600,
+    43200,
+    86399,
+    86400,
+    86401,
+    86460,
+    129600,
+    172800,
+    259200,
+    345600,
+    432000,
+    518400
+  ],
+  "plus_window_end_minus_s": 60,
+  "checked": 42,
+  "failures": 0,
+  "rows": [
+    {
+      "asset_id": "PUMP-10",
+      "offset_from_start_s": 2700,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-10",
+      "offset_from_start_s": 21600,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-10",
+      "offset_from_start_s": 43200,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-10",
+      "offset_from_start_s": 86399,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-10",
+      "offset_from_start_s": 86400,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-10",
+      "offset_from_start_s": 86401,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-10",
+      "offset_from_start_s": 86460,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-10",
+      "offset_from_start_s": 129600,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-10",
+      "offset_from_start_s": 172800,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-10",
+      "offset_from_start_s": 259200,
+      "compared_rows": 1,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-10",
+      "offset_from_start_s": 345600,
+      "compared_rows": 2,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-10",
+      "offset_from_start_s": 432000,
+      "compared_rows": 3,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-10",
+      "offset_from_start_s": 518400,
+      "compared_rows": 3,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-10",
+      "offset_from_start_s": 604740,
+      "compared_rows": 3,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-11",
+      "offset_from_start_s": 2700,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-11",
+      "offset_from_start_s": 21600,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-11",
+      "offset_from_start_s": 43200,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-11",
+      "offset_from_start_s": 86399,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-11",
+      "offset_from_start_s": 86400,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-11",
+      "offset_from_start_s": 86401,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-11",
+      "offset_from_start_s": 86460,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-11",
+      "offset_from_start_s": 129600,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-11",
+      "offset_from_start_s": 172800,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-11",
+      "offset_from_start_s": 259200,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-11",
+      "offset_from_start_s": 345600,
+      "compared_rows": 1,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-11",
+      "offset_from_start_s": 432000,
+      "compared_rows": 2,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-11",
+      "offset_from_start_s": 518400,
+      "compared_rows": 3,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-11",
+      "offset_from_start_s": 604740,
+      "compared_rows": 4,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-12",
+      "offset_from_start_s": 2700,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-12",
+      "offset_from_start_s": 21600,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-12",
+      "offset_from_start_s": 43200,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-12",
+      "offset_from_start_s": 86399,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-12",
+      "offset_from_start_s": 86400,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-12",
+      "offset_from_start_s": 86401,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-12",
+      "offset_from_start_s": 86460,
+      "compared_rows": 0,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-12",
+      "offset_from_start_s": 129600,
+      "compared_rows": 2,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-12",
+      "offset_from_start_s": 172800,
+      "compared_rows": 2,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-12",
+      "offset_from_start_s": 259200,
+      "compared_rows": 5,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-12",
+      "offset_from_start_s": 345600,
+      "compared_rows": 8,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-12",
+      "offset_from_start_s": 432000,
+      "compared_rows": 10,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-12",
+      "offset_from_start_s": 518400,
+      "compared_rows": 13,
+      "pass": true
+    },
+    {
+      "asset_id": "PUMP-12",
+      "offset_from_start_s": 604740,
+      "compared_rows": 16,
+      "pass": true
+    }
+  ]
+}

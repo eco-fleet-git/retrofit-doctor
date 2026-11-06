@@ -223,8 +223,7 @@
         "fit": "contain",
         "asset": {
           "contentType": "image/png",
-          "uri": "library-file:fde1_bGliZmlsZV9EQ0FHSFlPSkR3N3FwZmItOVdTbUN3_FileDrive_dcce2ba5c4b881918df5697f961b5033",
-          "byteLength": 249400
+          "uri": "library-file:fde1_bGliZmlsZV9EQ0FHSFlPSkR3N3FwZmItOVdTbUN3_FileDrive_dcce2ba5c4b881918df5697f961b5033"
         }
       }
     ],
@@ -319,7 +318,7 @@
         "order": 2,
         "scope": "slide",
         "editable": true,
-        "text": "Split\tAssets\tDemo access\nTraining\tPUMP-01–07\tDevelopment and selection\nValidation\tPUMP-08–09\tLabeled replay and evaluation\nBlind test\tPUMP-10–12\tEquipment metadata only",
+        "text": "Split\tAssets\tDemo access\nTraining\tPUMP-01–07\tDevelopment and selection\nValidation\tPUMP-08–09\tLabeled replay and evaluation\nTest\tPUMP-10–12\tEquipment metadata only",
         "rows": 4,
         "cols": 3,
         "position": {
@@ -624,7 +623,7 @@
               "width": 260,
               "height": 85
             },
-            "text": "Blind test",
+            "text": "Test",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -633,11 +632,15 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Blind test",
+                "text": "Test",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Blind test",
+                    "text": "Test",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -776,7 +779,7 @@
     "notes": {
       "id": "nt/plgk3a",
       "kind": "notes",
-      "text": "The dataset contains twelve independent synthetic pumps, not six hydraulically coupled pairs. Seven are training, two are validation, and three are blind test assets. Public equipment metadata supports coverage planning, including the test assets. Test telemetry and labels are not used for development. Source: vendor/benchmark/data/full/assets.csv; diagrams/README.md; AGENTS.md."
+      "text": "The dataset contains twelve independent synthetic pumps, not six hydraulically coupled pairs. Seven are training, two are validation and three form the test split. Public equipment metadata supports coverage planning. Release disclosure: during phase-1 mutation testing, a disabled gate allowed PUMP-10 feature rows into one pytest process before approval. The implementer reports no values were printed, saved, compared or analysed; no model or parameter selection followed. The fixed causal B1 was subsequently exported under an exact manifest gate: 23 rows, schema valid, 42 prefix checks passed. This is not a pristine untouched blind evaluation. Test quality is unknown without organizer scoring. No labels or organizer predictions were used. Source: docs/tasks/007-coordinator-review.md; results/release/execution_manifest.json; assets.csv; diagrams/README.md."
     },
     "inheritedLayers": [
       {

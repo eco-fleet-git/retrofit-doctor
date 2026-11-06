@@ -25,7 +25,7 @@ The interface and pitch are in English. [Russian working notes](README.ru.md) pr
 - Reviewed diagnostic experiments and sensor mask/restore evidence. The [engineering proposal](docs/engineering/DECISION_BRIEF.md) describes optional measurement points, mounting, cables/radio, local gateway/power and maintenance questions.
 - An [English presentation and offline PDF](presentation/README.md), with explicit prototype and field-validation limits.
 
-**Integration status, 7 November:** the light interface, interactive sensor schematic, reviewed experiment evidence and conditional physical proposal have passed [coordinator review](docs/tasks/006-coordinator-review.md). The blind-test export is in preparation and has not yet passed the final data-access gate. Final user application feedback and a timed spoken rehearsal remain outstanding; the light visual direction is approved.
+**Integration status, 7 November:** the light interface, interactive sensor schematic, reviewed experiment evidence and conditional physical proposal have passed [coordinator review](docs/tasks/006-coordinator-review.md). The fixed-model test export is complete: 23 prediction rows, valid schema and 42/42 registered prefix checks. [Release package](docs/release/README.md). **Test quality is unknown.** A pre-gate PUMP-10 process-memory read during a mutation test is [disclosed](docs/tasks/007-coordinator-review.md); no pristine untouched blind claim is made. Final user application feedback and a timed spoken rehearsal remain outstanding; the light visual direction is approved.
 
 ## Measured evidence
 
@@ -48,7 +48,7 @@ The proposed fleet reference has no channel supported by three eligible fit asse
 
 ## Limits that matter
 
-All data are synthetic: seven training pumps, two previously inspected validation pumps, three blind test pumps. Validation is descriptive, not independent field evidence. The browser contains the full validation-week bundle and filters it by clock for display; this is not secure concealment of future data. Test assets are metadata-only in the UI.
+All data are synthetic: seven training pumps, two previously inspected validation pumps, three test pumps. Validation is descriptive, not independent field evidence. The browser contains the full validation-week bundle and filters it by clock for display; this is not secure concealment of future data. Test assets are metadata-only in the UI.
 
 The app is static batch replay, not a persistent edge service. Real arrival delays, restart recovery, installation quality, maintenance effort and field diagnostic performance have not been demonstrated. Confidence is a heuristic, not calibrated probability. Inherited B1 set iteration can change a diagnosis across Python hash seeds; reproducible inference requires the recorded environment and seed 0 at interpreter startup. The proposed measurement package is not certified or priced by a supplier. Controls, trips and interlocks are outside the assistant.
 

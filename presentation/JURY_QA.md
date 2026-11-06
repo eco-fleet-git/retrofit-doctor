@@ -84,6 +84,6 @@ Source: docs/engineering/DECISION_BRIEF.md. Four to eight weeks in the organizer
 
 ## What remains for submission and deployment?
 
-The integrated demo, presentation, run instructions and limitations are prepared. The final fixed-model test prediction CSV is still in gated preparation at this revision. Test labels stay with organizers; without their scoring, test quality is unknown. Deployment additionally requires a real site design, measurement verification, operating procedures, support ownership and applicable independent approvals. A hackathon demonstration is not that deployment.
+The integrated demo, presentation, run instructions and limitations are prepared. The fixed-model test prediction CSV has been exported: 23 rows, no schema errors and 42 registered prefix checks passed. During preparation, a gate-removal mutation test read PUMP-10 rows into a pytest process before approval. The implementer reports no values were displayed or analysed, and no model selection followed; the incident is disclosed in docs/tasks/007-coordinator-review.md. We therefore do not claim a pristine untouched blind test. Test labels stay with organizers; without their scoring, test quality is unknown. Deployment additionally requires a real site design, measurement verification, operating procedures, support ownership and applicable independent approvals. A hackathon demonstration is not that deployment.
 
-Source: vendor/benchmark/CHALLENGE_BRIEF.md; docs/experiments/FROZEN_PROTOCOL.md. The release coordinator must verify current artifacts before answering that submission is complete.
+Source: vendor/benchmark/CHALLENGE_BRIEF.md; docs/experiments/FROZEN_PROTOCOL.md. The local release package is complete; no competition upload has been performed.

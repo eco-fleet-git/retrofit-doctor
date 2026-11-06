@@ -1,0 +1,20 @@
+{
+  "verified_at": "2026-11-06T23:55:23.978774+00:00",
+  "reviewer": "Codex",
+  "checks": {
+    "focused_release_tests": "24 passed independently before gate",
+    "csv_header": "matches seven template columns",
+    "csv_rows": 23,
+    "csv_sha256_matches_execution_and_sidecar": true,
+    "approved_manifest_hash_matches": true,
+    "all_five_code_identities_match": true,
+    "registered_prefix_checks": 42,
+    "registered_prefix_failures": 0,
+    "local_demo_http_status": 200,
+    "github_visibility": "private (GitHub connector verified)"
+  },
+  "predictions_sha256": "093be3f660fdeb397dafed8707a880f15c9219b5afcff23d4cb21dda67781da9",
+  "interpretation": "No manual test-diagnosis interpretation or model retuning. Diagnostic quality unknown. Pre-gate PUMP-10 access disclosed.",
+  "human_app_acceptance": "pending",
+  "timed_spoken_rehearsal": "pending"
+}
