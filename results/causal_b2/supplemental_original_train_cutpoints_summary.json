@@ -1,0 +1,20 @@
+{
+  "stored_train_cutpoints": 162,
+  "candidates": [
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "C5"
+  ],
+  "rows": 810,
+  "by_kind": {
+    "random": 70,
+    "original_audit": 63,
+    "reference_boundary": 28,
+    "trailing_outage": 1
+  },
+  "failures": 0,
+  "validation_cutpoints_replayed": 0,
+  "causal_b2_sha256": "9976d47a7b06298a6a6fa287efd3c812610c14d8110ca23dcb3bea4a85eb4b82"
+}

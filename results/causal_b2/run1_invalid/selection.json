@@ -1,0 +1,385 @@
+{
+  "protocol_id": "retrofit-doctor-causal-b2-v1",
+  "selected_candidate": "C0",
+  "selection_rule": "hard gates vs C0, then max sensor type+channel, type, composite, min id (FROZEN_PROTOCOL 3)",
+  "fallback_applied": true,
+  "folds": [
+    {
+      "fold": 0,
+      "held_out": "PUMP-01",
+      "fit_assets": [
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "learned_parameters": null
+    },
+    {
+      "fold": 1,
+      "held_out": "PUMP-02",
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "learned_parameters": null
+    },
+    {
+      "fold": 2,
+      "held_out": "PUMP-03",
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "learned_parameters": null
+    },
+    {
+      "fold": 3,
+      "held_out": "PUMP-04",
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "learned_parameters": null
+    },
+    {
+      "fold": 4,
+      "held_out": "PUMP-05",
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "learned_parameters": null
+    },
+    {
+      "fold": 5,
+      "held_out": "PUMP-06",
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-07"
+      ],
+      "learned_parameters": null
+    },
+    {
+      "fold": 6,
+      "held_out": "PUMP-07",
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06"
+      ],
+      "learned_parameters": null
+    }
+  ],
+  "candidates": {
+    "C0": {
+      "method": "unchanged_causal_b1",
+      "k": 6,
+      "persist": 15
+    },
+    "C1": {
+      "method": "B2",
+      "trajectory": null
+    },
+    "C2": {
+      "method": "B2",
+      "trajectory": [
+        30,
+        0.5
+      ]
+    },
+    "C3": {
+      "method": "B2",
+      "trajectory": [
+        30,
+        0.8
+      ]
+    },
+    "C4": {
+      "method": "B2",
+      "trajectory": [
+        120,
+        0.5
+      ]
+    },
+    "C5": {
+      "method": "B2",
+      "trajectory": [
+        120,
+        0.8
+      ]
+    }
+  },
+  "fixed_parameters": {
+    "K": 6.0,
+    "VAR_K": 12.0,
+    "PERSIST_MIN": 15,
+    "MIN_UPDATES": 3,
+    "STALE_INTERVALS": 2,
+    "TRAJ_MIN_UPDATES": 6,
+    "TRAJ_SPAN": 0.8,
+    "STEP_SIDE": 3,
+    "MIN_COUPLED": 2,
+    "COUPLED_MAX": 2.0,
+    "RETRY_MIN": 720,
+    "reference_hours": 24
+  },
+  "train_table": [
+    {
+      "candidate": "C0",
+      "composite_score": 59.20719120527966,
+      "detected": 18,
+      "type_correct": 8,
+      "class_correct": 14,
+      "events": 26,
+      "false_episodes": 3,
+      "excess_repeats": 3,
+      "false_plus_excess": 6,
+      "nuisance_benign": 2,
+      "alerts": 43,
+      "sensor_events": 8,
+      "sensor_type_and_channel": 3,
+      "sensor_type_and_channel_non_gateway": 2,
+      "non_gateway_sensor_events": 7,
+      "channel_localization_among_hits": [
+        3,
+        4
+      ],
+      "wrong_channel_claims": [
+        1,
+        4
+      ],
+      "selective_diagnosis": [
+        8,
+        16,
+        26
+      ],
+      "unknown_first_diagnoses": 2,
+      "useful_diagnosis_delay": "not_implemented_in_session1",
+      "gate_failures": "",
+      "passes": false
+    },
+    {
+      "candidate": "C1",
+      "composite_score": 56.00452043409396,
+      "detected": 21,
+      "type_correct": 7,
+      "class_correct": 14,
+      "events": 26,
+      "false_episodes": 11,
+      "excess_repeats": 10,
+      "false_plus_excess": 21,
+      "nuisance_benign": 3,
+      "alerts": 75,
+      "sensor_events": 8,
+      "sensor_type_and_channel": 4,
+      "sensor_type_and_channel_non_gateway": 3,
+      "non_gateway_sensor_events": 7,
+      "channel_localization_among_hits": [
+        5,
+        6
+      ],
+      "wrong_channel_claims": [
+        1,
+        6
+      ],
+      "selective_diagnosis": [
+        7,
+        20,
+        26
+      ],
+      "unknown_first_diagnoses": 1,
+      "useful_diagnosis_delay": "not_implemented_in_session1",
+      "gate_failures": "causality_failures=48|type_below_C0|burden_above_C0",
+      "passes": false
+    },
+    {
+      "candidate": "C2",
+      "composite_score": 54.91052949622739,
+      "detected": 21,
+      "type_correct": 6,
+      "class_correct": 14,
+      "events": 26,
+      "false_episodes": 11,
+      "excess_repeats": 9,
+      "false_plus_excess": 20,
+      "nuisance_benign": 3,
+      "alerts": 74,
+      "sensor_events": 8,
+      "sensor_type_and_channel": 3,
+      "sensor_type_and_channel_non_gateway": 2,
+      "non_gateway_sensor_events": 7,
+      "channel_localization_among_hits": [
+        4,
+        5
+      ],
+      "wrong_channel_claims": [
+        1,
+        5
+      ],
+      "selective_diagnosis": [
+        6,
+        17,
+        26
+      ],
+      "unknown_first_diagnoses": 4,
+      "useful_diagnosis_delay": "not_implemented_in_session1",
+      "gate_failures": "causality_failures=32|type_below_C0|burden_above_C0",
+      "passes": false
+    },
+    {
+      "candidate": "C3",
+      "composite_score": 54.91052949622739,
+      "detected": 21,
+      "type_correct": 6,
+      "class_correct": 14,
+      "events": 26,
+      "false_episodes": 11,
+      "excess_repeats": 9,
+      "false_plus_excess": 20,
+      "nuisance_benign": 3,
+      "alerts": 74,
+      "sensor_events": 8,
+      "sensor_type_and_channel": 3,
+      "sensor_type_and_channel_non_gateway": 2,
+      "non_gateway_sensor_events": 7,
+      "channel_localization_among_hits": [
+        4,
+        5
+      ],
+      "wrong_channel_claims": [
+        1,
+        5
+      ],
+      "selective_diagnosis": [
+        6,
+        17,
+        26
+      ],
+      "unknown_first_diagnoses": 4,
+      "useful_diagnosis_delay": "not_implemented_in_session1",
+      "gate_failures": "causality_failures=26|type_below_C0|burden_above_C0",
+      "passes": false
+    },
+    {
+      "candidate": "C4",
+      "composite_score": 54.91052949622739,
+      "detected": 21,
+      "type_correct": 6,
+      "class_correct": 14,
+      "events": 26,
+      "false_episodes": 11,
+      "excess_repeats": 9,
+      "false_plus_excess": 20,
+      "nuisance_benign": 3,
+      "alerts": 74,
+      "sensor_events": 8,
+      "sensor_type_and_channel": 3,
+      "sensor_type_and_channel_non_gateway": 2,
+      "non_gateway_sensor_events": 7,
+      "channel_localization_among_hits": [
+        4,
+        5
+      ],
+      "wrong_channel_claims": [
+        1,
+        5
+      ],
+      "selective_diagnosis": [
+        6,
+        17,
+        26
+      ],
+      "unknown_first_diagnoses": 4,
+      "useful_diagnosis_delay": "not_implemented_in_session1",
+      "gate_failures": "causality_failures=30|type_below_C0|burden_above_C0",
+      "passes": false
+    },
+    {
+      "candidate": "C5",
+      "composite_score": 54.91052949622739,
+      "detected": 21,
+      "type_correct": 6,
+      "class_correct": 14,
+      "events": 26,
+      "false_episodes": 11,
+      "excess_repeats": 9,
+      "false_plus_excess": 20,
+      "nuisance_benign": 3,
+      "alerts": 74,
+      "sensor_events": 8,
+      "sensor_type_and_channel": 3,
+      "sensor_type_and_channel_non_gateway": 2,
+      "non_gateway_sensor_events": 7,
+      "channel_localization_among_hits": [
+        4,
+        5
+      ],
+      "wrong_channel_claims": [
+        1,
+        5
+      ],
+      "selective_diagnosis": [
+        6,
+        17,
+        26
+      ],
+      "unknown_first_diagnoses": 4,
+      "useful_diagnosis_delay": "not_implemented_in_session1",
+      "gate_failures": "causality_failures=30|type_below_C0|burden_above_C0",
+      "passes": false
+    }
+  ],
+  "causality_rows": 1547,
+  "determinism_seeds": [
+    "0",
+    "1",
+    "7",
+    "9"
+  ],
+  "code_sha256": {
+    "src/retrofit_doctor/causal_b2.py": "4b9ef9b74ffc01c8fdd4a03300c959fcb9cede70fb3f9e30d277ac4097361d8c",
+    "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+    "scripts/run_causal_b2.py": "9658b2158522b84d46f662eaa25b5208d62daca059c7f46e6434893950874824",
+    "scripts/run_b1.py": "83c6b591ddcd1d07b15dbdba08e26f7731f237c420201a87339ba0d0e39a4d3e",
+    "vendor/benchmark/src/retrofit_sim/baselines.py": "4bf291d6a1834aa79ced8d2d862d0331fb60e3210630c4c1aa25744ebd7a27dc",
+    "vendor/benchmark/src/retrofit_sim/scoring.py": "5293c2e427d6181e0f24cfd64d617fc96d284c31a949410d3c88769a7e1802c2",
+    "docs/experiments/protocol_v1.json": "f018c40d4aec809e6496b8f7a8220176f821401e51321364295c0fa75cc02477"
+  },
+  "inputs_sha256": {
+    "features_1min.parquet(manifest)": "de25928738c45a5d6608d6c1a3e6e3eb69d612d23e99a9f184f3b23db4d9c52c",
+    "events_train.csv": "08b607f38a64a34601de1b578896ca2c8314977bc76eecdec8dddb253f641392",
+    "assets.csv": "bf80906062ee87861adcf0d94accbf303b49b6c8c4f9060bbd3d5318dbeaef69"
+  },
+  "python": "3.13.16 (main, Oct 14 2026, 00:55:38) [Clang 23.1.3 ]",
+  "pandas": "3.1.1",
+  "numpy": "2.5.4",
+  "exposure": "validation previously inspected (causal B1 per-event analysis); current candidate chosen on train only; validation check will be descriptive, not an independent blind test. No test telemetry/labels read.",
+  "sealed_at": "2026-11-06T22:03:27.021238+00:00",
+  "elapsed_s": 296.8
+}

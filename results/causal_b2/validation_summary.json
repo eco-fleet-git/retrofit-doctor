@@ -1,0 +1,39 @@
+{
+  "selected": "C0",
+  "rows": [
+    {
+      "candidate": "C0",
+      "composite_score": 76.01253946421124,
+      "detected": 8,
+      "type_correct": 4,
+      "class_correct": 8,
+      "events": 9,
+      "false_episodes": 1,
+      "excess_repeats": 0,
+      "false_plus_excess": 1,
+      "nuisance_benign": 1,
+      "alerts": 15,
+      "sensor_events": 4,
+      "sensor_type_and_channel": 2,
+      "sensor_type_and_channel_non_gateway": 1,
+      "non_gateway_sensor_events": 3,
+      "channel_localization_among_hits": [
+        1,
+        2
+      ],
+      "wrong_channel_claims": [
+        1,
+        2
+      ],
+      "selective_diagnosis": [
+        4,
+        7,
+        9
+      ],
+      "unknown_first_diagnoses": 1,
+      "useful_diagnosis_delay": "not_implemented_in_session1"
+    }
+  ],
+  "evaluated_at": "2026-11-06T22:10:16.094798+00:00",
+  "exposure": "validation previously inspected (causal B1 per-event analysis); current candidate chosen on train only; validation check will be descriptive, not an independent blind test. No test telemetry/labels read."
+}

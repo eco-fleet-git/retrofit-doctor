@@ -1,0 +1,7 @@
+candidate,composite_score,detected,type_correct,class_correct,events,false_episodes,excess_repeats,false_plus_excess,nuisance_benign,alerts,sensor_events,sensor_type_and_channel,sensor_type_and_channel_non_gateway,non_gateway_sensor_events,channel_localization_among_hits,wrong_channel_claims,selective_diagnosis,unknown_first_diagnoses,useful_diagnosis_delay,gate_failures,passes
+C0,59.20719120527966,18,8,14,26,3,3,6,2,43,8,3,2,7,"[3, 4]","[1, 4]","[8, 16, 26]",2,not_implemented_in_session1,,False
+C1,56.00452043409396,21,7,14,26,11,10,21,3,75,8,4,3,7,"[5, 6]","[1, 6]","[7, 20, 26]",1,not_implemented_in_session1,causality_failures=48|type_below_C0|burden_above_C0,False
+C2,54.91052949622739,21,6,14,26,11,9,20,3,74,8,3,2,7,"[4, 5]","[1, 5]","[6, 17, 26]",4,not_implemented_in_session1,causality_failures=32|type_below_C0|burden_above_C0,False
+C3,54.91052949622739,21,6,14,26,11,9,20,3,74,8,3,2,7,"[4, 5]","[1, 5]","[6, 17, 26]",4,not_implemented_in_session1,causality_failures=26|type_below_C0|burden_above_C0,False
+C4,54.91052949622739,21,6,14,26,11,9,20,3,74,8,3,2,7,"[4, 5]","[1, 5]","[6, 17, 26]",4,not_implemented_in_session1,causality_failures=30|type_below_C0|burden_above_C0,False
+C5,54.91052949622739,21,6,14,26,11,9,20,3,74,8,3,2,7,"[4, 5]","[1, 5]","[6, 17, 26]",4,not_implemented_in_session1,causality_failures=30|type_below_C0|burden_above_C0,False
