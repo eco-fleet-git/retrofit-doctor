@@ -1,0 +1,35 @@
+PASS  Style      Sidebar with four destinations
+PASS  Demo       PUMP-08 12:38: strainer alert with verbatim evidence and rule confidence
+PASS  Schematic  Keyboard Enter on suction point shows channel, cadence, source and caveat
+PASS  Schematic  Vibration point: three summary features, 5 min wireless cadence, not waveforms, not every bearing
+PASS  Schematic  Absent flow and unspecified fluid-temperature location are labelled in text
+PASS  Replay     Stepping back from 12:38 removes the alert (no future leakage)
+PASS  Demo       PUMP-09 at 2026-02-11 06:28: calibration-shift alert on vibration channel visible
+PASS  Test pumps PUMP-12: metadata only, measured speed not instrumented, no replay request
+PASS  Evidence   Ablation: original denominator, full vs masked, restore check, adverse case, no field-benefit claim
+PASS  Evidence   B2: candidates rejected with burden and denominator; invalid r1 disclosed
+PASS  Evidence   E3 rejected / validation not run; E4 shown as not testable
+PASS  Evidence   Original-vs-causal B1 comparison retained; no accuracy claim
+PASS  Planner    Empty draft status wraps inside cards at 1440
+PASS  Planner    Empty draft status wraps inside cards at 1280
+PASS  Schematic  Planner flow hypothesis is drawn as Proposed, never installed
+PASS  Proposal   Physical proposal lists proposed point, survey items, gateway to select; not part of demo
+PASS  Proposal   PUMP-08 flow package reuses existing pressures and VFD power, adds tap/head corrections, no new power meter
+PASS  Proposal   Every physical element shows its status in view without sideways scrolling (1440)
+PASS  Proposal   Defer: no proposed markers, diagram says no new point, stored flow hypothesis kept as unselected
+PASS  Planner    First screen: defer decision, negative economics, ablation evidence, next action; editor collapsed
+PASS  Proposal   Defer outcome states no permanent device
+PASS  Planner    Decision summary fits in the first 900 px screen  [{"x":256,"y":208.828125,"width":762.65625,"height":356.1875}]
+PASS  Planner    Hidden invalid field: error summary names it; Go to field opens editor and focuses it
+PASS  Storage    Reload keeps defer + preset economics in summary
+PASS  Planner    Planner shorter than the 7,356 px Task003 review measurement (editor collapsed)  [5047px with one hypothesis card and defer answers open]
+PASS  Keyboard   Tab reaches the sidebar destinations  [Fleet Overview | Pump Detail PUMP-08 | Retrofit Planner PUMP-08 | Evidence & Validation | ]
+PASS  Overflow   No horizontal page overflow at 1440 on visited pages
+PASS  Console    No console errors (desktop)
+PASS  Narrow     390 px: no page overflow on four views  [{"fleet":0,"pump":0,"planner":0,"evidence":0}]
+PASS  Narrow     Chart title, axes and As-of text ≥ 11 CSS px at 390 (no viewBox shrink)  [min 11.0 px]
+PASS  Narrow     Three x-axis ticks or fewer at 390  [3]
+PASS  Narrow     Schematic labels ≥ 12 px, point codes ≥ 10 px, tap targets ≥ 24 px inside own scroller  [labels 12.5 codes 10.7 target 25]
+PASS  Narrow     Schematic scroll region contained (page has no overflow)
+PASS  Console    No console errors (390 px)
+34/34 passed

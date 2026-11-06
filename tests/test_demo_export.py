@@ -130,3 +130,35 @@ def test_sparse_t1_vibration_is_not_forward_filled(export):
     assert min(b - a for a, b in zip(idx, idx[1:])) >= 4
     assert export["json"]["replay-PUMP-09.json"]["channels"]["vibration_rms_mm_s"]["nativeUpdateSeconds"] == 1
     assert export["json"]["replay-PUMP-08.json"]["channels"]["suction_pressure_kpa"]["unit"] == "kPa(g)"
+
+
+def test_experiments_section_reports_reviewed_results_verbatim(export):
+    ex = export["json"]["fleet.json"]["experiments"]
+    assert (ex["b2"]["selected"], ex["regime"]["selected"], ex["sparse"]["selected"]) == ("C0", "R0", "S0")
+    b2 = {r["candidate"]: r for r in ex["b2"]["rows"]}
+    assert b2["C0"]["composite_score"] == "59.20719120527966"  # equals causal B1 train
+    assert (b2["C1"]["detected"], b2["C1"]["type_correct"], b2["C1"]["false_plus_excess"]) == ("21", "7", "21")
+    assert b2["C1"]["passes"] == "False"
+    assert ex["b2"]["priorRuns"][0]["status"] == "INVALID"
+    assert ex["regime"]["e4"].startswith("not scored")
+    assert ex["regime"]["validationRun"] is False
+    assert [h["hypothesis"][:2] for h in ex["hypotheses"]] == ["H1", "H2", "H3", "H4", "H5", "H6", "H7"]
+
+
+def test_ablation_pairs_keep_original_denominators_and_restore_equality(export):
+    ab = export["json"]["fleet.json"]["experiments"]["ablation"]
+    train = {(r["scope"], r["branch"]): r for r in ab["summary"]["train"]}
+    full, masked = train["pooled", "full"], train["pooled", "mask:vibration_temperature"]
+    assert (full["events"], full["detected"], full["type_correct"]) == ("10", "9", "2")
+    assert (masked["events"], masked["detected"], masked["type_correct"]) == ("10", "8", "0")
+    assert all(r["categorical_exact"] == "True" for split in ab["restoreCheck"].values() for r in split)
+    changed = {e["event_id"] for e in ab["paired"]["train"]["vibration_temperature"]}
+    assert {"PUMP-02-E01", "PUMP-04-E04"} <= changed  # lost when masked; adverse: detected only when masked
+    adverse = next(e for e in ab["paired"]["train"]["vibration_temperature"] if e["event_id"] == "PUMP-04-E04")
+    assert (adverse["full"]["detected"], adverse["mask"]["detected"]) == ("False", "True")
+
+
+def test_experiments_section_names_no_test_asset(export):
+    text = json.dumps(export["json"]["fleet.json"]["experiments"])
+    for test_id in TEST_IDS:
+        assert test_id not in text

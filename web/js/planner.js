@@ -3,10 +3,11 @@
 import { evaluateModel, OPTION_IDS, BASELINE, MAX_HORIZON_YEARS } from './cost-model.js';
 import {
   CHOICES, CANDIDATES, ONE_TIME_CATEGORIES, RECURRING_CATEGORIES, CATEGORY_LABEL, BASES, OPTION_LABEL, ANSWER_STATES,
-  redundantPumpPreset, emptyEconomics, PRESET_TITLE, PRESET_NOTICE, ORGANIZER_BOM_NOTE,
+  redundantPumpPreset, emptyEconomics, physicalPackage, proposedChannels, PRESET_TITLE, PRESET_NOTICE, ORGANIZER_BOM_NOTE,
 } from './planner-content.js';
 import { createDraftStore, addCandidate, removeCandidate, reviewReadiness, draftQuestions, editLineValue, editGroupValue } from './planner-store.js';
 import { CHANNEL_LABELS, ALL_CHANNELS, CHANNEL_PLACEMENT } from './knowledge.js';
+import { renderSchematic, bindSchematic } from './schematic.js';
 
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const pill = (cls, text) => `<span class="state ${cls}">${esc(text)}</span>`;
@@ -32,7 +33,7 @@ const browserStorage = {
 };
 const store = createDraftStore(browserStorage);
 
-export const plannerState = { drafts: {}, load: {}, message: {}, dirty: {}, confirm: null, tab: 'minimal' };
+export const plannerState = { drafts: {}, load: {}, message: {}, dirty: {}, confirm: null, tab: 'minimal', editorOpen: false, schematicSel: {} };
 
 function draftFor(assetId) {
   if (!plannerState.drafts[assetId]) {
@@ -246,8 +247,6 @@ function editorSection(model, result) {
       <label for="pl-tax">Tax basis<input id="pl-tax" type="text" data-path="economics.taxBasis" value="${esc(model.taxBasis)}" size="10"></label>
       <label for="pl-base">Baseline practice<input id="pl-base" type="text" data-path="economics.baselineName" value="${esc(model.baselineName)}" size="30"></label>
     </div>
-    <div class="filters"><button id="pl-preset" type="button">Load illustrative redundant-pump case</button>
-      <span class="small muted">Optional. Independent of this pump; editable assumptions only.</span></div>
     <div class="tabs" role="tablist" aria-label="Option to edit">${OPTION_IDS.map((id) => `<button type="button" role="tab" id="tab-${id}" data-tab="${id}" aria-selected="${tab === id}" class="${tab === id ? 'primary' : ''}">${esc(OPTION_LABEL[id])}</button>`).join('')}</div>
     ${tab === BASELINE ? '<p class="small muted">Existing-only still has integration, review and support costs. Under incremental accounting enter 0 explicitly where nothing is added; leaving a line blank keeps it unknown.</p>' : ''}
     ${table(ONE_TIME_CATEGORIES, 'One-time costs')}
@@ -282,18 +281,107 @@ function editorSection(model, result) {
   </section>`;
 }
 
-export function renderPlannerPage(asset, header) {
+// ---- Task006: compact first screen, error summary, physical proposal ----
+const ABLATION_FOR = { vibration: 'vibration_temperature', suction_pressure: 'suction', flow_head_power: 'flow_power' };
+const ERR_SUFFIX = { quantity: 'q', unitCost: 'u', includedIn: 'inc', rationale: 'rat', 'allocation.projectTotal': 'pt', 'fx.rate': 'fx-rate' };
+const GROUP_IDS = { lambda: 'pl-lambda', u: 'pl-u', h: 'pl-h', c: 'pl-c', r: 'pl-r', L: 'pl-L', n: 'pl-n', a: 'pl-a', optionTotal: 'pl-nzo', baselineTotal: 'pl-nzb' };
+
+function errorTarget(model, field) {
+  if (field === 'horizonYears') return { id: 'pl-H' };
+  if (field === 'discountRate') return { id: 'pl-d' };
+  let m = field.match(/^options\.(\w+)\.lines\.(\w+)\.(.+)$/);
+  if (m && ERR_SUFFIX[m[3]]) return { tab: m[1], id: `ln-${m[1]}-${m[2]}-${ERR_SUFFIX[m[3]]}` };
+  m = field.match(/^options\.(\w+)\.(benefit|nuisance)\.(\w+)$/);
+  if (m) return { tab: m[1], id: GROUP_IDS[m[3]] };
+  m = field.match(/^options\.(\w+)\.scheduled\.([^.]+)\.(year|cost)$/);
+  if (m) {
+    const i = model.options[m[1]].scheduled.findIndex((x) => x.id === m[2]);
+    return { tab: m[1], id: `sc-${m[1]}-${i}-${m[3] === 'year' ? 'y' : 'c'}` };
+  }
+  return null;
+}
+
+function fieldName(field) {
+  return field.replace(/^options\.(\w+)\./, (_, o) => `${OPTION_LABEL[o] ?? o} · `).replace(/lines\.(\w+)\./, (_, l) => `${CATEGORY_LABEL[l] ?? l} · `).replace(/\./g, ' · ');
+}
+
+function errorSummary(model, result) {
+  if (!result.errors.length) return '';
+  return `<section class="panel error-summary" aria-labelledby="pl-errs" role="alert"><h2 id="pl-errs">${result.errors.length} input ${result.errors.length === 1 ? 'problem' : 'problems'} · results depending on them are not estimated</h2>
+    <ul class="tight small">${result.errors.map((e, i) => {
+      const t = errorTarget(model, e.field);
+      return `<li>${esc(fieldName(e.field))}: ${esc(e.message)} ${t?.id ? `<button type="button" class="linkish" id="err-go-${i}" data-goto-id="${t.id}" data-goto-tab="${t.tab ?? ''}">Go to field</button>` : ''}</li>`;
+    }).join('')}</ul></section>`;
+}
+
+function summarySection(asset, draft, result, experiments) {
+  const ready = reviewReadiness(draft);
+  const inc = result.incremental.minimal;
+  const [cls, label] = CONCLUSION[inc.conclusion];
+  const nextQ = ready.missing[0];
+  const evidence = draft.candidates.filter((c) => ABLATION_FOR[c.id]).map((c) => {
+    const g = ABLATION_FOR[c.id];
+    const rows = experiments?.ablation?.summary?.train?.filter((r) => r.scope === 'pooled') ?? [];
+    const full = rows.find((r) => r.branch === 'full'); const mask = rows.find((r) => r.branch === `mask:${g}`);
+    if (!full || !mask) return '';
+    return `<li>${esc(CANDIDATES.find((t) => t.id === c.id).title)}: train ablation (synthetic, ${esc(full.events)} events) full ${esc(full.detected)} detected / ${esc(full.type_correct)} correct type; with this group masked ${esc(mask.detected)} / ${esc(mask.type_correct)}. Paired effects are mixed — <a href="#/evidence">see Evidence</a>.</li>`;
+  }).join('');
+  return `<section class="panel summary" aria-labelledby="pl-sum"><h2 id="pl-sum">Decision summary</h2>
+    <dl class="kv"><dt>Engineering decision</dt><dd>${draft.choice ? `<b>${esc(CHOICES[draft.choice].title)}</b>` : '<span class="muted">No review path selected yet</span>'}</dd>
+      <dt>Lifecycle (minimal retrofit)</dt><dd>${pill(cls, label)} ${inc.npv != null ? `<span class="num">annual net ${eur(inc.annualNet)} · ${result.horizonYears}-year NPV ${eur(inc.npv)} · ${esc(inc.payback?.label ?? '')}</span>` : `<span class="muted">${esc(inc.costStatus === 'complete' ? inc.benefitStatus : 'Cost estimate incomplete')}</span>`}</dd>
+      <dt>Draft</dt><dd>${pill(ready.state === 'READY_FOR_REVIEW' ? 's-info' : ready.state === 'NEEDS_EVIDENCE' ? 's-attn' : 's-gray', ready.label)}</dd>
+      <dt>Next action</dt><dd>${nextQ ? `Answer: ${esc(nextQ.label)} <span class="muted">(${esc(nextQ.scope)})</span>` : draft.choice ? 'Save the draft and take it to engineering review.' : 'Choose a review path below.'}</dd>
+      <dt>Measurement evidence</dt><dd>${evidence ? `<ul class="tight small">${evidence}</ul>` : '<span class="small muted">Add a measurement hypothesis to see related reviewed ablation evidence. No quantified uplift is claimed.</span>'}</dd></dl>
+    <div class="filters"><button id="pl-preset" type="button">Load illustrative redundant-pump case</button>
+      <span class="small muted">Hypothetical redundant pump with assumed healthy standby; independent of ${esc(asset.assetId)}. Editable assumptions, not prices.</span></div>
+  </section>`;
+}
+
+function proposalSection(asset, draft) {
+  const pkg = physicalPackage(asset, draft);
+  const status = (t) => pill(t.startsWith('Proposed') ? 's-attn' : t.startsWith('Present') ? 's-info' : 's-gray', t);
+  const decision = draft.choice ? CHOICES[draft.choice].title : null;
+  const unselected = pkg.unselected.map((id) => CANDIDATES.find((t) => t.id === id)?.title).filter(Boolean);
+  return `<section class="panel" aria-labelledby="pl-arch"><h2 id="pl-arch">Proposed field architecture and physical package <span class="small muted">· not part of this demo</span></h2>
+    <p class="small">This app is a static synthetic replay. The path below is a <b>proposal for discussion</b>: no edge deployment, BOM price or certification exists. Existing controls, trips and interlocks stay independent; nothing writes to equipment.</p>
+    <div class="arch-grid">
+      <ol class="arch" aria-label="Proposed data path">
+        <li><b>Existing historian / export</b><span>${pkg.noPermanentDevice ? `no new measurement point${decision ? ` (decision: ${esc(decision)})` : ''}` : '+ the proposed measurement points listed alongside'}</span></li>
+        <li class="arch-q">Timestamp source, quality flags, tag mapping; permitted reads and polling load</li>
+        <li><b>Local gateway / buffer / advisory analysis</b><span>bounded local storage; works offline</span></li>
+        <li class="arch-q">${pkg.noPermanentDevice ? 'Offline and restart behaviour; site / class review of the data connection' : 'Mounting, power, cables or radio and battery upkeep; offline and restart behaviour; site / class review'}</li>
+        <li><b>Engineering evidence and review</b><span>human decision; no automatic action</span></li>
+      </ol>
+      <div>
+        ${pkg.noPermanentDevice ? (draft.choice ? `<p class="note small"><b>No permanent device proposed</b> for the current decision (${esc(decision)}). Existing signals and a periodic route are the measurement plan.</p>` : '<p class="small muted">No review path or measurement hypothesis selected yet.</p>') : ''}
+        <ul class="phys" aria-label="Physical package elements and status">${pkg.rows.map((r) => `<li><span class="phys-el">${esc(r.element)}</span>${status(r.status)}</li>`).join('')}</ul>
+        ${unselected.length ? `<p class="small muted">Stored hypotheses not part of this decision (kept in the draft for later review): ${unselected.map(esc).join('; ')}.</p>` : ''}
+      </div>
+    </div>
+  </section>`;
+}
+
+export function renderPlannerPage(asset, header, experiments = null) {
   const draft = draftFor(asset.assetId);
   const result = evaluateModel(draft.economics);
   const banner = asset.mode === 'TEST_METADATA_ONLY'
     ? '<div class="note" role="note"><b>Blind test · Metadata only.</b> The planner uses the public passport only; no telemetry, alerts or labels exist for this pump in the application.</div>' : '';
+  const proposed = proposedChannels(asset, draft);
   return `${header}${banner}
-    <div class="note" role="note">Every proposal is an <b>engineering hypothesis</b>. No diagnostic uplift, field saving, installation time or compliance has been measured. The proposed field path (existing telemetry / optional sensors → bounded local buffer → advisory UI) is separate from this replay demo, which is not an edge implementation; nothing here can write to equipment. No secure, certified or class-approved conclusion follows from a protocol, network zone or completed checklist.</div>
-    <div class="grid-2 pl-top"><div>${coverageSection(asset)}${choiceSection(draft)}${candidateSection(asset, draft)}</div>
-      <div>${statusSection(asset, draft, result)}
-        <section class="panel"><details><summary>Historical organizer price example (dated)</summary><p class="small">${esc(ORGANIZER_BOM_NOTE)}</p></details></section></div></div>
+    <p class="note small" role="note">Every proposal is an <b>engineering hypothesis</b>: no diagnostic uplift, field saving, installation time or compliance has been measured, and no secure, certified or class-approved conclusion follows from a protocol, network zone or checklist.</p>
+    ${errorSummary(draft.economics, result)}
+    <div class="grid-2 pl-top"><div>${summarySection(asset, draft, result, experiments)}</div><div>${statusSection(asset, draft, result)}</div></div>
     ${resultsSection(draft.economics, result)}
-    ${editorSection(draft.economics, result)}`;
+    <div class="grid-2"><div>${choiceSection(draft)}${candidateSection(asset, draft)}</div>
+      <div><section class="panel" aria-labelledby="pl-sch"><h2 id="pl-sch">Existing and proposed measurement points</h2>
+        ${renderSchematic(asset, { proposed, selected: plannerState.schematicSel[asset.assetId], prefix: 'psch' })}
+        ${!proposed.length && draft.candidates.length && ['defer', 'existing'].includes(draft.choice) ? '<p class="small muted">No proposed points drawn: the selected decision adds no permanent device. Stored hypotheses stay in the draft.</p>' : ''}
+        ${draft.candidates.some((c) => c.id === 'component_dp') && proposed.length ? '<p class="small muted">Component differential pressure is not drawn: its location depends on the component and needs a survey.</p>' : ''}</section>
+        <details class="panel"><summary>Installed channel list (public passport)</summary>${coverageSection(asset)}</details>
+        <section class="panel"><details><summary>Historical organizer price example (dated)</summary><p class="small">${esc(ORGANIZER_BOM_NOTE)}</p></details></section></div></div>
+    ${proposalSection(asset, draft)}
+    <details class="panel editor-disclosure" id="pl-editor"${plannerState.editorOpen ? ' open' : ''}><summary><b>Cost, benefit and source inputs</b> <span class="small muted">· all 20 cost categories, provenance and assumptions for each option</span></summary>
+      ${editorSection(draft.economics, result)}</details>`;
 }
 
 export function bindPlanner(main, asset, rerender) {
@@ -325,6 +413,14 @@ export function bindPlanner(main, asset, rerender) {
     el.addEventListener('change', () => { apply(el); rerender(); });
   });
   const on = (sel, fn) => main.querySelector(sel)?.addEventListener('click', fn);
+  main.querySelector('#pl-editor')?.addEventListener('toggle', (e) => { plannerState.editorOpen = e.target.open; });
+  main.querySelectorAll('[data-goto-id]').forEach((b) => b.addEventListener('click', () => {
+    if (b.dataset.gotoTab) plannerState.tab = b.dataset.gotoTab;
+    plannerState.editorOpen = true; rerender();
+    const el = document.getElementById(b.dataset.gotoId); el?.focus(); el?.scrollIntoView({ block: 'center' });
+  }));
+  const proposedNow = proposedChannels(asset, draft);
+  bindSchematic(main, asset, { proposed: proposedNow, prefix: 'psch', onSelect: (pt) => { plannerState.schematicSel[id] = pt; } });
   on('#cand-add', () => { const v = main.querySelector('#cand-add-sel').value; addCandidate(draft, v, new Date().toISOString()); touch(); rerender(); document.getElementById(`cand-rm-${v}`)?.focus(); });
   main.querySelectorAll('[data-remove]').forEach((b) => b.addEventListener('click', () => { removeCandidate(draft, b.dataset.remove); touch(); rerender(); document.getElementById('cand-add')?.focus(); }));
   main.querySelectorAll('[data-tab]').forEach((b) => b.addEventListener('click', () => { plannerState.tab = b.dataset.tab; rerender(); document.getElementById(`tab-${b.dataset.tab}`)?.focus(); }));

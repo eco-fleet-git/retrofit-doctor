@@ -1,3 +1,4 @@
+import { physicalSource } from './schematic.js';
 // Planner content from docs/engineering/{DECISION_BRIEF,COST_MODEL_SPEC}.md. Candidates are
 // engineering hypotheses; nothing here is a measurement, a tested improvement or a price quote.
 
@@ -183,4 +184,78 @@ export function economicsProblems(m) {
     if (!isObj(opt.nuisance)) problems.push(`${o}: nuisance missing`);
   }
   return problems;
+}
+
+// ---- Physical proposal (Task006 review round 2) ----
+// Built from the selected asset's passport: existing instruments are reused where verified,
+// only missing points are proposed. Defer / existing-signals decisions propose no device.
+const EXISTING_NAME = {
+  suction_pressure_kpa: 'suction pressure transmitter', discharge_pressure_kpa: 'discharge pressure transmitter',
+  flow_m3_h: 'flow meter', motor_power_kw: 'motor input power reading', motor_current_a: 'motor current reading',
+  vibration_rms_mm_s: 'bearing-housing vibration sensor', vibration_accel_rms_g: 'bearing-housing vibration sensor',
+  vibration_crest_factor: 'bearing-housing vibration sensor', bearing_temp_c: 'bearing-housing temperature sensor',
+  motor_winding_temp_c: 'motor winding temperature sensor', valve_position_pct: 'valve position feedback',
+};
+const NEW_INSTRUMENT = {
+  suction_pressure_kpa: 'Suction pressure transmitter on a process tap at the pump inlet (isolation valve; range and wetted materials to confirm)',
+  discharge_pressure_kpa: 'Discharge pressure transmitter on a process tap at the pump outlet (isolation valve; range to confirm)',
+  flow_m3_h: 'Flow meter (clamp-on or inline) on a suitable straight run',
+  motor_power_kw: 'Power meter on the motor supply',
+  vibration_rms_mm_s: 'Bearing-housing vibration sensor (summary features; rigid stud or bonded mount)',
+  vibration_accel_rms_g: 'Bearing-housing vibration sensor (summary features; rigid stud or bonded mount)',
+  vibration_crest_factor: 'Bearing-housing vibration sensor (summary features; rigid stud or bonded mount)',
+  bearing_temp_c: 'Bearing-housing temperature sensor',
+  motor_winding_temp_c: 'Motor winding RTD (may require motor work)',
+  valve_position_pct: 'Valve position feedback from the actuator',
+};
+const SURVEY_ROWS = {
+  suction_pressure: ['Tap location relative to strainer, valves and pump inlet'],
+  vibration: ['Mount location and measurement direction for each bearing of interest'],
+  flow_head_power: ['Pressure-tap elevations, reference and head corrections (density, elevation, velocity)', 'Pipe survey: straight runs, material and fluid suitability for flow measurement'],
+  component_dp: ['Tappings across the specific component (not the pump taps)'],
+  valve_winding: ['Actuator feedback availability or motor access for an RTD'],
+};
+const NO_DEVICE = new Set(['defer', 'existing']);
+
+export function proposedChannels(asset, draft) {
+  if (NO_DEVICE.has(draft.choice)) return [];
+  const ids = draft.candidates.map((c) => c.id);
+  return [...new Set(CANDIDATES.filter((t) => ids.includes(t.id)).flatMap((t) => t.channels))]
+    .filter((ch) => !asset.channelsAvailable.includes(ch));
+}
+
+export function physicalPackage(asset, draft) {
+  const PRESENT = 'Present · reuse where verified'; const PROPOSED = 'Proposed (hypothesis)';
+  const ids = draft.candidates.map((c) => c.id);
+  const noPermanentDevice = NO_DEVICE.has(draft.choice) || ids.length === 0;
+  const rows = [
+    { element: `Existing signals of this pump (public passport, synthetic benchmark): ${asset.channelsAvailable.length} channels`, status: 'Present (synthetic benchmark)' },
+    { element: 'Historian / export access at a real site', status: 'Unknown: confirm' },
+  ];
+  if (noPermanentDevice) {
+    if (NO_DEVICE.has(draft.choice)) rows.push({ element: 'Periodic or handheld route in place of permanent monitoring', status: 'To define in review' });
+    rows.push({ element: 'Local engineering display (evidence views like this app)', status: PROPOSED });
+    return { noPermanentDevice: true, unselected: NO_DEVICE.has(draft.choice) ? ids : [], rows };
+  }
+  const seen = new Set();
+  let anyNew = false;
+  for (const t of CANDIDATES.filter((x) => ids.includes(x.id))) {
+    for (const ch of t.channels) {
+      if (asset.channelsAvailable.includes(ch)) {
+        const element = `Existing ${EXISTING_NAME[ch]} (${physicalSource(asset, ch)})`;
+        if (!seen.has(element)) { seen.add(element); rows.push({ element, status: PRESENT }); }
+      } else {
+        const element = NEW_INSTRUMENT[ch];
+        if (!seen.has(element)) { seen.add(element); rows.push({ element, status: PROPOSED }); anyNew = true; }
+      }
+    }
+    if (t.id === 'component_dp') { rows.push({ element: 'Differential-pressure transmitter across the specific component', status: PROPOSED }); anyNew = true; }
+    for (const element of SURVEY_ROWS[t.id] ?? []) if (!seen.has(element)) { seen.add(element); rows.push({ element, status: 'To confirm by site survey' }); }
+  }
+  if (anyNew) {
+    rows.push({ element: 'Cable route or radio link (battery upkeep if wireless)', status: 'To select after survey' });
+    rows.push({ element: 'Gateway / IO enclosure and power', status: 'To select after survey' });
+  }
+  rows.push({ element: 'Local engineering display (evidence views like this app)', status: PROPOSED });
+  return { noPermanentDevice: false, newHardware: anyNew, unselected: [], rows };
 }

@@ -22,7 +22,11 @@ async function newPage(viewport = { width: 1440, height: 900 }, init) {
 }
 const commit = async (page, sel, value) => { await page.fill(sel, value); await page.press(sel, 'Tab'); await page.waitForTimeout(80); };
 const text = (page, sel) => page.locator(sel).innerText();
-const planner = async (page, id) => { await page.goto(`${BASE}#/pumps/${id}/retrofit`); await page.locator('#pl-status').waitFor(); };
+const planner = async (page, id) => {
+  await page.goto(`${BASE}#/pumps/${id}/retrofit`); await page.locator('#pl-status').waitFor();
+  // Task006: the detailed cost editor is behind a disclosure; open it for these input checks.
+  if (!(await page.locator('#pl-editor').evaluate((d) => d.open))) await page.click('#pl-editor > summary');
+};
 
 // ---------- main desktop session ----------
 const { context, page, errors } = await newPage();
@@ -116,7 +120,7 @@ check('ENG-12', 'Organizer BOM dated 30 Oct 2026, hardware only, not quotes', bo
 
 // ENG-13 copy
 const pageText = await page.locator('main').innerText();
-check('ENG-13', 'Architecture separate from replay; no secure/certified/approved conclusion', /not an edge implementation/.test(pageText) && /No secure, certified or class-approved conclusion/.test(pageText) && !/\b(Approved|Certified|Guaranteed saving)\b/.test(pageText.replace(/certified or class-approved|not a design, economic or compliance approval|not an approval/g, '')));
+check('ENG-13', 'Architecture separate from replay; no secure/certified/approved conclusion', /static synthetic replay/.test(pageText) && /no edge deployment/.test(pageText) && /no secure, certified or class-approved conclusion/i.test(pageText) && !/\b(Approved|Certified|Guaranteed saving)\b/.test(pageText.replace(/certified or class-approved|not a design, economic or compliance approval|not an approval/g, '')));
 check('ENG-17', 'Baseline named, sunk excluded, bundled lines referenced', /Baseline: Existing practice/.test(pageText) && /Sunk existing equipment excluded/.test(pageText) && /Bundled in sensor package/.test(await page.locator('#ln-minimal-mounts-note').inputValue()));
 
 // ENG-18 positive case
@@ -181,7 +185,7 @@ check('Reset', 'Reset asks for confirmation (focus on Keep editing); confirm rem
 
 // ENG-05 test pump
 await planner(page, 'PUMP-12');
-const p12 = await page.locator('main').innerText();
+const p12 = await page.locator('main').textContent(); // includes the collapsed installed-channel list
 check('ENG-05', 'PUMP-12 planner: metadata only, fixed speed rpm not measured', /Blind test · Metadata only/.test(p12) && /no measured speed; rated 2935 rpm is passport metadata, not a measurement/.test(p12) && !/duty\/standby pair(ed|ing) with/i.test(p12));
 
 // ENG-16 offline: go offline after load; planner still works, save works
@@ -278,6 +282,7 @@ await context.close();
   await p4.locator('tr:has(#ln-minimal-gateway-u)').screenshot({ path: `${SHOTS}/11-allocation-row-1440.png` });
   await p4.click('#pl-save');
   await p4.reload(); await p4.locator('#pl-status').waitFor();
+  if (!(await p4.locator('#pl-editor').evaluate((d) => d.open))) await p4.click('#pl-editor > summary');
   const row2 = await p4.locator('tr:has(#ln-minimal-sensors-u)').innerText();
   check('Provenance', 'Source, source date, basis, original and project total persist after save + reload',
     (await p4.locator('#ln-minimal-sensors-basis').inputValue()) === 'site estimate' && (await p4.inputValue('#ln-minimal-sensors-src')) === 'Site estimate by reviewer, sheet R-2'

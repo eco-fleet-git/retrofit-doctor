@@ -145,6 +145,70 @@ def evidence_record() -> dict:
     }
 
 
+EXPERIMENTS = ROOT / "results"
+TABLE_COLS = ["composite_score", "events", "detected", "type_correct", "class_correct", "false_episodes", "excess_repeats",
+              "false_plus_excess", "sensor_type_and_channel", "gate_failures", "passes"]
+PAIR_FIELDS = ["detected", "class_correct", "type_correct", "predicted_fault_type", "first_alert_utc", "first_correct_type_utc"]
+
+
+def read_rows(path: Path, cols: list[str] | None = None) -> list[dict]:
+    frame = pd.read_csv(path, dtype=str, keep_default_na=False)
+    return frame[[c for c in (cols or frame.columns) if c in frame.columns]].to_dict(orient="records")
+
+
+def hypotheses_table(path: Path) -> list[dict]:
+    """Rows of the reviewed hypothesis table in RESULTS.md, verbatim."""
+    rows = []
+    for raw in path.read_text().splitlines():
+        cells = [c.strip() for c in raw.strip().strip("|").split("|")]
+        if len(cells) == 3 and cells[0].startswith("H") and ":" in cells[0]:
+            rows.append({"hypothesis": cells[0], "work": cells[1], "result": cells[2]})
+    return rows
+
+
+def paired_changes(path: Path, group: str) -> list[dict]:
+    """Events whose outcome differs between the full and masked branch (same events, same windows)."""
+    frame = pd.read_csv(path, dtype=str, keep_default_na=False)
+    out = []
+    for r in frame.to_dict(orient="records"):
+        full = {k: r[k] for k in PAIR_FIELDS}
+        mask = {k: r[f"{k}@mask:{group}"] for k in PAIR_FIELDS}
+        if full != mask:
+            out.append({"event_id": r["event_id"], "event_class": r["event_class"], "fault_type": r["fault_type"], "full": full, "mask": mask})
+    return out
+
+
+def experiments_record() -> dict:
+    ab = EXPERIMENTS / "sensor_ablation"
+    manifest = json.loads((ab / "manifest.json").read_text())
+    groups = list(manifest["groups"])
+    regime = json.loads((EXPERIMENTS / "regime_reference/selection.json").read_text())
+    b2_sel = json.loads((EXPERIMENTS / "causal_b2/selection.json").read_text())
+    return {
+        "notice": "Synthetic, development-informed results of reviewed experiments. Train selection only; validation had been "
+                  "inspected earlier, so validation rows are descriptive. Composite score is not accuracy.",
+        "selectedModel": "Causal B1 (k=6, persistence 15 min, 24 h reference), Python hash seed pinned to 0",
+        "hypotheses": hypotheses_table(ROOT / "docs/experiments/RESULTS.md"),
+        "hypothesesSource": "docs/experiments/RESULTS.md",
+        "b2": {"source": "results/causal_b2/train_selection_table.csv", "selected": b2_sel["selected_candidate"],
+               "rows": read_rows(EXPERIMENTS / "causal_b2/train_selection_table.csv", ["candidate", *TABLE_COLS]),
+               "priorRuns": [{k: r.get(k) for k in ("run_id", "status", "reason")} for r in b2_sel["prior_runs"]]},
+        "regime": {"source": "results/regime_reference/train_selection_table.csv", "selected": regime["selected_candidate"],
+                   "rows": read_rows(EXPERIMENTS / "regime_reference/train_selection_table.csv", ["candidate", *TABLE_COLS]),
+                   "e4": regime["e4"], "validationRun": False},
+        "sparse": {"source": "results/sparse_stuck_followup/train_selection_table.csv",
+                   "selected": json.loads((EXPERIMENTS / "sparse_stuck_followup/selection.json").read_text())["selected_candidate"],
+                   "rows": read_rows(EXPERIMENTS / "sparse_stuck_followup/train_selection_table.csv", ["candidate", *TABLE_COLS])},
+        "ablation": {
+            "source": "results/sensor_ablation/", "groups": {g: manifest["groups"][g] for g in groups},
+            "trainAssets": manifest["train_assets"], "descriptiveAssets": manifest["descriptive_validation_assets"],
+            "summary": {split: read_rows(ab / f"{split}_group_summary.csv") for split in ("train", "validation")},
+            "restoreCheck": {split: read_rows(ab / f"{split}_restore_check.csv") for split in ("train", "validation")},
+            "paired": {split: {g: paired_changes(ab / f"{split}_paired_events.csv", g) for g in groups} for split in ("train", "validation")},
+        },
+    }
+
+
 def build(out: Path) -> dict[str, dict]:
     assets_path = DATA / "assets.csv"
     all_assets = pd.read_csv(assets_path, dtype={"wireless_update_s": "float64"})
@@ -171,7 +235,12 @@ def build(out: Path) -> dict[str, dict]:
 
     inputs = [assets_path, features_path, stored_path, labels_path, CAUSAL / "comparison.csv", CAUSAL / "verification.json",
               CAUSAL / "events_causal_validation.csv", CAUSAL / "events_original_validation.csv",
-              ROOT / "src/retrofit_doctor/causal_b1.py"]
+              ROOT / "src/retrofit_doctor/causal_b1.py", ROOT / "docs/experiments/RESULTS.md",
+              EXPERIMENTS / "causal_b2/train_selection_table.csv", EXPERIMENTS / "causal_b2/selection.json",
+              EXPERIMENTS / "regime_reference/train_selection_table.csv", EXPERIMENTS / "regime_reference/selection.json",
+              EXPERIMENTS / "sparse_stuck_followup/train_selection_table.csv", EXPERIMENTS / "sensor_ablation/manifest.json",
+              *[EXPERIMENTS / f"sensor_ablation/{sp}_{kind}.csv" for sp in ("train", "validation")
+                for kind in ("group_summary", "restore_check", "paired_events")]]
     provenance = {
         "generator": "scripts/export_demo.py",
         "dataNature": "Synthetic benchmark (RETROFIT AI 2026). Not field data.",
@@ -181,7 +250,7 @@ def build(out: Path) -> dict[str, dict]:
     }
     bundles = {"fleet.json": {"schema": SCHEMA, "provenance": provenance,
                               "assets": [asset_record(a) for _, a in all_assets.sort_values("asset_id").iterrows()],
-                              "evidence": evidence_record()}}
+                              "evidence": evidence_record(), "experiments": experiments_record()}}
     for _, asset in replay.iterrows():
         rec = replay_record(asset, normalized, stored, labels)
         rec["provenance"] = provenance

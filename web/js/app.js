@@ -6,6 +6,8 @@ import {
 } from './replay.js';
 import { CHANNEL_LABELS, CHANNEL_PLACEMENT, ALL_CHANNELS, knowledgeFor } from './knowledge.js';
 import { renderPlannerPage, bindPlanner } from './planner.js';
+import { renderSchematic, bindSchematic } from './schematic.js';
+import { renderExperiments } from './experiments.js';
 
 // Documented starting checkpoints (issue times of stored causal alerts); replay starts paused here.
 const CHECKPOINTS = { 'PUMP-08': '2025-09-10T12:38:00Z', 'PUMP-09': '2026-02-10T06:28:00Z' };
@@ -20,7 +22,7 @@ const state = {
   showLabels: false, labelsAsset: null,
   chart: { channel: {}, spanMin: 1440 },
   selectedAlert: {},
-  playing: null, speed: 1, endNotice: null,
+  playing: null, speed: 1, endNotice: null, schematicSel: {},
 };
 
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -87,6 +89,7 @@ function syncClockToUrl(id) {
 }
 
 let lastRouteKey = null;
+let routedOnce = false;
 function onRouteChange() {
   const route = parseRoute();
   const key = route.name === 'pump' || route.name === 'planner' ? `${route.name}:${route.assetId}` : route.name;
@@ -97,8 +100,10 @@ function onRouteChange() {
     lastRouteKey = key;
     const t = route.params?.get('t');
     if (route.name === 'pump' && t && !Number.isNaN(parseUtc(t))) state.clocks[route.assetId] = parseUtc(t);
+    const initial = !routedOnce; routedOnce = true;
     render();
-    document.getElementById('main')?.focus({ preventScroll: true });
+    // Move focus to content on navigation only; on first load keep the natural order (skip link, sidebar, content).
+    if (!initial) document.getElementById('main')?.focus({ preventScroll: true });
     window.scrollTo(0, 0);
     return;
   }
@@ -144,10 +149,14 @@ function render() {
   const main = document.getElementById('main');
   const focusId = document.activeElement?.id;
   const route = parseRoute();
+  if (route.assetId && assetById(route.assetId)) state.lastAsset = route.assetId;
+  const navAsset = state.lastAsset ?? 'PUMP-08';
   document.querySelectorAll('[data-nav]').forEach((a) => {
-    const active = a.dataset.nav === route.name || (a.dataset.nav === 'fleet' && (route.name === 'pump' || route.name === 'planner'));
-    if (active) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    if (a.dataset.nav === 'pump') a.setAttribute('href', `#/pumps/${navAsset}`);
+    if (a.dataset.nav === 'planner') a.setAttribute('href', `#/pumps/${navAsset}/retrofit`);
+    if (a.dataset.nav === route.name) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
   });
+  document.querySelectorAll('[data-nav-asset]').forEach((el) => { el.textContent = navAsset; });
   if (state.fleetError) {
     main.innerHTML = `<h1>Source data unavailable</h1><div class="error" role="alert">Could not read <span class="mono">${esc(state.fleetError)}</span>.</div>
       <p><button id="retry-fleet" class="primary">Retry</button></p>
@@ -280,7 +289,7 @@ function renderPump(route) {
     const banner = asset.mode === 'TEST_METADATA_ONLY'
       ? '<div class="note" role="note"><b>Diagnosis unavailable.</b> Blind test asset: only the public passport and sensor inventory are bundled. No telemetry, alerts or labels exist in this application.</div>'
       : '<div class="note" role="note"><b>Replay not loaded.</b> Training-asset replay is not part of this demo bundle. Sensor inventory is from the public passport.</div>';
-    return `${pumpHeader(asset)}${banner}<p></p><div class="grid-2"><section class="panel" aria-labelledby="inv-h"><h2 id="inv-h">Sensor inventory</h2>${inventoryTable(asset, null)}</section>${metadataPanel(asset)}</div>`;
+    return `${pumpHeader(asset)}${banner}<p></p>${schematicPanel(asset)}<div class="grid-2"><section class="panel" aria-labelledby="inv-h"><h2 id="inv-h">Sensor inventory</h2>${inventoryTable(asset, null)}</section>${metadataPanel(asset)}</div>`;
   }
   const r = ensureReplay(asset);
   if (r.status === 'loading') return `${pumpHeader(asset)}<p class="loading" role="status">Loading replay source…</p>`;
@@ -334,6 +343,7 @@ function renderPump(route) {
           </div>
           ${trendCharts(view, chartChannel, state.chart.spanMin, state.showLabels ? sliceLabels(replay, asOf) : null)}
         </section>
+        ${schematicPanel(asset)}
         <section class="panel" aria-labelledby="inv-h"><h2 id="inv-h">Sensor inventory and freshness at the as-of time</h2>${inventoryTable(asset, view)}</section>
       </div>
       <div>
@@ -346,6 +356,11 @@ function renderPump(route) {
         ${evaluationPanel(replay, asOf)}
       </div>
     </div>`;
+}
+
+function schematicPanel(asset) {
+  return `<section class="panel" aria-labelledby="sch-h"><h2 id="sch-h">Where the measurements are</h2>
+    ${renderSchematic(asset, { selected: state.schematicSel[asset.assetId], prefix: 'sch' })}</section>`;
 }
 
 function evidenceCard(asset, view, alert) {
@@ -412,7 +427,9 @@ function trendCharts(view, channelId, spanMin, labels) {
 }
 
 function svgChart({ points, x0, x1, sparse, unit, title, alerts, labels, thresholds = [] }) {
-  const W = 900; const H = 210; const L = 62; const R = 14; const T = 22; const B = 30;
+  // Narrow screens get their own coordinate system so text is not scaled down below ~11 px.
+  const narrow = window.innerWidth < 600;
+  const W = narrow ? 320 : 900; const H = narrow ? 230 : 210; const L = narrow ? 46 : 62; const R = 10; const T = narrow ? 42 : 22; const B = 30;
   const vals = points.filter(Boolean).map((p) => p[1]).concat(thresholds);
   if (!points.some(Boolean)) return `<div class="empty small">${esc(title)}: no samples in this span.</div>`;
   let lo = Math.min(...vals); let hi = Math.max(...vals);
@@ -430,7 +447,7 @@ function svgChart({ points, x0, x1, sparse, unit, title, alerts, labels, thresho
     marks = `<path d="${d}" fill="none" stroke="#1f5fbf" stroke-width="1.3"/>`;
   }
   const ticksY = [lo + pad, (lo + hi) / 2, hi - pad].map((v) => `<line x1="${L}" x2="${W - R}" y1="${sy(v)}" y2="${sy(v)}" stroke="#e3e7ec"/><text x="${L - 6}" y="${sy(v) + 4}" text-anchor="end" font-size="11" fill="#5a6573">${v.toFixed(Math.abs(v) < 10 ? 2 : 1)}</text>`).join('');
-  const ticksX = [0, 0.25, 0.5, 0.75, 1].map((f) => { const t = x0 + f * span; const s = new Date(t).toISOString(); return `<text x="${sx(t)}" y="${H - 8}" text-anchor="${f === 0 ? 'start' : f === 1 ? 'end' : 'middle'}" font-size="11" fill="#5a6573">${s.slice(5, 10)} ${s.slice(11, 16)}</text>`; }).join('');
+  const ticksX = (narrow ? [0, 0.5, 1] : [0, 0.25, 0.5, 0.75, 1]).map((f) => { const t = x0 + f * span; const s = new Date(t).toISOString(); return `<text x="${sx(t)}" y="${H - 8}" text-anchor="${f === 0 ? 'start' : f === 1 ? 'end' : 'middle'}" font-size="11" fill="#5a6573">${s.slice(5, 10)} ${s.slice(11, 16)}</text>`; }).join('');
   const th = thresholds.map((v) => `<line x1="${L}" x2="${W - R}" y1="${sy(v)}" y2="${sy(v)}" stroke="#a4262c" stroke-dasharray="5 4"/>`).join('');
   const al = alerts.map((a) => { const x = sx(parseUtc(a.alert_time_utc)); const right = x > W - R - 60; return `<line x1="${x}" x2="${x}" y1="${T}" y2="${H - B}" stroke="#a4262c" stroke-width="1.5"/><text x="${right ? x - 4 : x + 4}" y="${T + 12}" text-anchor="${right ? 'end' : 'start'}" font-size="11" fill="#a4262c" stroke="#fff" stroke-width="3" paint-order="stroke">! alert</text>`; }).join('');
   const lb = (labels ?? []).map((e) => {
@@ -438,19 +455,20 @@ function svgChart({ points, x0, x1, sparse, unit, title, alerts, labels, thresho
     if (b < x0) return '';
     return `<rect x="${sx(a)}" y="${H - B - 8}" width="${Math.max(2, sx(b) - sx(a))}" height="8" fill="#6b3fa0" opacity=".55"><title>Ground truth (retrospective): ${esc(e.event_id)} ${esc(e.fault_type)}</title></rect>`;
   }).join('');
-  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(title)}; ${points.filter(Boolean).length} points up to the as-of time">
-    <text x="${L}" y="14" font-size="12" font-weight="600" fill="#1d232b">${esc(title)}</text>
+  // Narrow: drawn at 1:1 CSS pixels (svg width = W) inside its own scroller, so text is never scaled down.
+  return `<div class="plot-scroll" role="region" aria-label="${esc(title)} chart" tabindex="0"><svg viewBox="0 0 ${W} ${H}" class="plot${narrow ? ' plot-fixed' : ''}" style="--plot-w:${W}px" role="img" aria-label="${esc(title)}; ${points.filter(Boolean).length} points up to the as-of time">
+    <text x="${narrow ? 2 : L}" y="14" font-size="12" font-weight="600" fill="#1d232b">${esc(title)}</text>
     ${ticksY}${th}${marks}${al}${lb}
-    <line x1="${W - R}" x2="${W - R}" y1="${T}" y2="${H - B}" stroke="#1d232b" stroke-width="2"/><text x="${W - R}" y="${T - 6}" text-anchor="end" font-size="11" font-weight="600" fill="#1d232b">As of ${esc(formatUtc(x1).slice(5, 16))}</text>
+    <line x1="${W - R}" x2="${W - R}" y1="${T}" y2="${H - B}" stroke="#1d232b" stroke-width="2"/><text x="${W - R}" y="${narrow ? 32 : T - 6}" text-anchor="end" font-size="11" font-weight="600" fill="#1d232b">As of ${esc(formatUtc(x1).slice(5, 16))}</text>
     <line x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}" stroke="#aab3be"/>${ticksX}
     <text x="12" y="${(H - B + T) / 2}" font-size="11" fill="#5a6573" transform="rotate(-90 12 ${(H - B + T) / 2})" text-anchor="middle">${esc(unit)}</text>
-  </svg>`;
+  </svg></div>`;
 }
 
 function renderPlanner(route) {
   const asset = assetById(route.assetId);
   if (!asset) return '<h1>Pump not found</h1><p><a class="button primary" href="#/fleet">Back to Fleet</a></p>';
-  return renderPlannerPage(asset, pumpHeader(asset, 'planner'));
+  return renderPlannerPage(asset, pumpHeader(asset, 'planner'), state.fleet.experiments);
 }
 
 function renderEvidence() {
@@ -490,7 +508,8 @@ function renderEvidence() {
           <td class="num">${o.detected === 'True' ? esc(formatUtc(parseUtc(o.first_alert_utc))) : pill('s-gray', 'Not detected')}</td><td>${o.detected === 'True' ? esc(o.predicted_fault_type) : '—'}</td></tr>`; }).join('')}</tbody>
       </table></div>
       <p class="small muted">Source: <span class="mono">${esc(ev.validationEventsSource)}</span></p>
-    </section>`;
+    </section>
+    ${renderExperiments(state.fleet.experiments)}`;
 }
 
 // ---------- events ----------
@@ -506,6 +525,8 @@ function bind(main, route) {
   if (route.name === 'planner') { const asset = assetById(route.assetId); if (asset) bindPlanner(main, asset, render); return; }
   if (route.name !== 'pump') return;
   const id = route.assetId;
+  const pumpAsset = assetById(id);
+  if (pumpAsset) bindSchematic(main, pumpAsset, { prefix: 'sch', onSelect: (pt) => { state.schematicSel[id] = pt; } });
   const step = (m) => () => setClock(id, Math.floor(state.clocks[id] / MINUTE_MS) * MINUTE_MS + m * MINUTE_MS);
   on('play', 'click', () => togglePlay(id));
   on('speed', 'change', (e) => { state.speed = Number(e.target.value); });
@@ -520,5 +541,7 @@ function bind(main, route) {
 }
 
 window.addEventListener('hashchange', onRouteChange);
+let wasNarrow = window.innerWidth < 600;
+window.addEventListener('resize', () => { const n = window.innerWidth < 600; if (n !== wasNarrow) { wasNarrow = n; render(); } });
 lastRouteKey = null;
 loadFleet().then(onRouteChange);
