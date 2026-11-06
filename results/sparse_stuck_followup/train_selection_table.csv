@@ -1,0 +1,5 @@
+candidate,composite_score,detected,type_correct,class_correct,events,false_episodes,excess_repeats,false_plus_excess,nuisance_benign,alerts,sensor_events,sensor_type_and_channel,sensor_type_and_channel_non_gateway,non_gateway_sensor_events,channel_localization_among_hits,wrong_channel_claims,selective_diagnosis,unknown_first_diagnoses,useful_diagnosis_delay,sparse_stuck_alerts,sparse_stuck_alerts_outside_real_stuck,real_sparse_stuck_events,real_sparse_stuck_type_and_channel,gate_failures,passes
+S0,59.20719120527966,18,8,14,26,3,3,6,2,43,8,3,2,7,"[3, 4]","[1, 4]","[8, 16, 26]",2,not_implemented_in_session1,0,0,PUMP-01-E04,0,,False
+S1,56.00452043409396,21,7,14,26,11,10,21,3,75,8,4,3,7,"[5, 6]","[1, 6]","[7, 20, 26]",1,not_implemented_in_session1,24,23,PUMP-01-E04,1,type_below_8|burden_above_6|comparison_control_not_selectable,False
+S2,55.37542243325022,17,8,14,26,4,7,11,3,52,8,3,2,7,"[3, 4]","[1, 4]","[8, 16, 26]",1,not_implemented_in_session1,0,0,PUMP-01-E04,0,detection_below_18|burden_above_6,False
+S3,58.62918796560097,19,9,15,26,7,7,14,3,60,8,4,3,7,"[4, 5]","[1, 5]","[9, 18, 26]",1,not_implemented_in_session1,8,6,PUMP-01-E04,1,burden_above_6,False

@@ -1,0 +1,88 @@
+{
+  "experiment": "Task008 sparse-stuck follow-up",
+  "registered_before_scoring": true,
+  "candidates": {
+    "S0": "unchanged causal B1 (released control), k=6, persist=15",
+    "S1": "unchanged Task002 C1 (comparison control; not selectable)",
+    "S2": "C1 with the sparse-stuck source disabled; all other sources unchanged",
+    "S3": "C1 with commissioning-repeat sparse stuck: threshold max(3, longest reference equal run + 1), frozen at 24 h; S3 sparse stuck chains reset at the freeze and on gap, stale, non-steady minute or g.regime change; reference samples = fresh steady non-gap samples in the first 24 h; < 3 reference samples or before freeze -> unsupported; 15 min wall-clock persistence; exact equality (no resolution guess)"
+  },
+  "deployable": [
+    "S2",
+    "S3"
+  ],
+  "gates": {
+    "detected_min": 18,
+    "class_correct_min": 14,
+    "type_correct_min": 8,
+    "false_plus_excess_max": 6
+  },
+  "gates_source": "Task002 hard gates, unchanged",
+  "tie_break": [
+    "max sensor type+channel",
+    "max correct type",
+    "max composite",
+    "min candidate id"
+  ],
+  "fallback": "S0",
+  "train_assets": [
+    "PUMP-01",
+    "PUMP-02",
+    "PUMP-03",
+    "PUMP-04",
+    "PUMP-05",
+    "PUMP-06",
+    "PUMP-07"
+  ],
+  "observable_events": 26,
+  "observable_event_ids": [
+    "PUMP-01-E01",
+    "PUMP-01-E02",
+    "PUMP-01-E03",
+    "PUMP-01-E04",
+    "PUMP-02-E01",
+    "PUMP-02-E02",
+    "PUMP-02-E03",
+    "PUMP-03-E01",
+    "PUMP-03-E02",
+    "PUMP-03-E03",
+    "PUMP-04-E01",
+    "PUMP-04-E02",
+    "PUMP-04-E03",
+    "PUMP-04-E04",
+    "PUMP-05-E01",
+    "PUMP-05-E02",
+    "PUMP-06-E02",
+    "PUMP-06-E03",
+    "PUMP-06-E04",
+    "PUMP-06-E05",
+    "PUMP-06-E06",
+    "PUMP-06-E07",
+    "PUMP-06-E08",
+    "PUMP-07-E01",
+    "PUMP-07-E02",
+    "PUMP-07-E03"
+  ],
+  "asset_days": 49,
+  "folds": "7 independent held-out-asset replays; no across-asset fit",
+  "validation": "one descriptive check of the selected deployable candidate vs S0, only if one passes; validation split previously inspected",
+  "sealed_sha256": {
+    "src/retrofit_doctor/sparse_stuck.py": "6e9135d67ba93c0a6eb8f77206159bf87eecfbbe4bc3aff437a5277ecf205e84",
+    "src/retrofit_doctor/causal_b2.py": "9976d47a7b06298a6a6fa287efd3c812610c14d8110ca23dcb3bea4a85eb4b82",
+    "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+    "scripts/run_sparse_stuck.py": "52528e596bafa3a59958dfa4517f5f60aeb24b38c056546e267354ceec7dd0b1",
+    "scripts/run_causal_b2.py": "d77afebd33210805c72812ef9c3cbfe5a79031f7c55a3821f0a3aec88c65816b",
+    "scripts/run_b1.py": "83c6b591ddcd1d07b15dbdba08e26f7731f237c420201a87339ba0d0e39a4d3e",
+    "scripts/run_sensor_ablation.py": "57fa0191d724a82fa1e00166ec3008b3edab78a7953c7bd69b3a17700b059d49",
+    "vendor/benchmark/src/retrofit_sim/baselines.py": "4bf291d6a1834aa79ced8d2d862d0331fb60e3210630c4c1aa25744ebd7a27dc",
+    "vendor/benchmark/src/retrofit_sim/scoring.py": "5293c2e427d6181e0f24cfd64d617fc96d284c31a949410d3c88769a7e1802c2",
+    "docs/experiments/protocol_v1.json": "f018c40d4aec809e6496b8f7a8220176f821401e51321364295c0fa75cc02477",
+    "docs/tasks/008-sparse-stuck-followup.md": "4cd219844dde0bc69289ae96bcf3dbc9c5c54edd0bfa3ea2e8e4ee1edb2e077a"
+  },
+  "inputs_sha256": {
+    "assets.csv": "bf80906062ee87861adcf0d94accbf303b49b6c8c4f9060bbd3d5318dbeaef69",
+    "events_train.csv": "08b607f38a64a34601de1b578896ca2c8314977bc76eecdec8dddb253f641392",
+    "benign_windows_train_validation.csv": "d1f6e8040e4d616aeed60cbae67a836fa4c1e0381aaff56c7976c73be3e7e649"
+  },
+  "saved_at": "2026-11-06T22:52:54.800540+00:00"
+}

@@ -1,0 +1,61 @@
+asset_id,alert_time_utc,event_class,fault_type,confidence,evidence,recommended_action,suspected_channel,class_status
+PUMP-01,2025-08-12T19:27:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.5365934371948242,B2 S3 b1_single_channel: suction_pressure_kpa (amplitude:suction_pressure_kpa),Verify suction_pressure_kpa against a reference gauge.,suction_pressure_kpa,SUPPORTED
+PUMP-01,2025-08-13T13:53:00Z,MACHINE,SUCTION_STRAINER_CLOGGING,0.99,B2 S3 b1_machine_rule: no channel (amplitude:suction_pressure_kpa),Inspect / clean suction strainer.,,SUPPORTED
+PUMP-01,2025-08-13T16:53:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.618283196186879,B2 S3 b1_single_channel: bearing_temp_c (amplitude:bearing_temp_c),Verify bearing_temp_c against a reference gauge.,bearing_temp_c,SUPPORTED
+PUMP-01,2025-08-13T20:38:00Z,SENSOR,SENSOR_STUCK,0.05,B2 S3 stuck_new_samples: bearing_temp_c (stuck:bearing_temp_c),Check transmitter bearing_temp_c.,bearing_temp_c,SUPPORTED
+PUMP-01,2025-08-14T08:48:00Z,SENSOR,SENSOR_STUCK,0.05,B2 S3 stuck_new_samples: bearing_temp_c (stuck:bearing_temp_c),Check transmitter bearing_temp_c.,bearing_temp_c,SUPPORTED
+PUMP-01,2025-08-14T13:44:00Z,SENSOR,COMMUNICATION_LOSS,0.05,B2 S3 gateway_gap_15min: GATEWAY (gateway:GATEWAY),Check gateway / network; data gap.,GATEWAY,SUPPORTED
+PUMP-01,2025-08-15T04:28:00Z,SENSOR,SENSOR_STUCK,0.05,B2 S3 stuck_new_samples: bearing_temp_c (stuck:bearing_temp_c),Check transmitter bearing_temp_c.,bearing_temp_c,SUPPORTED
+PUMP-01,2025-08-16T14:53:00Z,MACHINE,SUCTION_STRAINER_CLOGGING,0.5970830917358398,B2 S3 b1_machine_rule: no channel (amplitude:suction_pressure_kpa),Inspect / clean suction strainer.,,SUPPORTED
+PUMP-01,2025-08-16T19:18:00Z,SENSOR,SENSOR_STUCK,0.05,B2 S3 stuck_new_samples: bearing_temp_c (stuck:bearing_temp_c),Check transmitter bearing_temp_c.,bearing_temp_c,SUPPORTED
+PUMP-01,2025-08-17T07:33:00Z,MACHINE,SUCTION_STRAINER_CLOGGING,0.7804164886474609,B2 S3 b1_machine_rule: no channel (amplitude:suction_pressure_kpa),Inspect / clean suction strainer.,,SUPPORTED
+PUMP-01,2025-08-17T08:18:00Z,SENSOR,SENSOR_STUCK,0.05,B2 S3 stuck_new_samples: bearing_temp_c (stuck:bearing_temp_c),Check transmitter bearing_temp_c.,bearing_temp_c,SUPPORTED
+PUMP-01,2025-08-17T22:08:00Z,SENSOR,SENSOR_STUCK,0.05,B2 S3 stuck_new_samples: bearing_temp_c (stuck:bearing_temp_c),Check transmitter bearing_temp_c.,bearing_temp_c,SUPPORTED
+PUMP-02,2025-12-02T17:55:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.5362497965494791,B2 S3 b1_single_channel: suction_pressure_kpa (amplitude:suction_pressure_kpa),Verify suction_pressure_kpa against a reference gauge.,suction_pressure_kpa,SUPPORTED
+PUMP-02,2025-12-03T02:12:00Z,SENSOR,SENSOR_NOISE_SPIKES,0.5486110846201578,B2 S3 b1_single_channel: suction_pressure_kpa (amplitude:vibration_accel_rms_g),Verify suction_pressure_kpa against a reference gauge.,suction_pressure_kpa,SUPPORTED
+PUMP-02,2025-12-03T22:06:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B2 S3 b1_single_channel: suction_pressure_kpa (amplitude:suction_pressure_kpa),Verify suction_pressure_kpa against a reference gauge.,suction_pressure_kpa,SUPPORTED
+PUMP-02,2025-12-04T22:06:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B2 S3 b1_single_channel: suction_pressure_kpa (amplitude:suction_pressure_kpa),Verify suction_pressure_kpa against a reference gauge.,suction_pressure_kpa,SUPPORTED
+PUMP-02,2025-12-05T19:43:00Z,MACHINE,BEARING_WEAR,0.5721680395397606,B2 S3 b1_machine_rule: no channel (amplitude:bearing_temp_c),Inspect pump bearing; plan replacement; check lubrication.,,SUPPORTED
+PUMP-02,2025-12-06T07:57:00Z,MACHINE,BEARING_WEAR,0.99,B2 S3 b1_machine_rule: no channel (variance:vibration_accel_rms_g),Inspect pump bearing; plan replacement; check lubrication.,,SUPPORTED
+PUMP-02,2025-12-06T22:32:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B2 S3 b1_single_channel: motor_winding_temp_c (amplitude:motor_winding_temp_c),Verify motor_winding_temp_c against a reference gauge.,motor_winding_temp_c,SUPPORTED
+PUMP-02,2025-12-07T10:32:00Z,MACHINE,UNKNOWN,0.5352806266530998,B2 S3 unknown_fallback_machine: no channel (amplitude:vibration_crest_factor),Anomaly without a supported cause; inspect pump and compare instruments.,,UNCERTAIN
+PUMP-02,2025-12-07T13:15:00Z,MACHINE,IMBALANCE,0.5880555510520935,B2 S3 b1_machine_rule: no channel (amplitude:vibration_rms_mm_s),Inspect impeller for fouling / damage; balance.,,SUPPORTED
+PUMP-02,2025-12-07T20:01:00Z,MACHINE,MISALIGNMENT,0.6186768412590027,B2 S3 b1_machine_rule: no channel (amplitude:vibration_rms_mm_s),Check coupling alignment.,,SUPPORTED
+PUMP-03,2026-03-04T00:01:00Z,MACHINE,DISCHARGE_RESTRICTION,0.7803459167480469,B2 S3 b1_machine_rule: no channel (amplitude:discharge_pressure_kpa),Check discharge valves and heat-exchanger fouling.,,SUPPORTED
+PUMP-03,2026-03-04T15:39:00Z,MACHINE,DISCHARGE_RESTRICTION,0.99,B2 S3 b1_machine_rule: no channel (amplitude:discharge_pressure_kpa),Check discharge valves and heat-exchanger fouling.,,SUPPORTED
+PUMP-03,2026-03-05T15:39:00Z,MACHINE,DISCHARGE_RESTRICTION,0.9595133463541666,B2 S3 b1_machine_rule: no channel (amplitude:discharge_pressure_kpa),Check discharge valves and heat-exchanger fouling.,,SUPPORTED
+PUMP-03,2026-03-06T06:21:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.6011098225911459,B2 S3 b1_single_channel: discharge_pressure_kpa (amplitude:discharge_pressure_kpa),Verify discharge_pressure_kpa against a reference gauge.,discharge_pressure_kpa,SUPPORTED
+PUMP-03,2026-03-07T06:21:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.6652081807454427,B2 S3 b1_single_channel: discharge_pressure_kpa (amplitude:discharge_pressure_kpa),Verify discharge_pressure_kpa against a reference gauge.,discharge_pressure_kpa,SUPPORTED
+PUMP-04,2025-06-17T00:50:00Z,MACHINE,DISCHARGE_RESTRICTION,0.5809842303936625,B2 S3 b1_machine_rule: no channel (amplitude:flow_m3_h),Check discharge valves and heat-exchanger fouling.,,SUPPORTED
+PUMP-04,2025-06-17T14:56:00Z,MACHINE,IMBALANCE,0.5038889249165853,B2 S3 b1_machine_rule: no channel (amplitude:vibration_rms_mm_s),Inspect impeller for fouling / damage; balance.,,SUPPORTED
+PUMP-04,2025-06-17T20:48:00Z,MACHINE,UNKNOWN,0.5482186016326629,B2 S3 unknown_fallback_machine: no channel (amplitude:vibration_accel_rms_g),Anomaly without a supported cause; inspect pump and compare instruments.,,UNCERTAIN
+PUMP-04,2025-06-18T03:58:00Z,MACHINE,IMBALANCE,0.5269592285156249,B2 S3 b1_machine_rule: no channel (amplitude:motor_speed_rpm),Inspect impeller for fouling / damage; balance.,,SUPPORTED
+PUMP-04,2025-06-18T10:45:00Z,MACHINE,BEARING_WEAR,0.99,B2 S3 b1_machine_rule: no channel (amplitude:vibration_accel_rms_g),Inspect pump bearing; plan replacement; check lubrication.,,SUPPORTED
+PUMP-04,2025-06-18T22:06:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B2 S3 b1_single_channel: motor_winding_temp_c (amplitude:vibration_rms_mm_s),Verify motor_winding_temp_c against a reference gauge.,motor_winding_temp_c,SUPPORTED
+PUMP-04,2025-06-18T23:07:00Z,MACHINE,BEARING_WEAR,0.6963516944118702,B2 S3 b1_machine_rule: no channel (variance:vibration_accel_rms_g),Inspect pump bearing; plan replacement; check lubrication.,,SUPPORTED
+PUMP-04,2025-06-19T16:39:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B2 S3 b1_single_channel: motor_winding_temp_c (amplitude:vibration_rms_mm_s),Verify motor_winding_temp_c against a reference gauge.,motor_winding_temp_c,SUPPORTED
+PUMP-04,2025-06-19T22:31:00Z,MACHINE,BEARING_WEAR,0.531728413811995,B2 S3 b1_machine_rule: no channel (amplitude:flow_m3_h),Inspect pump bearing; plan replacement; check lubrication.,,SUPPORTED
+PUMP-04,2025-06-20T15:19:00Z,MACHINE,BEARING_WEAR,0.99,B2 S3 b1_machine_rule: no channel (amplitude:vibration_rms_mm_s),Inspect pump bearing; plan replacement; check lubrication.,,SUPPORTED
+PUMP-04,2025-06-21T10:16:00Z,MACHINE,BEARING_WEAR,0.99,B2 S3 b1_machine_rule: no channel (amplitude:flow_m3_h),Inspect pump bearing; plan replacement; check lubrication.,,SUPPORTED
+PUMP-04,2025-06-21T16:34:00Z,MACHINE,IMBALANCE,0.99,B2 S3 b1_machine_rule: no channel (amplitude:vibration_rms_mm_s),Inspect impeller for fouling / damage; balance.,,SUPPORTED
+PUMP-04,2025-06-22T05:12:00Z,MACHINE,IMBALANCE,0.680094056096391,B2 S3 b1_machine_rule: no channel (variance:vibration_rms_mm_s),Inspect impeller for fouling / damage; balance.,,SUPPORTED
+PUMP-05,2026-01-21T09:30:00Z,SENSOR,SENSOR_STUCK,0.05,B2 S3 stuck_new_samples: discharge_pressure_kpa (stuck:discharge_pressure_kpa),Check transmitter discharge_pressure_kpa.,discharge_pressure_kpa,SUPPORTED
+PUMP-06,2025-10-07T16:37:00Z,SENSOR,SENSOR_STUCK,0.05,B2 S3 stuck_new_samples: bearing_temp_c (stuck:bearing_temp_c),Check transmitter bearing_temp_c.,bearing_temp_c,SUPPORTED
+PUMP-06,2025-10-09T07:54:00Z,MACHINE,SUCTION_STRAINER_CLOGGING,0.6566986038514889,B2 S3 b1_machine_rule: no channel (amplitude:suction_pressure_kpa),Inspect / clean suction strainer.,,SUPPORTED
+PUMP-06,2025-10-09T20:47:00Z,SENSOR,SENSOR_STUCK,0.05,B2 S3 stuck_new_samples: bearing_temp_c (stuck:bearing_temp_c),Check transmitter bearing_temp_c.,bearing_temp_c,SUPPORTED
+PUMP-06,2025-10-09T21:54:00Z,MACHINE,BEARING_WEAR,0.99,B2 S3 b1_machine_rule: no channel (amplitude:suction_pressure_kpa),Inspect pump bearing; plan replacement; check lubrication.,,SUPPORTED
+PUMP-06,2025-10-10T00:22:00Z,MACHINE,SUCTION_STRAINER_CLOGGING,0.898861732187906,B2 S3 b1_machine_rule: no channel (amplitude:suction_pressure_kpa),Inspect / clean suction strainer.,,SUPPORTED
+PUMP-06,2025-10-10T03:17:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.513673527403584,B2 S3 b1_single_channel: suction_pressure_kpa (amplitude:suction_pressure_kpa),Verify suction_pressure_kpa against a reference gauge.,suction_pressure_kpa,SUPPORTED
+PUMP-06,2025-10-10T13:18:00Z,MACHINE,SUCTION_STRAINER_CLOGGING,0.99,B2 S3 b1_machine_rule: no channel (amplitude:suction_pressure_kpa),Inspect / clean suction strainer.,,SUPPORTED
+PUMP-07,2025-05-14T15:25:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B2 S3 b1_single_channel: motor_winding_temp_c (amplitude:motor_winding_temp_c),Verify motor_winding_temp_c against a reference gauge.,motor_winding_temp_c,SUPPORTED
+PUMP-07,2025-05-15T02:52:00Z,MACHINE,DISCHARGE_RESTRICTION,0.99,B2 S3 b1_machine_rule: no channel (amplitude:flow_m3_h),Check discharge valves and heat-exchanger fouling.,,SUPPORTED
+PUMP-07,2025-05-15T14:52:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B2 S3 b1_single_channel: flow_m3_h (amplitude:flow_m3_h),Verify flow_m3_h against a reference gauge.,flow_m3_h,SUPPORTED
+PUMP-07,2025-05-16T06:07:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B2 S3 b1_single_channel: flow_m3_h (amplitude:flow_m3_h),Verify flow_m3_h against a reference gauge.,flow_m3_h,SUPPORTED
+PUMP-07,2025-05-16T18:07:00Z,MACHINE,DISCHARGE_RESTRICTION,0.99,B2 S3 b1_machine_rule: no channel (amplitude:flow_m3_h),Check discharge valves and heat-exchanger fouling.,,SUPPORTED
+PUMP-07,2025-05-16T22:58:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B2 S3 b1_single_channel: motor_winding_temp_c (amplitude:flow_m3_h),Verify motor_winding_temp_c against a reference gauge.,motor_winding_temp_c,SUPPORTED
+PUMP-07,2025-05-17T08:05:00Z,MACHINE,DISCHARGE_RESTRICTION,0.5832633972167969,B2 S3 b1_machine_rule: no channel (amplitude:flow_m3_h),Check discharge valves and heat-exchanger fouling.,,SUPPORTED
+PUMP-07,2025-05-17T15:17:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B2 S3 b1_single_channel: motor_winding_temp_c (amplitude:motor_winding_temp_c),Verify motor_winding_temp_c against a reference gauge.,motor_winding_temp_c,SUPPORTED
+PUMP-07,2025-05-18T04:11:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B2 S3 b1_single_channel: motor_winding_temp_c (amplitude:motor_winding_temp_c),Verify motor_winding_temp_c against a reference gauge.,motor_winding_temp_c,SUPPORTED
+PUMP-07,2025-05-18T04:29:00Z,MACHINE,UNKNOWN,0.6283338864644369,B2 S3 unknown_fallback_machine: no channel (amplitude:vibration_crest_factor),Anomaly without a supported cause; inspect pump and compare instruments.,,UNCERTAIN
+PUMP-07,2025-05-18T17:27:00Z,MACHINE,UNKNOWN,0.99,B2 S3 unknown_fallback_machine: no channel (amplitude:vibration_crest_factor),Anomaly without a supported cause; inspect pump and compare instruments.,,UNCERTAIN
+PUMP-07,2025-05-18T22:34:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.549536943435669,B2 S3 b1_single_channel: fluid_temp_c (amplitude:fluid_temp_c),Verify fluid_temp_c against a reference gauge.,fluid_temp_c,SUPPORTED

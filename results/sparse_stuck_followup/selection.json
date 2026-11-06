@@ -1,0 +1,185 @@
+{
+  "experiment": "Task008 sparse-stuck follow-up",
+  "selected_candidate": "S0",
+  "fallback_applied": true,
+  "s0_parity_with_causal_b1_train": true,
+  "s1_parity_with_sealed_task002_c1_core_fields": true,
+  "causality_rows": 486,
+  "causality_cutpoints": "162 stored causal-B1 train cutpoints x S1/S2/S3; prefix replay + drastic future-value mutation",
+  "determinism_seeds": [
+    "0",
+    "1",
+    "7",
+    "9"
+  ],
+  "train_table": [
+    {
+      "candidate": "S0",
+      "composite_score": 59.20719120527966,
+      "detected": 18,
+      "type_correct": 8,
+      "class_correct": 14,
+      "events": 26,
+      "false_episodes": 3,
+      "excess_repeats": 3,
+      "false_plus_excess": 6,
+      "nuisance_benign": 2,
+      "alerts": 43,
+      "sensor_events": 8,
+      "sensor_type_and_channel": 3,
+      "sensor_type_and_channel_non_gateway": 2,
+      "non_gateway_sensor_events": 7,
+      "channel_localization_among_hits": [
+        3,
+        4
+      ],
+      "wrong_channel_claims": [
+        1,
+        4
+      ],
+      "selective_diagnosis": [
+        8,
+        16,
+        26
+      ],
+      "unknown_first_diagnoses": 2,
+      "useful_diagnosis_delay": "not_implemented_in_session1",
+      "sparse_stuck_alerts": 0,
+      "sparse_stuck_alerts_outside_real_stuck": 0,
+      "real_sparse_stuck_events": "PUMP-01-E04",
+      "real_sparse_stuck_type_and_channel": 0,
+      "gate_failures": "",
+      "passes": false
+    },
+    {
+      "candidate": "S1",
+      "composite_score": 56.00452043409396,
+      "detected": 21,
+      "type_correct": 7,
+      "class_correct": 14,
+      "events": 26,
+      "false_episodes": 11,
+      "excess_repeats": 10,
+      "false_plus_excess": 21,
+      "nuisance_benign": 3,
+      "alerts": 75,
+      "sensor_events": 8,
+      "sensor_type_and_channel": 4,
+      "sensor_type_and_channel_non_gateway": 3,
+      "non_gateway_sensor_events": 7,
+      "channel_localization_among_hits": [
+        5,
+        6
+      ],
+      "wrong_channel_claims": [
+        1,
+        6
+      ],
+      "selective_diagnosis": [
+        7,
+        20,
+        26
+      ],
+      "unknown_first_diagnoses": 1,
+      "useful_diagnosis_delay": "not_implemented_in_session1",
+      "sparse_stuck_alerts": 24,
+      "sparse_stuck_alerts_outside_real_stuck": 23,
+      "real_sparse_stuck_events": "PUMP-01-E04",
+      "real_sparse_stuck_type_and_channel": 1,
+      "gate_failures": "type_below_8|burden_above_6|comparison_control_not_selectable",
+      "passes": false
+    },
+    {
+      "candidate": "S2",
+      "composite_score": 55.37542243325022,
+      "detected": 17,
+      "type_correct": 8,
+      "class_correct": 14,
+      "events": 26,
+      "false_episodes": 4,
+      "excess_repeats": 7,
+      "false_plus_excess": 11,
+      "nuisance_benign": 3,
+      "alerts": 52,
+      "sensor_events": 8,
+      "sensor_type_and_channel": 3,
+      "sensor_type_and_channel_non_gateway": 2,
+      "non_gateway_sensor_events": 7,
+      "channel_localization_among_hits": [
+        3,
+        4
+      ],
+      "wrong_channel_claims": [
+        1,
+        4
+      ],
+      "selective_diagnosis": [
+        8,
+        16,
+        26
+      ],
+      "unknown_first_diagnoses": 1,
+      "useful_diagnosis_delay": "not_implemented_in_session1",
+      "sparse_stuck_alerts": 0,
+      "sparse_stuck_alerts_outside_real_stuck": 0,
+      "real_sparse_stuck_events": "PUMP-01-E04",
+      "real_sparse_stuck_type_and_channel": 0,
+      "gate_failures": "detection_below_18|burden_above_6",
+      "passes": false
+    },
+    {
+      "candidate": "S3",
+      "composite_score": 58.62918796560097,
+      "detected": 19,
+      "type_correct": 9,
+      "class_correct": 15,
+      "events": 26,
+      "false_episodes": 7,
+      "excess_repeats": 7,
+      "false_plus_excess": 14,
+      "nuisance_benign": 3,
+      "alerts": 60,
+      "sensor_events": 8,
+      "sensor_type_and_channel": 4,
+      "sensor_type_and_channel_non_gateway": 3,
+      "non_gateway_sensor_events": 7,
+      "channel_localization_among_hits": [
+        4,
+        5
+      ],
+      "wrong_channel_claims": [
+        1,
+        5
+      ],
+      "selective_diagnosis": [
+        9,
+        18,
+        26
+      ],
+      "unknown_first_diagnoses": 1,
+      "useful_diagnosis_delay": "not_implemented_in_session1",
+      "sparse_stuck_alerts": 8,
+      "sparse_stuck_alerts_outside_real_stuck": 6,
+      "real_sparse_stuck_events": "PUMP-01-E04",
+      "real_sparse_stuck_type_and_channel": 1,
+      "gate_failures": "burden_above_6",
+      "passes": false
+    }
+  ],
+  "sealed_sha256": {
+    "src/retrofit_doctor/sparse_stuck.py": "6e9135d67ba93c0a6eb8f77206159bf87eecfbbe4bc3aff437a5277ecf205e84",
+    "src/retrofit_doctor/causal_b2.py": "9976d47a7b06298a6a6fa287efd3c812610c14d8110ca23dcb3bea4a85eb4b82",
+    "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+    "scripts/run_sparse_stuck.py": "52528e596bafa3a59958dfa4517f5f60aeb24b38c056546e267354ceec7dd0b1",
+    "scripts/run_causal_b2.py": "d77afebd33210805c72812ef9c3cbfe5a79031f7c55a3821f0a3aec88c65816b",
+    "scripts/run_b1.py": "83c6b591ddcd1d07b15dbdba08e26f7731f237c420201a87339ba0d0e39a4d3e",
+    "scripts/run_sensor_ablation.py": "57fa0191d724a82fa1e00166ec3008b3edab78a7953c7bd69b3a17700b059d49",
+    "vendor/benchmark/src/retrofit_sim/baselines.py": "4bf291d6a1834aa79ced8d2d862d0331fb60e3210630c4c1aa25744ebd7a27dc",
+    "vendor/benchmark/src/retrofit_sim/scoring.py": "5293c2e427d6181e0f24cfd64d617fc96d284c31a949410d3c88769a7e1802c2",
+    "docs/experiments/protocol_v1.json": "f018c40d4aec809e6496b8f7a8220176f821401e51321364295c0fa75cc02477",
+    "docs/tasks/008-sparse-stuck-followup.md": "4cd219844dde0bc69289ae96bcf3dbc9c5c54edd0bfa3ea2e8e4ee1edb2e077a"
+  },
+  "exposure": "validation previously inspected; selection on train only; validation check descriptive",
+  "sealed_at": "2026-11-06T22:56:32.813823+00:00",
+  "elapsed_s": 217.6
+}
