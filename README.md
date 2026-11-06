@@ -25,7 +25,7 @@ The interface and pitch are in English. [Russian working notes](README.ru.md) pr
 - Reviewed diagnostic experiments and sensor mask/restore evidence. The [engineering proposal](docs/engineering/DECISION_BRIEF.md) describes optional measurement points, mounting, cables/radio, local gateway/power and maintenance questions.
 - An [English presentation and offline PDF](presentation/README.md), with explicit prototype and field-validation limits.
 
-**Integration status, 7 November:** the Planner and experiments below are reviewed working slices. Final light-style UI and schematic integration is in progress under [Task006](docs/tasks/006-demo-integration.md). The blind-test export has not yet passed the final release gate. Task handoffs record completed scope; visual-direction approval is not final application acceptance.
+**Integration status, 7 November:** the light interface, interactive sensor schematic, reviewed experiment evidence and conditional physical proposal have passed [coordinator review](docs/tasks/006-coordinator-review.md). The blind-test export is in preparation and has not yet passed the final data-access gate. Final user application feedback and a timed spoken rehearsal remain outstanding; the light visual direction is approved.
 
 ## Measured evidence
 

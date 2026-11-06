@@ -16,9 +16,9 @@ Do not call Elomatic the data owner: the supplied brief names Business Turku as 
 
 ## What is working today?
 
-The reviewed slices include twelve assets from public metadata, time-bounded validation replay for PUMP-08/09, signal trends, actual baseline alerts, sensor coverage and retrospective evaluation. The Planner supports local draft decisions, editable lifecycle costs, source labels and a negative economics example. Sensor mask/restore experiments are complete and reviewed. An English presentation and offline PDF exist. Final visual and schematic integration is the next implementation task; do not claim that integration is complete until its review. The task handoffs are the authoritative checklist.
+The reviewed slices include twelve assets from public metadata, time-bounded validation replay for PUMP-08/09, signal trends, actual baseline alerts, sensor coverage and retrospective evaluation. The Planner supports local draft decisions, editable lifecycle costs, source labels and a negative economics example. Sensor mask/restore experiments are complete and reviewed. An English presentation and offline PDF exist. The light interface, interactive sensor schematic and conditional physical package have passed coordinator review after two correction rounds. The task handoffs are the authoritative checklist.
 
-Sources: docs/tasks/001-handoff.md; docs/tasks/003-coordinator-review.md; docs/tasks/004-coordinator-review.md; presentation/README.md. Update this answer after final integration.
+Sources: docs/tasks/001-handoff.md; docs/tasks/003-coordinator-review.md; docs/tasks/004-coordinator-review.md; docs/tasks/006-coordinator-review.md; presentation/README.md. Final user application feedback remains pending.
 
 ## How do you prevent future information from improving the answer?
 
@@ -84,6 +84,6 @@ Source: docs/engineering/DECISION_BRIEF.md. Four to eight weeks in the organizer
 
 ## What remains for submission and deployment?
 
-Submission still requires the final integrated demo, reviewed fixed-model test prediction CSV, run instructions and honest limitations. Test labels stay with organizers; without their scoring, test quality is unknown. Deployment additionally requires a real site design, measurement verification, operating procedures, support ownership and applicable independent approvals. A hackathon demonstration is not that deployment.
+The integrated demo, presentation, run instructions and limitations are prepared. The final fixed-model test prediction CSV is still in gated preparation at this revision. Test labels stay with organizers; without their scoring, test quality is unknown. Deployment additionally requires a real site design, measurement verification, operating procedures, support ownership and applicable independent approvals. A hackathon demonstration is not that deployment.
 
 Source: vendor/benchmark/CHALLENGE_BRIEF.md; docs/experiments/FROZEN_PROTOCOL.md. The release coordinator must verify current artifacts before answering that submission is complete.

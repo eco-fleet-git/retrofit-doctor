@@ -212,7 +212,7 @@
         "order": 4,
         "scope": "slide",
         "editable": true,
-        "alt": "Implemented Pump Detail replay of PUMP-08, showing time-bounded measurements and baseline evidence",
+        "alt": "Implemented light Pump Detail view: sensor schematic, source evidence and measurement gaps for PUMP-08",
         "position": {
           "left": 536,
           "top": 126,
@@ -223,14 +223,15 @@
         "fit": "contain",
         "asset": {
           "contentType": "image/png",
-          "uri": "library-file:fde1_bGliZmlsZV93RDlMLUF6RktzRHcyNjVFVEtYWEtB_FileDrive_dcce2ba5c4b881918df5697f961b5033"
+          "uri": "library-file:fde1_bGliZmlsZV9EQ0FHSFlPSkR3N3FwZmItOVdTbUN3_FileDrive_dcce2ba5c4b881918df5697f961b5033",
+          "byteLength": 249400
         }
       }
     ],
     "notes": {
       "id": "nt/kxr8wu",
       "kind": "notes",
-      "text": "We connect an alert to its evidence and a reviewable retrofit proposal. The screenshot is the implemented local dashboard, commit b783fce, reviewed 6 November 2026. All measurements are synthetic. No physical device is built. Source: README.md and review/task001/pump-detail-desktop.png in the private retrofit-doctor repository."
+      "text": "Retrofit Doctor connects an alert to its evidence and a reviewable retrofit proposal. The screenshot is the implemented local light interface, Task006, reviewed and committed at c63efdb on 7 November 2026. It shows the pump sensor schematic and actual causal baseline evidence; all measurements are synthetic. No physical device is built. Source: review/task006/03-pump08-alert-1440.png; docs/tasks/006-coordinator-review.md. The user approved the light visual direction; final user application review remains pending. This screenshot is not the unverified UX Pilot mockup."
     },
     "inheritedLayers": [
       {
@@ -1968,7 +1969,7 @@
         "order": 4,
         "scope": "slide",
         "editable": true,
-        "text": "Five B2 candidates rejected on train: fewer correct fault types\nand higher alert burden. Causal B1 retained.",
+        "text": "Nine new diagnostic candidates rejected; causal B1 retained.\nReproducibility requires the pinned environment and seed 0.",
         "position": {
           "left": 64,
           "top": 573,
@@ -1985,7 +1986,7 @@
         "paragraphs": [
           {
             "index": 1,
-            "text": "Five B2 candidates rejected on train: fewer correct fault types",
+            "text": "Nine new diagnostic candidates rejected; causal B1 retained.",
             "style": {
               "fontSize": 25,
               "color": "#006D70",
@@ -1994,7 +1995,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "Five B2 candidates rejected on train: fewer correct fault types",
+                "text": "Nine new diagnostic candidates rejected; causal B1 retained.",
                 "fontSize": 25,
                 "color": "#006D70",
                 "bold": false
@@ -2004,7 +2005,7 @@
           },
           {
             "index": 2,
-            "text": "and higher alert burden. Causal B1 retained.",
+            "text": "Reproducibility requires the pinned environment and seed 0.",
             "style": {
               "fontSize": 25,
               "color": "#006D70",
@@ -2013,7 +2014,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "and higher alert burden. Causal B1 retained.",
+                "text": "Reproducibility requires the pinned environment and seed 0.",
                 "fontSize": 25,
                 "color": "#006D70",
                 "bold": false
@@ -2072,7 +2073,7 @@
     "notes": {
       "id": "nt/azu784",
       "kind": "notes",
-      "text": "Exact scores: causal 76.01253946; original 78.01253946. Score is not accuracy. The two-point decrease follows a later first match for PUMP-09-E04: 2026-02-11 06:28 UTC versus original 2026-02-09 12:46, a 41 h 42 min delay. The type remains wrong and evidence points at vibration instead of the drifting current sensor. Diagnostic rules did not improve. The first 24-hour reference may contain degradation. Checks are recorded software evidence, not a universal proof for all inputs. Source: CAUSAL_B1_FINDINGS.md; results/causal_b1/comparison.csv and verification.json. Subsequent B2 experiments are not claimed by this slide.\nNew evidence, reviewed 6 November 2026: Task002 r2 train control C0 detected18/26, correctly typed8/26, false+excess6 over49 asset-days. C1:21/26,7/26,21; C2–C5:21/26,6/26,20. All five fail registered gates, so C0 remains selected. None of the rejected candidates was scored on validation. 59 tests passed;1547 new prefix comparisons and810 supplemental original train-cut comparisons had no failures. R1 is archived invalid due None/NaN representation instability; corrected r2 disclosed. Source: results/causal_b2/CAUSAL_B2_FINDINGS.md and selection.json, commit0b3fb89. This does not establish that all cadence-aware approaches fail."
+      "text": "Exact scores: causal 76.01253946; original 78.01253946. Score is not accuracy. The two-point decrease follows a later first match for PUMP-09-E04: 2026-02-11 06:28 UTC versus original 2026-02-09 12:46, a 41 h 42 min delay. The type remains wrong and evidence points at vibration instead of the drifting current sensor. Diagnostic rules did not improve. The first 24-hour reference may contain degradation. Checks are recorded software evidence, not a universal proof for all inputs. Source: CAUSAL_B1_FINDINGS.md; results/causal_b1/comparison.csv and verification.json. Subsequent B2 experiments are not claimed by this slide.\nNew evidence, reviewed 6 November 2026: Task002 r2 train control C0 detected18/26, correctly typed8/26, false+excess6 over49 asset-days. C1:21/26,7/26,21; C2–C5:21/26,6/26,20. All five fail registered gates, so C0 remains selected. None of the rejected candidates was scored on validation. 59 tests passed;1547 new prefix comparisons and810 supplemental original train-cut comparisons had no failures. R1 is archived invalid due None/NaN representation instability; corrected r2 disclosed. Source: results/causal_b2/CAUSAL_B2_FINDINGS.md and selection.json, commit0b3fb89. This does not establish that all cadence-aware approaches fail.\nFinal bounded research: five B2 candidates plus S2/S3 sparse follow-ups and R1/R2 regime/abstention candidates, nine new candidates total. None replaces causal B1. S3 total false+excess burden 14 vs 6 control. R1 burden unchanged, R2 type 7 vs 8 control. R1/R2 fail four-seed correctness; inherited B1 set iteration can change fault type. Reproducibility is conditional on pinned Python 3.13.16/dependencies and PYTHONHASHSEED=0 at startup, not seed invariance. E3 null comparison failures are separately disclosed and selection not rerun. Fleet-prior E4 not testable with eligible support; not scored. Sources: docs/experiments/RESULTS.md; results/sparse_stuck_followup/FINDINGS.md; results/regime_reference/FINDINGS.md. These are development-informed synthetic results; no general claim against all future methods."
     },
     "inheritedLayers": [
       {
