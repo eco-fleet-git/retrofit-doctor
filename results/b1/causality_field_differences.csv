@@ -1,0 +1,4 @@
+asset_id,split,cutoff_hours,alert_time_utc,field,full_run_value,prefix_run_value
+PUMP-09,validation,13,2026-02-09T12:46:00Z,evidence,B1 mode-aware z: motor_winding_temp_c deviates alone (z=-12.4),B1 mode-aware z: motor_winding_temp_c deviates alone (z=-20.1)
+PUMP-09,validation,18,2026-02-09T12:46:00Z,evidence,B1 mode-aware z: motor_winding_temp_c deviates alone (z=-12.4),B1 mode-aware z: motor_winding_temp_c deviates alone (z=-13.3)
+PUMP-09,validation,23,2026-02-09T12:46:00Z,evidence,B1 mode-aware z: motor_winding_temp_c deviates alone (z=-12.4),B1 mode-aware z: motor_winding_temp_c deviates alone (z=-12.7)

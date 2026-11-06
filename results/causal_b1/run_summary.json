@@ -1,0 +1,18 @@
+{
+  "parameters": {
+    "k": 6,
+    "persist_min": 15,
+    "reference_hours": 24
+  },
+  "parameter_selection": "unchanged from original train-only B1 search; no new tuning",
+  "diagnostic_rules": "unchanged vendor B1.diagnose",
+  "test_telemetry_used": false,
+  "vendor_files_verified": 189,
+  "causality_cutpoints": 209,
+  "normalized_feature_failures": 0,
+  "alert_field_failures": 0,
+  "numeric_tolerance": 1e-06,
+  "causal_code_sha256": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+  "comparison_script_sha256": "beef481c92e89908578803aa0eeacb11748a8232ee7ab9ec62ab50b41da49dc1",
+  "elapsed_s": 8.51
+}

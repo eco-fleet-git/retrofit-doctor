@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+.claude/
+work/
+*.log
+# The immutable organizer dataset stays local; restore from the supplied package.
+vendor/benchmark/data/
+vendor/benchmark/figures/
+vendor/benchmark/START_HERE.html

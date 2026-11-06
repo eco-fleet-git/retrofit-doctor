@@ -1,0 +1,9 @@
+{
+  "command": "PYTHONHASHSEED=0 python scripts/run_b1.py",
+  "test_command": "python -m pytest -q vendor/benchmark/tests/test_07_splits_leakage.py vendor/benchmark/tests/test_10_scoring.py",
+  "test_exit_code": 0,
+  "tests_passed": 10,
+  "script_sha256": "83c6b591ddcd1d07b15dbdba08e26f7731f237c420201a87339ba0d0e39a4d3e",
+  "requirements_lock_sha256": "09030a82f9d1c9344f798b332c497f575ed1e44f0f71bace5f027f36075afd53",
+  "all_report_assertions_passed": true
+}

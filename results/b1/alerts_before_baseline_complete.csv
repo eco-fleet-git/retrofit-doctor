@@ -1,0 +1,4 @@
+asset_id,alert_time_utc,event_class,fault_type,confidence,evidence,recommended_action,window_start_utc,hours_since_start,split
+PUMP-04,2025-06-16T00:38:00Z,MACHINE,DISCHARGE_RESTRICTION,0.5531123876571655,"B1 mode-aware z: flow_m3_h z=-6.6, motor_speed_rpm z=-6.0",Check discharge valves and heat-exchanger fouling.,2025-06-16T00:00:00Z,0.6333333333333333,train
+PUMP-04,2025-06-16T22:29:00Z,MACHINE,DISCHARGE_RESTRICTION,0.5699060360590616,"B1 mode-aware z: flow_m3_h z=-6.8, motor_power_kw z=-6.2, motor_speed_rpm z=-6.2",Check discharge valves and heat-exchanger fouling.,2025-06-16T00:00:00Z,22.483333333333334,train
+PUMP-09,2026-02-09T12:46:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B1 mode-aware z: motor_winding_temp_c deviates alone (z=-12.4),Verify motor_winding_temp_c against a reference gauge.,2026-02-09T00:00:00Z,12.766666666666667,validation

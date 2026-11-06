@@ -1,0 +1,15 @@
+# Task 001 — Claude Code: first useful local demo
+
+Owner: actual Claude Code. Stage: WORKING PROTOTYPE. Budget: 90 minutes, preserve partial result if blocked. User authorization: build local Retrofit Doctor, English UI, first version 7 Nov noon Berlin. No physical hardware.
+
+Read AGENTS.md, CLAUDE.md, docs/PROJECT_PLAN.md, README.md, CAUSAL_B1_FINDINGS.md and diagrams/README.md. If present read docs/ux prompts and UI contract. Visual direction is a working draft, not user-approved design. Implement in web/ and scripts/export_demo.py; focused tests may go in tests/test_demo_export.py. Do not change existing detector, baseline reports, vendor or helper-owned documentation. No Git mutations; return a reviewable diff.
+
+Deliver a small local browser application (React/TypeScript with a minimal build tool is acceptable; inspect installed versions/docs). Avoid server/database/auth/cloud. Build a deterministic JSON exporter from verified asset metadata, results/causal_b1 and train/validation features; **filter assets before loading features**, never test telemetry. Bundled demonstration data must be small, provenance-bearing and synthetic-labeled. Capture sample intervals and actual source units. Keep per-channel sparse sampling honest.
+
+Implement Fleet Overview and Pump Detail first. List all12 pump metadata; test10–12 show coverage-only/blind status, not guessed diagnoses. Demo replay targets PUMP-08/PUMP-09 with a visible as-of clock. Use existing causalB1 alert_time<=clock, trend timestamps<=clock, warmup/unknown/stale states. Diagnostic truth cannot enter the inference view; expose any retrospective event annotation only in a separately labeled evaluation panel. Do not turn a late/mistyped B1 alert into a successful diagnosis in copy.
+
+Provide evidence cards with observed features, detector explanation, alternative interpretations, missing measurement and operator next check. No probability percentages unless actually calibrated; existing detector confidence must be described as rule confidence, not failure probability. UI cannot send controls to equipment.
+
+Add skeletal Retrofit Planner and Evidence pages only after core replay works. Planner must distinguish existing measured channels / proposed additional hardware / assumptions. Evidence reads existing report numbers without manual invention. A retrofit comparison toggle may only use real experiment outputs; show Not yet evaluated until supplied.
+
+Acceptance: install/build/run instructions, deterministic exporter, no future samples in rendered bundle at selected cutoff, testassets metadataonly, baseline figures exact, semantic controls/keyboard focus, useful empty/error states, desktop1440 and narrow390 smoke. Write handoff to docs/tasks/001-handoff.md with exact commands/results/remaining limitations. Do not claim UX Pilot design approval or field validation. Do not add screenshots or tests that merely mirror the implementation. No new dependencies unless required for this slice. No permission bypass/security changes.

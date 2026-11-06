@@ -1,0 +1,91 @@
+{
+  "errors": [],
+  "layouts": [
+    {
+      "width": 736,
+      "scroll": 736,
+      "labels": 12,
+      "buttonCount": 12
+    },
+    {
+      "width": 736,
+      "scroll": 736,
+      "labels": 12,
+      "buttonCount": 12
+    },
+    {
+      "width": 320,
+      "scroll": 320,
+      "labels": 12,
+      "buttonCount": 12
+    },
+    {
+      "width": 320,
+      "scroll": 320,
+      "labels": 12,
+      "buttonCount": 12
+    }
+  ],
+  "verified": [
+    {
+      "pump": "PUMP-01",
+      "channels": 11,
+      "displayedRowsPresent": 9
+    },
+    {
+      "pump": "PUMP-02",
+      "channels": 13,
+      "displayedRowsPresent": 11
+    },
+    {
+      "pump": "PUMP-03",
+      "channels": 4,
+      "displayedRowsPresent": 4
+    },
+    {
+      "pump": "PUMP-04",
+      "channels": 14,
+      "displayedRowsPresent": 12
+    },
+    {
+      "pump": "PUMP-05",
+      "channels": 4,
+      "displayedRowsPresent": 4
+    },
+    {
+      "pump": "PUMP-06",
+      "channels": 9,
+      "displayedRowsPresent": 7
+    },
+    {
+      "pump": "PUMP-07",
+      "channels": 13,
+      "displayedRowsPresent": 11
+    },
+    {
+      "pump": "PUMP-08",
+      "channels": 11,
+      "displayedRowsPresent": 9
+    },
+    {
+      "pump": "PUMP-09",
+      "channels": 12,
+      "displayedRowsPresent": 10
+    },
+    {
+      "pump": "PUMP-10",
+      "channels": 11,
+      "displayedRowsPresent": 9
+    },
+    {
+      "pump": "PUMP-11",
+      "channels": 6,
+      "displayedRowsPresent": 6
+    },
+    {
+      "pump": "PUMP-12",
+      "channels": 13,
+      "displayedRowsPresent": 11
+    }
+  ]
+}

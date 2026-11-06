@@ -1,0 +1,263 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1160" viewBox="0 0 1800 1160">
+<rect width="1800" height="1160" fill="#ffffff"/>
+<style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#183344} .secondary{fill:#536774}</style>
+<text x="46" y="62" font-size="31" text-anchor="start" font-weight="600">RETROFIT DOCTOR  /  ОСНАЩЕНИЕ 12 НАСОСОВ</text>
+<text x="46" y="102" font-size="22" text-anchor="start" font-weight="400">12 независимых модельных контуров на 6 условных объектах. Соединения в пары не заданы.</text>
+<text x="46" y="137" font-size="19" text-anchor="start" font-weight="400">Число в ячейке — штатный интервал нового измерения. «—» означает, что измеряемого канала нет.</text>
+<text x="46" y="194" font-size="18" text-anchor="start" font-weight="600">Насос</text>
+<text x="194" y="194" font-size="18" text-anchor="start" font-weight="600">Контур / объект</text>
+<text x="438" y="194" font-size="18" text-anchor="start" font-weight="600">Выборка</text>
+<text x="565" y="194" font-size="18" text-anchor="start" font-weight="600">Уровень</text>
+<text x="662" y="194" font-size="18" text-anchor="start" font-weight="600">Управление</text>
+<text x="818" y="194" font-size="18" text-anchor="middle" font-weight="600">Pвх</text>
+<text x="898" y="194" font-size="18" text-anchor="middle" font-weight="600">Pвых</text>
+<text x="978" y="194" font-size="18" text-anchor="middle" font-weight="600">Tж</text>
+<text x="1058" y="194" font-size="18" text-anchor="middle" font-weight="600">Q</text>
+<text x="1138" y="194" font-size="18" text-anchor="middle" font-weight="600">I</text>
+<text x="1218" y="194" font-size="18" text-anchor="middle" font-weight="600">W</text>
+<text x="1298" y="194" font-size="18" text-anchor="middle" font-weight="600">n</text>
+<text x="1378" y="194" font-size="18" text-anchor="middle" font-weight="600">Tоб</text>
+<text x="1458" y="194" font-size="18" text-anchor="middle" font-weight="600">V × 3</text>
+<text x="1538" y="194" font-size="18" text-anchor="middle" font-weight="600">Tп</text>
+<text x="1618" y="194" font-size="18" text-anchor="middle" font-weight="600">x</text>
+<text x="1698" y="194" font-size="18" text-anchor="middle" font-weight="600">Tвоз</text>
+<line x1="34" y1="259" x2="1766" y2="259" stroke="#dce4e8"/>
+<text x="46" y="230" font-size="20" text-anchor="start" font-weight="400">PUMP-01</text>
+<text x="194" y="226" font-size="18" text-anchor="start" font-weight="400">Морская вода</text>
+<text x="194" y="248" font-size="15" text-anchor="start" font-weight="400">Судно A</text>
+<text x="438" y="230" font-size="18" text-anchor="start" font-weight="400">Обучение</text>
+<text x="565" y="230" font-size="19" text-anchor="start" font-weight="400">T1</text>
+<text x="662" y="230" font-size="16" text-anchor="start" font-weight="400">VFD · T</text>
+<text x="818" y="230" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="898" y="230" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="978" y="230" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1058" y="230" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1138" y="230" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1218" y="230" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1298" y="230" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1378" y="230" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1458" y="230" font-size="18" text-anchor="middle" font-weight="400">5 мин</text>
+<text x="1538" y="230" font-size="18" text-anchor="middle" font-weight="400">5 мин</text>
+<text x="1618" y="230" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1698" y="230" font-size="18" text-anchor="middle" font-weight="400">10 с</text>
+<line x1="34" y1="311" x2="1766" y2="311" stroke="#dce4e8"/>
+<text x="46" y="282" font-size="20" text-anchor="start" font-weight="400">PUMP-02</text>
+<text x="194" y="278" font-size="18" text-anchor="start" font-weight="400">Морская вода</text>
+<text x="194" y="300" font-size="15" text-anchor="start" font-weight="400">Судно A</text>
+<text x="438" y="282" font-size="18" text-anchor="start" font-weight="400">Обучение</text>
+<text x="565" y="282" font-size="19" text-anchor="start" font-weight="400">T2</text>
+<text x="662" y="282" font-size="16" text-anchor="start" font-weight="400">VFD · T</text>
+<text x="818" y="282" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="898" y="282" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="978" y="282" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1058" y="282" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1138" y="282" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1218" y="282" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1298" y="282" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1378" y="282" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1458" y="282" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1538" y="282" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1618" y="282" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1698" y="282" font-size="18" text-anchor="middle" font-weight="400">10 с</text>
+<line x1="34" y1="363" x2="1766" y2="363" stroke="#dce4e8"/>
+<text x="46" y="334" font-size="20" text-anchor="start" font-weight="400">PUMP-03</text>
+<text x="194" y="330" font-size="18" text-anchor="start" font-weight="400">Пресная вода LT</text>
+<text x="194" y="352" font-size="15" text-anchor="start" font-weight="400">Судно A</text>
+<text x="438" y="334" font-size="18" text-anchor="start" font-weight="400">Обучение</text>
+<text x="565" y="334" font-size="19" text-anchor="start" font-weight="400">T0</text>
+<text x="662" y="334" font-size="16" text-anchor="start" font-weight="400">Постоянная</text>
+<text x="818" y="334" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="898" y="334" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="978" y="334" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1058" y="334" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1138" y="334" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1218" y="334" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1298" y="334" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1378" y="334" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1458" y="334" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1538" y="334" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1618" y="334" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1698" y="334" font-size="18" text-anchor="middle" font-weight="400">10 с</text>
+<line x1="34" y1="415" x2="1766" y2="415" stroke="#dce4e8"/>
+<text x="46" y="386" font-size="20" text-anchor="start" font-weight="400">PUMP-04</text>
+<text x="194" y="382" font-size="18" text-anchor="start" font-weight="400">Промышленное CW</text>
+<text x="194" y="404" font-size="15" text-anchor="start" font-weight="400">Завод C</text>
+<text x="438" y="386" font-size="18" text-anchor="start" font-weight="400">Обучение</text>
+<text x="565" y="386" font-size="19" text-anchor="start" font-weight="400">T2</text>
+<text x="662" y="386" font-size="16" text-anchor="start" font-weight="400">VFD · P</text>
+<text x="818" y="386" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="898" y="386" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="978" y="386" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1058" y="386" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1138" y="386" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1218" y="386" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1298" y="386" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1378" y="386" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1458" y="386" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1538" y="386" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1618" y="386" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1698" y="386" font-size="18" text-anchor="middle" font-weight="400">10 с</text>
+<line x1="34" y1="467" x2="1766" y2="467" stroke="#dce4e8"/>
+<text x="46" y="438" font-size="20" text-anchor="start" font-weight="400">PUMP-05</text>
+<text x="194" y="434" font-size="18" text-anchor="start" font-weight="400">Промышленное CW</text>
+<text x="194" y="456" font-size="15" text-anchor="start" font-weight="400">Завод C</text>
+<text x="438" y="438" font-size="18" text-anchor="start" font-weight="400">Обучение</text>
+<text x="565" y="438" font-size="19" text-anchor="start" font-weight="400">T0</text>
+<text x="662" y="438" font-size="16" text-anchor="start" font-weight="400">Постоянная</text>
+<text x="818" y="438" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="898" y="438" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="978" y="438" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1058" y="438" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1138" y="438" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1218" y="438" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1298" y="438" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1378" y="438" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1458" y="438" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1538" y="438" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1618" y="438" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1698" y="438" font-size="18" text-anchor="middle" font-weight="400">10 с</text>
+<line x1="34" y1="519" x2="1766" y2="519" stroke="#dce4e8"/>
+<text x="46" y="490" font-size="20" text-anchor="start" font-weight="400">PUMP-06</text>
+<text x="194" y="486" font-size="18" text-anchor="start" font-weight="400">Горячая вода</text>
+<text x="194" y="508" font-size="15" text-anchor="start" font-weight="400">Завод D</text>
+<text x="438" y="490" font-size="18" text-anchor="start" font-weight="400">Обучение</text>
+<text x="565" y="490" font-size="19" text-anchor="start" font-weight="400">T1</text>
+<text x="662" y="490" font-size="16" text-anchor="start" font-weight="400">Клапан</text>
+<text x="818" y="490" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="898" y="490" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="978" y="490" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1058" y="490" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1138" y="490" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1218" y="490" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1298" y="490" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1378" y="490" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1458" y="490" font-size="18" text-anchor="middle" font-weight="400">5 мин</text>
+<text x="1538" y="490" font-size="18" text-anchor="middle" font-weight="400">5 мин</text>
+<text x="1618" y="490" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1698" y="490" font-size="18" text-anchor="middle" font-weight="400">10 с</text>
+<line x1="34" y1="571" x2="1766" y2="571" stroke="#dce4e8"/>
+<text x="46" y="542" font-size="20" text-anchor="start" font-weight="400">PUMP-07</text>
+<text x="194" y="538" font-size="18" text-anchor="start" font-weight="400">Морская вода</text>
+<text x="194" y="560" font-size="15" text-anchor="start" font-weight="400">Судно B</text>
+<text x="438" y="542" font-size="18" text-anchor="start" font-weight="400">Обучение</text>
+<text x="565" y="542" font-size="19" text-anchor="start" font-weight="400">T2</text>
+<text x="662" y="542" font-size="16" text-anchor="start" font-weight="400">VFD · T</text>
+<text x="818" y="542" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="898" y="542" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="978" y="542" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1058" y="542" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1138" y="542" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1218" y="542" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1298" y="542" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1378" y="542" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1458" y="542" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1538" y="542" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1618" y="542" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1698" y="542" font-size="18" text-anchor="middle" font-weight="400">10 с</text>
+<line x1="34" y1="623" x2="1766" y2="623" stroke="#dce4e8"/>
+<text x="46" y="594" font-size="20" text-anchor="start" font-weight="400">PUMP-08</text>
+<text x="194" y="590" font-size="18" text-anchor="start" font-weight="400">Морская вода</text>
+<text x="194" y="612" font-size="15" text-anchor="start" font-weight="400">Судно B</text>
+<text x="438" y="594" font-size="18" text-anchor="start" font-weight="400">Проверка</text>
+<text x="565" y="594" font-size="19" text-anchor="start" font-weight="400">T1</text>
+<text x="662" y="594" font-size="16" text-anchor="start" font-weight="400">VFD · T</text>
+<text x="818" y="594" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="898" y="594" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="978" y="594" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1058" y="594" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1138" y="594" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1218" y="594" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1298" y="594" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1378" y="594" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1458" y="594" font-size="18" text-anchor="middle" font-weight="400">5 мин</text>
+<text x="1538" y="594" font-size="18" text-anchor="middle" font-weight="400">5 мин</text>
+<text x="1618" y="594" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1698" y="594" font-size="18" text-anchor="middle" font-weight="400">10 с</text>
+<line x1="34" y1="675" x2="1766" y2="675" stroke="#dce4e8"/>
+<text x="46" y="646" font-size="20" text-anchor="start" font-weight="400">PUMP-09</text>
+<text x="194" y="642" font-size="18" text-anchor="start" font-weight="400">Промышленное CW</text>
+<text x="194" y="664" font-size="15" text-anchor="start" font-weight="400">Завод C</text>
+<text x="438" y="646" font-size="18" text-anchor="start" font-weight="400">Проверка</text>
+<text x="565" y="646" font-size="19" text-anchor="start" font-weight="400">T2</text>
+<text x="662" y="646" font-size="16" text-anchor="start" font-weight="400">Постоянная</text>
+<text x="818" y="646" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="898" y="646" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="978" y="646" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1058" y="646" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1138" y="646" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1218" y="646" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1298" y="646" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1378" y="646" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1458" y="646" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1538" y="646" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1618" y="646" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1698" y="646" font-size="18" text-anchor="middle" font-weight="400">10 с</text>
+<rect x="34" y="677" width="1732" height="50" fill="#edf4fa"/>
+<line x1="34" y1="727" x2="1766" y2="727" stroke="#dce4e8"/>
+<text x="46" y="698" font-size="20" text-anchor="start" font-weight="600">PUMP-10</text>
+<text x="194" y="694" font-size="18" text-anchor="start" font-weight="400">Морская вода</text>
+<text x="194" y="716" font-size="15" text-anchor="start" font-weight="400">Судно C</text>
+<text x="438" y="698" font-size="18" text-anchor="start" font-weight="400">Тест</text>
+<text x="565" y="698" font-size="19" text-anchor="start" font-weight="400">T1</text>
+<text x="662" y="698" font-size="16" text-anchor="start" font-weight="400">VFD · T</text>
+<text x="818" y="698" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="898" y="698" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="978" y="698" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1058" y="698" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1138" y="698" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1218" y="698" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1298" y="698" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1378" y="698" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1458" y="698" font-size="18" text-anchor="middle" font-weight="400">5 мин</text>
+<text x="1538" y="698" font-size="18" text-anchor="middle" font-weight="400">5 мин</text>
+<text x="1618" y="698" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1698" y="698" font-size="18" text-anchor="middle" font-weight="400">10 с</text>
+<rect x="34" y="729" width="1732" height="50" fill="#edf4fa"/>
+<line x1="34" y1="779" x2="1766" y2="779" stroke="#dce4e8"/>
+<text x="46" y="750" font-size="20" text-anchor="start" font-weight="600">PUMP-11</text>
+<text x="194" y="746" font-size="18" text-anchor="start" font-weight="400">Промышленное CW</text>
+<text x="194" y="768" font-size="15" text-anchor="start" font-weight="400">Завод E</text>
+<text x="438" y="750" font-size="18" text-anchor="start" font-weight="400">Тест</text>
+<text x="565" y="750" font-size="19" text-anchor="start" font-weight="400">T0</text>
+<text x="662" y="750" font-size="16" text-anchor="start" font-weight="400">VFD · P</text>
+<text x="818" y="750" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="898" y="750" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="978" y="750" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1058" y="750" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1138" y="750" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1218" y="750" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1298" y="750" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1378" y="750" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1458" y="750" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1538" y="750" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1618" y="750" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1698" y="750" font-size="18" text-anchor="middle" font-weight="400">10 с</text>
+<rect x="34" y="781" width="1732" height="50" fill="#edf4fa"/>
+<line x1="34" y1="831" x2="1766" y2="831" stroke="#dce4e8"/>
+<text x="46" y="802" font-size="20" text-anchor="start" font-weight="600">PUMP-12</text>
+<text x="194" y="798" font-size="18" text-anchor="start" font-weight="400">Горячая вода</text>
+<text x="194" y="820" font-size="15" text-anchor="start" font-weight="400">Завод D</text>
+<text x="438" y="802" font-size="18" text-anchor="start" font-weight="400">Тест</text>
+<text x="565" y="802" font-size="19" text-anchor="start" font-weight="400">T2</text>
+<text x="662" y="802" font-size="16" text-anchor="start" font-weight="400">Клапан</text>
+<text x="818" y="802" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="898" y="802" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="978" y="802" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1058" y="802" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1138" y="802" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1218" y="802" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1298" y="802" font-size="18" text-anchor="middle" font-weight="400">—</text>
+<text x="1378" y="802" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1458" y="802" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1538" y="802" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1618" y="802" font-size="18" text-anchor="middle" font-weight="400">1 с</text>
+<text x="1698" y="802" font-size="18" text-anchor="middle" font-weight="400">10 с</text>
+<text x="46" y="902" font-size="18" text-anchor="start" font-weight="400">Pвх — перед насосом, после входного фильтра; Pвых — после насоса. Это не перепад давления на фильтре или теплообменнике.</text>
+<text x="46" y="932" font-size="18" text-anchor="start" font-weight="400">Tж — жидкость у насоса (точная врезка не задана); Q — расход в трубе; x — обратная связь положения клапана.</text>
+<text x="46" y="962" font-size="18" text-anchor="start" font-weight="400">I — ток мотора; W — электрическая мощность; n — измеряемые обороты привода; Tоб — температура обмотки мотора.</text>
+<text x="46" y="992" font-size="18" text-anchor="start" font-weight="400">V × 3 — виброскорость RMS, виброускорение RMS и пик-фактор на подшипниковом корпусе насоса; Tп — его температура.</text>
+<text x="46" y="1022" font-size="18" text-anchor="start" font-weight="400">Tвоз — воздух в помещении. VFD — частотный привод; T/P — управление по температуре/давлению.</text>
+<text x="46" y="1052" font-size="18" text-anchor="start" font-weight="400">V и Tп: T1 — раз в 5 минут, T2 — раз в секунду. Дополнительно у T1/T2 есть виброзаписи раз в 4 часа работы.</text>
+<text x="46" y="1082" font-size="18" text-anchor="start" font-weight="400">Нет полного набора температур на четырёх патрубках теплообменника. Паспортные обороты не равны измеряемому каналу n.</text>
+<text x="46" y="1112" font-size="16" text-anchor="start" font-weight="400">Источник: assets.csv, DATA_DICTIONARY.md и sensors.py из RETROFIT AI 2026. Только паспортные данные, без анализа test-телеметрии.</text>
+</svg>

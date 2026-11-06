@@ -1,0 +1,13 @@
+asset_id,site,profile,split,tier,suction_pressure_kpa,discharge_pressure_kpa,fluid_temp_c,flow_m3_h,motor_current_a,motor_power_kw,motor_speed_rpm,motor_winding_temp_c,vibration_rms_mm_s,bearing_temp_c,valve_position_pct,ambient_temp_c
+PUMP-01,Судно A,SHIP_SW_COOLING,train,T1_RETROFIT,1 с,1 с,1 с,—,1 с,1 с,1 с,—,5 мин,5 мин,—,10 с
+PUMP-02,Судно A,SHIP_SW_COOLING,train,T2_FULL,1 с,1 с,1 с,1 с,1 с,1 с,1 с,1 с,1 с,1 с,—,10 с
+PUMP-03,Судно A,SHIP_LT_FRESHWATER,train,T0_LEGACY,—,1 с,1 с,—,1 с,—,—,—,—,—,—,10 с
+PUMP-04,Завод C,INDUSTRIAL_CW,train,T2_FULL,1 с,1 с,1 с,1 с,1 с,1 с,1 с,1 с,1 с,1 с,1 с,10 с
+PUMP-05,Завод C,INDUSTRIAL_CW,train,T0_LEGACY,—,1 с,1 с,—,1 с,—,—,—,—,—,—,10 с
+PUMP-06,Завод D,PROCESS_TRANSFER,train,T1_RETROFIT,1 с,1 с,1 с,—,1 с,—,—,—,5 мин,5 мин,—,10 с
+PUMP-07,Судно B,SHIP_SW_COOLING,train,T2_FULL,1 с,1 с,1 с,1 с,1 с,1 с,1 с,1 с,1 с,1 с,—,10 с
+PUMP-08,Судно B,SHIP_SW_COOLING,validation,T1_RETROFIT,1 с,1 с,1 с,—,1 с,1 с,1 с,—,5 мин,5 мин,—,10 с
+PUMP-09,Завод C,INDUSTRIAL_CW,validation,T2_FULL,1 с,1 с,1 с,1 с,1 с,1 с,—,1 с,1 с,1 с,—,10 с
+PUMP-10,Судно C,SHIP_SW_COOLING,test,T1_RETROFIT,1 с,1 с,1 с,—,1 с,1 с,1 с,—,5 мин,5 мин,—,10 с
+PUMP-11,Завод E,INDUSTRIAL_CW,test,T0_LEGACY,—,1 с,1 с,—,1 с,1 с,1 с,—,—,—,—,10 с
+PUMP-12,Завод D,PROCESS_TRANSFER,test,T2_FULL,1 с,1 с,1 с,1 с,1 с,1 с,—,1 с,1 с,1 с,1 с,10 с
