@@ -1,6 +1,6 @@
 # Jury questions — evidence-backed answers
 
-6 November 2026. English speaking notes. Current measured diagnostic release: causal B1. Refresh implemented-feature statements after the final integration review. Sources are repository-relative for rehearsal; they are not claims of an external deployment.
+7 November 2026. English speaking notes. Current measured diagnostic release: causal B1. Refresh implemented-feature statements after the final integration review. Sources are repository-relative for rehearsal; they are not claims of an external deployment.
 
 ## What is Retrofit Doctor?
 
@@ -16,9 +16,9 @@ Do not call Elomatic the data owner: the supplied brief names Business Turku as 
 
 ## What is working today?
 
-The reviewed first slice includes twelve assets from public metadata, time-bounded validation replay for PUMP-08/09, signal trends, actual baseline alerts, sensor coverage and retrospective evaluation. A first English presentation and offline PDF exist. The full Planner, schematic integration and sensor ablation must only be described as working once their implementation and evidence reviews pass. The task handoffs are the authoritative checklist.
+The reviewed slices include twelve assets from public metadata, time-bounded validation replay for PUMP-08/09, signal trends, actual baseline alerts, sensor coverage and retrospective evaluation. The Planner supports local draft decisions, editable lifecycle costs, source labels and a negative economics example. Sensor mask/restore experiments are complete and reviewed. An English presentation and offline PDF exist. Final visual and schematic integration is the next implementation task; do not claim that integration is complete until its review. The task handoffs are the authoritative checklist.
 
-Sources: docs/tasks/001-handoff.md; presentation/README.md. This answer is intentionally dated and must be updated for the final rehearsal.
+Sources: docs/tasks/001-handoff.md; docs/tasks/003-coordinator-review.md; docs/tasks/004-coordinator-review.md; presentation/README.md. Update this answer after final integration.
 
 ## How do you prevent future information from improving the answer?
 
@@ -38,6 +38,8 @@ The first B2 experiment did not. Five candidates used cadence/quality states and
 
 A specific lesson was false “stuck sensor” alerts on normally quantized, sparse bearing temperatures. Identical successive readings are not enough evidence that an instrument has failed. Sources: results/causal_b2/CAUSAL_B2_FINDINGS.md and selection.json. This result does not establish that all cadence-aware methods fail.
 
+The bounded sparse-sensor follow-up also retained the control. Its reference-aware rule reduced sparse alerts outside true stuck events from 23 to 6, but total false plus excessive repeat burden remained 14 versus the control's 6. It failed the workload gate. Only one labeled sparse stuck event was eligible, so this does not establish general effectiveness. Source: results/sparse_stuck_followup/FINDINGS.md and docs/tasks/008-coordinator-review.md. The separate regime/abstention experiment is still in progress at this revision.
+
 ## Where is the AI?
 
 The current inference uses auditable statistical normalization and explicit diagnostic rules. The product is not presented as a trained language model diagnosing equipment, and no generative model invents the live evidence. We use coding/design assistants in development. More complex inference would have to outperform the retained baseline under the same causal, diagnostic and workload checks before replacing it.
@@ -46,9 +48,15 @@ Source: src/retrofit_doctor/causal_b1.py; results/causal_b2/CAUSAL_B2_FINDINGS.m
 
 ## Why would another sensor help?
 
-It adds a different physical observation. Suction pressure can add inlet context; a vibration/temperature point can add mechanical-condition context; suitable flow, head and input-power measurements can support operating-point assessment. None uniquely identifies every cause. We test information value by masking and restoring groups already present on richer synthetic assets while keeping the event denominator fixed. Until that experiment is completed, these benefits remain engineering hypotheses. It does not simulate the installation quality of a real sensor.
+It adds a different physical observation. Suction pressure can add inlet context; a vibration/temperature point can add mechanical-condition context; suitable flow, head and input-power measurements can support operating-point assessment. None uniquely identifies every cause. We tested information value by masking and restoring groups already present on richer synthetic assets while keeping the event denominator fixed. Across ten train events, retaining the vibration/temperature group gave 9 detections and 2 correct types; masking it gave 8 and 0. Effects were mixed: masking flow/power lost one detection but gained one correct type. A paired event was detected only when vibration/temperature was absent. Restoring each group reproduced the original feature frame. This is evidence about information sensitivity of the unchanged detector, not installation quality or a demonstrated return on real hardware.
 
-Sources: docs/engineering/DECISION_BRIEF.md; docs/tasks/004-sensor-ablation.md. Replace the final sentence about execution status only after reviewing measured artifacts.
+Sources: docs/engineering/DECISION_BRIEF.md; results/sensor_ablation/FINDINGS.md; docs/tasks/004-coordinator-review.md. The separate PUMP-09 check was descriptive on previously inspected validation data. The reported delay here is correct-type delay, not necessarily correct sensor-channel diagnosis delay.
+
+## Can another pump provide a healthy reference immediately?
+
+Not from the proposed reference design on this train set. A check requiring comparable near-rated operation, label-screened fit windows and at least three eligible reference assets found no supported channel in any held-out fold. We keep this as an infeasible hypothesis under the stated design instead of relaxing the criteria. The implemented fleet-prior code is only a fixture prototype, not a demonstrated improvement. A real pilot would need representative verified reference observations and a defensible comparability model.
+
+Sources: docs/experiments/followup/2026-11-07-e3-e4-manifest.json; results/regime_reference/prior_feasibility.json; docs/tasks/005-phase1-coordinator-review.md.
 
 ## Why not install the fullest sensor package everywhere?
 

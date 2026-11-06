@@ -3072,9 +3072,827 @@
     ]
   },
   {
-    "id": "sl/txk2ap",
+    "id": "sl/nrcje2",
     "kind": "slide",
     "index": 5,
+    "layout": {
+      "id": "ly/a9gzmts3",
+      "name": "Blank"
+    },
+    "title": "Proposed measurement package",
+    "position": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    },
+    "backgroundColor": "rgba(255,255,255,1)",
+    "elements": [
+      {
+        "id": "sh/gbyl432t",
+        "kind": "textbox",
+        "name": "title",
+        "order": 1,
+        "scope": "slide",
+        "editable": true,
+        "text": "Proposed measurement package",
+        "position": {
+          "left": 64,
+          "top": 50,
+          "width": 1152,
+          "height": 76
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 44,
+          "typeface": "Arial",
+          "color": "#173640",
+          "bold": true,
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Proposed measurement package",
+            "style": {
+              "fontSize": 44,
+              "typeface": "Arial",
+              "color": "#173640",
+              "bold": true
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Proposed measurement package",
+                "fontSize": 44,
+                "typeface": "Arial",
+                "color": "#173640",
+                "bold": true
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/1c7mx83e",
+        "kind": "textbox",
+        "name": "scope",
+        "order": 2,
+        "scope": "slide",
+        "editable": true,
+        "text": "Example: a missing bearing-housing measurement point",
+        "position": {
+          "left": 64,
+          "top": 133,
+          "width": 1152,
+          "height": 46
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 28,
+          "typeface": "Arial",
+          "color": "#173640",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Example: a missing bearing-housing measurement point",
+            "style": {
+              "fontSize": 28,
+              "typeface": "Arial",
+              "color": "#173640",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Example: a missing bearing-housing measurement point",
+                "fontSize": 28,
+                "typeface": "Arial",
+                "color": "#173640",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "tb/dgvmh4by",
+        "kind": "table",
+        "order": 3,
+        "scope": "slide",
+        "editable": true,
+        "text": "Element\tProposed implementation\tSite decision needed\nMeasurement\tVibration / temperature on pump bearing housing\tLocation, rigid mount,\nmeasurement bandwidth\nLink and power\tCable to local IO, or radio after survey\tRouting / power, or\nbattery service and coverage\nGateway\tLocal enclosure, buffer and advisory analysis\tIO, power, environment,\nmaintenance owner\nEngineering display\tExisting data + new point with quality and time\tTag mapping, freshness,\nreview workflow",
+        "rows": 5,
+        "cols": 3,
+        "position": {
+          "left": 64,
+          "top": 202,
+          "width": 1152,
+          "height": 330
+        },
+        "cells": [
+          {
+            "index": 1,
+            "row": 1,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 202,
+              "width": 300,
+              "height": 66
+            },
+            "text": "Element",
+            "fillColor": "#173640",
+            "style": {
+              "fontSize": 24,
+              "typeface": "Arial",
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Element",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Element",
+                    "fontSize": 24,
+                    "typeface": "Arial",
+                    "color": "#FFFFFF",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 2,
+            "row": 1,
+            "column": 2,
+            "position": {
+              "left": 364,
+              "top": 202,
+              "width": 500,
+              "height": 66
+            },
+            "text": "Proposed implementation",
+            "fillColor": "#173640",
+            "style": {
+              "fontSize": 24,
+              "typeface": "Arial",
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Proposed implementation",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Proposed implementation",
+                    "fontSize": 24,
+                    "typeface": "Arial",
+                    "color": "#FFFFFF",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 3,
+            "row": 1,
+            "column": 3,
+            "position": {
+              "left": 864,
+              "top": 202,
+              "width": 352,
+              "height": 66
+            },
+            "text": "Site decision needed",
+            "fillColor": "#173640",
+            "style": {
+              "fontSize": 24,
+              "typeface": "Arial",
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Site decision needed",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Site decision needed",
+                    "fontSize": 24,
+                    "typeface": "Arial",
+                    "color": "#FFFFFF",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 4,
+            "row": 2,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 268,
+              "width": 300,
+              "height": 66
+            },
+            "text": "Measurement",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 23,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Measurement",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Measurement",
+                    "fontSize": 23,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 5,
+            "row": 2,
+            "column": 2,
+            "position": {
+              "left": 364,
+              "top": 268,
+              "width": 500,
+              "height": 66
+            },
+            "text": "Vibration / temperature on pump bearing housing",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 23,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Vibration / temperature on pump bearing housing",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Vibration / temperature on pump bearing housing",
+                    "fontSize": 23,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 6,
+            "row": 2,
+            "column": 3,
+            "position": {
+              "left": 864,
+              "top": 268,
+              "width": 352,
+              "height": 66
+            },
+            "text": "Location, rigid mount,\nmeasurement bandwidth",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 23,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Location, rigid mount,",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Location, rigid mount,",
+                    "fontSize": 23,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              },
+              {
+                "index": 2,
+                "text": "measurement bandwidth",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "measurement bandwidth",
+                    "fontSize": 23,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 7,
+            "row": 3,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 334,
+              "width": 300,
+              "height": 66
+            },
+            "text": "Link and power",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 23,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Link and power",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Link and power",
+                    "fontSize": 23,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 8,
+            "row": 3,
+            "column": 2,
+            "position": {
+              "left": 364,
+              "top": 334,
+              "width": 500,
+              "height": 66
+            },
+            "text": "Cable to local IO, or radio after survey",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 23,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Cable to local IO, or radio after survey",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Cable to local IO, or radio after survey",
+                    "fontSize": 23,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 9,
+            "row": 3,
+            "column": 3,
+            "position": {
+              "left": 864,
+              "top": 334,
+              "width": 352,
+              "height": 66
+            },
+            "text": "Routing / power, or\nbattery service and coverage",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 23,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Routing / power, or",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Routing / power, or",
+                    "fontSize": 23,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              },
+              {
+                "index": 2,
+                "text": "battery service and coverage",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "battery service and coverage",
+                    "fontSize": 23,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 10,
+            "row": 4,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 400,
+              "width": 300,
+              "height": 66
+            },
+            "text": "Gateway",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 23,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Gateway",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Gateway",
+                    "fontSize": 23,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 11,
+            "row": 4,
+            "column": 2,
+            "position": {
+              "left": 364,
+              "top": 400,
+              "width": 500,
+              "height": 66
+            },
+            "text": "Local enclosure, buffer and advisory analysis",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 23,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Local enclosure, buffer and advisory analysis",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Local enclosure, buffer and advisory analysis",
+                    "fontSize": 23,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 12,
+            "row": 4,
+            "column": 3,
+            "position": {
+              "left": 864,
+              "top": 400,
+              "width": 352,
+              "height": 66
+            },
+            "text": "IO, power, environment,\nmaintenance owner",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 23,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "IO, power, environment,",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "IO, power, environment,",
+                    "fontSize": 23,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              },
+              {
+                "index": 2,
+                "text": "maintenance owner",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "maintenance owner",
+                    "fontSize": 23,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 13,
+            "row": 5,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 466,
+              "width": 300,
+              "height": 66
+            },
+            "text": "Engineering display",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 23,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Engineering display",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Engineering display",
+                    "fontSize": 23,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 14,
+            "row": 5,
+            "column": 2,
+            "position": {
+              "left": 364,
+              "top": 466,
+              "width": 500,
+              "height": 66
+            },
+            "text": "Existing data + new point with quality and time",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 23,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Existing data + new point with quality and time",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Existing data + new point with quality and time",
+                    "fontSize": 23,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 15,
+            "row": 5,
+            "column": 3,
+            "position": {
+              "left": 864,
+              "top": 466,
+              "width": 352,
+              "height": 66
+            },
+            "text": "Tag mapping, freshness,\nreview workflow",
+            "fillColor": "#F4F8F8",
+            "style": {
+              "fontSize": 23,
+              "typeface": "Arial",
+              "color": "#173640"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Tag mapping, freshness,",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Tag mapping, freshness,",
+                    "fontSize": 23,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              },
+              {
+                "index": 2,
+                "text": "review workflow",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "review workflow",
+                    "fontSize": 23,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sh/velkjel4",
+        "kind": "textbox",
+        "name": "limits",
+        "order": 4,
+        "scope": "slide",
+        "editable": true,
+        "text": "Proposed field architecture. Current demo: static synthetic replay.\nReuse existing signals where sufficient; controls remain independent.",
+        "position": {
+          "left": 64,
+          "top": 588,
+          "width": 1152,
+          "height": 76
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 25,
+          "typeface": "Arial",
+          "color": "#173640",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Proposed field architecture. Current demo: static synthetic replay.",
+            "style": {
+              "fontSize": 25,
+              "typeface": "Arial",
+              "color": "#173640",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Proposed field architecture. Current demo: static synthetic replay.",
+                "fontSize": 25,
+                "typeface": "Arial",
+                "color": "#173640",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          },
+          {
+            "index": 2,
+            "text": "Reuse existing signals where sufficient; controls remain independent.",
+            "style": {
+              "fontSize": 25,
+              "typeface": "Arial",
+              "color": "#173640",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Reuse existing signals where sufficient; controls remain independent.",
+                "fontSize": 25,
+                "typeface": "Arial",
+                "color": "#173640",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/zih0ra1w",
+        "kind": "textbox",
+        "name": "footer",
+        "order": 5,
+        "scope": "slide",
+        "editable": true,
+        "text": "No hardware built • No selected supplier, fixed BOM or certification claim",
+        "position": {
+          "left": 64,
+          "top": 675,
+          "width": 1152,
+          "height": 32
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 19,
+          "typeface": "Arial",
+          "color": "#62747C",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "No hardware built • No selected supplier, fixed BOM or certification claim",
+            "style": {
+              "fontSize": 19,
+              "typeface": "Arial",
+              "color": "#62747C",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "No hardware built • No selected supplier, fixed BOM or certification claim",
+                "fontSize": 19,
+                "typeface": "Arial",
+                "color": "#62747C",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      }
+    ],
+    "notes": {
+      "id": "nt/nrcje2",
+      "kind": "notes",
+      "text": "Source: docs/engineering/DECISION_BRIEF.md and SOURCES_AND_UNKNOWNS.md; Task006 measurement-concept contract. This is a functional proposal for an asset missing the stated measurement, not a proposed extra vibration sensor for PUMP-08, which already has vibration and bearing-temperature channels. Select the physical package only after a survey. One measurement point does not cover all bearings. Summary vibration features are not raw waveforms. Wireless is an alternative requiring coverage/battery maintenance, not a guaranteed easier installation. A gateway requires IO/enclosure/power/environment/service decisions. Field buffer/restart/quality behavior has not been implemented or validated by this static replay. The current local engineering UI is implemented; real field integration is proposed. A temporary route or no permanent device remains a valid decision. No purchased equipment, supplier quote, proven installation time, safety certification or diagnostic improvement is implied."
+    },
+    "inheritedLayers": [
+      {
+        "scope": "layout",
+        "id": "ly/a9gzmts3",
+        "name": "Blank",
+        "type": "blank",
+        "parentLayoutId": "ly/8369cze9",
+        "elements": []
+      },
+      {
+        "scope": "master",
+        "id": "ly/8369cze9",
+        "name": "Master",
+        "type": "master",
+        "elements": []
+      }
+    ]
+  },
+  {
+    "id": "sl/txk2ap",
+    "kind": "slide",
+    "index": 6,
     "layout": {
       "id": "ly/a9gzmts3",
       "name": "Blank"
@@ -3644,7 +4462,7 @@
   {
     "id": "sl/eatu6s",
     "kind": "slide",
-    "index": 6,
+    "index": 7,
     "layout": {
       "id": "ly/a9gzmts3",
       "name": "Blank"
