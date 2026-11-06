@@ -1,0 +1,3025 @@
+[
+  {
+    "id": "sl/kxr8wu",
+    "elements": [
+      {
+        "id": "sh/ryx87yps",
+        "kind": "textbox",
+        "name": "title",
+        "order": 1,
+        "scope": "slide",
+        "editable": true,
+        "text": "Retrofit\nDoctor",
+        "position": {
+          "left": 64,
+          "top": 130,
+          "width": 450,
+          "height": 170
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 68,
+          "typeface": "Arial",
+          "color": "#FFFFFF",
+          "bold": true,
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Retrofit",
+            "style": {
+              "fontSize": 68,
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Retrofit",
+                "fontSize": 68,
+                "color": "#FFFFFF",
+                "bold": true
+              }
+            ],
+            "marginLeft": 0
+          },
+          {
+            "index": 2,
+            "text": "Doctor",
+            "style": {
+              "fontSize": 68,
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Doctor",
+                "fontSize": 68,
+                "color": "#FFFFFF",
+                "bold": true
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/qxoret87",
+        "kind": "textbox",
+        "name": "purpose",
+        "order": 2,
+        "scope": "slide",
+        "editable": true,
+        "text": "Pump diagnostics\nand retrofit review",
+        "position": {
+          "left": 68,
+          "top": 327,
+          "width": 420,
+          "height": 100
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 30,
+          "typeface": "Arial",
+          "color": "#C6E8E3",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Pump diagnostics",
+            "style": {
+              "fontSize": 30,
+              "color": "#C6E8E3",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Pump diagnostics",
+                "fontSize": 30,
+                "color": "#C6E8E3",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          },
+          {
+            "index": 2,
+            "text": "and retrofit review",
+            "style": {
+              "fontSize": 30,
+              "color": "#C6E8E3",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "and retrofit review",
+                "fontSize": 30,
+                "color": "#C6E8E3",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/14zqd87u",
+        "kind": "textbox",
+        "name": "context",
+        "order": 3,
+        "scope": "slide",
+        "editable": true,
+        "text": "Synthetic benchmark demonstration\nSince AI 2026",
+        "position": {
+          "left": 68,
+          "top": 557,
+          "width": 450,
+          "height": 80
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 22,
+          "typeface": "Arial",
+          "color": "#C6E8E3",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Synthetic benchmark demonstration",
+            "style": {
+              "fontSize": 22,
+              "color": "#C6E8E3",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Synthetic benchmark demonstration",
+                "fontSize": 22,
+                "color": "#C6E8E3",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          },
+          {
+            "index": 2,
+            "text": "Since AI 2026",
+            "style": {
+              "fontSize": 22,
+              "color": "#C6E8E3",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Since AI 2026",
+                "fontSize": 22,
+                "color": "#C6E8E3",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "im/tgj6xkj6",
+        "kind": "image",
+        "order": 4,
+        "scope": "slide",
+        "editable": true,
+        "alt": "Implemented Pump Detail replay of PUMP-08, showing time-bounded measurements and baseline evidence",
+        "position": {
+          "left": 536,
+          "top": 126,
+          "width": 688,
+          "height": 478
+        },
+        "contentType": "image/png",
+        "fit": "contain",
+        "asset": {
+          "contentType": "image/png",
+          "uri": "library-file:fde1_bGliZmlsZV93RDlMLUF6RktzRHcyNjVFVEtYWEtB_FileDrive_dcce2ba5c4b881918df5697f961b5033",
+          "byteLength": 189344
+        }
+      }
+    ]
+  },
+  {
+    "id": "sl/plgk3a",
+    "elements": [
+      {
+        "id": "sh/twfi54j2",
+        "kind": "textbox",
+        "name": "title",
+        "order": 1,
+        "scope": "slide",
+        "editable": true,
+        "text": "Twelve independent pump assets",
+        "position": {
+          "left": 64,
+          "top": 56,
+          "width": 1152,
+          "height": 80
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 44,
+          "typeface": "Arial",
+          "color": "#15333C",
+          "bold": true,
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Twelve independent pump assets",
+            "style": {
+              "fontSize": 44,
+              "color": "#15333C",
+              "bold": true
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Twelve independent pump assets",
+                "fontSize": 44,
+                "color": "#15333C",
+                "bold": true
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "tb/fi943ixk",
+        "kind": "table",
+        "order": 2,
+        "scope": "slide",
+        "editable": true,
+        "text": "Split\tAssets\tDemo access\nTraining\tPUMP-01–07\tDevelopment and selection\nValidation\tPUMP-08–09\tLabeled replay and evaluation\nBlind test\tPUMP-10–12\tEquipment metadata only",
+        "rows": 4,
+        "cols": 3,
+        "position": {
+          "left": 64,
+          "top": 180,
+          "width": 1152,
+          "height": 340
+        },
+        "cells": [
+          {
+            "index": 1,
+            "row": 1,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 180,
+              "width": 260,
+              "height": 85
+            },
+            "text": "Split",
+            "fillColor": "#15333C",
+            "style": {
+              "fontSize": 25,
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Split",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Split",
+                    "fontSize": 25,
+                    "color": "#FFFFFF",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 2,
+            "row": 1,
+            "column": 2,
+            "position": {
+              "left": 324,
+              "top": 180,
+              "width": 330,
+              "height": 85
+            },
+            "text": "Assets",
+            "fillColor": "#15333C",
+            "style": {
+              "fontSize": 25,
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Assets",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Assets",
+                    "fontSize": 25,
+                    "color": "#FFFFFF",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 3,
+            "row": 1,
+            "column": 3,
+            "position": {
+              "left": 654,
+              "top": 180,
+              "width": 562,
+              "height": 85
+            },
+            "text": "Demo access",
+            "fillColor": "#15333C",
+            "style": {
+              "fontSize": 25,
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Demo access",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Demo access",
+                    "fontSize": 25,
+                    "color": "#FFFFFF",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 4,
+            "row": 2,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 265,
+              "width": 260,
+              "height": 85
+            },
+            "text": "Training",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Training",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Training",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 5,
+            "row": 2,
+            "column": 2,
+            "position": {
+              "left": 324,
+              "top": 265,
+              "width": 330,
+              "height": 85
+            },
+            "text": "PUMP-01–07",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "PUMP-01–07",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "PUMP-01–07",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 6,
+            "row": 2,
+            "column": 3,
+            "position": {
+              "left": 654,
+              "top": 265,
+              "width": 562,
+              "height": 85
+            },
+            "text": "Development and selection",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Development and selection",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Development and selection",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 7,
+            "row": 3,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 350,
+              "width": 260,
+              "height": 85
+            },
+            "text": "Validation",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Validation",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Validation",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 8,
+            "row": 3,
+            "column": 2,
+            "position": {
+              "left": 324,
+              "top": 350,
+              "width": 330,
+              "height": 85
+            },
+            "text": "PUMP-08–09",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "PUMP-08–09",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "PUMP-08–09",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 9,
+            "row": 3,
+            "column": 3,
+            "position": {
+              "left": 654,
+              "top": 350,
+              "width": 562,
+              "height": 85
+            },
+            "text": "Labeled replay and evaluation",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Labeled replay and evaluation",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Labeled replay and evaluation",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 10,
+            "row": 4,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 435,
+              "width": 260,
+              "height": 85
+            },
+            "text": "Blind test",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Blind test",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Blind test",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 11,
+            "row": 4,
+            "column": 2,
+            "position": {
+              "left": 324,
+              "top": 435,
+              "width": 330,
+              "height": 85
+            },
+            "text": "PUMP-10–12",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "PUMP-10–12",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "PUMP-10–12",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 12,
+            "row": 4,
+            "column": 3,
+            "position": {
+              "left": 654,
+              "top": 435,
+              "width": 562,
+              "height": 85
+            },
+            "text": "Equipment metadata only",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Equipment metadata only",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Equipment metadata only",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sh/fyx07u18",
+        "kind": "textbox",
+        "name": "limit",
+        "order": 3,
+        "scope": "slide",
+        "editable": true,
+        "text": "Different sensor coverage and observation weeks.\nSite grouping does not imply hydraulic coupling.",
+        "position": {
+          "left": 64,
+          "top": 568,
+          "width": 1152,
+          "height": 85
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 27,
+          "typeface": "Arial",
+          "color": "#15333C",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Different sensor coverage and observation weeks.",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Different sensor coverage and observation weeks.",
+                "fontSize": 27,
+                "color": "#15333C",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          },
+          {
+            "index": 2,
+            "text": "Site grouping does not imply hydraulic coupling.",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Site grouping does not imply hydraulic coupling.",
+                "fontSize": 27,
+                "color": "#15333C",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      }
+    ]
+  },
+  {
+    "id": "sl/5892ye",
+    "elements": [
+      {
+        "id": "sh/wrmlwjq5",
+        "kind": "textbox",
+        "name": "title",
+        "order": 1,
+        "scope": "slide",
+        "editable": true,
+        "text": "Diagnostic evidence and limits",
+        "position": {
+          "left": 64,
+          "top": 56,
+          "width": 1152,
+          "height": 80
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 44,
+          "typeface": "Arial",
+          "color": "#15333C",
+          "bold": true,
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Diagnostic evidence and limits",
+            "style": {
+              "fontSize": 44,
+              "color": "#15333C",
+              "bold": true
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Diagnostic evidence and limits",
+                "fontSize": 44,
+                "color": "#15333C",
+                "bold": true
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "tb/gne98beh",
+        "kind": "table",
+        "order": 2,
+        "scope": "slide",
+        "editable": true,
+        "text": "Validation example\tCausal B1 output\tRetrospective result\nPUMP-08-E01\tSuction strainer clogging\tCorrect fault type\nPUMP-08-E02\tUnknown cause\tEvent matched; unresolved\nPUMP-08-E04\tNo matched alert\tPressure-sensor noise missed",
+        "rows": 4,
+        "cols": 3,
+        "position": {
+          "left": 64,
+          "top": 180,
+          "width": 1152,
+          "height": 340
+        },
+        "cells": [
+          {
+            "index": 1,
+            "row": 1,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 180,
+              "width": 330,
+              "height": 85
+            },
+            "text": "Validation example",
+            "fillColor": "#15333C",
+            "style": {
+              "fontSize": 25,
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Validation example",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Validation example",
+                    "fontSize": 25,
+                    "color": "#FFFFFF",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 2,
+            "row": 1,
+            "column": 2,
+            "position": {
+              "left": 394,
+              "top": 180,
+              "width": 405,
+              "height": 85
+            },
+            "text": "Causal B1 output",
+            "fillColor": "#15333C",
+            "style": {
+              "fontSize": 25,
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Causal B1 output",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Causal B1 output",
+                    "fontSize": 25,
+                    "color": "#FFFFFF",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 3,
+            "row": 1,
+            "column": 3,
+            "position": {
+              "left": 799,
+              "top": 180,
+              "width": 417,
+              "height": 85
+            },
+            "text": "Retrospective result",
+            "fillColor": "#15333C",
+            "style": {
+              "fontSize": 25,
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Retrospective result",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Retrospective result",
+                    "fontSize": 25,
+                    "color": "#FFFFFF",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 4,
+            "row": 2,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 265,
+              "width": 330,
+              "height": 85
+            },
+            "text": "PUMP-08-E01",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "PUMP-08-E01",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "PUMP-08-E01",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 5,
+            "row": 2,
+            "column": 2,
+            "position": {
+              "left": 394,
+              "top": 265,
+              "width": 405,
+              "height": 85
+            },
+            "text": "Suction strainer clogging",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Suction strainer clogging",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Suction strainer clogging",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 6,
+            "row": 2,
+            "column": 3,
+            "position": {
+              "left": 799,
+              "top": 265,
+              "width": 417,
+              "height": 85
+            },
+            "text": "Correct fault type",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Correct fault type",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Correct fault type",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 7,
+            "row": 3,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 350,
+              "width": 330,
+              "height": 85
+            },
+            "text": "PUMP-08-E02",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "PUMP-08-E02",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "PUMP-08-E02",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 8,
+            "row": 3,
+            "column": 2,
+            "position": {
+              "left": 394,
+              "top": 350,
+              "width": 405,
+              "height": 85
+            },
+            "text": "Unknown cause",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Unknown cause",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Unknown cause",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 9,
+            "row": 3,
+            "column": 3,
+            "position": {
+              "left": 799,
+              "top": 350,
+              "width": 417,
+              "height": 85
+            },
+            "text": "Event matched; unresolved",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Event matched; unresolved",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Event matched; unresolved",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 10,
+            "row": 4,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 435,
+              "width": 330,
+              "height": 85
+            },
+            "text": "PUMP-08-E04",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "PUMP-08-E04",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "PUMP-08-E04",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 11,
+            "row": 4,
+            "column": 2,
+            "position": {
+              "left": 394,
+              "top": 435,
+              "width": 405,
+              "height": 85
+            },
+            "text": "No matched alert",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "No matched alert",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "No matched alert",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 12,
+            "row": 4,
+            "column": 3,
+            "position": {
+              "left": 799,
+              "top": 435,
+              "width": 417,
+              "height": 85
+            },
+            "text": "Pressure-sensor noise missed",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Pressure-sensor noise missed",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Pressure-sensor noise missed",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sh/apk3ut8z",
+        "kind": "textbox",
+        "name": "claim",
+        "order": 3,
+        "scope": "slide",
+        "editable": true,
+        "text": "Detection does not establish the correct cause.",
+        "position": {
+          "left": 64,
+          "top": 568,
+          "width": 1152,
+          "height": 50
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 32,
+          "typeface": "Arial",
+          "color": "#006D70",
+          "bold": true,
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Detection does not establish the correct cause.",
+            "style": {
+              "fontSize": 32,
+              "color": "#006D70",
+              "bold": true
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Detection does not establish the correct cause.",
+                "fontSize": 32,
+                "color": "#006D70",
+                "bold": true
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/9ob21o7e",
+        "kind": "textbox",
+        "name": "scope",
+        "order": 4,
+        "scope": "slide",
+        "editable": true,
+        "text": "Synthetic validation. Evaluation labels stay separate from live-clock evidence.",
+        "position": {
+          "left": 64,
+          "top": 631,
+          "width": 1152,
+          "height": 42
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 22,
+          "typeface": "Arial",
+          "color": "#15333C",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Synthetic validation. Evaluation labels stay separate from live-clock evidence.",
+            "style": {
+              "fontSize": 22,
+              "color": "#15333C",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Synthetic validation. Evaluation labels stay separate from live-clock evidence.",
+                "fontSize": 22,
+                "color": "#15333C",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      }
+    ]
+  },
+  {
+    "id": "sl/azu784",
+    "elements": [
+      {
+        "id": "sh/snahsnq9",
+        "kind": "textbox",
+        "name": "title",
+        "order": 1,
+        "scope": "slide",
+        "editable": true,
+        "text": "Causal baseline validation",
+        "position": {
+          "left": 64,
+          "top": 56,
+          "width": 1152,
+          "height": 80
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 44,
+          "typeface": "Arial",
+          "color": "#15333C",
+          "bold": true,
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Causal baseline validation",
+            "style": {
+              "fontSize": 44,
+              "color": "#15333C",
+              "bold": true
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Causal baseline validation",
+                "fontSize": 44,
+                "color": "#15333C",
+                "bold": true
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "tb/udkrqd47",
+        "kind": "table",
+        "order": 2,
+        "scope": "slide",
+        "editable": true,
+        "text": "Metric\tCausal B1\tOriginal B1\nComposite score\t76.01\t78.01\nEvents detected\t8 / 9\t8 / 9\nCorrect fault type\t4 / 9\t4 / 9\nFalse alert episodes\t1\t1",
+        "rows": 5,
+        "cols": 3,
+        "position": {
+          "left": 64,
+          "top": 160,
+          "width": 1152,
+          "height": 330
+        },
+        "cells": [
+          {
+            "index": 1,
+            "row": 1,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 160,
+              "width": 560,
+              "height": 66
+            },
+            "text": "Metric",
+            "fillColor": "#15333C",
+            "style": {
+              "fontSize": 27,
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Metric",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Metric",
+                    "fontSize": 27,
+                    "color": "#FFFFFF",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 2,
+            "row": 1,
+            "column": 2,
+            "position": {
+              "left": 624,
+              "top": 160,
+              "width": 296,
+              "height": 66
+            },
+            "text": "Causal B1",
+            "fillColor": "#15333C",
+            "style": {
+              "fontSize": 27,
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Causal B1",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Causal B1",
+                    "fontSize": 27,
+                    "color": "#FFFFFF",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 3,
+            "row": 1,
+            "column": 3,
+            "position": {
+              "left": 920,
+              "top": 160,
+              "width": 296,
+              "height": 66
+            },
+            "text": "Original B1",
+            "fillColor": "#15333C",
+            "style": {
+              "fontSize": 27,
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Original B1",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Original B1",
+                    "fontSize": 27,
+                    "color": "#FFFFFF",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 4,
+            "row": 2,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 226,
+              "width": 560,
+              "height": 66
+            },
+            "text": "Composite score",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Composite score",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Composite score",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 5,
+            "row": 2,
+            "column": 2,
+            "position": {
+              "left": 624,
+              "top": 226,
+              "width": 296,
+              "height": 66
+            },
+            "text": "76.01",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "76.01",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "76.01",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 6,
+            "row": 2,
+            "column": 3,
+            "position": {
+              "left": 920,
+              "top": 226,
+              "width": 296,
+              "height": 66
+            },
+            "text": "78.01",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "78.01",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "78.01",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 7,
+            "row": 3,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 292,
+              "width": 560,
+              "height": 66
+            },
+            "text": "Events detected",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Events detected",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Events detected",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 8,
+            "row": 3,
+            "column": 2,
+            "position": {
+              "left": 624,
+              "top": 292,
+              "width": 296,
+              "height": 66
+            },
+            "text": "8 / 9",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "8 / 9",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "8 / 9",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 9,
+            "row": 3,
+            "column": 3,
+            "position": {
+              "left": 920,
+              "top": 292,
+              "width": 296,
+              "height": 66
+            },
+            "text": "8 / 9",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "8 / 9",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "8 / 9",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 10,
+            "row": 4,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 358,
+              "width": 560,
+              "height": 66
+            },
+            "text": "Correct fault type",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Correct fault type",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Correct fault type",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 11,
+            "row": 4,
+            "column": 2,
+            "position": {
+              "left": 624,
+              "top": 358,
+              "width": 296,
+              "height": 66
+            },
+            "text": "4 / 9",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "4 / 9",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "4 / 9",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 12,
+            "row": 4,
+            "column": 3,
+            "position": {
+              "left": 920,
+              "top": 358,
+              "width": 296,
+              "height": 66
+            },
+            "text": "4 / 9",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "4 / 9",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "4 / 9",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 13,
+            "row": 5,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 424,
+              "width": 560,
+              "height": 66
+            },
+            "text": "False alert episodes",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "False alert episodes",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "False alert episodes",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 14,
+            "row": 5,
+            "column": 2,
+            "position": {
+              "left": 624,
+              "top": 424,
+              "width": 296,
+              "height": 66
+            },
+            "text": "1",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "1",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "1",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 15,
+            "row": 5,
+            "column": 3,
+            "position": {
+              "left": 920,
+              "top": 424,
+              "width": 296,
+              "height": 66
+            },
+            "text": "1",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "1",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "1",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sh/6lszqd83",
+        "kind": "textbox",
+        "name": "original-limit",
+        "order": 3,
+        "scope": "slide",
+        "editable": true,
+        "text": "Original B1 used future reference data in early predictions.",
+        "position": {
+          "left": 64,
+          "top": 520,
+          "width": 1152,
+          "height": 45
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 27,
+          "typeface": "Arial",
+          "color": "#15333C",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Original B1 used future reference data in early predictions.",
+            "style": {
+              "fontSize": 27,
+              "color": "#15333C",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Original B1 used future reference data in early predictions.",
+                "fontSize": 27,
+                "color": "#15333C",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/rm10ji9o",
+        "kind": "textbox",
+        "name": "causal-checks",
+        "order": 4,
+        "scope": "slide",
+        "editable": true,
+        "text": "Causal B1: 209 causality checks and 18 regression tests\npassed in the recorded run.",
+        "position": {
+          "left": 64,
+          "top": 573,
+          "width": 1152,
+          "height": 70
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 25,
+          "typeface": "Arial",
+          "color": "#006D70",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Causal B1: 209 causality checks and 18 regression tests",
+            "style": {
+              "fontSize": 25,
+              "color": "#006D70",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Causal B1: 209 causality checks and 18 regression tests",
+                "fontSize": 25,
+                "color": "#006D70",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          },
+          {
+            "index": 2,
+            "text": "passed in the recorded run.",
+            "style": {
+              "fontSize": 25,
+              "color": "#006D70",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "passed in the recorded run.",
+                "fontSize": 25,
+                "color": "#006D70",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/4zaho3qx",
+        "kind": "textbox",
+        "name": "scope",
+        "order": 5,
+        "scope": "slide",
+        "editable": true,
+        "text": "Synthetic validation, 9 scored events. No field validation.",
+        "position": {
+          "left": 64,
+          "top": 661,
+          "width": 1152,
+          "height": 35
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 22,
+          "typeface": "Arial",
+          "color": "#15333C",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Synthetic validation, 9 scored events. No field validation.",
+            "style": {
+              "fontSize": 22,
+              "color": "#15333C",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Synthetic validation, 9 scored events. No field validation.",
+                "fontSize": 22,
+                "color": "#15333C",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      }
+    ]
+  },
+  {
+    "id": "sl/txk2ap",
+    "elements": [
+      {
+        "id": "sh/yxcbupkz",
+        "kind": "textbox",
+        "name": "title",
+        "order": 1,
+        "scope": "slide",
+        "editable": true,
+        "text": "A retrofit must justify its full cost",
+        "position": {
+          "left": 64,
+          "top": 56,
+          "width": 1152,
+          "height": 80
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 44,
+          "typeface": "Arial",
+          "color": "#15333C",
+          "bold": true,
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "A retrofit must justify its full cost",
+            "style": {
+              "fontSize": 44,
+              "color": "#15333C",
+              "bold": true
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "A retrofit must justify its full cost",
+                "fontSize": 44,
+                "color": "#15333C",
+                "bold": true
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/wnetkzix",
+        "kind": "textbox",
+        "name": "measurement",
+        "order": 2,
+        "scope": "slide",
+        "editable": true,
+        "text": "PUMP-08 has no flow channel. Flow assessment is a hypothesis:\npipe suitability, reference checks and diagnostic value remain unverified.",
+        "position": {
+          "left": 64,
+          "top": 147,
+          "width": 1152,
+          "height": 85
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 28,
+          "typeface": "Arial",
+          "color": "#15333C",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "PUMP-08 has no flow channel. Flow assessment is a hypothesis:",
+            "style": {
+              "fontSize": 28,
+              "color": "#15333C",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "PUMP-08 has no flow channel. Flow assessment is a hypothesis:",
+                "fontSize": 28,
+                "color": "#15333C",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          },
+          {
+            "index": 2,
+            "text": "pipe suitability, reference checks and diagnostic value remain unverified.",
+            "style": {
+              "fontSize": 28,
+              "color": "#15333C",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "pipe suitability, reference checks and diagnostic value remain unverified.",
+                "fontSize": 28,
+                "color": "#15333C",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "tb/eh8761cb",
+        "kind": "table",
+        "order": 3,
+        "scope": "slide",
+        "editable": true,
+        "text": "Illustrative redundant-pump case\tEUR\nInitial incremental installation cost\t4,500\nAnnual benefit / nuisance checks / upkeep\t300 / 1,800 / 700\nAnnual net effect\t−2,200\nFive-year incremental value (0% discount)\t−15,500",
+        "rows": 5,
+        "cols": 2,
+        "position": {
+          "left": 64,
+          "top": 263,
+          "width": 1152,
+          "height": 305
+        },
+        "cells": [
+          {
+            "index": 1,
+            "row": 1,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 263,
+              "width": 870,
+              "height": 61
+            },
+            "text": "Illustrative redundant-pump case",
+            "fillColor": "#15333C",
+            "style": {
+              "fontSize": 25,
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Illustrative redundant-pump case",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Illustrative redundant-pump case",
+                    "fontSize": 25,
+                    "color": "#FFFFFF",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 2,
+            "row": 1,
+            "column": 2,
+            "position": {
+              "left": 934,
+              "top": 263,
+              "width": 282,
+              "height": 61
+            },
+            "text": "EUR",
+            "fillColor": "#15333C",
+            "style": {
+              "fontSize": 25,
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "EUR",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "EUR",
+                    "fontSize": 25,
+                    "color": "#FFFFFF",
+                    "bold": true
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 3,
+            "row": 2,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 324,
+              "width": 870,
+              "height": 61
+            },
+            "text": "Initial incremental installation cost",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 25,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Initial incremental installation cost",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Initial incremental installation cost",
+                    "fontSize": 25,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 4,
+            "row": 2,
+            "column": 2,
+            "position": {
+              "left": 934,
+              "top": 324,
+              "width": 282,
+              "height": 61
+            },
+            "text": "4,500",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 25,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "4,500",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "4,500",
+                    "fontSize": 25,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 5,
+            "row": 3,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 385,
+              "width": 870,
+              "height": 61
+            },
+            "text": "Annual benefit / nuisance checks / upkeep",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 25,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Annual benefit / nuisance checks / upkeep",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Annual benefit / nuisance checks / upkeep",
+                    "fontSize": 25,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 6,
+            "row": 3,
+            "column": 2,
+            "position": {
+              "left": 934,
+              "top": 385,
+              "width": 282,
+              "height": 61
+            },
+            "text": "300 / 1,800 / 700",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 25,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "300 / 1,800 / 700",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "300 / 1,800 / 700",
+                    "fontSize": 25,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 7,
+            "row": 4,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 446,
+              "width": 870,
+              "height": 61
+            },
+            "text": "Annual net effect",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 25,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Annual net effect",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Annual net effect",
+                    "fontSize": 25,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 8,
+            "row": 4,
+            "column": 2,
+            "position": {
+              "left": 934,
+              "top": 446,
+              "width": 282,
+              "height": 61
+            },
+            "text": "−2,200",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 25,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "−2,200",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "−2,200",
+                    "fontSize": 25,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 9,
+            "row": 5,
+            "column": 1,
+            "position": {
+              "left": 64,
+              "top": 507,
+              "width": 870,
+              "height": 61
+            },
+            "text": "Five-year incremental value (0% discount)",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 25,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "Five-year incremental value (0% discount)",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Five-year incremental value (0% discount)",
+                    "fontSize": 25,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "index": 10,
+            "row": 5,
+            "column": 2,
+            "position": {
+              "left": 934,
+              "top": 507,
+              "width": 282,
+              "height": 61
+            },
+            "text": "−15,500",
+            "fillColor": "#F5F8F7",
+            "style": {
+              "fontSize": 25,
+              "color": "#15333C"
+            },
+            "paragraphs": [
+              {
+                "index": 1,
+                "text": "−15,500",
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "−15,500",
+                    "fontSize": 25,
+                    "color": "#15333C"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "sh/alwbip0r",
+        "kind": "textbox",
+        "name": "decision",
+        "order": 4,
+        "scope": "slide",
+        "editable": true,
+        "text": "Defer permanent retrofit under these assumptions.",
+        "position": {
+          "left": 64,
+          "top": 592,
+          "width": 1152,
+          "height": 46
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 30,
+          "typeface": "Arial",
+          "color": "#9A4027",
+          "bold": true,
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Defer permanent retrofit under these assumptions.",
+            "style": {
+              "fontSize": 30,
+              "color": "#9A4027",
+              "bold": true
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Defer permanent retrofit under these assumptions.",
+                "fontSize": 30,
+                "color": "#9A4027",
+                "bold": true
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/vm5sbu1c",
+        "kind": "textbox",
+        "name": "qualification",
+        "order": 5,
+        "scope": "slide",
+        "editable": true,
+        "text": "Hypothetical standby case; not this pump’s topology, a quote or measured savings.",
+        "position": {
+          "left": 64,
+          "top": 650,
+          "width": 1152,
+          "height": 40
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 22,
+          "typeface": "Arial",
+          "color": "#15333C",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Hypothetical standby case; not this pump’s topology, a quote or measured savings.",
+            "style": {
+              "fontSize": 22,
+              "color": "#15333C",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Hypothetical standby case; not this pump’s topology, a quote or measured savings.",
+                "fontSize": 22,
+                "color": "#15333C",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      }
+    ]
+  },
+  {
+    "id": "sl/eatu6s",
+    "elements": [
+      {
+        "id": "sh/614rydov",
+        "kind": "textbox",
+        "name": "title",
+        "order": 1,
+        "scope": "slide",
+        "editable": true,
+        "text": "Pilot pathway",
+        "position": {
+          "left": 64,
+          "top": 56,
+          "width": 1152,
+          "height": 80
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 44,
+          "typeface": "Arial",
+          "color": "#FFFFFF",
+          "bold": true,
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Pilot pathway",
+            "style": {
+              "fontSize": 44,
+              "color": "#FFFFFF",
+              "bold": true
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Pilot pathway",
+                "fontSize": 44,
+                "color": "#FFFFFF",
+                "bold": true
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/r2x8ripg",
+        "kind": "textbox",
+        "name": "number-0",
+        "order": 2,
+        "scope": "slide",
+        "editable": true,
+        "text": "01",
+        "position": {
+          "left": 68,
+          "top": 175,
+          "width": 70,
+          "height": 48
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 29,
+          "typeface": "Arial",
+          "color": "#79C9BF",
+          "bold": true,
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "01",
+            "style": {
+              "fontSize": 29,
+              "color": "#79C9BF",
+              "bold": true
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "01",
+                "fontSize": 29,
+                "color": "#79C9BF",
+                "bold": true
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/s3690361",
+        "kind": "textbox",
+        "name": "step-0",
+        "order": 3,
+        "scope": "slide",
+        "editable": true,
+        "text": "Observe existing data in shadow mode",
+        "position": {
+          "left": 155,
+          "top": 175,
+          "width": 1055,
+          "height": 54
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 30,
+          "typeface": "Arial",
+          "color": "#FFFFFF",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Observe existing data in shadow mode",
+            "style": {
+              "fontSize": 30,
+              "color": "#FFFFFF",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Observe existing data in shadow mode",
+                "fontSize": 30,
+                "color": "#FFFFFF",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/t4fqt876",
+        "kind": "textbox",
+        "name": "number-1",
+        "order": 4,
+        "scope": "slide",
+        "editable": true,
+        "text": "02",
+        "position": {
+          "left": 68,
+          "top": 254,
+          "width": 70,
+          "height": 48
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 29,
+          "typeface": "Arial",
+          "color": "#79C9BF",
+          "bold": true,
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "02",
+            "style": {
+              "fontSize": 29,
+              "color": "#79C9BF",
+              "bold": true
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "02",
+                "fontSize": 29,
+                "color": "#79C9BF",
+                "bold": true
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/epor2dor",
+        "kind": "textbox",
+        "name": "step-1",
+        "order": 5,
+        "scope": "slide",
+        "editable": true,
+        "text": "Check whether warnings support useful action",
+        "position": {
+          "left": 155,
+          "top": 254,
+          "width": 1055,
+          "height": 54
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 30,
+          "typeface": "Arial",
+          "color": "#FFFFFF",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Check whether warnings support useful action",
+            "style": {
+              "fontSize": 30,
+              "color": "#FFFFFF",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Check whether warnings support useful action",
+                "fontSize": 30,
+                "color": "#FFFFFF",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/fqx8vipc",
+        "kind": "textbox",
+        "name": "number-2",
+        "order": 6,
+        "scope": "slide",
+        "editable": true,
+        "text": "03",
+        "position": {
+          "left": 68,
+          "top": 333,
+          "width": 70,
+          "height": 48
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 29,
+          "typeface": "Arial",
+          "color": "#79C9BF",
+          "bold": true,
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "03",
+            "style": {
+              "fontSize": 29,
+              "color": "#79C9BF",
+              "bold": true
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "03",
+                "fontSize": 29,
+                "color": "#79C9BF",
+                "bold": true
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/buh8jilk",
+        "kind": "textbox",
+        "name": "step-2",
+        "order": 7,
+        "scope": "slide",
+        "editable": true,
+        "text": "Trial the smallest measurement that resolves a gap",
+        "position": {
+          "left": 155,
+          "top": 333,
+          "width": 1055,
+          "height": 54
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 30,
+          "typeface": "Arial",
+          "color": "#FFFFFF",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Trial the smallest measurement that resolves a gap",
+            "style": {
+              "fontSize": 30,
+              "color": "#FFFFFF",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Trial the smallest measurement that resolves a gap",
+                "fontSize": 30,
+                "color": "#FFFFFF",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/qt87ad4z",
+        "kind": "textbox",
+        "name": "number-3",
+        "order": 8,
+        "scope": "slide",
+        "editable": true,
+        "text": "04",
+        "position": {
+          "left": 68,
+          "top": 412,
+          "width": 70,
+          "height": 48
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 29,
+          "typeface": "Arial",
+          "color": "#79C9BF",
+          "bold": true,
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "04",
+            "style": {
+              "fontSize": 29,
+              "color": "#79C9BF",
+              "bold": true
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "04",
+                "fontSize": 29,
+                "color": "#79C9BF",
+                "bold": true
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/dwzqls3q",
+        "kind": "textbox",
+        "name": "step-3",
+        "order": 9,
+        "scope": "slide",
+        "editable": true,
+        "text": "Verify installation, integration and maintenance",
+        "position": {
+          "left": 155,
+          "top": 412,
+          "width": 1055,
+          "height": 54
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 30,
+          "typeface": "Arial",
+          "color": "#FFFFFF",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Verify installation, integration and maintenance",
+            "style": {
+              "fontSize": 30,
+              "color": "#FFFFFF",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Verify installation, integration and maintenance",
+                "fontSize": 30,
+                "color": "#FFFFFF",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/cvqpcnm5",
+        "kind": "textbox",
+        "name": "number-4",
+        "order": 10,
+        "scope": "slide",
+        "editable": true,
+        "text": "05",
+        "position": {
+          "left": 68,
+          "top": 491,
+          "width": 70,
+          "height": 48
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 29,
+          "typeface": "Arial",
+          "color": "#79C9BF",
+          "bold": true,
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "05",
+            "style": {
+              "fontSize": 29,
+              "color": "#79C9BF",
+              "bold": true
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "05",
+                "fontSize": 29,
+                "color": "#79C9BF",
+                "bold": true
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/36xofil8",
+        "kind": "textbox",
+        "name": "step-4",
+        "order": 11,
+        "scope": "slide",
+        "editable": true,
+        "text": "Decide using evidence, full cost and nuisance burden",
+        "position": {
+          "left": 155,
+          "top": 491,
+          "width": 1055,
+          "height": 54
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 30,
+          "typeface": "Arial",
+          "color": "#FFFFFF",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Decide using evidence, full cost and nuisance burden",
+            "style": {
+              "fontSize": 30,
+              "color": "#FFFFFF",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Decide using evidence, full cost and nuisance burden",
+                "fontSize": 30,
+                "color": "#FFFFFF",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      },
+      {
+        "id": "sh/25o76d43",
+        "kind": "textbox",
+        "name": "scope",
+        "order": 12,
+        "scope": "slide",
+        "editable": true,
+        "text": "Proposed pilot. Benefits, physical feasibility and applicable approvals remain unvalidated.",
+        "position": {
+          "left": 64,
+          "top": 628,
+          "width": 1152,
+          "height": 68
+        },
+        "geometry": "rect",
+        "style": {
+          "fontSize": 24,
+          "typeface": "Arial",
+          "color": "#C6E8E3",
+          "alignment": "left"
+        },
+        "paragraphs": [
+          {
+            "index": 1,
+            "text": "Proposed pilot. Benefits, physical feasibility and applicable approvals remain unvalidated.",
+            "style": {
+              "fontSize": 24,
+              "color": "#C6E8E3",
+              "bold": false
+            },
+            "runs": [
+              {
+                "index": 1,
+                "text": "Proposed pilot. Benefits, physical feasibility and applicable approvals remain unvalidated.",
+                "fontSize": 24,
+                "color": "#C6E8E3",
+                "bold": false
+              }
+            ],
+            "marginLeft": 0
+          }
+        ],
+        "lineWidth": 0
+      }
+    ]
+  }
+]
