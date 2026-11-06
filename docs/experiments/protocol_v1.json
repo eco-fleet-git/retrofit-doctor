@@ -1,0 +1,102 @@
+{
+  "protocol_id": "retrofit-doctor-causal-b2-v1",
+  "registered_date": "2026-11-06",
+  "timezone": "Europe/Berlin",
+  "first_version_deadline": "2026-11-07T12:00:00+01:00",
+  "status": "protocol_registered_no_b2_implementation_or_evaluation_by_reviewer",
+  "data_origin": "synthetic",
+  "train_assets": ["PUMP-01", "PUMP-02", "PUMP-03", "PUMP-04", "PUMP-05", "PUMP-06", "PUMP-07"],
+  "validation_assets": ["PUMP-08", "PUMP-09"],
+  "test_access_authorized_for_current_task": false,
+  "train_only_tuning_authority": "experiment_working_agreement_and_root_AGENTS_not_verbatim_user_quote",
+  "final_one_shot_export": {
+    "within_existing_project_authorization": true,
+    "additional_user_permission_required": false,
+    "release_gate_owner": "main_chat",
+    "prerequisites": ["sealed_artifact", "correctness_checks_passed", "runner_ready", "exposure_log_frozen"],
+    "manual_retuning_after_gate": false
+  },
+  "validation_historically_inspected": true,
+  "validation_role": "one_descriptive_check_after_train_selection_no_tuning",
+  "train_selection": {
+    "folds": "leave_one_asset_out",
+    "fold_count": 7,
+    "candidate_budget_including_control": 6,
+    "gates": {
+      "correctness_violations_max": 0,
+      "detected_events_min": 18,
+      "type_correct_events_min": 8,
+      "class_correct_events_min": 14,
+      "false_plus_excess_episodes_max": 6,
+      "observable_events": 26,
+      "asset_days": 49
+    },
+    "tie_break_order": ["max_sensor_type_and_channel_events", "max_type_correct_events", "max_composite_score", "min_candidate_id"],
+    "fallback_if_no_new_candidate_passes": "C0",
+    "selection_score_is_external_estimate": false
+  },
+  "fixed_parameters": {
+    "reference_hours": 24,
+    "amplitude_z_threshold": 6,
+    "variance_z_threshold": 12,
+    "persistence_minutes": 15,
+    "sparse_min_independent_updates": 3,
+    "stale_after_expected_intervals": 2,
+    "trajectory_min_independent_updates": 6,
+    "trajectory_min_span_fraction": 0.8,
+    "step_min_observations_each_side": 3,
+    "sensor_min_fresh_coupled_channels": 2,
+    "coupled_abs_z_strict_max": 2,
+    "refractory_hours_strictly_greater_than": 12,
+    "continued_episode_retry_minutes": 720,
+    "pythonhashseed": 0,
+    "causality_audit_seed": 20261106,
+    "causality_atol": 0.000001,
+    "causality_rtol": 0
+  },
+  "candidates": [
+    {"id": "C0", "method": "unchanged_causal_b1"},
+    {"id": "C1", "method": "quality_cadence_gap_deterministic_diagnosis"},
+    {"id": "C2", "method": "C1_plus_trajectory", "history_minutes": 30, "loss_ratio": 0.5},
+    {"id": "C3", "method": "C1_plus_trajectory", "history_minutes": 30, "loss_ratio": 0.8},
+    {"id": "C4", "method": "C1_plus_trajectory", "history_minutes": 120, "loss_ratio": 0.5},
+    {"id": "C5", "method": "C1_plus_trajectory", "history_minutes": 120, "loss_ratio": 0.8}
+  ],
+  "validation_baseline": {
+    "composite_score": 76.01253946421124,
+    "detected_events": 8,
+    "type_correct_events": 4,
+    "class_correct_events": 8,
+    "observable_events": 9,
+    "false_plus_excess_episodes": 1,
+    "asset_days": 14,
+    "role_of_comparisons": "descriptive_only_not_selection"
+  },
+  "experiment_groups": {
+    "E1": ["H4_sparse_cadence", "H5_gaps"],
+    "E2": ["H1_machine_vs_sensor"],
+    "E3": ["H2_regime_changes", "H6_unknown"],
+    "E4": ["H3_contaminated_reference_warmup"],
+    "E5": ["H7_sensor_benefit"]
+  },
+  "sensor_ablation": {
+    "status": "registered_not_executed",
+    "train_assets": ["PUMP-02", "PUMP-04", "PUMP-07"],
+    "descriptive_validation_assets": ["PUMP-09"],
+    "groups": {
+      "vibration_temperature": ["vibration_rms_mm_s", "vibration_accel_rms_g", "vibration_crest_factor", "bearing_temp_c"],
+      "suction": ["suction_pressure_kpa"],
+      "flow_power": ["flow_m3_h", "motor_power_kw"]
+    },
+    "branches": ["full", "mask_from_start", "restore_original"],
+    "refit_between_branches": false,
+    "recompute_causal_reference_each_branch": true,
+    "fixed_original_observable_event_denominator": true,
+    "remove_all_masked_channel_derived_inputs": true,
+    "fabricated_extra_channels_allowed": false
+  },
+  "control_hashes": {
+    "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+    "scripts/compare_causal_b1.py": "beef481c92e89908578803aa0eeacb11748a8232ee7ab9ec62ab50b41da49dc1"
+  }
+}
