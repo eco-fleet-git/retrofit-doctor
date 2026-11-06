@@ -1,0 +1,10 @@
+# Task007 phase-1 adapter review — before the blind gate
+
+Read the in-progress adapter. The interpreter-start seed guard, dependency pin and train/validation parity checks are appropriate. Correct these release-boundary issues before the final proposed manifest:
+
+1. `export()` currently checks the shared parquet and code hashes but not `assets.csv`, although metadata determines the causal reference and clocks. Verify its frozen identity before loading test features. Also freeze and verify the submission template/schema identity used by the adapter.
+2. Do not derive export targets afresh from every metadata row whose split is `test`. Use the approved manifest target set and assert that it is exactly PUMP-10/11/12, with matching metadata split and actual returned feature IDs. A newly added/reassigned metadata row must not silently expand the gate. The loader's predicate is good; bind it to the gate's scope.
+3. The current export path does schema checks only. Task007 also requires automated **test prefix-invariance checks** without manual outcome inspection or retuning. Register a finite set of clock offsets before access (include the commissioning boundary and later cutpoints), compare every submission field for independent prefixes against the saved full-run past using a null-safe canonical comparison, and write only pass/fail/count audit metadata outside the submission. Keep predictions immutable; a failure is disclosed, not an invitation to tune. Do not load labels or organizer predictions. Add this code and fixtures before final sealing and record the fixed cut set/comparison policy in the proposed manifest.
+4. Phase1 must still stop for coordinator review before any test-feature read. Fresh-checkout verification must test no **Internet** dependency with localhost available; browser-offline mode can block new localhost fetches. Do not claim an unperformed offline check. Preserve user drafts by using isolated test profiles.
+
+Re-run only the checks affected by these changes, then produce the final phase-1 handoff with hashes. Codex will commit the reviewed adapter and record an exact gate. No new detector or parameter selection.

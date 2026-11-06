@@ -1,0 +1,49 @@
+{
+  "phase": 1,
+  "splits": {
+    "train": {
+      "rows": 43,
+      "assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "parity_with_released_causal_b1": true,
+      "sha256": "f4e086190b092e6e6acf9d5bd2a442e978d93d6f295d5863fe2cac216af7165e"
+    },
+    "validation": {
+      "rows": 15,
+      "assets": [
+        "PUMP-08",
+        "PUMP-09"
+      ],
+      "parity_with_released_causal_b1": true,
+      "sha256": "0988340db5a7b86ba3ed5ad3549e72dec568224ec86944ac110e90600be7953d"
+    }
+  },
+  "stored_cutpoints": {
+    "checked": 209,
+    "failures": 0,
+    "assets": [
+      "PUMP-01",
+      "PUMP-02",
+      "PUMP-03",
+      "PUMP-04",
+      "PUMP-05",
+      "PUMP-06",
+      "PUMP-07",
+      "PUMP-08",
+      "PUMP-09"
+    ]
+  },
+  "test_assets_in_metadata": [
+    "PUMP-10",
+    "PUMP-11",
+    "PUMP-12"
+  ],
+  "test_telemetry_loaded": false
+}

@@ -2,22 +2,33 @@
 
 Static, offline browser app over a deterministic JSON bundle. No build step, no npm dependencies, no server logic, no database. Advisory/read-only: the UI cannot send anything to equipment.
 
-## Run
+## Run the demo (committed bundle; no dataset, no analysis dependencies)
 
-From the project root (any Python ≥3.11 with the project's locked requirements; the original environment is `../../work/.venv`):
+The generated bundle in `web/data/` is committed. From the project root, any Python 3 with its standard library is enough:
 
 ```bash
-PYTHONHASHSEED=0 python scripts/export_demo.py          # writes web/data/{fleet,replay-PUMP-08,replay-PUMP-09}.json
-python -m http.server 8765 --bind 127.0.0.1 -d web      # then open http://127.0.0.1:8765/
+python3 -m http.server 8765 --bind 127.0.0.1 -d web     # then open http://127.0.0.1:8765/
 ```
 
-A static server is needed because browsers block `fetch()` of local files from `file://`.
+A static server is needed because browsers block `fetch()` of local files from `file://`. The app makes no Internet requests; it needs only this local server. Switching the browser itself to offline mode can block new localhost fetches, so that is not a supported way to run it. Use a fresh browser profile for rehearsal; drafts live in that browser's local storage.
+
+Verified on 2026-11-07 from a fresh clone of commit `971fbaf` without `vendor/benchmark/data/` or a virtual environment, using `/usr/bin/python3` 3.9.6: every referenced HTML/CSS/JS file and data file returned HTTP 200, and no external URL appears in `web/`. In the same clone, `node --test tests/` (Node 26.12) passed 44/44 on the committed bundle. This was an HTTP-level and unit-test check, not a browser rendering check.
+
+Only PUMP-08/09 (validation) have replay files. Train pumps are listed but not replayed, and PUMP-10/11/12 (blind test) are metadata only.
+
+## Regenerate the bundle (analysis environment only)
+
+Regeneration needs the immutable organizer dataset restored at `vendor/benchmark/data/full/` and the pinned environment: Python 3.13.16 with exactly `requirements.lock.txt` (the original environment is `../../work/.venv`). PYTHONHASHSEED must be 0 at interpreter start.
+
+```bash
+PYTHONHASHSEED=0 python scripts/export_demo.py          # rewrites web/data/{fleet,replay-PUMP-08,replay-PUMP-09}.json
+```
 
 ## Test
 
 ```bash
-PYTHONHASHSEED=0 python -m pytest -q tests/test_demo_export.py   # exporter: split separation, provenance, determinism, locked figures
-node --test tests/web_replay.test.mjs                            # as-of slicing boundary (needs the exported bundle; Node ≥18)
+PYTHONHASHSEED=0 python -m pytest -q tests/test_demo_export.py   # exporter (needs the dataset): split separation, provenance, determinism, locked figures
+node --test tests/web_replay.test.mjs                            # as-of slicing boundary on the committed bundle (Node ≥18)
 ```
 
 ## Structure

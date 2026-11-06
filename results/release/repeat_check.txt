@@ -1,0 +1,9 @@
+{
+  "fresh_processes_identical": true,
+  "digests": {
+    "predictions_train.csv": "f4e086190b092e6e6acf9d5bd2a442e978d93d6f295d5863fe2cac216af7165e",
+    "predictions_validation.csv": "0988340db5a7b86ba3ed5ad3549e72dec568224ec86944ac110e90600be7953d"
+  },
+  "wrong_seed_relaunches_pinned": true,
+  "wrong_seed_without_relaunch_refused_before_data": true
+}

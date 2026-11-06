@@ -1,0 +1,262 @@
+{
+  "status": "PROPOSED_FOR_COORDINATOR_GATE_NOT_EXECUTED",
+  "selected_artifact": {
+    "id": "causal B1 (released control; Task002 C0 = Task008 S0 = Task005 R0)",
+    "parameters": {
+      "k": 6,
+      "persistence_min": 15,
+      "reference_hours": 24
+    },
+    "per_asset_manual_parameters": false
+  },
+  "selection_rationale": "No improved model passed its registered train gates: Task002 C1-C5 (burden/type), Task008 S2/S3 (burden/detection), Task005 R1/R2 (seed + causality + type gates); E4 not testable. Unchanged causal B1 is released; no improvement claimed.",
+  "code_sha256": {
+    "scripts/release_export.py": "0476ec7904116ea713db28fde914f5ea366fcccb5d1ce338cc438625806e63be",
+    "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+    "vendor/benchmark/src/retrofit_sim/baselines.py": "4bf291d6a1834aa79ced8d2d862d0331fb60e3210630c4c1aa25744ebd7a27dc",
+    "vendor/benchmark/src/retrofit_sim/scoring.py": "5293c2e427d6181e0f24cfd64d617fc96d284c31a949410d3c88769a7e1802c2",
+    "requirements.lock.txt": "09030a82f9d1c9344f798b332c497f575ed1e44f0f71bace5f027f36075afd53"
+  },
+  "environment": {
+    "python": "3.13.16",
+    "dependencies": "requirements.lock.txt (exact match enforced)",
+    "installed": {
+      "cloudpickle": "3.1.2",
+      "contourpy": "1.4.0",
+      "cycler": "0.12.1",
+      "fonttools": "4.68.0",
+      "iniconfig": "2.3.1",
+      "joblib": "1.6.0",
+      "kiwisolver": "1.5.1",
+      "matplotlib": "3.11.2",
+      "narwhals": "2.28.0",
+      "numpy": "2.5.4",
+      "packaging": "26.3",
+      "pandas": "3.1.1",
+      "pillow": "13.0.0",
+      "pluggy": "1.7.0",
+      "pyarrow": "26.0.1",
+      "pygments": "2.21.0",
+      "pyparsing": "3.3.3",
+      "pytest": "9.2.0",
+      "python-dateutil": "4.0.0",
+      "pyyaml": "6.0.3",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.18.1",
+      "threadpoolctl": "3.8.0",
+      "tzdata": "2026.6"
+    }
+  },
+  "seed_policy": "PYTHONHASHSEED=0 at interpreter start (enforced by relaunch or exit 3 before data access). B1 diagnosis is NOT seed-invariant (AUDIT A03; Task005 measured fault-type changes under seeds 1/7); no seed-invariance claim; vendor iteration not edited.",
+  "data_identity": {
+    "features_1min.parquet": {
+      "sha256": "de25928738c45a5d6608d6c1a3e6e3eb69d612d23e99a9f184f3b23db4d9c52c",
+      "bytes": 10433571,
+      "vendor_manifest_sha256": "de25928738c45a5d6608d6c1a3e6e3eb69d612d23e99a9f184f3b23db4d9c52c",
+      "local_sha256": "de25928738c45a5d6608d6c1a3e6e3eb69d612d23e99a9f184f3b23db4d9c52c",
+      "note": "opaque whole-file hash including test partitions; values not decoded"
+    },
+    "assets.csv": "bf80906062ee87861adcf0d94accbf303b49b6c8c4f9060bbd3d5318dbeaef69",
+    "predictions_template.csv": "98f8d72f7dd0ae631a553b50a15080aadb83d0f15e18e7efe6f6a3e5eba61502",
+    "vendor/benchmark/MANIFEST.json": "358d71d40c304a46d7f08d1fef33cb5fb376e448b97540b4fddea9f16679bb20"
+  },
+  "availability_policy": "each asset replayed to its metadata window_end_utc; only closed one-minute windows (window_start + 1 min <= clock); missing windows materialized as gateway gaps; zero additional ingestion lag assumed; no future windows, no backward fill",
+  "reference_policy": "fixed causal commissioning reference: first 24 h from metadata window_start_utc, steady minutes, frozen afterwards; no diagnosis from reference-dependent z during commissioning",
+  "inputs_used_at_export": [
+    "assets.csv rows for PUMP-10/11/12 (static public metadata)",
+    "features_1min.parquet rows for PUMP-10/11/12 via predicate, IDs verified"
+  ],
+  "inputs_never_used": [
+    "any events/labels",
+    "organizer baselines/results/*_test.csv",
+    "hidden configs/generator",
+    "telemetry/ raw partitions",
+    "vibration snapshots",
+    "benign windows for test"
+  ],
+  "target_assets": [
+    "PUMP-10",
+    "PUMP-11",
+    "PUMP-12"
+  ],
+  "target_assets_check": {
+    "metadata_test_rows": [
+      "PUMP-10",
+      "PUMP-11",
+      "PUMP-12"
+    ],
+    "equals_targets": true
+  },
+  "target_channels_from_metadata": {
+    "PUMP-10": [
+      "ambient_temp_c",
+      "bearing_temp_c",
+      "discharge_pressure_kpa",
+      "fluid_temp_c",
+      "motor_current_a",
+      "motor_power_kw",
+      "motor_speed_rpm",
+      "suction_pressure_kpa",
+      "vibration_accel_rms_g",
+      "vibration_crest_factor",
+      "vibration_rms_mm_s"
+    ],
+    "PUMP-11": [
+      "ambient_temp_c",
+      "discharge_pressure_kpa",
+      "fluid_temp_c",
+      "motor_current_a",
+      "motor_power_kw",
+      "motor_speed_rpm"
+    ],
+    "PUMP-12": [
+      "ambient_temp_c",
+      "bearing_temp_c",
+      "discharge_pressure_kpa",
+      "flow_m3_h",
+      "fluid_temp_c",
+      "motor_current_a",
+      "motor_power_kw",
+      "motor_winding_temp_c",
+      "suction_pressure_kpa",
+      "valve_position_pct",
+      "vibration_accel_rms_g",
+      "vibration_crest_factor",
+      "vibration_rms_mm_s"
+    ]
+  },
+  "schema": {
+    "template": "vendor/benchmark/submission_template/predictions_template.csv",
+    "columns": [
+      "asset_id",
+      "alert_time_utc",
+      "event_class",
+      "fault_type",
+      "confidence",
+      "evidence",
+      "recommended_action"
+    ],
+    "checks": "validate_submission(): exact header, required non-null, target assets only, YYYY-MM-DDTHH:MM:SSZ, scorer class/type vocabulary, confidence in [0,1], inside asset window, sorted"
+  },
+  "prefix_invariance_audit": {
+    "registered_offsets_from_window_start_s": [
+      2700,
+      21600,
+      43200,
+      86399,
+      86400,
+      86401,
+      86460,
+      129600,
+      172800,
+      259200,
+      345600,
+      432000,
+      518400
+    ],
+    "plus": "window_end - 60 s",
+    "comparison": "independent prefix run (closed windows <= clock, clock = cut) vs saved full-run alerts <= cut; every submission column via canonical(): text, None/NaN -> '', confidence %.17g; exact equality",
+    "output": "results/release/test_prefix_audit.json with pass/fail and compared-row counts only; no values, no labels",
+    "on_failure": "disclosed; predictions stay immutable; no tuning"
+  },
+  "output": {
+    "path": "results/release/predictions_test.csv",
+    "extra_files": [
+      "execution_manifest.json",
+      "predictions_test.sha256",
+      "test_prefix_audit.json"
+    ],
+    "diagnostics_outside_submission_columns": true
+  },
+  "exposure_log": {
+    "train": "fully exposed (all Task001-008/005 development)",
+    "validation": "inspected repeatedly; descriptive only",
+    "test_metadata": "assets.csv rows (public static metadata) used by UI and this manifest",
+    "test_opaque_hash_reads": "vendor MANIFEST integrity checks hashed test partitions, the shared feature parquet and 3 organizer test-prediction CSVs as bytes; never parsed",
+    "test_measurements": "Phase-1 protocol deviation: a mutation test with the loader gate deliberately disabled read PUMP-10 feature rows into a pytest process before the release gate. Implementer reports no values were printed, saved, compared or analysed, and the process exited. No detector/parameter selection followed this read. Subsequent potentially exposing tests replace read_parquet with a raising stub. See docs/tasks/007-handoff.md and 007-coordinator-review.md. Do not claim a pristine untouched blind test.",
+    "coordinator_assessment": "Proceed with the previously selected, unchanged causal B1 for a fixed-model test export with disclosed pre-gate access. No clean-blind claim and no test-performance claim; no retuning allowed."
+  },
+  "phase1_checks": {
+    "dev_check": {
+      "phase": 1,
+      "splits": {
+        "train": {
+          "rows": 43,
+          "assets": [
+            "PUMP-01",
+            "PUMP-02",
+            "PUMP-03",
+            "PUMP-04",
+            "PUMP-05",
+            "PUMP-06",
+            "PUMP-07"
+          ],
+          "parity_with_released_causal_b1": true,
+          "sha256": "f4e086190b092e6e6acf9d5bd2a442e978d93d6f295d5863fe2cac216af7165e"
+        },
+        "validation": {
+          "rows": 15,
+          "assets": [
+            "PUMP-08",
+            "PUMP-09"
+          ],
+          "parity_with_released_causal_b1": true,
+          "sha256": "0988340db5a7b86ba3ed5ad3549e72dec568224ec86944ac110e90600be7953d"
+        }
+      },
+      "stored_cutpoints": {
+        "checked": 209,
+        "failures": 0,
+        "assets": [
+          "PUMP-01",
+          "PUMP-02",
+          "PUMP-03",
+          "PUMP-04",
+          "PUMP-05",
+          "PUMP-06",
+          "PUMP-07",
+          "PUMP-08",
+          "PUMP-09"
+        ]
+      },
+      "test_assets_in_metadata": [
+        "PUMP-10",
+        "PUMP-11",
+        "PUMP-12"
+      ],
+      "test_telemetry_loaded": false
+    },
+    "repeat_check": {
+      "fresh_processes_identical": true,
+      "digests": {
+        "predictions_train.csv": "f4e086190b092e6e6acf9d5bd2a442e978d93d6f295d5863fe2cac216af7165e",
+        "predictions_validation.csv": "0988340db5a7b86ba3ed5ad3549e72dec568224ec86944ac110e90600be7953d"
+      },
+      "wrong_seed_relaunches_pinned": true,
+      "wrong_seed_without_relaunch_refused_before_data": true
+    },
+    "dev_prefix_audit_registered_offsets": {
+      "train": {
+        "checked": 98,
+        "failures": 0
+      },
+      "validation": {
+        "checked": 28,
+        "failures": 0
+      }
+    }
+  },
+  "git": {
+    "head": "971fbaf54df41623feba03475b881df6b85db2a6",
+    "uncommitted_at_manifest_time": [
+      " M web/README.md",
+      "?? docs/tasks/007-review-round1.md",
+      "?? results/release/",
+      "?? scripts/release_export.py",
+      "?? tests/test_release_export.py"
+    ]
+  },
+  "post_export_statement": "Test predictions exported; quality unknown (no organizer labels/scoring available)",
+  "repeat_policy": "infrastructure-only repeat with identical artifact; prior predictions must be byte-identical; reason disclosed",
+  "created_at": "2026-11-06T23:47:32.351745+00:00"
+}
