@@ -1,85 +1,84 @@
 # Retrofit Doctor
 
-Помощник инженера для ранней диагностики охлаждающих насосов на синтетическом бенчмарке RETROFIT AI 2026.
+An engineering assistant for reviewing pump warnings and deciding whether an additional measurement is worth installing. **Working local prototype on synthetic data; no hardware is built or controlled.**
 
-**Цель демо:** первая рабочая версия 7 ноября 2026 к 12:00 Europe/Berlin, затем две итерации. [План и критерии готовности](docs/PROJECT_PLAN.md) · [UX Pilot prompts](docs/ux/UX_PILOT_PROMPTS.md) · [Задача Claude Code](docs/tasks/001-local-demo.md) · [Todoist](https://app.todoist.com/app/project/6hwchMHXFQVmmj9M). Физическое устройство не собираем: показываем диагностику, границы данных и обоснование модернизации.
+The workflow connects an alert to its evidence, the measurements available on that pump, a proposed inspection or measurement, and an editable lifecycle-cost assessment. Keeping existing signals or deferring permanent instrumentation are valid outcomes.
 
-Репозиторий: [eco-fleet-git/retrofit-doctor](https://github.com/eco-fleet-git/retrofit-doctor), private. Большой исходный dataset хранится локально; восстановление и атрибуция описаны в [NOTICE.md](NOTICE.md).
+## Run the demonstration
 
-**Статус:** исходный B1 воспроизведён; версия с устранённым использованием будущих данных реализована и проверена. Диагностические правила и параметры сохранены. На validation исправленная версия набирает **76,0125**, исходная — **78,0125**. Все 209 сохранённых проверок временных срезов прошли. Пять новых B2-кандидатов не прошли train-критерии: causal B1 сохранён. Локальный интерфейс показывает 12 насосов, causal replay PUMP-08/09, графики, оснащение, доказательства и рабочий Retrofit Planner с сохранением черновиков и расчётом жизненного цикла. Проверка Planner: 40 JS-тестов и 47 браузерных проверок; [неполные требования раскрыты](docs/tasks/003-coordinator-review.md). Светлый стиль UX Pilot одобрен, его интеграция и следующие диагностические эксперименты продолжаются. Инкрементального edge-сервиса нет.
-
-## Открыть демо
-
-Готовый bundle включён в Git; для просмотра не нужно восстанавливать полный dataset или устанавливать зависимости анализа:
+The committed browser bundle needs only Python's static server. No dataset download, model service, account, build step or analysis dependencies are needed to view it.
 
 ```bash
 python3 -m http.server 8765 --bind 127.0.0.1 -d web
 ```
 
-Откройте http://127.0.0.1:8765/. [Подробности запуска](web/README.md) · [Результат Task001 и ограничения](docs/tasks/001-handoff.md). Будущие окна исключаются при отображении; validation bundle содержит всю неделю, но test telemetry в нём отсутствует.
+Open [the local demo](http://127.0.0.1:8765/). Start with [PUMP-08 at the recorded alert](http://127.0.0.1:8765/#/pumps/PUMP-08?t=2025-09-10T12%3A38%3A00Z), then inspect [retrospective evidence](http://127.0.0.1:8765/#/evidence) and [the Retrofit Planner](http://127.0.0.1:8765/#/pumps/PUMP-08/retrofit). Drafts are stored in this browser, not sent to equipment or a server.
 
-## Результаты
+The interface and pitch are in English. [Russian working notes](README.ru.md) preserve the earlier development context.
 
-- [Sensor mask/restore: измеренная зависимость от датчиков и смешанные результаты](results/sensor_ablation/FINDINGS.md)
-- [Рабочий Planner: независимая проверка и оставшиеся ограничения](docs/tasks/003-coordinator-review.md)
-- [Эксперимент B2: пять кандидатов отклонены, causal B1 сохранён](results/causal_b2/CAUSAL_B2_FINDINGS.md)
-- [Выбор кандидата B2 по train и зафиксированные хеши](results/causal_b2/selection.json)
-- [Первая английская презентация и офлайн-версия](presentation/README.md)
-- [Исправление причинности и сравнение версий](CAUSAL_B1_FINDINGS.md)
-- [Метрики исходной и исправленной версий](results/causal_b1/comparison.csv)
-- [Аудит исправленной версии](results/causal_b1/causality_audit.csv)
-- [Подробный разбор B1](B1_FINDINGS.md)
-- [Сравнение метрик с организаторами](results/b1/metric_comparison.csv)
-- [Разбор событий validation](results/b1/events_validation.csv)
-- [Прогнозы validation](results/b1/predictions_validation.csv)
-- [Проверка причинности по временным срезам](results/b1/causality_cutpoints.csv)
-- [Параметры и версии окружения](results/b1/run_summary.json)
+## What is demonstrated
 
-## Повторный запуск
+- Twelve independent pumps with public equipment and sensor metadata. Site membership does not establish pipe connections or six paired circuits.
+- Causal replay for two validation pumps: closed minute windows, an explicit observation clock, actual baseline alerts, source evidence and visible data gaps.
+- Detector output separated from retrospective event labels, including wrong, unknown and missed diagnoses.
+- A working Planner with measurement hypotheses, integration questions, local drafts, editable installed/lifecycle costs and an illustrative negative business case.
+- Reviewed diagnostic experiments and sensor mask/restore evidence. The [engineering proposal](docs/engineering/DECISION_BRIEF.md) describes optional measurement points, mounting, cables/radio, local gateway/power and maintenance questions.
+- An [English presentation and offline PDF](presentation/README.md), with explicit prototype and field-validation limits.
 
-Проверено на macOS arm64, Python 3.13.16. Из корня этой папки:
+**Integration status, 7 November:** the Planner and experiments below are reviewed working slices. Final light-style UI and schematic integration is in progress under [Task006](docs/tasks/006-demo-integration.md). The blind-test export has not yet passed the final release gate. Task handoffs record completed scope; visual-direction approval is not final application acceptance.
+
+## Measured evidence
+
+The selected replay detector remains **causal B1, k=6, persistence=15 minutes**, using a fixed first-day empirical reference. That reference is not certified healthy.
+
+| Synthetic validation, 9 events / 2 pumps | Causal B1 | Historical original B1 |
+|---|---:|---:|
+| Composite benchmark score | 76.01 | 78.01 |
+| Events detected | 8/9 | 8/9 |
+| Correct fault type | 4/9 | 4/9 |
+| False alert episodes | 1 | 1 |
+
+The lower causal score follows removal of early future-reference use. It is not an accuracy percentage. The comparison recorded 209 prefix checks and 18 regression tests. See [causality findings](CAUSAL_B1_FINDINGS.md) and [exact figures](results/causal_b1/comparison.csv).
+
+Five new B2 candidates failed the registered training gates: more detections came with fewer correct types and more false/repeated alerts. The bounded sparse-sensor follow-up also retained B1. See [B2 findings](results/causal_b2/CAUSAL_B2_FINDINGS.md), [sparse-sensor findings](results/sparse_stuck_followup/FINDINGS.md) and [review](docs/tasks/008-coordinator-review.md).
+
+Sensor mask/restore effects were mixed. On ten original train events, full inputs gave 9 detections and 2 correct types; removing vibration/temperature gave 8 and 0. Removing flow/power lost a detection but gained a correct type. Restoration reproduced the full-input features. These are information-ablation results for an unchanged detector, not hardware ROI. See [paired results and adverse cases](results/sensor_ablation/FINDINGS.md).
+
+The proposed fleet reference has no channel supported by three eligible fit assets under the registered comparability rules. It remains a fixture-only prototype. The separate regime/abstention experiment is in progress. See [the registered experiment and exposure log](docs/experiments/followup/2026-11-07-e3-e4-manifest.json).
+
+## Limits that matter
+
+All data are synthetic: seven training pumps, two previously inspected validation pumps, three blind test pumps. Validation is descriptive, not independent field evidence. The browser contains the full validation-week bundle and filters it by clock for display; this is not secure concealment of future data. Test assets are metadata-only in the UI.
+
+The app is static batch replay, not a persistent edge service. Real arrival delays, restart recovery, installation quality, maintenance effort and field diagnostic performance have not been demonstrated. Confidence is a heuristic, not calibrated probability. The proposed measurement package is not certified or priced by a supplier. Controls, trips and interlocks are outside the assistant.
+
+Planner economics use stated user assumptions, never synthetic recall converted to revenue. The included example gives EUR −2,200 annual net and EUR −15,500 over five years at zero discount; it is not a forecast for PUMP-08. [Planner review](docs/tasks/003-coordinator-review.md) lists remaining scope, including partial shared-cost allocation and provenance limitations.
+
+## Reproduce the analysis separately
+
+The viewing bundle is already in Git. For analytical reruns, restore the immutable organizer data as described in [NOTICE.md](NOTICE.md), then use the pinned dependencies. The recorded environment is macOS arm64, Python 3.13.16.
 
 ```bash
 python3.13 -m venv .venv
 .venv/bin/python -m pip install -r requirements.lock.txt
+PYTHONHASHSEED=0 .venv/bin/python -m pytest -q tests/test_causal_b1.py
 PYTHONHASHSEED=0 .venv/bin/python scripts/run_b1.py
 PYTHONHASHSEED=0 .venv/bin/python scripts/compare_causal_b1.py
-PYTHONHASHSEED=0 .venv/bin/python -m pytest -q tests/test_causal_b1.py
-.venv/bin/python -m pytest -q vendor/benchmark/tests/test_07_splits_leakage.py vendor/benchmark/tests/test_10_scoring.py
 ```
 
-При первоначальном запуске окружение размещено в `work/.venv` родительского рабочего каталога Codex. Приведённые выше команды создают независимое окружение непосредственно в проекте.
+The last two commands recreate their respective results directories; use a separate checkout to preserve reviewed evidence. The baseline loader restricts telemetry to train/validation. Hash-only integrity checks of the complete organizer bundle are disclosed separately from semantic data access. The [experiment protocol](docs/experiments/FROZEN_PROTOCOL.md) defines the final one-shot test-export gate.
 
-`run_b1.py` перезаписывает только `results/b1/`. Скрипт:
+## Project map
 
-1. Проверяет SHA-256 всех 189 перечисленных в исходном манифесте файлов; сам манифест — отдельный, 190-й файл комплекта.
-2. Загружает минутные признаки только насосов PUMP-01…PUMP-09 из полного набора. Тестовые признаки исключаются фильтром Parquet.
-3. Повторяет исходную сетку из 12 комбинаций порога и длительности отклонения; выбирает параметры только по train.
-4. Запускает неизменённый B1 и исходный scorer на train и validation.
-5. Сопоставляет 20 значений метрик и все поля validation-прогнозов с комплектом организаторов.
-6. Выполняет 81 проверку временных срезов с фиксированными параметрами, сохраняя различия состава тревог и их объяснений.
+| Location | Contents |
+|---|---|
+| `web/` | Committed local UI and synthetic validation bundle |
+| `src/retrofit_doctor/`, `scripts/`, `tests/` | Detectors, exporters, experiment runners and focused checks |
+| `results/` | Recorded predictions, event matching, metrics and audits |
+| `diagrams/` | Sensor inventory and explicitly conceptual cooling sketches |
+| `docs/engineering/` | Measurement, integration and lifecycle-cost contracts |
+| `docs/tasks/` | Claude implementation packets and coordinator reviews |
+| `presentation/` | Pitch, local PDF fallback and jury Q&A |
+| `vendor/benchmark/` | Unchanged organizer code/docs; large data restored locally |
 
-`compare_causal_b1.py` сохраняет результаты в `results/causal_b1/`, повторно проверяет исходный результат и сравнивает его с исправлением при одинаковых `k=6` и выдержке 15 минут. Параметры заново не подбираются. Проверяются все поля тревог и нормализованные признаки в 209 срезах, в том числе на границе 24 часов, в случайные моменты и во время обрыва связи.
-
-В первой реализации нет генерации test-прогнозов: этот этап посвящён воспроизведению и анализу train/validation. Хеширование файлов проверяет комплектность, но не используется как вход детектора.
-
-## Структура
-
-```text
-scripts/run_b1.py        воспроизведение и аудит
-scripts/compare_causal_b1.py  сравнение исходной и причинной версий
-src/retrofit_doctor/causal_b1.py  исправленная нормализация и явные часы наблюдения
-tests/test_causal_b1.py   регрессионные проверки причинности и пропусков
-results/b1/             результаты нашего запуска
-results/causal_b1/       сравнение, прогнозы, аудит исправления
-vendor/benchmark/       неизменённый пакет организаторов, включая данные
-requirements.lock.txt   точные версии зависимостей первого запуска
-B1_FINDINGS.md          выводы, ограничения и следующие шаги
-CAUSAL_B1_FINDINGS.md    результаты устранения будущих данных
-```
-
-Данные полностью синтетические. Исходная лицензия и происхождение пакета сохранены в `vendor/benchmark/LICENSE` и `vendor/benchmark/LICENSE_AND_PROVENANCE.md`. Исходный пакет не изменялся. Локальный интерфейс реализован; подключения к оборудованию и полевой проверки нет. B2 реализован как исследовательский эксперимент, но не заменяет causal B1: новые кандидаты не прошли критерии качества.
-
-## Следующий этап
-
-Улучшать диагностику поверх проверенной причинной версии: редкие измерения T1, дрейф против скачка калибровки, износ подшипника и физическая согласованность гидравлических сигналов. Отдельная задача — запуск на новом насосе без суточного ожидания и с возможной исходной неисправностью. Параметры обучать на train; validation использовать для проверки; test оставить для финального прогона.
+Private repository: [eco-fleet-git/retrofit-doctor](https://github.com/eco-fleet-git/retrofit-doctor). Benchmark attribution, licensing and provenance: [NOTICE.md](NOTICE.md). No public deployment or competition submission is performed by this setup.
