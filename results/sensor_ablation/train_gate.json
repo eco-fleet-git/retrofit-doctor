@@ -1,0 +1,156 @@
+{
+  "split": "train",
+  "restore_equal": true,
+  "restore_checks": 9,
+  "causality_ok": true,
+  "causality_checks": 414,
+  "mask_records": {
+    "mask:vibration_temperature": {
+      "PUMP-02": {
+        "removed": [
+          "bearing_temp_c",
+          "vibration_accel_rms_g",
+          "vibration_crest_factor",
+          "vibration_rms_mm_s"
+        ],
+        "not_installed": []
+      },
+      "PUMP-04": {
+        "removed": [
+          "bearing_temp_c",
+          "vibration_accel_rms_g",
+          "vibration_crest_factor",
+          "vibration_rms_mm_s"
+        ],
+        "not_installed": []
+      },
+      "PUMP-07": {
+        "removed": [
+          "bearing_temp_c",
+          "vibration_accel_rms_g",
+          "vibration_crest_factor",
+          "vibration_rms_mm_s"
+        ],
+        "not_installed": []
+      }
+    },
+    "mask:suction": {
+      "PUMP-02": {
+        "removed": [
+          "suction_pressure_kpa"
+        ],
+        "not_installed": []
+      },
+      "PUMP-04": {
+        "removed": [
+          "suction_pressure_kpa"
+        ],
+        "not_installed": []
+      },
+      "PUMP-07": {
+        "removed": [
+          "suction_pressure_kpa"
+        ],
+        "not_installed": []
+      }
+    },
+    "mask:flow_power": {
+      "PUMP-02": {
+        "removed": [
+          "flow_m3_h",
+          "motor_power_kw"
+        ],
+        "not_installed": []
+      },
+      "PUMP-04": {
+        "removed": [
+          "flow_m3_h",
+          "motor_power_kw"
+        ],
+        "not_installed": []
+      },
+      "PUMP-07": {
+        "removed": [
+          "flow_m3_h",
+          "motor_power_kw"
+        ],
+        "not_installed": []
+      }
+    },
+    "restore:vibration_temperature": {
+      "PUMP-02": {
+        "removed": [
+          "bearing_temp_c",
+          "vibration_accel_rms_g",
+          "vibration_crest_factor",
+          "vibration_rms_mm_s"
+        ],
+        "not_installed": []
+      },
+      "PUMP-04": {
+        "removed": [
+          "bearing_temp_c",
+          "vibration_accel_rms_g",
+          "vibration_crest_factor",
+          "vibration_rms_mm_s"
+        ],
+        "not_installed": []
+      },
+      "PUMP-07": {
+        "removed": [
+          "bearing_temp_c",
+          "vibration_accel_rms_g",
+          "vibration_crest_factor",
+          "vibration_rms_mm_s"
+        ],
+        "not_installed": []
+      }
+    },
+    "restore:suction": {
+      "PUMP-02": {
+        "removed": [
+          "suction_pressure_kpa"
+        ],
+        "not_installed": []
+      },
+      "PUMP-04": {
+        "removed": [
+          "suction_pressure_kpa"
+        ],
+        "not_installed": []
+      },
+      "PUMP-07": {
+        "removed": [
+          "suction_pressure_kpa"
+        ],
+        "not_installed": []
+      }
+    },
+    "restore:flow_power": {
+      "PUMP-02": {
+        "removed": [
+          "flow_m3_h",
+          "motor_power_kw"
+        ],
+        "not_installed": []
+      },
+      "PUMP-04": {
+        "removed": [
+          "flow_m3_h",
+          "motor_power_kw"
+        ],
+        "not_installed": []
+      },
+      "PUMP-07": {
+        "removed": [
+          "flow_m3_h",
+          "motor_power_kw"
+        ],
+        "not_installed": []
+      }
+    }
+  },
+  "pythonhashseed": "0",
+  "elapsed_s": 13.6,
+  "finished_at": "2026-11-06T22:40:42.278747+00:00"
+}

@@ -1,0 +1,169 @@
+{
+  "experiment": "E5/H7 sensor mask/restore (Task004)",
+  "registered_before_results": true,
+  "model": {
+    "selected_by_task002_seal": "C0",
+    "detector": "causal B1 unchanged",
+    "k": 6,
+    "persist": 15,
+    "reference_hours": 24,
+    "pythonhashseed": 0
+  },
+  "train_assets": [
+    "PUMP-02",
+    "PUMP-04",
+    "PUMP-07"
+  ],
+  "descriptive_validation_assets": [
+    "PUMP-09"
+  ],
+  "validation_prior_exposure": "validation split inspected before; PUMP-09 result is descriptive only",
+  "groups": {
+    "vibration_temperature": [
+      "vibration_rms_mm_s",
+      "vibration_accel_rms_g",
+      "vibration_crest_factor",
+      "bearing_temp_c"
+    ],
+    "suction": [
+      "suction_pressure_kpa"
+    ],
+    "flow_power": [
+      "flow_m3_h",
+      "motor_power_kw"
+    ]
+  },
+  "branches": [
+    "full",
+    "mask:vibration_temperature",
+    "mask:suction",
+    "mask:flow_power",
+    "restore:vibration_temperature",
+    "restore:suction",
+    "restore:flow_power"
+  ],
+  "installed_channels": {
+    "PUMP-02": [
+      "ambient_temp_c",
+      "bearing_temp_c",
+      "discharge_pressure_kpa",
+      "flow_m3_h",
+      "fluid_temp_c",
+      "motor_current_a",
+      "motor_power_kw",
+      "motor_speed_rpm",
+      "motor_winding_temp_c",
+      "suction_pressure_kpa",
+      "vibration_accel_rms_g",
+      "vibration_crest_factor",
+      "vibration_rms_mm_s"
+    ],
+    "PUMP-04": [
+      "ambient_temp_c",
+      "bearing_temp_c",
+      "discharge_pressure_kpa",
+      "flow_m3_h",
+      "fluid_temp_c",
+      "motor_current_a",
+      "motor_power_kw",
+      "motor_speed_rpm",
+      "motor_winding_temp_c",
+      "suction_pressure_kpa",
+      "valve_position_pct",
+      "vibration_accel_rms_g",
+      "vibration_crest_factor",
+      "vibration_rms_mm_s"
+    ],
+    "PUMP-07": [
+      "ambient_temp_c",
+      "bearing_temp_c",
+      "discharge_pressure_kpa",
+      "flow_m3_h",
+      "fluid_temp_c",
+      "motor_current_a",
+      "motor_power_kw",
+      "motor_speed_rpm",
+      "motor_winding_temp_c",
+      "suction_pressure_kpa",
+      "vibration_accel_rms_g",
+      "vibration_crest_factor",
+      "vibration_rms_mm_s"
+    ],
+    "PUMP-09": [
+      "ambient_temp_c",
+      "bearing_temp_c",
+      "discharge_pressure_kpa",
+      "flow_m3_h",
+      "fluid_temp_c",
+      "motor_current_a",
+      "motor_power_kw",
+      "motor_winding_temp_c",
+      "suction_pressure_kpa",
+      "vibration_accel_rms_g",
+      "vibration_crest_factor",
+      "vibration_rms_mm_s"
+    ]
+  },
+  "mask_definition": "drop every <channel>__* feature column of the group from the start of the window and remove the channel from working channels_available; rows/gateway columns unchanged; reference recomputed from scratch in every branch; original assets/events used only by the evaluator",
+  "consumed_columns_rule": "asset_id, window_start_utc, rows, operating_mode, running_fraction and mean/std/count of the 13 B1 channels; regime uses motor_speed_rpm__mean; no cross-channel derived residual exists in C0; quality_any, min/max and ambient_temp_c are not consumed",
+  "restore_definition": "masked frame + original group columns re-attached by (asset_id, window_start_utc); must equal full exactly (times/categories/text) and numerics atol 1e-6 rtol 0",
+  "causality_cutpoints": {
+    "PUMP-02": 23,
+    "PUMP-04": 23,
+    "PUMP-07": 23,
+    "PUMP-09": 23
+  },
+  "original_events": {
+    "train": {
+      "observable_event_ids": [
+        "PUMP-02-E01",
+        "PUMP-02-E02",
+        "PUMP-02-E03",
+        "PUMP-04-E01",
+        "PUMP-04-E02",
+        "PUMP-04-E03",
+        "PUMP-04-E04",
+        "PUMP-07-E01",
+        "PUMP-07-E02",
+        "PUMP-07-E03"
+      ],
+      "observable_events": 10,
+      "excluded_unobservable_original": []
+    },
+    "validation": {
+      "observable_event_ids": [
+        "PUMP-09-E01",
+        "PUMP-09-E02",
+        "PUMP-09-E03",
+        "PUMP-09-E04",
+        "PUMP-09-E06"
+      ],
+      "observable_events": 5,
+      "excluded_unobservable_original": []
+    }
+  },
+  "metrics": {
+    "official": "unchanged vendor scorer on original assets/events: detected, class_correct, type_correct, false_episodes + excess_repeats, composite",
+    "sensor_type_and_channel": "SENSOR event, correct type and channel parsed from first matched burst evidence by the Task002 C0 rule (single named channel; 'missing rows' -> GATEWAY; otherwise none). Machine evidence citing several channels yields no channel.",
+    "unknown": "UNKNOWN first diagnoses among observable events; total UNKNOWN alerts",
+    "correct_type_delay": "first burst assigned to the event by the replicated official assignment whose type equals the event type; delay from detectable_utc (window start if absent); missed correct diagnoses reported as counts and per event, never dropped",
+    "deltas": "full minus mask per asset and pooled; restore must equal full"
+  },
+  "sealed_sha256": {
+    "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+    "vendor/benchmark/src/retrofit_sim/baselines.py": "4bf291d6a1834aa79ced8d2d862d0331fb60e3210630c4c1aa25744ebd7a27dc",
+    "vendor/benchmark/src/retrofit_sim/scoring.py": "5293c2e427d6181e0f24cfd64d617fc96d284c31a949410d3c88769a7e1802c2",
+    "scripts/run_b1.py": "83c6b591ddcd1d07b15dbdba08e26f7731f237c420201a87339ba0d0e39a4d3e",
+    "scripts/run_sensor_ablation.py": "57fa0191d724a82fa1e00166ec3008b3edab78a7953c7bd69b3a17700b059d49",
+    "results/causal_b2/selection.json": "15948cb251bde6e2039ec1ac8357d2908d8e21d930f6c64fb495a1dc869150c0",
+    "docs/experiments/protocol_v1.json": "f018c40d4aec809e6496b8f7a8220176f821401e51321364295c0fa75cc02477"
+  },
+  "inputs_sha256": {
+    "assets.csv": "bf80906062ee87861adcf0d94accbf303b49b6c8c4f9060bbd3d5318dbeaef69",
+    "events_train.csv": "08b607f38a64a34601de1b578896ca2c8314977bc76eecdec8dddb253f641392",
+    "events_validation.csv": "68e7ffc01673dacf805c907a6367f0f9c91887a1316ab4bc79ed8384fea2bbad",
+    "benign_windows_train_validation.csv": "d1f6e8040e4d616aeed60cbae67a836fa4c1e0381aaff56c7976c73be3e7e649",
+    "features_1min.parquet(vendor manifest)": "de25928738c45a5d6608d6c1a3e6e3eb69d612d23e99a9f184f3b23db4d9c52c"
+  },
+  "saved_at": "2026-11-06T22:40:28.258003+00:00"
+}

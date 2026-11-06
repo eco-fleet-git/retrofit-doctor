@@ -1,0 +1,68 @@
+{
+  "split": "validation",
+  "restore_equal": true,
+  "restore_checks": 3,
+  "causality_ok": true,
+  "causality_checks": 138,
+  "mask_records": {
+    "mask:vibration_temperature": {
+      "PUMP-09": {
+        "removed": [
+          "bearing_temp_c",
+          "vibration_accel_rms_g",
+          "vibration_crest_factor",
+          "vibration_rms_mm_s"
+        ],
+        "not_installed": []
+      }
+    },
+    "mask:suction": {
+      "PUMP-09": {
+        "removed": [
+          "suction_pressure_kpa"
+        ],
+        "not_installed": []
+      }
+    },
+    "mask:flow_power": {
+      "PUMP-09": {
+        "removed": [
+          "flow_m3_h",
+          "motor_power_kw"
+        ],
+        "not_installed": []
+      }
+    },
+    "restore:vibration_temperature": {
+      "PUMP-09": {
+        "removed": [
+          "bearing_temp_c",
+          "vibration_accel_rms_g",
+          "vibration_crest_factor",
+          "vibration_rms_mm_s"
+        ],
+        "not_installed": []
+      }
+    },
+    "restore:suction": {
+      "PUMP-09": {
+        "removed": [
+          "suction_pressure_kpa"
+        ],
+        "not_installed": []
+      }
+    },
+    "restore:flow_power": {
+      "PUMP-09": {
+        "removed": [
+          "flow_m3_h",
+          "motor_power_kw"
+        ],
+        "not_installed": []
+      }
+    }
+  },
+  "pythonhashseed": "0",
+  "elapsed_s": 4.8,
+  "finished_at": "2026-11-06T22:40:54.720599+00:00"
+}

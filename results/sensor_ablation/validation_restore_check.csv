@@ -1,0 +1,4 @@
+split,branch,asset_id,alerts_full,alerts_restore,categorical_exact,all_fields_within_tolerance
+validation,restore:vibration_temperature,PUMP-09,9,9,True,True
+validation,restore:suction,PUMP-09,9,9,True,True
+validation,restore:flow_power,PUMP-09,9,9,True,True

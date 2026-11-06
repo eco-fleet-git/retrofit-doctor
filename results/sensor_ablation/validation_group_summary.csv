@@ -1,0 +1,15 @@
+split,scope,branch,events,detected,class_correct,type_correct,false_episodes,excess_repeats,false_plus_excess,sensor_events,sensor_type_and_channel,unknown_first_diagnoses,unknown_alerts,alerts,correct_type_detected,missed_correct_type,composite_score,full_minus_branch_detected,full_minus_branch_class_correct,full_minus_branch_type_correct,full_minus_branch_false_plus_excess,full_minus_branch_sensor_type_and_channel,full_minus_branch_unknown_first_diagnoses,full_minus_branch_unknown_alerts,full_minus_branch_correct_type_detected,full_minus_branch_missed_correct_type,full_minus_branch_composite_score
+validation,pooled,full,5,5,5,2,1,0,1,2,1,0,0,9,2,3,77.50389610389611,0,0,0,0,0,0,0,0,0,0.0
+validation,PUMP-09,full,5,5,5,2,1,0,1,2,1,0,0,9,2,3,77.50389610389611,0,0,0,0,0,0,0,0,0,0.0
+validation,pooled,mask:vibration_temperature,5,4,4,1,1,0,1,2,0,1,1,6,1,4,66.28571428571429,1,1,1,0,1,-1,-1,1,-1,11.218181818181819
+validation,PUMP-09,mask:vibration_temperature,5,4,4,1,1,0,1,2,0,1,1,6,1,4,66.28571428571429,1,1,1,0,1,-1,-1,1,-1,11.218181818181819
+validation,pooled,mask:suction,5,4,4,2,1,0,1,2,1,0,0,8,2,3,67.6857142857143,1,1,0,0,0,0,0,0,0,9.818181818181813
+validation,PUMP-09,mask:suction,5,4,4,2,1,0,1,2,1,0,0,8,2,3,67.6857142857143,1,1,0,0,0,0,0,0,0,9.818181818181813
+validation,pooled,mask:flow_power,5,5,4,2,1,0,1,2,1,0,0,10,2,3,75.4708145130115,0,1,0,0,0,0,0,0,0,2.0330815908846063
+validation,PUMP-09,mask:flow_power,5,5,4,2,1,0,1,2,1,0,0,10,2,3,75.4708145130115,0,1,0,0,0,0,0,0,0,2.0330815908846063
+validation,pooled,restore:vibration_temperature,5,5,5,2,1,0,1,2,1,0,0,9,2,3,77.50389610389611,0,0,0,0,0,0,0,0,0,0.0
+validation,PUMP-09,restore:vibration_temperature,5,5,5,2,1,0,1,2,1,0,0,9,2,3,77.50389610389611,0,0,0,0,0,0,0,0,0,0.0
+validation,pooled,restore:suction,5,5,5,2,1,0,1,2,1,0,0,9,2,3,77.50389610389611,0,0,0,0,0,0,0,0,0,0.0
+validation,PUMP-09,restore:suction,5,5,5,2,1,0,1,2,1,0,0,9,2,3,77.50389610389611,0,0,0,0,0,0,0,0,0,0.0
+validation,pooled,restore:flow_power,5,5,5,2,1,0,1,2,1,0,0,9,2,3,77.50389610389611,0,0,0,0,0,0,0,0,0,0.0
+validation,PUMP-09,restore:flow_power,5,5,5,2,1,0,1,2,1,0,0,9,2,3,77.50389610389611,0,0,0,0,0,0,0,0,0,0.0

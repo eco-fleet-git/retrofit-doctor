@@ -1,0 +1,10 @@
+split,branch,asset_id,alerts_full,alerts_restore,categorical_exact,all_fields_within_tolerance
+train,restore:vibration_temperature,PUMP-02,7,7,True,True
+train,restore:vibration_temperature,PUMP-04,10,10,True,True
+train,restore:vibration_temperature,PUMP-07,10,10,True,True
+train,restore:suction,PUMP-02,7,7,True,True
+train,restore:suction,PUMP-04,10,10,True,True
+train,restore:suction,PUMP-07,10,10,True,True
+train,restore:flow_power,PUMP-02,7,7,True,True
+train,restore:flow_power,PUMP-04,10,10,True,True
+train,restore:flow_power,PUMP-07,10,10,True,True

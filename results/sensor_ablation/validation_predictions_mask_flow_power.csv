@@ -1,0 +1,11 @@
+asset_id,alert_time_utc,event_class,fault_type,confidence,evidence,recommended_action
+PUMP-09,2026-02-10T06:28:00Z,MACHINE,IMBALANCE,0.99,"B1 mode-aware z: vibration_rms_mm_s z=+16.3, motor_winding_temp_c z=-12.9",Inspect impeller for fouling / damage; balance.
+PUMP-09,2026-02-11T06:28:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B1 mode-aware z: vibration_rms_mm_s deviates alone (z=18.5),Verify vibration_rms_mm_s against a reference gauge.
+PUMP-09,2026-02-11T18:28:00Z,SENSOR,SENSOR_NOISE_SPIKES,0.99,B1 mode-aware z: vibration_rms_mm_s deviates alone (z=20.7),Verify vibration_rms_mm_s against a reference gauge.
+PUMP-09,2026-02-12T00:20:00Z,SENSOR,SENSOR_STUCK,0.99,B1 mode-aware z: bearing_temp_c frozen,Check transmitter bearing_temp_c.
+PUMP-09,2026-02-13T00:20:00Z,SENSOR,SENSOR_NOISE_SPIKES,0.99,B1 mode-aware z: vibration_rms_mm_s deviates alone (z=27.2),Verify vibration_rms_mm_s against a reference gauge.
+PUMP-09,2026-02-13T06:07:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B1 mode-aware z: motor_winding_temp_c deviates alone (z=-13.6),Verify motor_winding_temp_c against a reference gauge.
+PUMP-09,2026-02-14T01:58:00Z,MACHINE,DISCHARGE_RESTRICTION,0.5863215128580729,B1 mode-aware z: discharge_pressure_kpa z=+7.0,Check discharge valves and heat-exchanger fouling.
+PUMP-09,2026-02-15T01:58:00Z,MACHINE,DISCHARGE_RESTRICTION,0.796875,B1 mode-aware z: discharge_pressure_kpa z=+9.6,Check discharge valves and heat-exchanger fouling.
+PUMP-09,2026-02-15T07:33:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.6342074123576061,B1 mode-aware z: motor_current_a deviates alone (z=-7.0),Verify motor_current_a against a reference gauge.
+PUMP-09,2026-02-15T15:04:00Z,MACHINE,DISCHARGE_RESTRICTION,0.8005167643229166,B1 mode-aware z: discharge_pressure_kpa z=+9.6,Check discharge valves and heat-exchanger fouling.

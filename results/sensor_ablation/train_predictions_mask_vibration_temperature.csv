@@ -1,0 +1,25 @@
+asset_id,alert_time_utc,event_class,fault_type,confidence,evidence,recommended_action
+PUMP-02,2025-12-02T17:55:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.5362497965494791,B1 mode-aware z: suction_pressure_kpa deviates alone (z=6.4),Verify suction_pressure_kpa against a reference gauge.
+PUMP-02,2025-12-03T06:31:00Z,SENSOR,SENSOR_NOISE_SPIKES,0.99,B1 mode-aware z: suction_pressure_kpa deviates alone (z=14.4),Verify suction_pressure_kpa against a reference gauge.
+PUMP-02,2025-12-03T22:06:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B1 mode-aware z: motor_winding_temp_c deviates alone (z=-19.1),Verify motor_winding_temp_c against a reference gauge.
+PUMP-02,2025-12-04T22:06:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B1 mode-aware z: suction_pressure_kpa deviates alone (z=27.4),Verify suction_pressure_kpa against a reference gauge.
+PUMP-02,2025-12-06T22:32:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B1 mode-aware z: motor_winding_temp_c deviates alone (z=-19.1),Verify motor_winding_temp_c against a reference gauge.
+PUMP-04,2025-06-17T00:50:00Z,MACHINE,DISCHARGE_RESTRICTION,0.5809842303936625,"B1 mode-aware z: flow_m3_h z=-7.0, motor_speed_rpm z=-6.3, motor_power_kw z=-6.2",Check discharge valves and heat-exchanger fouling.
+PUMP-04,2025-06-17T22:29:00Z,MACHINE,DISCHARGE_RESTRICTION,0.597248545719884,"B1 mode-aware z: flow_m3_h z=-7.2, motor_speed_rpm z=-6.6, motor_power_kw z=-6.5",Check discharge valves and heat-exchanger fouling.
+PUMP-04,2025-06-18T22:06:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B1 mode-aware z: motor_winding_temp_c deviates alone (z=-7.5),Verify motor_winding_temp_c against a reference gauge.
+PUMP-04,2025-06-19T16:39:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.5233483318626486,B1 mode-aware z: motor_winding_temp_c deviates alone (z=-6.3),Verify motor_winding_temp_c against a reference gauge.
+PUMP-04,2025-06-19T22:31:00Z,MACHINE,DISCHARGE_RESTRICTION,0.531728413811995,B1 mode-aware z: flow_m3_h z=-6.4,Check discharge valves and heat-exchanger fouling.
+PUMP-04,2025-06-20T15:19:00Z,MACHINE,UNKNOWN,0.599668889785583,B1 mode-aware z: motor_winding_temp_c z=-7.2,Inspect pump.
+PUMP-04,2025-06-20T22:16:00Z,MACHINE,DISCHARGE_RESTRICTION,0.9157118041718433,"B1 mode-aware z: flow_m3_h z=-11.0, motor_speed_rpm z=-9.6, motor_power_kw z=-8.1",Check discharge valves and heat-exchanger fouling.
+PUMP-04,2025-06-21T16:34:00Z,MACHINE,DISCHARGE_RESTRICTION,0.99,"B1 mode-aware z: flow_m3_h z=-17.3, motor_speed_rpm z=-14.1, motor_power_kw z=-13.3",Check discharge valves and heat-exchanger fouling.
+PUMP-04,2025-06-22T12:10:00Z,MACHINE,DISCHARGE_RESTRICTION,0.9609955404152105,"B1 mode-aware z: flow_m3_h z=-11.5, motor_speed_rpm z=-10.0, motor_power_kw z=-9.6",Check discharge valves and heat-exchanger fouling.
+PUMP-07,2025-05-14T15:25:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B1 mode-aware z: motor_winding_temp_c deviates alone (z=-12.3),Verify motor_winding_temp_c against a reference gauge.
+PUMP-07,2025-05-15T02:52:00Z,MACHINE,DISCHARGE_RESTRICTION,0.99,B1 mode-aware z: flow_m3_h z=-23.0,Check discharge valves and heat-exchanger fouling.
+PUMP-07,2025-05-15T14:52:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B1 mode-aware z: flow_m3_h deviates alone (z=-23.3),Verify flow_m3_h against a reference gauge.
+PUMP-07,2025-05-16T06:07:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B1 mode-aware z: flow_m3_h deviates alone (z=-22.7),Verify flow_m3_h against a reference gauge.
+PUMP-07,2025-05-16T18:07:00Z,MACHINE,DISCHARGE_RESTRICTION,0.99,B1 mode-aware z: flow_m3_h z=-22.3,Check discharge valves and heat-exchanger fouling.
+PUMP-07,2025-05-16T22:58:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B1 mode-aware z: motor_winding_temp_c deviates alone (z=-12.6),Verify motor_winding_temp_c against a reference gauge.
+PUMP-07,2025-05-17T08:05:00Z,MACHINE,DISCHARGE_RESTRICTION,0.5832633972167969,B1 mode-aware z: flow_m3_h z=-7.0,Check discharge valves and heat-exchanger fouling.
+PUMP-07,2025-05-17T15:17:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B1 mode-aware z: motor_winding_temp_c deviates alone (z=-12.6),Verify motor_winding_temp_c against a reference gauge.
+PUMP-07,2025-05-18T04:11:00Z,SENSOR,SENSOR_CALIBRATION_SHIFT,0.99,B1 mode-aware z: motor_winding_temp_c deviates alone (z=-13.1),Verify motor_winding_temp_c against a reference gauge.
+PUMP-07,2025-05-18T22:34:00Z,MACHINE,UNKNOWN,0.549536943435669,B1 mode-aware z: fluid_temp_c z=+6.6,Inspect pump.
