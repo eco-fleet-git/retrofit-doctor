@@ -1,0 +1,11 @@
+# Task 002 — causal B2 experiments (Claude Code)
+
+Start only after Task001 is saved and its code writer has stopped. Task owner: actual Claude Code; status owner: main Codex chat / Todoist RD-04. Scope approved by the user's project goal. First bounded session: 90 minutes, then preserve progress and return a handoff.
+
+Read AGENTS.md, CLAUDE.md and docs/experiments/{README,AUDIT,HYPOTHESES,FROZEN_PROTOCOL,CLAUDE_TASK_PACKET}.md plus protocol_v1.json. The experiment protocol is the implementation contract. New code belongs in src/retrofit_doctor/causal_b2.py, scripts/run_causal_b2.py and focused tests; results in results/causal_b2/. Leave original B1, causal B1, vendor and historical results immutable. Do not edit web/ or UX artifacts in this task.
+
+First build and verify the cadence/gap fix (C1), then trajectory diagnosis candidates if time permits. Use the installed Matt Pocock tdd and diagnosing-bugs skills for meaningful contract tests and reproducible defects; the task has already selected boundaries (causal predictions, sample availability, deterministic evidence). Do not replace the agreed protocol with a new discovery/setup process or repeat permission questions for authorized development. Keep tests independent of implementation internals and demonstrate failure before fixes where feasible.
+
+Use only train features/labels during development and candidate selection. Public asset metadata is permitted. Validation is evaluated once after sealing the selected code/config under the protocol; explicitly disclose prior development exposure. No test telemetry/labels/predictions. The full dataset already exists locally in vendor/benchmark/data/full. Use the existing Python environment at ../../work/.venv/bin/python; no new dependency unless required and justified.
+
+Return working artifacts, exact commands, controls and candidate counts, supported/rejected/inconclusive hypotheses, actual runtime and blockers. No invented gains. If no candidate passes the frozen gates, retain C0 and report the negative result. No model change based on validation output. No Git mutation; Codex reviews and commits. Save docs/tasks/002-handoff.md. E3–E5 remain separately measured follow-ups, not permission to expand this search.

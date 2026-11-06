@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Retrofit Doctor</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="brand">Retrofit Doctor</div>
+    <nav aria-label="Primary">
+      <a href="#/fleet" data-nav="fleet">Fleet Overview</a>
+      <a href="#/evidence" data-nav="evidence">Evidence &amp; Validation</a>
+    </nav>
+    <div class="badges">
+      <span class="badge badge-synthetic">Synthetic benchmark</span>
+      <span class="badge">Replay / metadata only · Advisory, read-only</span>
+    </div>
+  </header>
+  <main id="main" tabindex="-1">
+    <p class="loading" role="status">Loading source data…</p>
+  </main>
+  <footer class="foot">
+    Synthetic data from the RETROFIT AI 2026 benchmark. No connection to equipment; this interface cannot send commands.
+    <span id="provenance-foot"></span>
+  </footer>
+</body>
+</html>
