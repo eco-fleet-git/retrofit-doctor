@@ -8,6 +8,7 @@
 - Ran 48 model fixtures after phase-1 corrections and 3 evaluator fixtures after phase 2: all pass. The latter require emitted-type/channel correctness and separate useful vs type-only delay.
 - Reconstructed the ten failing audit rows (five cutpoints for each candidate) with seed 0. Normalizing null representations makes all prefix and future-mutation comparisons equal; non-channel fields also match. Evidence: `review/task005/comparison-representation-check.json`. This is read-only diagnosis of failed comparisons, not a rerun of selection or a passing replacement audit. The original gate failures remain intact.
 - Reviewed the retained-control parity check and unchanged original 26-event denominator. Neither candidate improves sensor type+channel. R2 loses the correct PUMP-03-E02 type; its stored alternative gets no credit. The common-window and confidence comparators are explicitly offline/descriptive.
+- The E3 freeze's direct input list omits the shared feature parquet. Separately verified its complete opaque SHA-256 against the immutable organizer manifest: `de25928738c45a5d6608d6c1a3e6e3eb69d612d23e99a9f184f3b23db4d9c52c` (10,433,571 bytes). This hash reads whole-file bytes, including test partitions, without decoding or inspecting their values. It confirms unchanged source identity; it does not change the frozen E3 record. The final release manifest should explicitly include this data identity.
 
 ## Result and limitations
 
