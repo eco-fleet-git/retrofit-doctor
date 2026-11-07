@@ -6,6 +6,7 @@ import { MINUTE_MS, parseUtc, formatUtc } from './replay.js';
 import { CHANNEL_LABELS } from './knowledge.js';
 import { sliceCase, sliceCaseLabel, explainCase } from './comparison.js';
 import { t, getLang, CHANNEL_RU } from './i18n.js';
+import { tx } from './ru-text.js';
 import { pumpSchematic, spreadBars, flowSpark, snapshotTimeline, featureBars } from './review-visuals.js';
 
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -14,7 +15,7 @@ const label = (c) => (getLang() === 'ru' ? CHANNEL_RU[c] : CHANNEL_LABELS[c]) ??
 const humanFault = (x) => String(x ?? '').toLowerCase().replace(/_/g, ' ').replace(/^./, (m) => m.toUpperCase());
 const GAP = { 'not-installed': ['s-gray', 'Not installed'], 'no-z': ['s-attn', 'Unavailable'], limitation: ['s-attn', 'Limitation'] };
 
-const st = { status: 'idle', data: null, error: null, caseId: null, clocks: {}, showLabels: false, techOpen: false, appliedQuery: null };
+const st = { status: 'idle', data: null, error: null, caseId: null, clocks: {}, showLabels: false, techOpen: false, researchOpen: false, timeOpen: null, appliedQuery: null };
 
 function load(rerender) {
   if (st.status !== 'idle' && st.status !== 'error') return;
@@ -58,9 +59,10 @@ function measuredTable(rows, caption) {
     <tbody>${rows.map((m) => `<tr><th scope="row">${esc(label(m.channelId))}</th><td class="num" data-label="${ru ? 'Среднее' : 'Mean'}">${Number(m.mean).toFixed(2)} ${esc(m.unit)}</td><td class="num" data-label="${ru ? 'СКО' : 'Std'}">${Number(m.std).toFixed(2)}</td><td class="num" data-label="${ru ? 'Отсчётов' : 'Count'}">${esc(m.count)}</td></tr>`).join('')}</tbody></table></div>`;
 }
 
-function riseChart(raw) {
-  const narrow = window.innerWidth < 600;
-  const W = narrow ? 300 : 640; const H = 210; const L = 50; const R = 10; const T = 12; const B = 30;
+// Measured vs curve-derived pressure rise for the closed warning minute (only the exported 60 rows).
+export function riseChart(raw, { compact = false } = {}) {
+  const narrow = compact || window.innerWidth < 600;
+  const W = narrow ? 300 : 640; const H = compact ? 150 : 210; const L = 54; const R = 10; const T = 12; const B = 30;
   const a = raw.measuredRise_kpa; const b = raw.curveRise_kpa;
   const all = a.concat(b); let lo = Math.min(...all); let hi = Math.max(...all); const pad = (hi - lo) * 0.08; lo -= pad; hi += pad;
   const sx = (i) => L + (i / (a.length - 1)) * (W - L - R);
@@ -68,15 +70,19 @@ function riseChart(raw) {
   const path = (arr) => arr.map((v, i) => `${i ? 'L' : 'M'}${sx(i).toFixed(1)},${sy(v).toFixed(1)}`).join('');
   const ticks = [lo + pad, (lo + hi) / 2, hi - pad].map((v) => `<line x1="${L}" x2="${W - R}" y1="${sy(v)}" y2="${sy(v)}" stroke="#e3e7ec"/><text x="${L - 6}" y="${sy(v) + 4}" text-anchor="end" font-size="11" fill="#5a6573">${v.toFixed(0)}</text>`).join('');
   const xt = [0, 30, a.length - 1].map((i) => `<text x="${sx(i)}" y="${H - 8}" text-anchor="${i === 0 ? 'start' : i === a.length - 1 ? 'end' : 'middle'}" font-size="11" fill="#5a6573">${esc(raw.t[i].slice(11, 19))}</text>`).join('');
-  return `<figure class="rise-chart"><figcaption class="small"><b>${esc(t('vis.riseH'))}</b></figcaption>
-    <ul class="legend small"><li><svg width="20" height="8" aria-hidden="true"><line x1="0" x2="20" y1="4" y2="4" stroke="#1f5fbf" stroke-width="2"/></svg> ${esc(t('vis.measuredRise'))}</li>
-      <li><svg width="20" height="8" aria-hidden="true"><line x1="0" x2="20" y1="4" y2="4" stroke="#b35c00" stroke-width="2" stroke-dasharray="4 3"/></svg> ${esc(t('vis.curveRise'))}</li></ul>
+  const kpa = getLang() === 'ru' ? 'кПа' : 'kPa';
+  const range = `${raw.t[0].slice(0, 10)} ${raw.t[0].slice(11, 19)}–${raw.t.at(-1).slice(11, 19)} UTC`;
+  // Compact (overview) keeps the date range and short legend labels; the full chart keeps the long ones.
+  return `<figure class="rise-chart${compact ? ' compact' : ''}"><figcaption class="small">${compact ? '' : `<b>${esc(t('vis.riseH'))}</b> `}<span class="muted num">${esc(range)}</span></figcaption>
+    <ul class="legend small"><li><svg width="20" height="8" aria-hidden="true"><line x1="0" x2="20" y1="4" y2="4" stroke="#1f5fbf" stroke-width="2"/></svg> ${esc(t(compact ? 'vis.measuredShort' : 'vis.measuredRise'))}</li>
+      <li><svg width="20" height="8" aria-hidden="true"><line x1="0" x2="20" y1="4" y2="4" stroke="#b35c00" stroke-width="2" stroke-dasharray="4 3"/></svg> ${esc(t(compact ? 'vis.curveShort' : 'vis.curveRise'))}</li></ul>
     <div class="plot-scroll" role="region" aria-label="${esc(t('vis.riseH'))}" tabindex="0">
-    <svg viewBox="0 0 ${W} ${H}" class="plot${narrow ? ' plot-fixed' : ''}" style="--plot-w:${W}px" role="img" aria-label="${esc(t('vis.riseH'))}: ${a.length} × 1 s">
+    <svg viewBox="0 0 ${W} ${H}" class="plot${narrow ? ' plot-fixed' : ''}" style="--plot-w:${W}px" role="img" aria-label="${esc(t('vis.riseH'))}, ${esc(range)}: ${a.length} × 1 s, ${kpa}">
+      <text x="12" y="${(H - B + T) / 2}" font-size="11" fill="#5a6573" transform="rotate(-90 12 ${(H - B + T) / 2})" text-anchor="middle">${kpa}</text>
       ${ticks}<path d="${path(b)}" fill="none" stroke="#b35c00" stroke-width="1.4" stroke-dasharray="4 3"/><path d="${path(a)}" fill="none" stroke="#1f5fbf" stroke-width="1.6"/>
       <line x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}" stroke="#aab3be"/>${xt}
     </svg></div>
-    <p class="small muted">${esc(t('vis.riseNote'))}</p></figure>`;
+    ${compact ? '' : `<p class="small muted">${esc(t('vis.riseNote'))}</p>`}</figure>`;
 }
 
 function technicalDetails(e, s) {
@@ -115,29 +121,23 @@ function card(c, asset) {
   const lang = getLang();
   const s = sliceCase(c, clockOf(c));
   const e = explainCase(s, asset, { lang });
-  const where = esc(t('rv.where', { id: c.assetId, t: formatUtc(parseUtc(c.alertUtc), { seconds: true }) }));
-  const sensorsLink = `<a class="button" href="#/pumps/${esc(c.assetId)}">${esc(t('rv.checkSensors'))}</a>`;
+  const sensorsLink = `<a class="small" href="#/pumps/${esc(c.assetId)}">${esc(t('rv.inventoryLink'))} →</a>`;
   if (!e.available) {
-    return `<section class="panel review" aria-labelledby="cmp-h"><p class="review-where">${where}</p>
+    return `<section class="panel review" aria-labelledby="cmp-h">
       <h2 id="cmp-h" tabindex="-1">${esc(e.kind === 'rejected' ? t('rv.rejected') : t('rv.notYet'))}</h2>
       <div class="review-grid"><div class="evid"><div class="empty">${esc(e.text)}${e.snapshot ? `<br><span class="small">${esc(e.snapshot)}</span>` : ''}</div></div>
         <aside class="sch-side">${pumpSchematic(asset)}<p>${sensorsLink}</p></aside></div></section>`;
   }
   const p = e.plain;
   let visuals = '';
-  if (e.kind === 'residual') visuals = `${spreadBars(e, s)}${s.rawMinute ? riseChart(s.rawMinute) : ''}${s.rawMinute ? flowSpark(s.rawMinute) : ''}`;
+  // P04: the recorded chart first, then the residual-spread comparison and the flow trace.
+  if (e.kind === 'residual') visuals = `${s.rawMinute ? riseChart(s.rawMinute) : ''}${spreadBars(e, s)}${s.rawMinute ? flowSpark(s.rawMinute) : ''}`;
   else if (e.kind === 'waveform') visuals = `${snapshotTimeline(e.snapshot, s.alertMs, s.clockMs)}${featureBars(e, s.z995.fault_type === 'BEARING_WEAR')}`;
   else visuals = `<h4>${esc(t('vis.gapH'))}</h4><div class="gap-visual"><span class="gap-chip">${esc(label(e.missingChannel ?? 'flow_m3_h'))} · ${esc(t('vis.missing'))}</span><p class="small">${esc(t('vis.gapNote'))}</p></div>`;
   const assess = e.kind === 'unsupported' && e.capability;
   return `<section class="panel review" aria-labelledby="cmp-h">
-    <p class="review-where">${where}${s.clockMs > s.alertMs ? ` · <span class="muted">${esc(e.timing.replace(/^[^;]*; /, ''))}</span>` : ''}</p>
     <h2 id="cmp-h" tabindex="-1">${esc(p.title)}</h2>
-    <p class="review-lead">${esc(p.summary)}</p>
-    <div class="review-actions">
-      <button type="button" class="primary" data-jump="cmp-next-h">${esc(t('rv.seeNext'))}</button>
-      ${assess ? `<a class="button primary" href="${esc(e.capability.href)}">${esc(t('rv.assess'))}</a>` : `<button type="button" data-jump="cmp-evid-h">${esc(t('rv.seeEvidence'))}</button>`}
-      ${sensorsLink}
-    </div>
+    <p class="review-lead">${esc(p.summary)}${s.clockMs > s.alertMs ? ` <span class="small muted">${esc(e.timing.replace(/^[^;]*; /, ''))}</span>` : ''}</p>
     <div class="review-grid">
       <div class="evid"><h3 id="cmp-evid-h" tabindex="-1">${esc(t('rv.evidence'))}</h3>${visuals}</div>
       <aside class="sch-side">
@@ -149,8 +149,10 @@ function card(c, asset) {
             <p><b>${esc(t('rv.why'))}</b> ${esc(e.nextCheck.reason.replace(/^Proposed check\. ?/, ''))}</p>
             <p><b>${esc(t('rv.certain'))}</b> ${esc(p.uncertainty)}</p>
             <p class="muted">${esc(t('rv.advisory'))}</p></details>
+          ${assess ? `<p><a class="button primary" href="${esc(e.capability.href)}">${esc(t('rv.assess'))}</a></p>` : ''}
         </div>
         ${pumpSchematic(asset, schematicFocus(e))}
+        <p>${sensorsLink}</p>
       </aside>
     </div>
     <details class="panel-sub" id="cmp-expl"><summary>${esc(t('rv.explDetails'))}</summary>
@@ -261,28 +263,31 @@ export function renderDiagnosisPage(route, assetById, rerender) {
   const clock = clockOf(c);
   const alertMs = parseUtc(c.alertUtc);
   const phase = clock < alertMs ? t('rv.before') : clock === alertMs ? t('rv.at') : t('rv.after');
-  return `<h1>${esc(t('rv.h1'))}</h1>
-    <p class="sub">${esc(t('rv.sub'))} ${pill('s-gray', t('rv.badge'))}</p>
-    <div class="case-pick" role="group" aria-label="${esc(t('rv.examples'))}">${d.cases.map((x) => `<button type="button" data-case="${esc(x.caseId)}" aria-pressed="${x.caseId === c.caseId}"><b>${esc(x.assetId)}</b> · ${esc(t(`rv.ex.${x.caseId}`))}<span class="small muted">${esc(formatUtc(parseUtc(x.alertUtc)))}</span></button>`).join('')}</div>
-    <section class="clockbar time-panel" aria-label="${esc(t('rv.time'))}">
-      <div><div class="small muted">${esc(t('rv.time'))}</div><div class="asof" aria-live="polite">${esc(formatUtc(clock, { seconds: true }))}</div><div class="small muted">${esc(phase)}</div></div>
-      <div class="controls" role="group" aria-label="${esc(t('rv.replay'))}">
-        <span class="small muted">${esc(t('rv.replay'))}</span>
+  const asset = assetById(c.assetId);
+  return `<nav class="crumbs" aria-label="Breadcrumb"><a href="#/fleet">${esc(t('bc.overview'))}</a> <span aria-hidden="true">›</span> <span>${esc(t('nav.review'))}</span> <span aria-hidden="true">›</span> <b>${esc(c.assetId)}</b></nav>
+    <div class="ws-head">
+      <div><h1>${esc(c.assetId)} · ${esc(tx(asset.system))}</h1><p class="sub">${esc(tx(asset.site))} ${pill('s-gray', t('fleet.badge'))}</p></div>
+      <div class="ws-when"><span class="state s-attn">${esc(t('rv.case'))}</span><b class="num">${esc(formatUtc(parseUtc(c.alertUtc)))}</b>
+        <label class="small">${esc(t('rv.examples'))}<select id="cmp-case">${d.cases.map((x) => `<option value="${esc(x.caseId)}"${x.caseId === c.caseId ? ' selected' : ''}>${esc(x.assetId)} · ${esc(t(`rv.ex.${x.caseId}`))} · ${esc(formatUtc(parseUtc(x.alertUtc)).slice(0, 10))}</option>`).join('')}</select></label></div>
+    </div>
+    <details class="timebar-d" id="cmp-time"${(st.timeOpen ?? window.innerWidth >= 900) ? ' open' : ''}>
+      <summary><span class="small muted">${esc(t('rv.timeH'))}:</span> <b class="num asof-sm" aria-live="polite">${esc(formatUtc(clock, { seconds: true }))}</b> <span class="small muted">· ${esc(phase)}</span></summary>
+    <section class="timebar" aria-label="${esc(t('rv.timeH'))}">
+      <span class="tb-group" role="group" aria-label="${esc(t('rv.replay'))}">
         <button type="button" id="cmp-before" class="${clock === alertMs - 1000 ? 'primary' : ''}">${esc(t('rv.btnBefore'))} <span class="small">(−1 s)</span></button>
-        <button type="button" id="cmp-at" class="${clock === alertMs ? 'primary' : ''}">${esc(t('rv.btnAt'))}</button>
-      </div>
-      <div class="controls step-controls" role="group" aria-label="${esc(t('rv.step'))}">
-        <span class="small muted">${esc(t('rv.step'))}</span>
+        <button type="button" id="cmp-at" class="${clock === alertMs ? 'primary' : ''}">${esc(t('rv.btnAt'))}</button></span>
+      <span class="tb-group step-controls" role="group" aria-label="${esc(t('rv.step'))}">
         <button type="button" id="cmp-m1" aria-label="${esc(t('rv.back1'))}">−1 min</button>
         <button type="button" id="cmp-p1" aria-label="${esc(t('rv.fwd1'))}">+1 min</button>
         <button type="button" id="cmp-p60" aria-label="${esc(t('rv.fwd60'))}">+1 h</button>
-        <button type="button" id="cmp-p1d" aria-label="${esc(t('rv.fwd1d'))}">+1 ${getLang() === 'ru' ? 'сут' : 'day'}</button>
-      </div>
-    </section>
+        <button type="button" id="cmp-p1d" aria-label="${esc(t('rv.fwd1d'))}">+1 ${getLang() === 'ru' ? 'сут' : 'day'}</button></span>
+    </section></details>
     ${card(c, assetById(c.assetId))}
-    ${labelsPanel(c)}
-    ${scorecard(d)}
-    ${about(d)}`;
+    <details class="panel research" id="cmp-research"${st.researchOpen ? ' open' : ''}><summary><b>${esc(t('rv.researchH'))}</b> <span class="small muted">· ${esc(t('rv.researchSub'))}</span></summary>
+      ${labelsPanel(c)}
+      ${scorecard(d)}
+      ${about(d)}
+    </details>`;
 }
 
 export function bindDiagnosis(main, rerender) {
@@ -300,12 +305,14 @@ export function bindDiagnosis(main, rerender) {
   on('cmp-p1d', 'click', () => set(clockOf(c) + 1440 * MINUTE_MS));
   on('cmp-labels', 'change', (e) => { st.showLabels = e.target.checked; rerender(); });
   on('cmp-tech', 'toggle', (e) => { st.techOpen = e.target.open; });
+  on('cmp-research', 'toggle', (e) => { st.researchOpen = e.target.open; });
+  on('cmp-time', 'toggle', (e) => { st.timeOpen = e.target.open; });
   main.querySelectorAll('[data-jump]').forEach((b) => b.addEventListener('click', () => {
     const el = document.getElementById(b.dataset.jump); el?.scrollIntoView({ block: 'start' }); el?.focus({ preventScroll: true });
   }));
-  main.querySelectorAll('[data-case]').forEach((b) => b.addEventListener('click', () => {
-    st.caseId = b.dataset.case; st.showLabels = false; st.techOpen = false; syncUrl(caseById(st.caseId)); rerender();
-  }));
+  main.querySelector('#cmp-case')?.addEventListener('change', (ev) => {
+    st.caseId = ev.target.value; st.showLabels = false; st.techOpen = false; syncUrl(caseById(st.caseId)); rerender();
+  });
 }
 
 // Route-specific provenance footer (this bundle, not the baseline demo bundle).
@@ -315,6 +322,38 @@ export function diagnosisFooter() {
   return getLang() === 'ru' ? `Пакет сравнения создан ${p.generator} из ${Object.keys(p.filesRead).length} хэшированных исходных файлов.`
     : `Comparison bundle generated by ${p.generator} from ${Object.keys(p.filesRead).length} hashed source files.`;
 }
+
+// Overview preview of one case, evaluated at that case's own warning time (never later evidence, never labels).
+export function casePreview(c, asset) {
+  const lang = getLang();
+  const s = sliceCase(c, parseUtc(c.alertUtc));
+  const e = explainCase(s, asset, { lang });
+  if (!e.available) return { kind: e.kind, title: t('rv.notYet'), reason: '', evidence: '', html: `<div class="empty small">${esc(e.text)}</div>` };
+  const p = e.plain;
+  let evidence; let visual;
+  if (e.kind === 'residual') {
+    evidence = t('ov.ev.residual');
+    visual = s.rawMinute ? riseChart(s.rawMinute, { compact: true }) : '';
+  } else if (e.kind === 'waveform') {
+    evidence = t('ov.ev.waveform', { age: e.snapshot.ageAtAlert });
+    visual = featureBars(e, s.z995.fault_type === 'BEARING_WEAR');
+  } else {
+    evidence = t('ov.ev.missing', { x: label(e.missingChannel ?? 'flow_m3_h').toLowerCase() });
+    visual = `<div class="gap-visual"><span class="gap-chip">${esc(label(e.missingChannel ?? 'flow_m3_h'))} · ${esc(t('vis.missing'))}</span><p class="small">${esc(t('vis.gapNote'))}</p></div>`;
+  }
+  const html = `${visual}
+    <p class="ov-title"><b>${esc(p.title)}</b></p>
+    <p class="uncert small">${esc(p.caution)}</p>
+    <div class="ov-next"><span class="small muted">${esc(t('rv.next'))} · ${esc(t('rv.advisoryPill'))}</span><p>${esc(e.nextCheck.text)}</p></div>`;
+  return { kind: e.kind, title: p.title, evidence, html };
+}
+
+// Pump of the currently shown review case (for the sidebar's pump-scoped links); null until loaded.
+export const currentCaseAssetId = () => (st.status === 'ready' && st.caseId ? caseById(st.caseId).assetId : null);
+
+// Load state of the comparison bundle for the overview (so a failure shows an error and retry, not endless loading).
+export const reviewLoadState = () => ({ status: st.status, error: st.error });
+export function retryReviewCases(rerender) { if (st.status === 'error') { st.status = 'idle'; load(rerender); } }
 
 // Recorded review cases for the Fleet entry page (loads the bundle once; null until ready).
 export function reviewCases(rerender) {

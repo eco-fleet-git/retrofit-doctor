@@ -25,8 +25,10 @@ const visible = (html) => html.slice(html.indexOf('class="panel review"'), html.
 test('dictionary: English and Russian have the same keys; default language is English', () => {
   assert.deepEqual(dictionaryKeys('ru').sort(), dictionaryKeys('en').sort());
   assert.equal(getLang(), 'en');
-  setLang('ru'); assert.equal(t('nav.fleet'), 'Начало'); assert.equal(t('nav.pump'), 'Насос и датчики'); setLang('en');
-  assert.equal(t('nav.fleet'), 'Start · Fleet');
+  // Task018 navigation labels (Overview / Pump check).
+  setLang('ru');
+  try { assert.equal(t('nav.fleet'), 'Обзор'); assert.equal(t('nav.review'), 'Проверка насоса'); assert.equal(t('nav.pump'), 'Насос и датчики'); } finally { setLang('en'); }
+  assert.equal(t('nav.fleet'), 'Overview');
 });
 
 test('schematic: before the warning only the inventory is drawn (no focus, chips or proposed additions)', () => {
