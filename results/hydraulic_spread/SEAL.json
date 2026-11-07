@@ -1,0 +1,6 @@
+{
+  "manifest_sha256": "2d2da3bc410a8e4566273a8ada536fd145d2809b6b5356e68fec50ef2abcb3a7",
+  "authorization": "One registered train-only run after pre-score coordinator review; no validation/test reads or post-score tuning",
+  "coordinator": "Codex",
+  "date": "2026-11-07"
+}

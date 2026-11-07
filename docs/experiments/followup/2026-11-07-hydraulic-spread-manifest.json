@@ -1,0 +1,224 @@
+{
+  "task": "012-hydraulic-spread",
+  "status": "PROPOSED_PHASE1_AWAITING_COORDINATOR_SEAL",
+  "date": "2026-11-07",
+  "author": "Claude Code (sole code writer)",
+  "scored": false,
+  "exposure": "Adaptive development on an inspected train set: the implementer saw Task010/Task011 train results (incl. the PUMP-04 flow-noise alert detail quoted in the packet). All formulas, ranges, thresholds and gates come from docs/tasks/012-hydraulic-spread.md; phase 1 read no benchmark telemetry, snapshots or labels.",
+  "data_scope": {
+    "assets": [
+      "PUMP-01",
+      "PUMP-02",
+      "PUMP-03",
+      "PUMP-04",
+      "PUMP-05",
+      "PUMP-06",
+      "PUMP-07"
+    ],
+    "split": "train",
+    "allowed_shared_static": "assets.csv parsed then filtered to train rows; shared parquet via train predicates (asserted); benign filtered to train",
+    "forbidden": [
+      "validation PUMP-08/09 telemetry, snapshots, labels",
+      "test PUMP-10..12 telemetry, snapshots, predictions, labels",
+      "rewriting earlier sealed code/results/release",
+      "generator source/config"
+    ]
+  },
+  "emission": "unchanged causal B1 (k=6, persistence 15, 24 h reference, 12 h refractory), PYTHONHASHSEED=0 at start",
+  "candidates": {
+    "B1": "control",
+    "H3": "hydraulic spread hypothesis, ratio > 3.0",
+    "H5": "same, ratio > 5.0",
+    "V3": "H3; on hydraulic abstention (any outcome other than emitted) and B1 UNKNOWN, unchanged Task010 W1 rule; else exact B1",
+    "V5": "H5 with the same UNKNOWN-only W1 refinement"
+  },
+  "not_evaluated": "B1 COMMUNICATION_LOSS / SENSOR_STUCK (protected, outcome not_evaluated_protected); B1 CAVITATION / AIR_ENTRAINMENT (unsupported: b1_cavitation_or_air_entrainment)",
+  "assumptions": {
+    "fluid": "passport fluid text contains 'water' (case-insensitive)",
+    "rho_kg_m3": 1000.0,
+    "g_m_s2": 9.80665,
+    "atmospheric_kpa": 101.325,
+    "vapor_pressure": "pure-water NIST Antoine",
+    "head": "equal tap elevations, velocity-head difference ignored",
+    "status": "assumptions, not field measurements"
+  },
+  "inputs": {
+    "channels": {
+      "q": {
+        "channel": "flow_m3_h",
+        "unit": "m3/h"
+      },
+      "ps": {
+        "channel": "suction_pressure_kpa",
+        "unit": "kPa(g)"
+      },
+      "pd": {
+        "channel": "discharge_pressure_kpa",
+        "unit": "kPa(g)"
+      },
+      "n": {
+        "channel": "motor_speed_rpm",
+        "unit": "rpm"
+      },
+      "tf": {
+        "channel": "fluid_temp_c",
+        "unit": "degC"
+      }
+    },
+    "observed": "installed in passport, closed-minute count >= 30, finite mean, finite std >= 0; measured rpm only (no inferred speed)",
+    "passport": "pump_rated_flow_m3_h Qb, pump_rated_head_m Hb, pump_shutoff_head_m H0, motor_rated_rpm nr, npsh3_at_bep_m; all finite > 0, H0 > Hb"
+  },
+  "applicability_gates_in_order": [
+    "b1 type not CAVITATION/AIR_ENTRAINMENT",
+    "fluid water-like",
+    "passport valid",
+    "alert minute end >= first-24h reference end",
+    "g.steady",
+    "no gap",
+    "all five inputs observed",
+    "r = n/nr in [0.5, 1.0]",
+    "Q > 0 and q = Q/(r Qb) in [0.3, 1.3]",
+    "Pd > Ps",
+    "std(Q)/Q <= 0.20",
+    "std(n)/n <= 0.05",
+    "Hcurve = H0 r^2 - (H0-Hb)(Q/Qb)^2 > 0 and Hobs = (Pd-Ps)*1000/(rho g) > 0",
+    "|Hobs - Hcurve| <= 0.20 Hcurve",
+    "Pv from first matching Antoine row (TK = T + 273.15), no extrapolation",
+    "NPSHa_lower = (101.325 + Ps - Pv)*1000/(rho g) >= 1.5 * NPSH3, NPSH3 = NPSH3b r^2 (0.55 + 0.45 q^2.6)",
+    "aQ > 0 finite"
+  ],
+  "unsupported_reasons": [
+    "b1_cavitation_or_air_entrainment",
+    "fluid_not_water_like",
+    "passport_invalid",
+    "reference_incomplete",
+    "not_steady",
+    "gap",
+    "input_unavailable_<channel>",
+    "speed_ratio_out_of_range",
+    "flow_ratio_out_of_range",
+    "discharge_not_above_suction",
+    "flow_relative_std_too_large",
+    "speed_relative_std_too_large",
+    "nonpositive_head",
+    "curve_mismatch",
+    "vapor_pressure_out_of_range",
+    "npsh_margin_low",
+    "derivative_invalid"
+  ],
+  "antoine_rows": [
+    {
+      "TK_min": 273.0,
+      "TK_max": 303.0,
+      "A": 5.40221,
+      "B": 1838.675,
+      "C": -31.737
+    },
+    {
+      "TK_min": 304.0,
+      "TK_max": 333.0,
+      "A": 5.20389,
+      "B": 1733.926,
+      "C": -39.485
+    },
+    {
+      "TK_min": 334.0,
+      "TK_max": 363.0,
+      "A": 5.0768,
+      "B": 1659.793,
+      "C": -45.854
+    },
+    {
+      "TK_min": 344.0,
+      "TK_max": 373.0,
+      "A": 5.08354,
+      "B": 1663.125,
+      "C": -45.622
+    }
+  ],
+  "antoine_formula": "log10(P_bar) = A - B/(TK + C); Pv_kPa = 100 P_bar; first row containing TK; gaps 303-304 K and 333-334 K and outside 273-373 K unsupported",
+  "budget": {
+    "aQ": "(rho g/1000) * 2 (H0-Hb) Q / Qb^2  [kPa/(m3/h)]",
+    "an": "(rho g/1000) * 2 H0 r / nr  [kPa/rpm]",
+    "Bphys_pd": "sigma_ps + an sigma_n + aQ sigma_q  [kPa]",
+    "Bphys_ps": "sigma_pd + an sigma_n + aQ sigma_q  [kPa]",
+    "Bphys_q": "(sigma_pd + sigma_ps + an sigma_n) / aQ  [m3/h]",
+    "reference_floor": "median source std over steady closed minutes ending <= first-24h reference end; minute eligible if source installed, count >= 30, finite mean, finite std >= 0; >= 60 eligible minutes, else source reference_unsupported",
+    "budget": "Bphys + reference_floor, must be > 0",
+    "note": "conservative sum of magnitudes; no independence or statistical bound claimed"
+  },
+  "eligibility": "source in {Q, Ps, Pd}: causal zs_source > 6 AND sigma_source / budget_source > factor (3.0 or 5.0); exactly one eligible -> SENSOR / SENSOR_NOISE_SPIKES on that channel; zero or several -> exact B1; a reference-unsupported source cannot be eligible",
+  "structural_note": "For factor >= 1 two sources cannot be simultaneously eligible, because each budget includes the other's measured spread; the abstained_ambiguous branch is a defensive guard only (not fixture-forced). Two noisy sources therefore abstain (abstained_no_source).",
+  "confidence": "retained B1 anomaly score (uncalibrated), not a confidence for the newly named cause",
+  "output_schema": {
+    "diagnosis_source": "emitting rule: B1, H3, H5 or W1",
+    "rule_detail": "JSON on every row of H/V candidates: evaluated_rule, emitted_source, outcome (emitted / abstained_no_source / abstained_ambiguous / unsupported / not_evaluated_protected), unsupported_reason, measured inputs with units/counts, passport, operating point, curve heads, NPSH values, derivatives, per-source physical contributions, reference floor and minutes, budget, ratio, spread z and status, assumptions",
+    "evidence": "only the emitting rule's explanation (H: values in native units, budget decomposition, gates, assumptions, limits; W1: snapshot provenance)"
+  },
+  "gates": {
+    "control_expected": {
+      "detected": 18,
+      "type_correct": 8,
+      "class_correct": 14,
+      "false_episodes": 3,
+      "excess_repeats": 3,
+      "sensor_type_and_channel": 3,
+      "events": 26,
+      "asset_days": 49
+    },
+    "success": "detected>=18, class>=14, false+excess<=6, sensor type+channel>=3, AND (type>=10 OR (type>=9 AND sensor type+channel>=4))",
+    "selection": "useful diagnoses desc, correct type desc, false+excess asc, H3 < H5 < V3 < V5",
+    "correctness": [
+      "control semantic equality and expected metrics",
+      "emission multiset equal to control",
+      "prefix replay + future mutation of minute means, std/min/max, counts (set to 0) and snapshots completing after the cut, for ALL candidates, at every alert, reference end -1/0/+1/+60 s, 3 snapshot completion/age boundaries -1/0/+1 s per asset, 5 random cuts (rng 0); every output column incl. rule_detail",
+      "main prediction hash equals a fresh PYTHONHASHSEED=0 child"
+    ],
+    "reported": [
+      "applicability_coverage.csv (outcome / unsupported reason per candidate and asset)",
+      "false",
+      "excess",
+      "nuisance",
+      "UNKNOWN first",
+      "wrong specific first",
+      "per-asset",
+      "per-event"
+    ]
+  },
+  "runner": {
+    "refusals_before_any_read": [
+      "seed",
+      "COMPLETED.json",
+      "no SEAL",
+      "manifest sha mismatch",
+      "code hash change"
+    ],
+    "before_scoring": "run_provenance.json + raw predictions + applicability coverage",
+    "attempts": "new results/hydraulic_spread/run-<UTC>/ per attempt; partial runs preserved; COMPLETED.json blocks a second score"
+  },
+  "references": [
+    "vendor/benchmark/TECHNICAL_MODEL.md sections 2-4",
+    "https://www.ksb.com/en-global/centrifugal-pump-lexicon/article/pump-affinity-laws-1117584",
+    "https://webbook.nist.gov/cgi/cbook.cgi?ID=C7732185&Type=ANTOINE"
+  ],
+  "review": "docs/tasks/012-review-round1.md addressed: reference floor requires finite mean; counts mutated for all candidates; two-noisy-source fixture abstains (no forced ambiguity)",
+  "phase1_fixture_results": {
+    "tests": "tests/test_hydraulic_spread.py",
+    "result": "39 passed"
+  },
+  "code_sha256": {
+    "src/retrofit_doctor/hydraulic_spread.py": "ffc17d1e220cfc3c78e8278e713d47916665b26e1adb3bf171f0a2e8f3af317b",
+    "scripts/run_hydraulic_spread.py": "50d100464b9a0efc07351a4493dc8b3c3f7a3b69e7657b74f7f242977325de89",
+    "tests/test_hydraulic_spread.py": "80b2201a6f35880f8444511e6cb595af7bae1438fbcfcf0e3d1113cd85b186a1",
+    "src/retrofit_doctor/diagnosis_fusion.py": "c62a5bc17cd5caeb9b2e0d767e6d1c2125ee67b38387f3c028eab3305ac3d036",
+    "scripts/run_diagnosis_fusion.py": "6acc68119690da41ede25b4f6b4df00f35b5ee38e76c6556e737d8a50aaeb04a",
+    "tests/test_diagnosis_fusion.py": "006d711209edc3740af4935978d26b2d34f7e0088a5722e56a53c7bbcdc6c3aa",
+    "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+    "scripts/run_b1.py": "83c6b591ddcd1d07b15dbdba08e26f7731f237c420201a87339ba0d0e39a4d3e",
+    "scripts/run_regime_reference.py": "a8f6292f2789e143067ac43ee36ffe356eb3103d3f1d9585eef58271328d4f53",
+    "scripts/run_sensor_ablation.py": "57fa0191d724a82fa1e00166ec3008b3edab78a7953c7bd69b3a17700b059d49",
+    "vendor/benchmark/src/retrofit_sim/baselines.py": "4bf291d6a1834aa79ced8d2d862d0331fb60e3210630c4c1aa25744ebd7a27dc",
+    "vendor/benchmark/src/retrofit_sim/scoring.py": "5293c2e427d6181e0f24cfd64d617fc96d284c31a949410d3c88769a7e1802c2",
+    "requirements.lock.txt": "09030a82f9d1c9344f798b332c497f575ed1e44f0f71bace5f027f36075afd53"
+  }
+}
