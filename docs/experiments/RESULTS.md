@@ -24,7 +24,9 @@ This is adaptive development on the already inspected seven training assets, wit
 
 [Task011](../tasks/011-noise-and-unresolved.md) completed: Q1/Q2 never emitted; U1/U2 gained one correct UNKNOWN refinement (type8→9) with other principal counts unchanged. The fixed gate was not met; no promotion or validation check. All2046 causal comparisons and fresh-process reproduction passed. See [findings](../../results/noise_unresolved/FINDINGS.md) and [review](../tasks/011-coordinator-review.md). Nothing was learned/fitted in this wave.
 
-[Task012](../tasks/012-hydraulic-spread.md) is a new prospective wave: assess flow/pressure variability against a budget propagated from the public pump characteristic, with explicit applicability limits, optionally refining UNKNOWN by the unchanged waveform rule. Four new configurations; the success gate stays unchanged. No Task012 scores yet.
+[Task012](../tasks/012-hydraulic-spread.md) completed: H3/H5 emitted no new diagnoses; V3/V5 only repeated the same one UNKNOWN refinement. All four configurations failed the fixed improvement gate; 1960 causal comparisons and fresh-process reproduction passed. The model was applicable at24 of43 alerts, with14 missing-flow exclusions,3 curve mismatches and2 protected alerts. See [findings](../../results/hydraulic_spread/FINDINGS.md) and [review](../tasks/012-coordinator-review.md). No promotion or validation check.
+
+[Task013](../tasks/013-synchronized-residual.md) and its [pre-score amendment](../tasks/013-amendment-empirical-tail.md) register six new configurations: synchronized raw hydraulic residual and covariance decomposition, with fixed-factor or empirical first-day-tail evidence, optionally combined with UNKNOWN-only waveform refinement. Phase1 only; no raw benchmark inspection or score yet. The fixed improvement gate is unchanged. [Task014](../tasks/014-descriptive-validation.md) prospectively defines a one-selected-candidate descriptive validation check; it is not yet authorized to run.
 
 ## Reproducibility caveat
 

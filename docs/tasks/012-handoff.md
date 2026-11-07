@@ -79,3 +79,30 @@
 ## For the coordinator
 
 Write `results/hydraulic_spread/SEAL.json` with `{"manifest_sha256": "2d2da3bc410a8e4566273a8ada536fd145d2809b6b5356e68fec50ef2abcb3a7"}`, then authorize `PYTHONHASHSEED=0 ../../work/.venv/bin/python scripts/run_hydraulic_spread.py train`. Git is yours.
+
+## Phase 2 (executed once under SEAL)
+
+**Run:** `run-20261107T091714055594Z`, exit 0, 295 s.
+
+**Correctness: all passed.**
+- Control equality and expected metrics.
+- Emission equal to the control.
+- Causality: 0 failures in 392 checks per candidate (means, std, counts and snapshots mutated).
+- Fresh-child determinism.
+
+**Success gate: no candidate passed, so `selected = null`.**
+
+| Candidate | Correct type | Correct class | Detected | False + excess | Sensor type+channel | Hydraulic overrides |
+|---|---:|---:|---:|---:|---:|---:|
+| H3 / H5 | 8 | 14 | 18 | 3 + 3 | 3 | 0 |
+| V3 / V5 | 9 (PUMP-02-E02 via W1) | 14 | 18 | 3 + 3 | 3 | 0 |
+
+**Applicability** at 43 alerts:
+- 24 applicable, but no source eligible;
+- 14 with no flow meter;
+- 3 with a curve mismatch;
+- 2 protected.
+
+At the known PUMP-04 flow-noise alert, flow std/budget was 0.97, because pressure spreads divided by the small curve slope dominated the budget.
+
+Details are in `results/hydraulic_spread/FINDINGS.md`. No validation, test, UI or release change, and no edits after scoring. B1 is retained.

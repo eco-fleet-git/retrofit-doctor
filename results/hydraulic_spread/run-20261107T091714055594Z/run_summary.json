@@ -1,0 +1,46 @@
+{
+  "manifest_sha256": "2d2da3bc410a8e4566273a8ada536fd145d2809b6b5356e68fec50ef2abcb3a7",
+  "checks": {
+    "control_equals_saved": true,
+    "emission_equal_control": {
+      "B1": true,
+      "H3": true,
+      "H5": true,
+      "V3": true,
+      "V5": true
+    },
+    "control_metrics": {
+      "detected": true,
+      "type_correct": true,
+      "class_correct": true,
+      "false_episodes": true,
+      "excess_repeats": true,
+      "sensor_type_and_channel": true,
+      "events": true
+    },
+    "causality_failures": {
+      "B1": 0,
+      "H3": 0,
+      "H5": 0,
+      "V3": 0,
+      "V5": 0
+    },
+    "determinism": {
+      "B1": true,
+      "H3": true,
+      "H5": true,
+      "V3": true,
+      "V5": true
+    }
+  },
+  "gate": {
+    "detected_min": 18,
+    "class_correct_min": 14,
+    "false_plus_excess_max": 6,
+    "sensor_type_and_channel_min": 3
+  },
+  "selected": null,
+  "validation_touched": false,
+  "test_touched": false,
+  "runtime_s": 295.3
+}
