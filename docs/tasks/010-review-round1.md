@@ -15,3 +15,9 @@ Review of the initial diagnosis_fusion.py while implementation is in progress. A
 6. **Evidence provenance.** Learner top deviations are observations, not proof of model feature attribution. Say so. A fused learner decision must carry the waveform status, snapshot completion/age, actual derived waveform features and model/fold identity; B1 fallback must retain its exact evidence/action. Store probabilities as uncalibrated model output (ExtraTrees predict_proba averages leaf distributions; "tree-vote share" is not strictly exact). No field accuracy or certainty claims.
 
 Return the exact manifest and fixture results for coordinator review before any held-out scoring. None of these decisions uses new candidate outcomes.
+
+## Follow-up read of the revised phase-1 code (08:21 UTC)
+
+- `waveform_state` assigns `wf_reference_snapshots = len(ref)` to every row, including clocks before the 24h commissioning interval finishes. That count includes future reference records in a full replay but not a truncated replay. Gate the count by actual completion <= each clock (or withhold it until the reference freezes); this is evidence causality even when the classification is unchanged. Likewise a static NOT_INSTALLED status should come from the passport, not the existence of future invalid snapshot rows.
+- The fixture future mutation currently uses `ts >= cut - 1s`; a 1s snapshot ending exactly at cut is already available and must NOT be mutated. Mutate only completion > cut. For minute inputs mutate window_start +1min > cut, including an incomplete minute at a subminute cut. Add an early gateway alert / waveform-reference-count prefix case so this provenance boundary is exercised.
+- Validate underlying frame asset IDs as well as mapping keys in fit_model, and require waveform maps to match fit assets for fused models. This prevents an accidentally mis-keyed held-out frame from entering a supposedly isolated fit.

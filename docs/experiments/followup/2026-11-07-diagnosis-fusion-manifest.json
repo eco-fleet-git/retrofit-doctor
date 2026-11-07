@@ -1,0 +1,231 @@
+{
+  "task": "010-diagnosis-fusion",
+  "status": "PROPOSED_PHASE1_AWAITING_COORDINATOR_SEAL",
+  "date": "2026-11-07",
+  "author": "Claude Code (sole code writer)",
+  "scored": false,
+  "data_scope": {
+    "assets": [
+      "PUMP-01",
+      "PUMP-02",
+      "PUMP-03",
+      "PUMP-04",
+      "PUMP-05",
+      "PUMP-06",
+      "PUMP-07"
+    ],
+    "split": "train",
+    "reads": [
+      "assets.csv (train rows)",
+      "features_1min.parquet (asset predicate, asserted)",
+      "vibration_snapshots.parquet (asset predicate, asserted)",
+      "events_train.csv (fit labels per fold; evaluator)",
+      "benign_windows_train_validation.csv (train rows; evaluator only)"
+    ],
+    "forbidden": [
+      "validation PUMP-08/09 telemetry, snapshots, labels",
+      "test PUMP-10..12 telemetry, snapshots, predictions and labels (no new run, no inspection)",
+      "rewriting results/release or any earlier result",
+      "generator source/config (retrofit_sim generate/waveform/faults/configs)"
+    ],
+    "allowed_shared_static": "assets.csv (shared static passport incl. test rows) is parsed, then filtered to train rows before use; shared parquet files are read through train asset predicates and the returned IDs are asserted"
+  },
+  "emission": {
+    "detector": "released causal B1",
+    "k": 6.0,
+    "persistence_min": 15,
+    "reference_h": 24,
+    "refractory": "unchanged vendor (per B1 fault type, 12 h)",
+    "seed": "PYTHONHASHSEED=0 at interpreter start",
+    "note": "Alert times are exactly B1's; only class/type/confidence/evidence/action/channel are re-assigned. Official matching may still change."
+  },
+  "candidates": {
+    "B1": "control, unchanged",
+    "W1": "waveform rules on B1 MACHINE alerts only; abstain -> exact B1",
+    "M1": "ExtraTrees minute features; override if top class != NORMAL and score >= 0.6; else exact B1",
+    "M2": "as M1 with 0.8",
+    "F1": "ExtraTrees minute+waveform features, 0.6",
+    "F2": "as F1 with 0.8",
+    "X1": "cross-class fusion: decisive W1 overrides ANY non-protected B1 type (machine or sensor); else M1 (0.6); else B1. Risk: a simultaneous sensor problem can be overwritten by a machine waveform result; the official denominator exposes it."
+  },
+  "protected_b1_types": [
+    "COMMUNICATION_LOSS",
+    "SENSOR_STUCK"
+  ],
+  "fallback": "learner abstention / unsupported / NORMAL output / absent model -> exact B1 row (evidence and action retained); never healthy",
+  "waveform": {
+    "contract": {
+      "unit": "g",
+      "axis": "radial",
+      "sample_rate_hz": 10240,
+      "length": "len(samples) == n_samples",
+      "finite_samples": true,
+      "rpm": "> 0",
+      "bpfo_order": "> 0 from passport",
+      "capability": "passport channels_available contains vibration_accel_rms_g"
+    },
+    "availability": "latest VALID snapshot with timestamp + n_samples/sample_rate <= clock; never nearest/future",
+    "max_age_h": 4,
+    "reference": "median of >= 2 valid snapshots completed within the first 24 h; used only at clocks >= reference end; reference count reported per clock = records completed by then",
+    "speed_policy": {
+      "minute_speed_tol": 0.05,
+      "reference_speed_tol": 0.1,
+      "missing_current_speed": "UNVERIFIED (disclosed, not a match)"
+    },
+    "statuses": [
+      "FRESH",
+      "NONE",
+      "STALE",
+      "SPEED_CHANGED",
+      "NO_REFERENCE",
+      "REF_SPEED_MISMATCH",
+      "NOT_INSTALLED"
+    ],
+    "spectrum": "remove mean, periodic Hann, rfft, amplitude 2|X|/sum(w); 1 s record -> 1 Hz bins",
+    "line_search": {
+      "half_width": "max(1.0 Hz, 0.03 x f0)",
+      "statistic": "max amplitude"
+    },
+    "envelope": {
+      "filter": "Butterworth order 4 SOS, sosfiltfilt within the one completed record",
+      "envelope": "abs(scipy.signal.hilbert)",
+      "floor": "median envelope amplitude in [0.5, 1.5] x BPFO excluding the line half-width",
+      "band_choice": "broad generic high-frequency band; public TECHNICAL_MODEL mentions a 2.8 kHz resonance, which lies inside; band not tuned",
+      "band_hz_requested": [
+        1000.0,
+        5000.0
+      ],
+      "band_hz_effective": [
+        1000.0,
+        4608.0
+      ],
+      "band_rule": "upper edge = min(5000, 0.45 x sample_rate) = 4608 Hz at 10240 Hz"
+    },
+    "features": [
+      "wf_log_1x_gain",
+      "wf_log_2x_gain",
+      "wf_2x_over_1x",
+      "wf_log_env_ratio",
+      "wf_log_env_gain"
+    ],
+    "w1_thresholds": {
+      "bearing": "env_ratio >= 4.0 and env_ratio/reference >= 2.0",
+      "one_x": "1x/reference >= 2.0; 2x/1x >= 0.5 -> MISALIGNMENT-consistent, else IMBALANCE-consistent",
+      "order": "bearing first, then 1x; otherwise abstain",
+      "wording": "one radial axis is consistent with, not proof of, the fault"
+    }
+  },
+  "learner": {
+    "model": "sklearn.ensemble.ExtraTreesClassifier",
+    "params": {
+      "n_estimators": 300,
+      "max_depth": 6,
+      "min_samples_leaf": 3,
+      "max_features": "sqrt",
+      "bootstrap": false,
+      "random_state": 0,
+      "n_jobs": 1
+    },
+    "no_sweep": true,
+    "minute_features": "per B1 channel key: present_, z_, zs_ (current minute; masked unless installed in passport and count>0 and finite mean), ztrail_ (mean of observed z over 15 trailing rows incl. current; installed only)",
+    "fused_features": [
+      "wf_log_1x_gain",
+      "wf_log_2x_gain",
+      "wf_2x_over_1x",
+      "wf_log_env_ratio",
+      "wf_log_env_gain",
+      "wf_available"
+    ],
+    "missing": "clip +-50.0, missing -> sentinel -1000.0 plus indicator; no fitted imputation",
+    "training_population": "fit-asset minutes after the reference where B1 would diagnose from deviations: steady, B1 _zmax > k where _zmax = max(max|z|, max(zs)/2) over channels, not gap, not steady flatline",
+    "labels": "event fault_type inside the PHYSICAL interval max(onset, detectable)..end (or window end) of exactly one observable event and inside no other event's scoring window; NORMAL outside every event scoring window (incl. 6 h early / 30 min late allowances) and every physical interval; excluded: unobservable windows, overlaps, scorer buffer outside the physical interval, COMMUNICATION_LOSS/SENSOR_STUCK",
+    "groups_and_weights": "each event = one group; each contiguous NORMAL candidate segment = one group; each group total weight 1 over <= 240 evenly spaced minutes. The NORMAL class total weight therefore equals its episode count; its effect on scores relative to the thresholds is not known before scoring",
+    "support": "a class is fitted only with >= 2 groups on >= 2 fit assets; dropped classes recorded per fold; fewer than 2 classes -> no model -> B1",
+    "folds": "7 LOAO folds; fit on the six other train assets; held-out labels never passed to fit or inference; frame row IDs and waveform maps asserted",
+    "score_semantics": "uncalibrated ExtraTrees predict_proba (average of leaf class distributions); not a probability of fault",
+    "unseen_types": "a fault type absent/unsupported in the fit assets cannot be predicted for the held-out asset; disclosed per fold",
+    "sensor_channel": "only a unique installed, currently observed channel with |z|>k or spread z>k; otherwise unlocalized (no channel credit)",
+    "evidence": "observed deviations at the alert minute (stated as observations, not model attribution); fused decisions add waveform status, snapshot id, completion, age and derived features; model_id per fold"
+  },
+  "gates": {
+    "control_expected": {
+      "detected": 18,
+      "type_correct": 8,
+      "class_correct": 14,
+      "false_plus_excess": 6,
+      "sensor_type_and_channel": 3,
+      "events": 26,
+      "asset_days": 49
+    },
+    "success": "detected>=18, class>=14, false+excess<=6, sensor type+channel>=3, AND (type>=10 OR (type>=9 AND sensor type+channel>=4))",
+    "selection": "useful diagnoses (correct type; SENSOR also needs channel) desc, correct type desc, false+excess asc, candidate id",
+    "correctness": [
+      "control semantic equality to results/causal_b1/predictions_causal_train.csv",
+      "emission (asset,time) multiset equal to control",
+      "prefix replay and future mutation (minute windows ending > cut; snapshots completing > cut) at every alert, reference end -1/0/+1/+60 s, 3 snapshot completions and age boundaries -1/0/+1 s per asset, 5 random cuts (rng seed 0)",
+      "two fresh-process determinism hashes per candidate"
+    ],
+    "reported_separately": [
+      "false episodes",
+      "excess repeats",
+      "benign nuisance",
+      "UNKNOWN",
+      "wrong specific diagnoses",
+      "per-asset support"
+    ]
+  },
+  "phase1_fixture_results": {
+    "tests": [
+      "tests/test_diagnosis_fusion.py",
+      "tests/test_diagnosis_fusion_runner.py"
+    ],
+    "result": "56 passed in 104.16s (0:01:44)"
+  },
+  "code_sha256": {
+    "src/retrofit_doctor/diagnosis_fusion.py": "c62a5bc17cd5caeb9b2e0d767e6d1c2125ee67b38387f3c028eab3305ac3d036",
+    "scripts/run_diagnosis_fusion.py": "6acc68119690da41ede25b4f6b4df00f35b5ee38e76c6556e737d8a50aaeb04a",
+    "tests/test_diagnosis_fusion.py": "006d711209edc3740af4935978d26b2d34f7e0088a5722e56a53c7bbcdc6c3aa",
+    "tests/test_diagnosis_fusion_runner.py": "39263c87ba1aefa1c12f928a400d9c509fcf56fbee83170e33bf366b924aebe4",
+    "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+    "scripts/run_b1.py": "83c6b591ddcd1d07b15dbdba08e26f7731f237c420201a87339ba0d0e39a4d3e",
+    "scripts/run_regime_reference.py": "a8f6292f2789e143067ac43ee36ffe356eb3103d3f1d9585eef58271328d4f53",
+    "scripts/run_sensor_ablation.py": "57fa0191d724a82fa1e00166ec3008b3edab78a7953c7bd69b3a17700b059d49",
+    "vendor/benchmark/src/retrofit_sim/baselines.py": "4bf291d6a1834aa79ced8d2d862d0331fb60e3210630c4c1aa25744ebd7a27dc",
+    "vendor/benchmark/src/retrofit_sim/scoring.py": "5293c2e427d6181e0f24cfd64d617fc96d284c31a949410d3c88769a7e1802c2",
+    "requirements.lock.txt": "09030a82f9d1c9344f798b332c497f575ed1e44f0f71bace5f027f36075afd53"
+  },
+  "runner": {
+    "refusals_before_any_read": [
+      "seed not pinned at start",
+      "COMPLETED.json exists",
+      "no SEAL",
+      "SEAL manifest sha mismatch",
+      "sealed code hash changed"
+    ],
+    "attempts": "each attempt writes results/diagnosis_fusion/run-<UTC>/ (never overwritten; partial failed runs preserved); COMPLETED.json written only at the end and blocks any further score",
+    "before_scoring": "run_provenance.json: manifest/code hashes, train-only input projection hashes (assets/features/snapshots/events/benign rows of PUMP-01..07), per-fold fit assets, feature names, classes, support, unsupported classes, ExtraTrees params, fitted-tree state SHA-256, prediction SHA-256 per candidate; raw predictions_<c>.csv",
+    "audit_calls": "each candidate audited through its production call; B1 receives no waveform state (as in production); other candidates compared on every output column incl. waveform provenance",
+    "determinism": "two fresh PYTHONHASHSEED=0 child processes; per candidate both child hashes must equal the main scored prediction hash",
+    "outputs": [
+      "comparison.csv",
+      "per_asset.csv",
+      "per_event_<c>.csv",
+      "unmatched_<c>.csv",
+      "waveform_and_fallback.csv",
+      "held_out_type_support.json (evaluator-only unpredictable held-out types)",
+      "causality_audit.csv",
+      "determinism.json",
+      "run_summary.json"
+    ]
+  },
+  "phase1_reads_disclosure": {
+    "benchmark_telemetry_snapshots_labels_read_in_phase1": false,
+    "read": [
+      "public docs: DATA_DICTIONARY.md, TECHNICAL_MODEL.md section 7, BENCHMARK_RULES.md",
+      "vibration_snapshots.parquet schema/metadata only (column types, 358 rows, 1 row group); no sample values",
+      "existing control artifacts: results/causal_b1/predictions_causal_train.csv header + first row; results/causal_b2/train_events_C0.csv header + first 2 rows (includes 2 historical train event labels/types of PUMP-01); results/causal_b2/selection.json head",
+      "existing code: causal_b1.py, vendor baselines.py diagnose/threshold, scoring.py constants/signature, run_causal_b2.py, run_regime_reference.py, run_sensor_ablation.py helpers"
+    ],
+    "note": "historical results were already known from Task002/007; no new telemetry, snapshots or labels were read and no candidate was scored"
+  }
+}
