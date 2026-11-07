@@ -124,3 +124,64 @@ Write `results/synchronized_residual/SEAL.json` with `{"manifest_sha256": "4e673
 **No selection.** Details are in `results/synchronized_residual/FINDINGS.md`.
 
 **Proposed repair, not applied:** a categorical-safe mutation plus a categorical fixture. This needs coordinator review, a new manifest hash and a new seal, followed by one new full attempt.
+
+## Audit-only recovery (proposed, awaiting RECOVERY seal; not run)
+
+Per `docs/tasks/013-audit-recovery.md`, no sealed Task013 file was edited. The original runner, module, manifest and SEAL are unchanged, and `selfcheck` still matches.
+
+**New files:**
+- `scripts/recover_synchronized_residual_audit.py` (recovery script)
+- `tests/test_synchronized_residual_recovery.py` (8 tests, all passing in 2.5 s)
+- `docs/experiments/followup/2026-11-07-synchronized-residual-recovery-manifest.json`, SHA-256 `15eb5a391f60857b3738eec1d83223baf22d2803b0e984fc7d95e8e444e9d5ed`
+
+**What the recovery does, in order:**
+1. Refuses before any read without `RECOVERY_SEAL.json`, on a manifest or code mismatch, or with an unpinned seed.
+2. Verifies the original manifest, SEAL and code, and every file of the original attempt by SHA-256, including that each prediction file matches its recorded hash.
+3. Verifies the saved control identity, emissions, control metrics and the complete causality CSV.
+4. Refuses if any recovery output or `COMPLETED.json` already exists.
+5. Reloads train-only data and requires identical input, raw and aggregation projection hashes. On a mismatch it stops.
+6. Runs the original `raw_audit` with the original `mutate_raw_future`, wrapped so that a copy of `operating_mode` is cast to object first.
+7. Runs the original determinism-child in a fresh seed-0 process and requires the original recorded prediction hashes.
+8. Attaches the flags to the original unchecked metrics and selects with the original `select()`. No scoring call is made.
+9. Adds only `raw_aggregation_audit.csv`, `determinism.json`, `comparison.csv`, `run_summary.json` (labelled audit-only recovery, recovery runtime recorded separately), `recovery_provenance.json` and `COMPLETED.json`.
+
+**Fixture coverage:**
+- The original failure is reproduced on a RUNNING-only categorical input.
+- The wrapper's future STOPPED values and ×3+50 values are checked, and earlier rows are unchanged.
+- Closed-minute statistics are equal for the prefix and mutated inputs.
+- The original `raw_audit` passes and the mutator is restored afterwards.
+- The final comparison keeps the original metrics, its flags gate selection, and scoring is forbidden.
+- Refusal cases: no seal, wrong manifest, changed code, unpinned seed.
+- Detection of tampering and existing outputs.
+
+**Command once sealed:** `PYTHONHASHSEED=0 ../../work/.venv/bin/python scripts/recover_synchronized_residual_audit.py recover`
+
+## Audit-only recovery — executed once (exit code 0, 37.4 s)
+
+**Command:** `PYTHONHASHSEED=0 ../../work/.venv/bin/python scripts/recover_synchronized_residual_audit.py recover`, run standalone with its true exit code. Logs: `results/synchronized_residual/recovery_stdout.log` and `recovery_stderr.log`.
+
+**All checks passed:**
+- Original files and hashes.
+- Control equality and metrics.
+- Emissions for all 7 configurations.
+- Causality: 0 failures in 7 × 392 checks.
+- Raw aggregation: 0 failures in 30 checks, covering 57,148 minutes.
+- Input, raw and aggregation hashes identical to the original.
+- Fresh seed-0 determinism matched for all 7 configurations.
+
+**Result:**
+- **Gate:** E995 and Z995 pass. The other configurations fail.
+- **Selected:** Z995, with type 10, class 14, detected 18, false 3, excess 3 and sensor type+channel 4.
+- **Gains:** PUMP-04-E03 flow noise (E995 residual) and PUMP-02-E02 misalignment (W1). No losses.
+
+**Caveats:**
+- The decisive flow share was 0.763 against a 0.75 minimum, a very narrow margin.
+- Each gain rests on one event.
+- The rule applies to only 3 of 7 train assets.
+- This is development-informed selection after several waves.
+
+No validation, test, UI or release change. Stopping before Task014 for coordinator review. Details are in `results/synchronized_residual/FINDINGS.md`.
+
+## Coordinator decision
+
+`013-coordinator-review.md` freezes Z995 as the sole Task014 candidate. Task013 is closed: no further code changes, and every artifact is preserved.

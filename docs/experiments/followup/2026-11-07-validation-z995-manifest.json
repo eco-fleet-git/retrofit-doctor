@@ -1,0 +1,143 @@
+{
+  "task": "014-descriptive-validation",
+  "status": "PROPOSED_PHASE1_AWAITING_COORDINATOR_SEAL",
+  "date": "2026-11-07",
+  "author": "Claude Code (sole code writer)",
+  "scored": false,
+  "candidate": "Z995",
+  "configs": [
+    "B1",
+    "Z995"
+  ],
+  "nature": "Descriptive non-regression on previously inspected validation PUMP-08/09; not blind or independent evidence. Exactly the frozen train-selected Z995 and causal B1. No runner-up, no tuning, nothing fitted. Failure is preserved; no alternative candidate is tried.",
+  "exposure": "Validation was inspected in earlier work (causal B1 per-event analysis, stored validation_summary.json). Phase 1 read no validation telemetry, features, snapshots, raw data, events or benign rows; fixtures are synthetic.",
+  "train_selection_evidence": {
+    "comparison": "results/synchronized_residual/run-20261107T093222280839Z/comparison.csv",
+    "run_summary": "results/synchronized_residual/run-20261107T093222280839Z/run_summary.json",
+    "requirement": "Z995 gate_pass and correctness_pass true and selected == Z995 (re-read before any validation read)",
+    "file_sha256": {
+      "results/synchronized_residual/run-20261107T093222280839Z/comparison.csv": "a6d61076df7be594da49d5c8edb26ffc223241b6070dd6c0a1acf40108000546",
+      "results/synchronized_residual/run-20261107T093222280839Z/run_summary.json": "45af3418cac0a3c1acf600e776ef78ffcff40b50fdd7f6eed411cd8ce4a5f6c6",
+      "results/synchronized_residual/run-20261107T093222280839Z/run_provenance.json": "8aded989757ac84cda7d2791a340efb7ae014cd310a756d08f15b92d6d9b9336",
+      "results/synchronized_residual/run-20261107T093222280839Z/recovery_provenance.json": "5314bcd225cc4945985fc2cb978c128f14c5f831b935a0230133132d8043f05c",
+      "docs/experiments/followup/2026-11-07-synchronized-residual-manifest.json": "4e673ca28dd1c9dd0dac0770969bef693402ba34bcfa5d335bccf14c46ed19a9",
+      "docs/experiments/followup/2026-11-07-synchronized-residual-recovery-manifest.json": "15eb5a391f60857b3738eec1d83223baf22d2803b0e984fc7d95e8e444e9d5ed",
+      "results/synchronized_residual/SEAL.json": "8d3057247f25f0affd8cbb79acbc8f74582ffe9b2d886bfd8368e7d625d24e1d",
+      "results/synchronized_residual/RECOVERY_SEAL.json": "04a739096c223e9548d583e59e49b14ba9616dc4a9a4b637d0d6f24ce351560a",
+      "docs/tasks/013-coordinator-review.md": "e68f25fcd6fe1439e4b301c293f44961c20917068c964887eb18082f0a637e38"
+    }
+  },
+  "data_scope": {
+    "assets": [
+      "PUMP-08",
+      "PUMP-09"
+    ],
+    "split": "validation",
+    "loading": "assets.csv filtered to the two IDs with split validation (asserted); features/snapshots parquet via ID predicates (asserted); raw telemetry only from telemetry/asset_id=<ID>/ via read_asset_partition for assets with the required installed channels (capability recorded otherwise); events_validation.csv asserted to contain only the allowlist; benign filtered to the two IDs",
+    "forbidden": [
+      "test PUMP-10..12 anything",
+      "train re-scoring",
+      "release/UI changes",
+      "fitting or threshold changes"
+    ]
+  },
+  "scoring": {
+    "scorer": "official retrofit_sim.scoring.score with split='validation' (run_regime_reference.evaluate is NOT used: it hardcodes split='train')",
+    "metrics": "run_causal_b2.diagnostic_metrics + summarise (split-agnostic; same definitions as results/causal_b2/validation_summary.json)",
+    "wrong_specific_first": "selective_diagnosis specific claims - correct specific claims (first diagnoses; UNKNOWN/AMBIGUOUS not specific)",
+    "wrong_channel_claims": "non-gateway sensor events detected with predicted class SENSOR and a claimed channel different from the tag",
+    "denominators": "9 events, 14 asset-days",
+    "per_asset": "official scorer split='validation' per asset"
+  },
+  "control_expected": {
+    "detected": 8,
+    "type_correct": 4,
+    "class_correct": 8,
+    "false_episodes": 1,
+    "excess_repeats": 0,
+    "sensor_type_and_channel": 2,
+    "sensor_type_and_channel_non_gateway": 1,
+    "alerts": 15,
+    "events": 9,
+    "composite": 76.01253946421124,
+    "saved_predictions": "results/causal_b1/predictions_causal_validation.csv (semantic equality)",
+    "stored_reference_counts": {
+      "specific_first": 7,
+      "correct_specific": 4,
+      "wrong_specific_first": 3,
+      "wrong_channel_claims": 1
+    }
+  },
+  "adoption_gate": {
+    "detected": ">= 8",
+    "type_correct": ">= 4",
+    "class_correct": ">= 8",
+    "false_plus_excess": "<= 1",
+    "sensor_type_and_channel": ">= 2",
+    "nuisance": "<= 1",
+    "preserve": "every B1-correct type event and every B1-correct sensor type+channel event",
+    "wrong_specific_first": "<= concurrently reproduced B1 count",
+    "wrong_channel_claims": "<= concurrently reproduced B1 count",
+    "train_gate": "Task013 Z995 still passing (frozen evidence)",
+    "correctness": "control equality/metrics/composite, emission equality, 0 causality failures, 0 raw aggregation failures, fresh seed-0 hashes equal"
+  },
+  "correctness": [
+    "full-evidence prefix + future mutation (means, std/min/max, counts=0, snapshots, future residual statistics) at the Task010 cut set for B1 and Z995; None/NaN-normalised comparison of every column",
+    "raw-aggregation prefix/future-mutation checks at reference end -1/0/+1 s, first post-reference alert boundary and a sub-minute cut per raw asset; future mutation on a COPY with operating_mode cast to object (Task013 categorical defect avoided)",
+    "fresh PYTHONHASHSEED=0 process reproduces the main prediction hashes"
+  ],
+  "outputs": [
+    "run_provenance.json + predictions_*.csv + applicability_coverage.csv (before scoring)",
+    "report_B1.json, report_Z995.json (full official reports)",
+    "comparison_unchecked.csv",
+    "per_event_*.csv",
+    "per_asset.csv",
+    "event_transitions.csv",
+    "causality_audit.csv",
+    "raw_aggregation_audit.csv",
+    "determinism.json",
+    "comparison.csv",
+    "run_summary.json (adoption gate, lost events, changed events)",
+    "COMPLETED.json"
+  ],
+  "runner": {
+    "refusals_before_any_read": [
+      "seed",
+      "COMPLETED.json",
+      "no SEAL",
+      "manifest sha mismatch",
+      "code hash change",
+      "train evidence hash change",
+      "frozen Task013 evidence no longer shows Z995 passing/selected"
+    ],
+    "attempts": "new results/validation_z995/run-<UTC>/ per attempt; partial attempts preserved"
+  },
+  "phase1_fixture_results": {
+    "tests": "tests/test_validation_z995.py",
+    "result": "15 passed"
+  },
+  "code_sha256": {
+    "scripts/run_validation_z995.py": "a861ee4b6b0c12f7664e8f0f81f8f5ef5630fd93165bd4138d7563910765c962",
+    "tests/test_validation_z995.py": "62e5c41023fe19e87875557f0261d533b3e4a7ac6b9ca98027a763ffb44c98df",
+    "src/retrofit_doctor/synchronized_residual.py": "76ad49e474ccac802bc36295c830612729ed2da83e92c9ac97bce5567f616feb",
+    "src/retrofit_doctor/hydraulic_spread.py": "ffc17d1e220cfc3c78e8278e713d47916665b26e1adb3bf171f0a2e8f3af317b",
+    "src/retrofit_doctor/diagnosis_fusion.py": "c62a5bc17cd5caeb9b2e0d767e6d1c2125ee67b38387f3c028eab3305ac3d036",
+    "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+    "scripts/run_b1.py": "83c6b591ddcd1d07b15dbdba08e26f7731f237c420201a87339ba0d0e39a4d3e",
+    "scripts/run_causal_b2.py": "d77afebd33210805c72812ef9c3cbfe5a79031f7c55a3821f0a3aec88c65816b",
+    "scripts/run_diagnosis_fusion.py": "6acc68119690da41ede25b4f6b4df00f35b5ee38e76c6556e737d8a50aaeb04a",
+    "scripts/run_synchronized_residual.py": "af6c591ad97e54c1c2c8ed35c72606091db9afa03ec020b868cac8d531f3193f",
+    "tests/test_synchronized_residual.py": "d15b57bf3e49985174ee5bd7412a9ffa044eff53be247609ec6a9c8ed016b052",
+    "tests/test_diagnosis_fusion.py": "006d711209edc3740af4935978d26b2d34f7e0088a5722e56a53c7bbcdc6c3aa",
+    "docs/experiments/protocol_v1.json": "f018c40d4aec809e6496b8f7a8220176f821401e51321364295c0fa75cc02477",
+    "vendor/benchmark/src/retrofit_sim/baselines.py": "4bf291d6a1834aa79ced8d2d862d0331fb60e3210630c4c1aa25744ebd7a27dc",
+    "vendor/benchmark/src/retrofit_sim/scoring.py": "5293c2e427d6181e0f24cfd64d617fc96d284c31a949410d3c88769a7e1802c2",
+    "requirements.lock.txt": "09030a82f9d1c9344f798b332c497f575ed1e44f0f71bace5f027f36075afd53",
+    "docs/tasks/014-descriptive-validation.md": "47a0f816a415290ca8dead863c5304a5a2412cf5185c8d0ab0270089a5676928",
+    "results/causal_b1/predictions_causal_validation.csv": "8889d043ff00b3a39a268eb43023d592c3e4afa3ba5b1752e120367ee65e42c9",
+    "results/causal_b2/validation_summary.json": "755323ca1d9a0992c60e4b33256b23a251cc604b926735315c624574a56e5360"
+  },
+  "provenance_keys": "validation_projection_hashes renames the Task010 helper keys to *_validation_* and adds split, allowlist, test_touched=false (sealed helper unchanged)",
+  "official_reports": "report_B1.json and report_Z995.json saved in full; correctness requires split=='validation', assets==['PUMP-08','PUMP-09'], asset_days==14.0 for both",
+  "review": "docs/tasks/014-review-round1.md addressed: validation key names; refuse before validation reads if train evidence fails; full official reports saved and their split/assets/exposure verified"
+}
