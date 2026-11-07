@@ -2,9 +2,10 @@
 // All replay rendering goes through sliceReplay(): views never touch rows later than the as-of clock.
 import {
   MINUTE_MS, parseUtc, formatUtc, formatDuration, sliceReplay, sliceLabels, clampClock, referenceState,
-  channelFreshness, packetState, diagnosticState, alertFeatures, visibleCount,
+  channelFreshness, packetState, diagnosticState, visibleCount,
 } from './replay.js';
-import { CHANNEL_LABELS, CHANNEL_PLACEMENT, ALL_CHANNELS, knowledgeFor } from './knowledge.js';
+import { CHANNEL_LABELS, CHANNEL_PLACEMENT, ALL_CHANNELS } from './knowledge.js';
+import { explainAlert } from './explain.js';
 import { renderPlannerPage, bindPlanner } from './planner.js';
 import { renderSchematic, bindSchematic } from './schematic.js';
 import { renderExperiments } from './experiments.js';
@@ -23,6 +24,7 @@ const state = {
   chart: { channel: {}, spanMin: 1440 },
   selectedAlert: {},
   playing: null, speed: 1, endNotice: null, schematicSel: {},
+  open: { history: false, tech: false }, // native <details> state survives re-renders
 };
 
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -328,34 +330,30 @@ function renderPump(route) {
       <input id="t-range" type="range" min="0" max="${replay.minutes}" step="1" value="${visibleCount(replay, asOf)}" aria-label="Replay time, minutes since window start" aria-valuetext="${esc(formatUtc(asOf))}">
       ${state.endNotice ? `<span role="status">${pill('s-gray', state.endNotice)}</span>` : ''}
     </section>
+    ${selected ? diagnosisCard(asset, view, selected) : `<section class="panel diag" aria-labelledby="dx-h"><h2 id="dx-h" tabindex="-1">Selected alert</h2><div class="empty">No baseline alert in this visible history. No alert does not prove the pump is healthy.</div></section>`}
+    ${view.alerts.length ? `<details class="panel history" id="al-history"${state.open.history ? ' open' : ''}><summary><h2 id="al-h">Alert history (${view.alerts.length} visible)</h2>
+        <span class="small muted">Select an alert to explain it. Newest first.</span></summary>
+      <ul class="alert-list">${[...view.alerts].reverse().map((a, i) => `<li><button type="button" id="al-${i}" data-alert="${esc(a.alert_time_utc)}" aria-pressed="${selected && a.alert_time_utc === selected.alert_time_utc}">
+        <span class="num">${esc(formatUtc(parseUtc(a.alert_time_utc)))}</span> · ${esc(humanType(a.fault_type))} <span class="small muted">${esc(a.event_class === 'SENSOR' ? 'data-quality rule' : 'machine rule')}</span></button></li>`).join('')}</ul>
+    </details>` : ''}
     <div class="status-row">
       <section class="panel" aria-labelledby="st-ref"><h2 id="st-ref">Statistical reference</h2>${pill(ref.state === 'REFERENCE_AVAILABLE' ? 's-info' : ref.state === 'INSUFFICIENT_REFERENCE' ? 's-attn' : 's-gray', ref.label)}<p class="small muted">${esc(ref.detail)}</p></section>
       <section class="panel" aria-labelledby="st-pk"><h2 id="st-pk">Data packets</h2>${pill(pk.state === 'PACKETS_MISSING' ? 's-attn' : pk.state === 'RECEIVING' ? 's-info' : 's-gray', pk.label)}<p class="small muted">${esc(pk.detail ?? '')} Operating mode: ${esc(view.rows.operatingMode[view.visibleMinutes - 1] ?? '—')}.</p></section>
       <section class="panel" aria-labelledby="st-dx"><h2 id="st-dx">Baseline output (causal B1)</h2>${pill(diag.state === 'NO_VISIBLE_ALERT' ? 's-gray' : diag.state === 'UNKNOWN_DIAGNOSIS' ? 's-attn' : 's-alert', diag.label)}<p class="small muted">${diag.alert ? `${esc(humanType(diag.alert.fault_type))} · ${esc(formatUtc(parseUtc(diag.alert.alert_time_utc)))}. A historical alert is not necessarily an ongoing fault.` : 'No alert does not prove the pump is healthy.'}</p></section>
     </div>
     <div class="grid-2">
-      <div>
-        <section class="panel chart" aria-labelledby="ch-h">
-          <h2 id="ch-h">Trend up to the as-of time</h2>
-          <div class="chart-tools">
-            <label>Channel<select id="ch-sel">${channels.map((c) => `<option value="${c}"${c === chartChannel ? ' selected' : ''}>${esc(label(c))} (${esc(view.channels[c].unit)})</option>`).join('')}</select></label>
-            <label>Span<select id="span-sel">${[[360, 'Last 6 h'], [1440, 'Last 24 h'], [0, 'All visible history']].map(([v, t]) => `<option value="${v}"${state.chart.spanMin === v ? ' selected' : ''}>${t}</option>`).join('')}</select></label>
-          </div>
-          ${trendCharts(view, chartChannel, state.chart.spanMin, state.showLabels ? sliceLabels(replay, asOf) : null)}
-        </section>
-        ${schematicPanel(asset)}
-        <section class="panel" aria-labelledby="inv-h"><h2 id="inv-h">Sensor inventory and freshness at the as-of time</h2>${inventoryTable(asset, view)}</section>
-      </div>
-      <div>
-        <section class="panel" aria-labelledby="al-h"><h2 id="al-h">Visible baseline alerts (${view.alerts.length})</h2>
-          ${view.alerts.length ? `<ul class="alert-list">${[...view.alerts].reverse().map((a, i) => `<li><button type="button" id="al-${i}" data-alert="${esc(a.alert_time_utc)}" aria-pressed="${selected && a.alert_time_utc === selected.alert_time_utc}">
-            <span class="num">${esc(formatUtc(parseUtc(a.alert_time_utc)))}</span><br>${esc(a.event_class)} · ${esc(humanType(a.fault_type))}</button></li>`).join('')}</ul>`
-            : '<div class="empty">No baseline alert in this visible history.</div>'}
-        </section>
-        ${selected ? evidenceCard(asset, view, selected) : ''}
-        ${evaluationPanel(replay, asOf)}
-      </div>
-    </div>`;
+      <section class="panel chart" aria-labelledby="ch-h">
+        <h2 id="ch-h">Trend up to the as-of time</h2>
+        <div class="chart-tools">
+          <label>Channel<select id="ch-sel">${channels.map((c) => `<option value="${c}"${c === chartChannel ? ' selected' : ''}>${esc(label(c))} (${esc(view.channels[c].unit)})</option>`).join('')}</select></label>
+          <label>Span<select id="span-sel">${[[360, 'Last 6 h'], [1440, 'Last 24 h'], [0, 'All visible history']].map(([v, t]) => `<option value="${v}"${state.chart.spanMin === v ? ' selected' : ''}>${t}</option>`).join('')}</select></label>
+        </div>
+        ${trendCharts(view, chartChannel, state.chart.spanMin, state.showLabels ? sliceLabels(replay, asOf) : null)}
+      </section>
+      ${evaluationPanel(replay, asOf)}
+    </div>
+    ${schematicPanel(asset)}
+    <section class="panel" aria-labelledby="inv-h"><h2 id="inv-h">Sensor inventory and freshness at the as-of time</h2>${inventoryTable(asset, view)}</section>`;
 }
 
 function schematicPanel(asset) {
@@ -363,34 +361,68 @@ function schematicPanel(asset) {
     ${renderSchematic(asset, { selected: state.schematicSel[asset.assetId], prefix: 'sch' })}</section>`;
 }
 
-function evidenceCard(asset, view, alert) {
-  const kb = knowledgeFor(alert.fault_type);
-  const feats = alertFeatures(view, alert);
-  const conf = Number(alert.confidence);
-  const missing = kb.discriminators.filter((c) => !asset.channelsAvailable.includes(c));
-  return `<section class="panel" aria-labelledby="ev-h">
-    <h2 id="ev-h">Evidence · ${esc(humanType(alert.fault_type))}</h2>
-    <p>${pill(alert.fault_type === 'UNKNOWN' ? 's-attn' : 's-alert', `${alert.event_class} · ${alert.fault_type}`)} <b>Baseline prediction. Engineering review required.</b></p>
-    <dl class="kv">
-      <dt>Issued</dt><dd class="num">${esc(formatUtc(parseUtc(alert.alert_time_utc)))}</dd>
-      <dt>Detector evidence</dt><dd><span class="verbatim">${esc(alert.evidence)}</span></dd>
-      <dt>Recommended</dt><dd><span class="verbatim">${esc(alert.recommended_action)}</span></dd>
-      <dt>Rule confidence</dt><dd><span class="num">${conf.toFixed(3)}</span> · Uncalibrated baseline score, not a failure probability
-        <details><summary class="small">Exact value and formula</summary><span class="mono">${esc(alert.confidence)}</span><br><span class="small">max |z| / (2k), clipped to 0.05–0.99 (vendor B1).</span></details></dd>
-    </dl>
-    <h3>Observed features at the alert minute</h3>
-    ${feats.items.length ? `<table><thead><tr><th scope="col">Channel</th><th scope="col" class="num">Mean</th><th scope="col" class="num">Causal z</th></tr></thead><tbody>
-      ${feats.items.map((f) => `<tr><td>${esc(label(f.channelId))}</td><td class="num">${fmtNum(f.value, 3)} ${esc(f.unit)}</td><td class="num">${fmtNum(f.z, 1)}</td></tr>`).join('')}</tbody></table>
-      <p class="small muted">Window ending ${esc(formatUtc(view.gridStartMs + (feats.index + 1) * MINUTE_MS))}; largest |z| among channels with a reference.</p>`
-      : '<p class="small muted">No z-scores at this minute (reference not yet available or no samples). The alert is based on data-quality rules.</p>'}
-    <h3>Why the detector said this</h3><p class="small">${esc(kb.rule)}</p>
-    <h3>Alternative interpretations</h3><p class="small muted">Engineering prompts; not evaluated by the detector.</p>
-    <ul class="tight small">${kb.alternatives.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
-    <h3>Missing measurements</h3>
-    ${missing.length || kb.notInBenchmark.length ? `<ul class="tight small">${missing.map((c) => `<li>${esc(label(c))}: ${pill('s-gray', 'Not instrumented on this pump')}</li>`).join('')}
-      ${kb.notInBenchmark.map((x) => `<li>${esc(x)}: ${pill('s-gray', 'Not in any benchmark tier')}</li>`).join('')}</ul>` : '<p class="small muted">None identified for this rule.</p>'}
-    <h3>Operator next check</h3><p class="small">${esc(kb.check)}</p>
-    <p class="small muted">Advisory only. This application cannot operate equipment.</p>
+const GAP_PILL = {
+  'not-installed': ['s-gray', 'Not installed'], 'no-sample': ['s-attn', 'No sample this minute'], 'no-z': ['s-attn', 'No reference comparison'],
+  'not-in-benchmark': ['s-gray', 'Not in benchmark'], 'partial': ['s-attn', 'Partial coverage'], 'no-rows': ['s-attn', 'No telemetry'],
+};
+const KIND_PILL = {
+  machine: ['s-alert', 'Machine rule · unconfirmed'], unknown: ['s-attn', 'Cause unresolved · UNKNOWN'],
+  sensor: ['s-attn', 'Data-quality warning'], stuck: ['s-attn', 'Data-quality warning · stuck reading'], gap: ['s-attn', 'Data gap'],
+};
+
+// Selected-alert explanation. Content comes only from explainAlert(view, alert, asset); labels are never an input.
+// Default view: one hypothesis statement, observed values, short uncertainty summary, next check.
+// Full hypothesis, z explanation, per-channel gaps and source fields live in the technical disclosure.
+const zText = (z) => `${z > 0 ? '+' : z < 0 ? '−' : ''}${Math.abs(z).toFixed(2)}`;
+function diagnosisCard(asset, view, alert) {
+  const e = explainAlert(view, alert, asset);
+  if (!e.available) return `<section class="panel diag" aria-labelledby="dx-h"><h2 id="dx-h" tabindex="-1">Selected alert</h2><div class="empty">${esc(e.timing)}</div></section>`;
+  const t = e.technical;
+  const i = Math.round((e.issuedMs - view.gridStartMs) / MINUTE_MS) - 1;
+  const obs = e.observations.map((o) => `<li><b>${esc(o.label)}</b> ${o.named ? pill('s-info', 'Named in source evidence') : pill('s-gray', 'Also deviating · not named')}<br>
+      ${o.channelId ? `Measured <span class="num">${o.value != null ? `${esc(o.value)} ${esc(o.unit)}` : 'no sample in this minute'}</span> · Derived ${o.z != null ? `<span class="num">causal z ${esc(zText(o.z))}</span>, ${esc(o.direction)} reference` : 'reference comparison unavailable'}
+      <span class="small muted">· 1-min mean, minute ending ${esc(formatUtc(e.issuedMs).slice(11))} · ${esc(o.place)}</span>` : esc(o.text)}</li>`).join('');
+  const rows = Object.entries(view.channels).map(([c, ch]) => [c, ch, ch.z?.[i] ?? null])
+    .sort((a, b) => Math.abs(b[2] ?? 0) - Math.abs(a[2] ?? 0));
+  const [kc, kt] = KIND_PILL[e.kind];
+  return `<section class="panel diag" aria-labelledby="dx-h">
+    <div class="diag-head"><h2 id="dx-h" tabindex="-1">Selected alert · ${esc(humanType(alert.fault_type))}</h2>${pill(kc, kt)}</div>
+    <p class="small muted diag-time">${esc(e.timing)}</p>
+    <div class="diag-grid">
+      <div>
+        <h3><span class="step">1</span> What the rule suggests</h3>
+        <p class="diag-headline">${esc(e.headline)}</p>
+        ${e.caveat ? `<p class="small">${esc(e.caveat)}</p>` : ''}
+        <h3><span class="step">2</span> What was observed</h3>
+        ${obs ? `<ul class="obs-list">${obs}</ul>` : '<p class="small muted">No channel value is available at the alert minute.</p>'}
+        ${e.referenceCaveat ? `<p class="small muted">${esc(e.referenceCaveat)}</p>` : ''}
+      </div>
+      <div>
+        <h3><span class="step">3</span> Why this is still uncertain</h3>
+        <p class="small"><span class="muted">Also possible (not ranked or evaluated):</span> ${e.alternatives.map(esc).join('; ')}.</p>
+        ${e.gapSummary.length ? `<ul class="gap-list small">${e.gapSummary.map((g) => `<li>${pill(...GAP_PILL[g.kind])} ${esc(g.text)}</li>`).join('')}</ul>` : ''}
+        <h3><span class="step">4</span> Next engineering check</h3>
+        <p>${esc(e.nextCheck.text)}</p>
+        <p class="small"><b>Why:</b> ${esc(e.nextCheck.reason)} <span class="muted">${esc(e.nextCheck.advisory)}</span></p>
+      </div>
+    </div>
+    <details class="panel-sub" id="dx-tech"${state.open.tech ? ' open' : ''}><summary>Technical details: full rule interpretation, z, per-channel gaps, source evidence, score</summary>
+      <dl class="kv">
+        <dt>Rule interpretation</dt><dd class="small">${esc(e.hypothesis)}</dd>
+        ${e.zNote ? `<dt>What z means</dt><dd class="small">${esc(e.zNote)}</dd>` : ''}
+        ${e.gaps.length ? `<dt>Unavailable data, per item</dt><dd><ul class="tight small">${e.gaps.map((g) => `<li>${esc(g.text)}</li>`).join('')}</ul></dd>` : ''}
+        <dt>Baseline output</dt><dd><span class="mono">${esc(t.eventClass)} · ${esc(t.faultType)}</span> (causal B1 baseline prediction)</dd>
+        <dt>Detector evidence</dt><dd><span class="verbatim">${esc(t.evidence)}</span></dd>
+        <dt>Detector recommendation</dt><dd><span class="verbatim">${esc(t.action)}</span><div class="small muted">${esc(t.actionNote)}</div></dd>
+        <dt>Rule</dt><dd class="small">${esc(t.rule)}<div class="muted">${esc(t.ruleNote)}</div></dd>
+        <dt>Rule score</dt><dd><span class="num">${esc(t.score)}</span><div class="small">Exact: <span class="mono">${esc(t.scoreExact)}</span> · ${esc(t.formula)}</div></dd>
+      </dl>
+      <div class="table-wrap" role="region" aria-label="All channels at the alert minute" tabindex="0"><table>
+        <caption>1-minute window means at the minute ending ${esc(formatUtc(e.issuedMs))}. “No sample” means no native sample in that minute (no forward fill).</caption>
+        <thead><tr><th scope="col">Channel</th><th scope="col" class="num">Measured mean</th><th scope="col" class="num">Causal z</th></tr></thead>
+        <tbody>${rows.map(([c, ch, z]) => `<tr><td>${esc(label(c))}<div class="small muted mono">${c}</div></td><td class="num">${ch.mean[i] != null ? `${fmtNum(ch.mean[i], 4)} ${esc(ch.unit)}` : '<span class="muted">No sample</span>'}</td>
+          <td class="num">${z != null ? fmtNum(z, 2) : `<span class="muted small">${ch.z ? 'unavailable' : 'not used by B1'}</span>`}</td></tr>`).join('')}</tbody></table></div>
+    </details>
   </section>`;
 }
 
@@ -537,7 +569,12 @@ function bind(main, route) {
   on('ch-sel', 'change', (e) => { state.chart.channel[id] = e.target.value; render(); });
   on('span-sel', 'change', (e) => { state.chart.spanMin = Number(e.target.value); render(); });
   on('labels-toggle', 'change', (e) => { state.showLabels = e.target.checked; render(); });
-  main.querySelectorAll('[data-alert]').forEach((b) => b.addEventListener('click', () => { state.selectedAlert[id] = b.dataset.alert; render(); }));
+  for (const [elId, key] of [['al-history', 'history'], ['dx-tech', 'tech']]) on(elId, 'toggle', (e) => { state.open[key] = e.target.open; });
+  // Selecting from history re-renders the explanation above; move focus and view there (only on this user action).
+  main.querySelectorAll('[data-alert]').forEach((b) => b.addEventListener('click', () => {
+    state.selectedAlert[id] = b.dataset.alert; render();
+    const h = document.getElementById('dx-h'); h?.focus({ preventScroll: true }); h?.scrollIntoView({ block: 'start' });
+  }));
 }
 
 window.addEventListener('hashchange', onRouteChange);

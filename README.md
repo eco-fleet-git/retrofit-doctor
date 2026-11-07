@@ -27,6 +27,8 @@ The interface and pitch are in English. [Russian working notes](README.ru.md) pr
 
 **Integration status, 7 November:** the light interface, interactive sensor schematic, reviewed experiment evidence and conditional physical proposal have passed [coordinator review](docs/tasks/006-coordinator-review.md). The fixed-model test export is complete: 23 prediction rows, valid schema and 42/42 registered prefix checks. [Release package](docs/release/README.md). **Test quality is unknown.** A pre-gate PUMP-10 process-memory read during a mutation test is [disclosed](docs/tasks/007-coordinator-review.md); no pristine untouched blind claim is made. Final user application feedback and a timed spoken rehearsal remain outstanding; the light visual direction is approved.
 
+**Clarity iteration, 7 November:** the selected-alert card now separates the rule hypothesis, actual alert-minute measurements, uncertainty and the next engineering check. Exact source evidence, scores and per-channel details remain expandable. Selecting an older alert brings its explanation into view. [Review and limits](docs/tasks/009-coordinator-review.md); [60-second walkthrough](docs/tasks/009-handoff.md#60-second-demo-path). Detector and prediction artifacts are unchanged.
+
 ## Measured evidence
 
 The selected replay detector remains **causal B1, k=6, persistence=15 minutes**, using a fixed first-day empirical reference. That reference is not certified healthy.

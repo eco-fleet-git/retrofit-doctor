@@ -1,6 +1,7 @@
 // Static explanatory copy for baseline outputs. `rule` paraphrases the vendor B1 diagnose() branch
 // (vendor/benchmark/src/retrofit_sim/baselines.py). `alternatives`, `discriminators` and `check` are
-// engineering prompts for review; the detector does not evaluate them.
+// engineering prompts for review; the detector does not evaluate them. `suggests` and `checkReason` are
+// plain-language copy for the selected-alert explanation (explain.js); `short` is the headline form.
 
 export const CHANNEL_LABELS = {
   suction_pressure_kpa: 'Suction pressure', discharge_pressure_kpa: 'Discharge pressure', flow_m3_h: 'Flow',
@@ -26,6 +27,9 @@ export const ALL_CHANNELS = Object.keys(CHANNEL_LABELS);
 const k = 'k = 6';
 export const FAULT_KNOWLEDGE = {
   SUCTION_STRAINER_CLOGGING: {
+    short: 'a suction restriction',
+    suggests: 'a restriction on the suction side, such as a clogging suction strainer',
+    checkReason: 'Proposed check. A local gauge helps distinguish a real suction-pressure drop from a transmitter error; valve position and tank level help assess other suction-side causes.',
     rule: `Steady-running minutes with max |z| > ${k} for 15 consecutive minutes; suction pressure z < −6 without acceleration z > 6 (that combination is labelled cavitation). Also emitted when speed or power z > 6 and no earlier branch matched.`,
     alternatives: ['Low sump / sea-chest level or partially closed suction valve', 'Suction pressure transmitter drift or calibration step', 'Operating-point change outside the 24 h reference regimes'],
     discriminators: ['flow_m3_h', 'discharge_pressure_kpa', 'motor_power_kw', 'vibration_accel_rms_g'],
@@ -33,6 +37,8 @@ export const FAULT_KNOWLEDGE = {
     check: 'Compare with a local suction gauge and the strainer differential gauge if fitted; check suction valve position and tank level before opening the strainer.',
   },
   CAVITATION: {
+    suggests: 'cavitation (vapour bubbles forming because suction head is too low)',
+    checkReason: 'Proposed check. Suction head versus NPSH and audible noise help distinguish cavitation from a strainer restriction or a sensor fault.',
     rule: `Suction pressure z < −6 and vibration acceleration z > 6 in the same minute (${k}).`,
     alternatives: ['Suction strainer clogging with unrelated bearing noise', 'Air entrainment', 'Accelerometer mounting or sensor fault'],
     discriminators: ['flow_m3_h', 'vibration_crest_factor', 'suction_pressure_kpa'],
@@ -40,6 +46,8 @@ export const FAULT_KNOWLEDGE = {
     check: 'Verify suction head against NPSH requirement; listen for cavitation noise; check strainer and suction level.',
   },
   BEARING_WEAR: {
+    suggests: 'bearing wear',
+    checkReason: 'Proposed check. A bearing-frequency spectrum and a lubrication check help distinguish bearing damage from looseness, misalignment or a mounting change.',
     rule: `Acceleration z > 6 together with crest factor z > 3 or bearing temperature z > 3, or acceleration z > 12 (${k}).`,
     alternatives: ['Lubrication issue', 'Misalignment or looseness', 'Sensor mounting change'],
     discriminators: ['vibration_crest_factor', 'bearing_temp_c', 'vibration_rms_mm_s'],
@@ -47,6 +55,8 @@ export const FAULT_KNOWLEDGE = {
     check: 'Take a portable vibration spectrum at the bearing housing; check lubrication and bearing temperature by hand-held gauge.',
   },
   MISALIGNMENT: {
+    suggests: 'shaft or coupling misalignment',
+    checkReason: 'Proposed check. Alignment and axial vibration help distinguish misalignment from imbalance, looseness or bearing degradation.',
     rule: `Vibration velocity z > 6 with bearing or winding temperature z > 3 (${k}).`,
     alternatives: ['Imbalance with thermal side effect', 'Soft foot / looseness', 'Bearing degradation'],
     discriminators: ['bearing_temp_c', 'motor_winding_temp_c', 'vibration_accel_rms_g'],
@@ -54,6 +64,8 @@ export const FAULT_KNOWLEDGE = {
     check: 'Check coupling alignment and soft foot; compare radial and axial vibration with a portable analyser.',
   },
   IMBALANCE: {
+    suggests: 'rotor or impeller imbalance',
+    checkReason: 'Proposed check. The 1× running-speed component helps distinguish imbalance from misalignment, impeller damage or a sensor problem.',
     rule: `Vibration velocity z > 6 without bearing/winding temperature z > 3 (${k}).`,
     alternatives: ['Impeller fouling or damage', 'Misalignment', 'Vibration sensor fault or mounting change'],
     discriminators: ['vibration_accel_rms_g', 'vibration_crest_factor', 'bearing_temp_c'],
@@ -61,6 +73,9 @@ export const FAULT_KNOWLEDGE = {
     check: 'Confirm with a portable vibration spectrum (1× component) before scheduling impeller inspection.',
   },
   DISCHARGE_RESTRICTION: {
+    short: 'a discharge restriction',
+    suggests: 'a restriction on the discharge side, such as a throttled valve or a fouled heat exchanger',
+    checkReason: 'Proposed check. Valve lineup and heat-exchanger differential pressure help distinguish a discharge restriction from suction-side causes or a flow-meter fault.',
     rule: `Discharge pressure z > 6 with flow, current or power z < −3; or flow z < −6 with speed z ≤ 3 (${k}).`,
     alternatives: ['Throttled or failing discharge / control valve', 'Heat-exchanger fouling downstream', 'Suction-side restriction affecting flow', 'Flow meter fault'],
     discriminators: ['flow_m3_h', 'discharge_pressure_kpa', 'suction_pressure_kpa', 'valve_position_pct'],
@@ -68,6 +83,8 @@ export const FAULT_KNOWLEDGE = {
     check: 'Check discharge valve lineup and heat-exchanger differential pressure locally before cleaning.',
   },
   IMPELLER_WEAR: {
+    suggests: 'impeller wear',
+    checkReason: 'Proposed check. A head-versus-flow test helps assess impeller wear against suction restriction, transmitter drift or an operating-point change.',
     rule: `Discharge pressure z < −6 with current z < 0 (${k}).`,
     alternatives: ['Suction restriction', 'Pressure transmitter drift', 'Speed / operating-point change'],
     discriminators: ['flow_m3_h', 'suction_pressure_kpa', 'motor_power_kw'],
@@ -75,13 +92,19 @@ export const FAULT_KNOWLEDGE = {
     check: 'Run a performance test (head vs flow) against the rated curve.',
   },
   SENSOR_STUCK: {
+    short: 'a stuck reading',
+    suggests: 'a stuck (frozen) reading on the named channel',
+    checkReason: 'Proposed check. A local reading helps check whether the process value is really constant; the gateway configuration helps check whether a last value is being held.',
     rule: 'A channel reported zero within-minute variation over ≥ 30 samples while running steady (vendor flatline rule; known limitations for sparse T1 cadence).',
-    alternatives: ['Transmitter or gateway holding last value', 'Genuinely constant process value'],
+    alternatives: ['Transmitter or gateway holding last value', 'Genuinely constant process value', 'Native update cadence or gateway update interval: few fresh samples in a minute can look frozen'],
     discriminators: [],
     notInBenchmark: ['Transmitter diagnostics / quality bits from the device'],
     check: 'Verify the transmitter with a local reading; check gateway hold-last-value configuration.',
   },
   SENSOR_CALIBRATION_SHIFT: {
+    short: 'a calibration shift',
+    suggests: 'a calibration shift on the named channel',
+    checkReason: 'Proposed check. A reference gauge helps distinguish a sensor offset from a real local change.',
     rule: 'One channel |z| > 6 while its physically coupled channels stay below |z| = 2; within-minute spread not elevated.',
     alternatives: ['Gradual sensor drift (not distinguished from a step by this rule)', 'Genuine local machine change not reflected in coupled channels'],
     discriminators: [],
@@ -89,6 +112,9 @@ export const FAULT_KNOWLEDGE = {
     check: 'Verify the named channel against a reference gauge.',
   },
   SENSOR_NOISE_SPIKES: {
+    short: 'noise or spikes',
+    suggests: 'noise or spikes on the named channel',
+    checkReason: 'Proposed check. Cabling, grounding and a reference gauge help distinguish electrical noise from a calibration change or a real local change.',
     rule: 'One channel |z| > 6 while coupled channels stay below |z| = 2, and its within-minute spread z > 6.',
     alternatives: ['Calibration shift or drift with incidental noise', 'Electrical interference or loose wiring'],
     discriminators: [],
@@ -96,6 +122,8 @@ export const FAULT_KNOWLEDGE = {
     check: 'Inspect cabling and grounding; compare with a reference gauge.',
   },
   COMMUNICATION_LOSS: {
+    suggests: 'a telemetry gap (missing data rows)',
+    checkReason: 'Proposed check. Gateway and link status help distinguish a network outage from a stopped pump with logging disabled; a local check helps confirm the pump\'s actual state.',
     rule: 'Fewer than 30 telemetry rows in the minute (gap rule), persisting 15 minutes. Evaluated even during reference collection.',
     alternatives: ['Gateway or network outage', 'Pump stopped with logging disabled'],
     discriminators: [],
@@ -103,6 +131,8 @@ export const FAULT_KNOWLEDGE = {
     check: 'Check gateway and network link; confirm pump state locally.',
   },
   UNKNOWN: {
+    suggests: 'no specific pattern: the deviation did not match any B1 rule',
+    checkReason: 'Proposed check. Local readings on the deviating channels help distinguish a sensor issue from a real process or machine change.',
     rule: 'Persistent deviation (max |z| > 6) that matched no specific B1 rule pattern.',
     alternatives: ['Unmodelled machine fault', 'Process / operating-point change', 'Sensor issue on the deviating channel', 'Reference period already contained degradation'],
     discriminators: [],

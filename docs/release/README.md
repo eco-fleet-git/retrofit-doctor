@@ -122,3 +122,8 @@ The proposal depends on the missing measurement. For PUMP-08, the flow/head/inpu
 ## 9. Release identity and review
 
 The fixed inference adapter was reviewed and committed at `1a87601`; its exact manifest gate is `5ba7881`. The implemented light UI and fallback captures are from `c63efdb`. The eight-slide presentation is Spaces state 11; the PDF matches its visible slides. The release commit packages these unchanged code artifacts, the output CSV and the final documentation; use `git log -1` to identify the checkout. Repository visibility was verified as private through the GitHub connector on 7 November. See [`coordinator_verification.json`](../../results/release/coordinator_verification.json) for independent checks. No public deployment or competition submission was performed.
+
+
+## 10. Diagnostic-clarity iteration
+
+Task009 updates the local interface after the first release: hypothesis → observed measurement → uncertainty → next engineering check, with technical details behind a disclosure. [Current diagnosis screenshot](../../review/task009/03-p08-1238-card-1440.png), [walkthrough and test coverage](../tasks/009-handoff.md), [coordinator review](../tasks/009-coordinator-review.md). The detector, committed data and issued test predictions remain unchanged. The pitch PDF still uses the earlier Task006 cover screenshot; it is not a screenshot of the new card. Human final review remains pending.

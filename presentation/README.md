@@ -17,3 +17,5 @@ All slide layouts were visually inspected during authoring. Updated cover, basel
 The local interface passed coordinator review after two correction rounds. Final user application feedback and a timed spoken rehearsal remain outstanding; the user has approved the light visual direction. Test-export readiness is recorded separately in the release package and must not be inferred from these slides.
 
 Release update: slide 2 speaker notes disclose pre-gate PUMP-10 process-memory access during mutation testing and the subsequent fixed-model export (23 rows; 42 prefix checks). Slide 2 now labels the split “Test”; the eight-page PDF was regenerated to match. No pristine blind-evaluation claim is made; test diagnostic quality is unknown.
+
+Task009 later improved the diagnosis card in the local app. This deck/PDF retains its Task006 cover screenshot; for the current explanation UI see `../review/task009/03-p08-1238-card-1440.png`. Numerical results and the physical proposal are unchanged.

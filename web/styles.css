@@ -205,3 +205,24 @@ ul.phys li:last-child { border-bottom: none; }
 .phys-el { flex: 1 1 260px; min-width: 0; }
 ul.phys .state { white-space: normal; }
 @media (max-width: 900px) { .arch-grid { grid-template-columns: minmax(0, 1fr); } }
+/* Task009: selected-alert explanation above history; four ordered steps; technical details disclosure */
+.diag { border-top: 4px solid var(--action); }
+.diag-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+.diag-head h2 { margin: 0; }
+.diag-time { margin: 6px 0 0; }
+.diag-headline { font-size: 16px; font-weight: 600; margin: 4px 0; max-width: 75ch; }
+.diag-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4px 28px; }
+.diag-grid p { max-width: 70ch; margin: 4px 0 8px; }
+.step { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--action-bg); color: var(--action); font-size: 13px; margin-right: 4px; }
+ul.obs-list, ul.gap-list { list-style: none; padding: 0; margin: 4px 0 8px; }
+ul.obs-list li { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; margin-bottom: 6px; background: #fbfcfd; }
+ul.obs-list dl.kv { margin-top: 6px; }
+ul.gap-list li { padding: 4px 0; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+ul.gap-list li:last-child { border-bottom: none; }
+ul.gap-list .state, .obs .state { white-space: normal; }
+details.history > summary { list-style: revert; }
+details.history > summary h2 { display: inline; margin: 0 8px 0 0; }
+details.history .alert-list { margin-top: 8px; }
+@media (max-width: 900px) { .diag-grid { grid-template-columns: minmax(0, 1fr); } }
+ul.obs-list li { line-height: 1.6; }
+.diag h2:focus { outline: none; } .diag h2:focus-visible { outline: 3px solid var(--focus); }

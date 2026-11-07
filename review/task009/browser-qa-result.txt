@@ -1,0 +1,27 @@
+PASS  P08 12:37   Before the alert: no alert, and no alert is not called healthy
+PASS  P08 12:38   Headline: suction below reference, suction restriction suggested, unconfirmed
+PASS  P08 12:38   Observed: measured 35.3067 kPa(g) separate from derived causal z −6.71, named in source evidence
+PASS  P08 12:38   Flow not installed; wireless vibration installed with no sample at the alert minute
+PASS  P08 12:38   No "no vibration"/"rules out" wording; reference not certified healthy; no percentage
+PASS  Layout      Default P08 card (technical details closed) at most ~650 px tall at 1440  [571 px]
+PASS  P08 12:38   Next check with plain reason; advisory
+PASS  Layout      Explanation is above the alert history and the trend
+PASS  Keyboard    Technical details closed by default, opened by Enter; verbatim evidence, recommendation, exact score, all-channel table
+PASS  Labels      Showing retrospective labels leaves the explanation text unchanged
+PASS  Overflow    No page overflow at 1440 (P08 12:38, details open)
+PASS  Older alert 12:38 alert selected at 02:00 next day: own minute, age stated
+PASS  Keyboard    Selecting from history moves focus to the explanation heading and scrolls it into view  [{"id":"dx-h","top":0}]
+PASS  UNKNOWN     Unresolved; fluid temperature observation; next check present
+PASS  Gap         Communication loss: rows observed, gateway only a hypothesis, no pump-stopped claim
+PASS  P09 sensor  Calibration-shift warning keeps vibration velocity; no motor-current substitution in the explanation
+PASS  Test pumps  PUMP-12 metadata only: no explanation card, no replay request
+PASS  Console     No console errors (1440)
+PASS  Mobile      Order: explanation → history → trend → schematic → inventory  [778 < 2005 < 2612 < 3616 < 4299]
+PASS  Mobile      Headline and step 1 start within the first 1.5 screens  [step1 at 895 px]
+PASS  Layout      Default P08 card at most ~1300 px tall at 390  [1233 px]
+PASS  Overflow    No page overflow at 390 (P08 12:38)  [0]
+PASS  Keyboard    Technical details open by keyboard at 390 without page overflow  [0]
+PASS  Overflow    No page overflow at 390 (P09 sensor)
+PASS  Overflow    No page overflow at 390 (PUMP-12 metadata)
+PASS  Console     No console errors (390)
+26/26 passed

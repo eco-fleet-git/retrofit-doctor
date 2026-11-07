@@ -36,5 +36,6 @@ node --test tests/web_replay.test.mjs                            # as-of slicing
 - `index.html`, `styles.css` — shell and styles.
 - `js/replay.js` — pure as-of logic: `sliceReplay()` is the only path from bundle to rendering; reference, freshness, packet and diagnostic states.
 - `js/knowledge.js` — rule paraphrases of vendor B1 `diagnose()` and engineering prompts (alternatives, missing measurements, next checks), labelled as not evaluated by the detector.
+- `js/explain.js` — pure selected-alert explanation (hypothesis, observations at the alert minute, gaps, alternatives, next check, technical fields); inputs are only the as-of view, the selected alert and the static passport.
 - `js/app.js` — hash routes `#/fleet`, `#/pumps/:id?t=<UTC>`, `#/pumps/:id/retrofit`, `#/evidence`.
 - `data/` — generated bundle (synthetic benchmark data, provenance + SHA-256 of inputs inside `fleet.json`).
