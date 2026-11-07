@@ -1,0 +1,141 @@
+{
+  "task": "011-noise-and-unresolved",
+  "status": "PROPOSED_PHASE1_AWAITING_COORDINATOR_SEAL",
+  "date": "2026-11-07",
+  "author": "Claude Code (sole code writer)",
+  "scored": false,
+  "exposure": "Prior train-result exposure: the implementer saw the complete Task010 train comparison and per-event changes (including PUMP-04 SENSOR_NOISE_SPIKES detected by B1 as SENSOR_CALIBRATION_SHIFT) before implementing. All Q/U thresholds were fixed by the coordinator packet; no raw channel values were inspected to set them. Phase 1 read no benchmark telemetry, snapshots or labels.",
+  "data_scope": {
+    "assets": [
+      "PUMP-01",
+      "PUMP-02",
+      "PUMP-03",
+      "PUMP-04",
+      "PUMP-05",
+      "PUMP-06",
+      "PUMP-07"
+    ],
+    "split": "train",
+    "allowed_shared_static": "assets.csv parsed then filtered to train rows; shared parquet read through train predicates (asserted); benign table filtered to train",
+    "forbidden": [
+      "validation PUMP-08/09 telemetry, snapshots, labels",
+      "test PUMP-10..12 telemetry, snapshots, predictions, labels",
+      "rewriting Task010 or any earlier result/release",
+      "generator source/config"
+    ]
+  },
+  "emission": "unchanged causal B1 (k=6, persistence 15, 24 h first-day empirical reference, 12 h refractory per B1 type), PYTHONHASHSEED=0 at start; only class/type/evidence/action/channel change",
+  "candidates": {
+    "B1": "control, unchanged",
+    "Q1": "isolated-spread rule; exactly one eligible source -> SENSOR/SENSOR_NOISE_SPIKES with suspected_channel; else exact B1",
+    "Q2": "Q1 plus extreme-to-spread ratio >= 4.0 on the same source",
+    "U1": "Q1; if Q1 abstains AND B1 fault_type == UNKNOWN, unchanged Task010 W1 rule; else exact B1",
+    "U2": "Q2 with the same UNKNOWN-only W1 refinement"
+  },
+  "scope_of_application": "Q/U are evaluated at every emitted B1 alert whose B1 type is not COMMUNICATION_LOSS or SENSOR_STUCK (these stay protected). Q may therefore replace a specific B1 machine or sensor cause; W1 in U1/U2 replaces only B1 UNKNOWN.",
+  "q_rule": {
+    "source_keys": [
+      "ps",
+      "pd",
+      "q",
+      "i",
+      "pw",
+      "bt",
+      "wt",
+      "tf"
+    ],
+    "source_channels": [
+      "suction_pressure_kpa",
+      "discharge_pressure_kpa",
+      "flow_m3_h",
+      "motor_current_a",
+      "motor_power_kw",
+      "bearing_temp_c",
+      "motor_winding_temp_c",
+      "fluid_temp_c"
+    ],
+    "excluded": "vibration v/a/c, speed n, valve position vp",
+    "source_usable": "installed in passport channels_available; closed-minute count >= 30; finite mean, finite std > 0, finite spread z (zs_key)",
+    "source_spread": "zs_key > 12.0 (strict)",
+    "coupled": "B.COUPLED[key] (vendor list, de-duplicated); usable = installed, count >= 30, finite mean, finite std >= 0 (negative std is invalid, std = 0 is a valid quiet channel), finite spread z",
+    "coupled_requirement": ">= 2 usable coupled channels AND every usable coupled spread z <= 2.0 (signed, no abs); coupled LEVEL deviations ignored",
+    "spread_z_definition": "causal B1 zs_key = (minute std - reference median std) / max(1.4826 MAD, 1e-3 + 0.05 |median|), first-24h steady reference (unchanged causal_b1.py)",
+    "uniqueness": "exactly one eligible source; zero or >1 -> exact B1",
+    "q2_outlier": "finite min/max with min <= mean <= max and max > min; max(|max-mean|, |min-mean|)/std >= 4.0 (closed minute only); descriptive, not a probability",
+    "confidence": "rows re-labelled by Q (or W1 in U1/U2) keep B1's confidence, which is B1's uncalibrated anomaly score for the alert, NOT a confidence estimate for the newly named cause",
+    "evidence": "minute mean/std/count, source spread z, (Q2) extreme/std, every usable coupled channel with spread z, limits text, original B1 type; full numeric detail in rule_detail JSON",
+    "action": "check raw signal, wiring and a reference measurement under comparable operation; sensor failure unconfirmed"
+  },
+  "u_rule": {
+    "waveform": "Task010 diagnosis_fusion.w1_rule and asset_waveform imported unchanged (latest valid completed snapshot, max age 4 h, first-24h reference >= 2 snapshots, minute speed tol 0.05, reference speed tol 0.10, envelope requested 1-5 kHz / effective 1000-4608 Hz, BPFO ratio >= 4 and gain >= 2, 1x gain >= 2, 2x/1x 0.5)",
+    "condition": "only when the Q rule abstains and B1 fault_type == UNKNOWN"
+  },
+  "no_learning": "nothing is fitted; seven independently replayed train assets (not a learned LOAO)",
+  "gates": {
+    "control_expected": {
+      "detected": 18,
+      "type_correct": 8,
+      "class_correct": 14,
+      "false_episodes": 3,
+      "excess_repeats": 3,
+      "sensor_type_and_channel": 3,
+      "events": 26,
+      "asset_days": 49
+    },
+    "success": "detected>=18, class>=14, false+excess<=6, sensor type+channel>=3, AND (type>=10 OR (type>=9 AND sensor type+channel>=4))",
+    "selection": "useful diagnoses desc, correct type desc, false+excess asc, simpler candidate Q1<Q2<U1<U2",
+    "correctness": [
+      "control semantic equality to results/causal_b1/predictions_causal_train.csv and expected metrics",
+      "emission (asset,time) multiset equal to control",
+      "prefix replay + future mutation (minute means AND std/min/max of minutes ending after the cut, snapshots completing after the cut) for ALL candidates incl. U1/U2, at every alert, reference end -1/0/+1/+60 s, 3 snapshot completion and age boundaries -1/0/+1 s per asset, 5 random cuts (rng 0), every output column incl. rule_detail",
+      "additional std/min/max-only future mutation at every alert for Q1/Q2 (no snapshots)",
+      "main prediction hash equals a fresh PYTHONHASHSEED=0 child process"
+    ],
+    "reported": [
+      "false",
+      "excess",
+      "benign nuisance",
+      "UNKNOWN first",
+      "wrong specific first",
+      "per-asset",
+      "per-event gains/losses",
+      "noise claims and waveform refinements"
+    ]
+  },
+  "runner": {
+    "refusals_before_any_read": [
+      "seed",
+      "COMPLETED.json",
+      "no SEAL",
+      "manifest sha mismatch",
+      "code hash change"
+    ],
+    "before_scoring": "run_provenance.json (manifest/code hashes, train-only input projection hashes, prediction hashes) + raw predictions",
+    "attempts": "new results/noise_unresolved/run-<UTC>/ per attempt, partial runs preserved; COMPLETED.json blocks a second score"
+  },
+  "phase1_fixture_results": {
+    "tests": "tests/test_noise_unresolved.py",
+    "result": "31 passed"
+  },
+  "code_sha256": {
+    "src/retrofit_doctor/noise_unresolved.py": "c1229203d882ec11961abb34e3de73006cf5c5f761c742e08933222c70b0587f",
+    "scripts/run_noise_unresolved.py": "c0cff8f8394bab1dd0593001fcfa0226a13bf510bbfca34c0ed63877a8ed8436",
+    "tests/test_noise_unresolved.py": "cf1c9999a324eb6b1807d0bbff3c930c6e41c26f9b33dc48321f355d5e276912",
+    "src/retrofit_doctor/diagnosis_fusion.py": "c62a5bc17cd5caeb9b2e0d767e6d1c2125ee67b38387f3c028eab3305ac3d036",
+    "scripts/run_diagnosis_fusion.py": "6acc68119690da41ede25b4f6b4df00f35b5ee38e76c6556e737d8a50aaeb04a",
+    "tests/test_diagnosis_fusion.py": "006d711209edc3740af4935978d26b2d34f7e0088a5722e56a53c7bbcdc6c3aa",
+    "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+    "scripts/run_b1.py": "83c6b591ddcd1d07b15dbdba08e26f7731f237c420201a87339ba0d0e39a4d3e",
+    "scripts/run_regime_reference.py": "a8f6292f2789e143067ac43ee36ffe356eb3103d3f1d9585eef58271328d4f53",
+    "scripts/run_sensor_ablation.py": "57fa0191d724a82fa1e00166ec3008b3edab78a7953c7bd69b3a17700b059d49",
+    "vendor/benchmark/src/retrofit_sim/baselines.py": "4bf291d6a1834aa79ced8d2d862d0331fb60e3210630c4c1aa25744ebd7a27dc",
+    "vendor/benchmark/src/retrofit_sim/scoring.py": "5293c2e427d6181e0f24cfd64d617fc96d284c31a949410d3c88769a7e1802c2",
+    "requirements.lock.txt": "09030a82f9d1c9344f798b332c497f575ed1e44f0f71bace5f027f36075afd53"
+  },
+  "output_schema": {
+    "diagnosis_source": "what produced the EMITTED row: B1, Q1, Q2 or W1",
+    "rule_detail": "JSON for every non-protected row of Q1/Q2/U1/U2: evaluated_noise_rule (the Q rule that was evaluated, even when it abstained), emitted_source (= diagnosis_source), noise_rule_outcome (emitted / abstained_no_source / abstained_ambiguous), eligible count and every examined source with its statistics and coupled spread z. An abstained Q evaluation is never presented as the emitted explanation: the evidence text describes only the emitting rule.",
+    "waveform_fields": "wf_* provenance filled only for U1/U2 (production call computes waveform state); empty for B1/Q1/Q2"
+  },
+  "review": "docs/tasks/011-review-round1.md addressed: main-audit spread mutation for all candidates; negative coupled std invalid; rule_detail field semantics; retained B1 anomaly score"
+}

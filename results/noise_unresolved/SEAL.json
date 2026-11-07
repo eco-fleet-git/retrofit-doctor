@@ -1,0 +1,7 @@
+{
+  "manifest_sha256": "4a365967643fd63fa2757e870cc78df5ba5d88cd491551dead014c08712acccc",
+  "approved_by": "Codex coordinator",
+  "approved_utc": "2026-11-07T08:49:20.788591+00:00",
+  "scope": "One registered train-only wave; no validation or test run",
+  "review": "docs/tasks/011-phase1-coordinator-review.md"
+}
