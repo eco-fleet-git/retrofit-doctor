@@ -1,0 +1,6 @@
+{
+  "manifest_sha256": "4e673ca28dd1c9dd0dac0770969bef693402ba34bcfa5d335bccf14c46ed19a9",
+  "authorization": "One registered train-only run of six candidates plus control; no validation/test reads or post-score tuning",
+  "coordinator": "Codex",
+  "date": "2026-11-07"
+}

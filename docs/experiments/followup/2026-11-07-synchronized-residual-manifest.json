@@ -1,0 +1,142 @@
+{
+  "task": "013-synchronized-residual",
+  "status": "PROPOSED_PHASE1_AWAITING_COORDINATOR_SEAL",
+  "date": "2026-11-07",
+  "author": "Claude Code (sole code writer)",
+  "scored": false,
+  "protocol": [
+    "docs/tasks/013-synchronized-residual.md",
+    "docs/tasks/013-amendment-empirical-tail.md (pre-score expansion: E995/Z995)"
+  ],
+  "exposure": "Adaptive development on an inspected train set; Task010-012 train results known, including the Task012 PUMP-04 flow-noise budget detail. No Task013 raw residual values or scores known. Phase 1 read no benchmark raw telemetry, minute features, snapshots or labels; the partition loader was tested only on a synthetic temporary tree. Phase 1 overlapped with the read-only Task012 audit in a separate process; Task012 results were preserved unchanged after it completed.",
+  "data_scope": {
+    "assets": [
+      "PUMP-01",
+      "PUMP-02",
+      "PUMP-03",
+      "PUMP-04",
+      "PUMP-05",
+      "PUMP-06",
+      "PUMP-07"
+    ],
+    "split": "train",
+    "raw_loader": "only files under telemetry/asset_id=<train ID>/ (per-asset rglob; asset_id/day restored from the hive path relative to the telemetry root); columns timestamp_utc, operating_mode, sample_interval_s, discharge_pressure_kpa, suction_pressure_kpa, flow_m3_h, motor_speed_rpm; IDs, parseable timestamps and window bounds asserted; assets lacking a required installed channel skipped with an explicit capability reason",
+    "allowed_shared_static": "assets.csv parsed then train-filtered; shared parquet via train predicates; benign filtered to train",
+    "forbidden": [
+      "validation PUMP-08/09 and test PUMP-10..12 telemetry/snapshots/labels/predictions",
+      "whole telemetry root load",
+      "rewriting earlier sealed code/results/release",
+      "generator source/config"
+    ]
+  },
+  "emission": "unchanged causal B1 (k=6, persistence 15, 24 h reference, 12 h refractory), PYTHONHASHSEED=0 at start",
+  "candidates": {
+    "B1": "control",
+    "R3": "std(E) > 3.0 x first-day median reference AND unique covariance attribution",
+    "R5": "same with 5.0",
+    "E995": "same as R3 except the excess test: empirical first-day upper-tail rank (1+b)/(N+1) <= 0.005, N >= 199",
+    "Y3": "R3; on abstention and B1 UNKNOWN, unchanged Task010 W1",
+    "Y5": "R5 with the same W1 fallback",
+    "Z995": "E995 with the same W1 fallback"
+  },
+  "protected_and_scope": "B1 COMMUNICATION_LOSS / SENSOR_STUCK not evaluated; W1 refines only B1 UNKNOWN on residual abstention; no residual-mean inference; no wear/cavitation diagnosis from this rule",
+  "applicability": "Task012 hydraulic_check reused unchanged (water-like fluid, passport, reference complete, steady/no gap, observed Q/Ps/Pd/n/T, ratio bounds, relative std bounds, curve consistency 20 %, NIST Antoine, NPSH margin 1.5, not B1 cavitation/air) and recorded separately as rule_detail.applicability; Task012 budgets/floors are not a decision gate",
+  "residual": {
+    "terms_kpa": {
+      "Xpd": "Pd",
+      "Xps": "-Ps",
+      "Xq": "(rho g/1000)(H0-Hb)(Q/Qb)^2",
+      "Xn": "-(rho g/1000) H0 (n/nr)^2"
+    },
+    "E": "Xpd + Xps + Xq + Xn = measured pressure rise - public-curve pressure rise [kPa]",
+    "constants": {
+      "rho": 1000.0,
+      "g": 9.80665
+    },
+    "assumptions": "as Task012 (water-like, rho, g, atmosphere for applicability, equal taps, no velocity head)",
+    "minute": "[start, start+1 min) available only at its end; a raw row exactly at a minute end belongs to the next minute; rows >= the clock never enter",
+    "pairing": "rows with operating_mode RUNNING, Q/Ps/Pd/n all finite, Q > 0, n > 0; nothing filled or interpolated; >= 30 paired rows",
+    "invalid": "missing/unparseable timestamp -> explicit error; minute with duplicate timestamp / off-grid (sub-second) timestamp / sample_interval_s != 1 -> invalid_reason and no statistics",
+    "statistics": "double precision; centred within the same paired rows; variances/covariances ddof=1",
+    "reference": "first-24h closed minutes with g.steady, no gap, valid, paired >= 30, finite std(E) >= 0 (explicit boolean mask); R: >= 60 minutes and median > 0; E995: >= 199 minutes and median > 0; never exposed in evidence of an alert before reference end (status incomplete); the full reference distribution is never written to evidence",
+    "excess_R": "std(E) > factor x reference median (strict)",
+    "excess_E995": "b = #reference std(E) >= current std(E) (ties count against); tail_rank = (1+b)/(N+1) <= 0.005; not a fault probability, valid p-value or calibrated false-alarm rate",
+    "decomposition": "c_j = Cov(E, X_j)/Var(E); Var(E) > 0; |sum c_j - 1| <= 1e-6; every c_j >= -0.25 (else strong_cancellation); exactly one c_j >= 0.75 and all others <= 0.25 (else no_unique_dominant_term); dominant speed -> abstain; source spread z > 6 (strict) for Q/Ps/Pd",
+    "evidence": "minute bounds, paired/total/running rows, raw provenance, std/var/mean of E (kPa, kPa^2), reference (median kPa, support) or tail (N, b, rank, limit, median), all four native covariances (kPa^2), term variances, shares and sum, source spread z, applicability values/reasons/assumptions, original B1 cause; confidence = retained B1 anomaly score, not a confidence in the proposed cause"
+  },
+  "abstention_reasons": [
+    "applicability:<Task012 reason>",
+    "capability:<missing channels>",
+    "raw_minute_unavailable",
+    "raw_invalid:<reason>",
+    "raw_paired_count_below_30",
+    "residual_reference_unsupported",
+    "residual_variance_not_positive",
+    "residual_not_excessive",
+    "residual_not_in_empirical_tail",
+    "decomposition_identity_failed",
+    "strong_cancellation",
+    "no_unique_dominant_term",
+    "dominant_speed_not_a_supported_sensor_source",
+    "source_spread_z_not_above_6"
+  ],
+  "gates": {
+    "control_expected": {
+      "detected": 18,
+      "type_correct": 8,
+      "class_correct": 14,
+      "false_episodes": 3,
+      "excess_repeats": 3,
+      "sensor_type_and_channel": 3,
+      "events": 26,
+      "asset_days": 49
+    },
+    "success": "detected>=18, class>=14, false+excess<=6, sensor type+channel>=3, AND (type>=10 OR (type>=9 AND sensor type+channel>=4))",
+    "selection": "useful diagnoses desc, correct type desc, false+excess asc, then R3 < R5 < E995 < Y3 < Y5 < Z995",
+    "correctness": [
+      "control semantic equality and expected metrics",
+      "emission multiset equal to control for all 7",
+      "full-evidence prefix + future mutation (minute means, std/min/max, counts, snapshots and future residual-table statistics) at the Task010 cut set for all 7 candidates; None/NaN-normalised comparison of every column",
+      "independent raw-aggregation checks per raw asset at reference end -1/0/+1 s, first post-reference alert boundary and one sub-minute cut: truncated raw and future-mutated raw (values x3+50, mode STOPPED) must reproduce every closed-minute statistic incl. counts and invalid/absent rows",
+      "main prediction hash equals a fresh PYTHONHASHSEED=0 child"
+    ],
+    "validation_policy": "only a single train-selected candidate may later be considered under Task014; never validation-based selection"
+  },
+  "runner": {
+    "refusals_before_any_read": [
+      "seed",
+      "COMPLETED.json",
+      "no SEAL",
+      "manifest sha mismatch",
+      "code hash change"
+    ],
+    "before_scoring": "run_provenance.json (manifest/code hashes, train input projection hashes, raw projection hashes per asset, aggregation provenance incl. invalid-minute counts, prediction hashes) + raw predictions + applicability_coverage.csv",
+    "attempts": "new results/synchronized_residual/run-<UTC>/ per attempt; partial runs preserved; COMPLETED.json blocks a second score"
+  },
+  "reviews": [
+    "docs/tasks/013-review-round1.md: per-alert incomplete reference before reference end (fixture: early non-protected UNKNOWN alert, full vs prefix vs future-mutated raw); native kPa^2 covariances; explicit missing/unparseable timestamp rejection; partition loader tested on a synthetic tree",
+    "docs/tasks/013-review-round2.md: explicit boolean reference mask; zero-eligible-reference fixture for factor and empirical candidates; runner coverage fixture covers all six"
+  ],
+  "phase1_fixture_results": {
+    "tests": "tests/test_synchronized_residual.py",
+    "result": "49 passed"
+  },
+  "code_sha256": {
+    "src/retrofit_doctor/synchronized_residual.py": "76ad49e474ccac802bc36295c830612729ed2da83e92c9ac97bce5567f616feb",
+    "scripts/run_synchronized_residual.py": "af6c591ad97e54c1c2c8ed35c72606091db9afa03ec020b868cac8d531f3193f",
+    "tests/test_synchronized_residual.py": "d15b57bf3e49985174ee5bd7412a9ffa044eff53be247609ec6a9c8ed016b052",
+    "src/retrofit_doctor/hydraulic_spread.py": "ffc17d1e220cfc3c78e8278e713d47916665b26e1adb3bf171f0a2e8f3af317b",
+    "src/retrofit_doctor/diagnosis_fusion.py": "c62a5bc17cd5caeb9b2e0d767e6d1c2125ee67b38387f3c028eab3305ac3d036",
+    "scripts/run_diagnosis_fusion.py": "6acc68119690da41ede25b4f6b4df00f35b5ee38e76c6556e737d8a50aaeb04a",
+    "tests/test_diagnosis_fusion.py": "006d711209edc3740af4935978d26b2d34f7e0088a5722e56a53c7bbcdc6c3aa",
+    "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+    "scripts/run_b1.py": "83c6b591ddcd1d07b15dbdba08e26f7731f237c420201a87339ba0d0e39a4d3e",
+    "scripts/run_regime_reference.py": "a8f6292f2789e143067ac43ee36ffe356eb3103d3f1d9585eef58271328d4f53",
+    "scripts/run_sensor_ablation.py": "57fa0191d724a82fa1e00166ec3008b3edab78a7953c7bd69b3a17700b059d49",
+    "vendor/benchmark/src/retrofit_sim/baselines.py": "4bf291d6a1834aa79ced8d2d862d0331fb60e3210630c4c1aa25744ebd7a27dc",
+    "vendor/benchmark/src/retrofit_sim/scoring.py": "5293c2e427d6181e0f24cfd64d617fc96d284c31a949410d3c88769a7e1802c2",
+    "requirements.lock.txt": "09030a82f9d1c9344f798b332c497f575ed1e44f0f71bace5f027f36075afd53",
+    "docs/tasks/013-synchronized-residual.md": "2761695ea8de7c5864f876ad6a312f60343c637eada2a566f0eb67d6dde1052a",
+    "docs/tasks/013-amendment-empirical-tail.md": "0fe2c4a92c4936ad1237f50a2714ef3182f22802e6f0aa2a8e4ada75c47edfba"
+  }
+}
