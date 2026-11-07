@@ -635,3 +635,11 @@ table.ref-tbl input { width: 100%; max-width: 110px; min-width: 0; box-sizing: b
   .an-panel { padding: 10px; }
   table.ref-tbl { width: 100%; } table.ref-tbl th:first-child { width: 2em; } table.ref-tbl input { max-width: none; }
 }
+/* Task023: duration, check card, follow-up review */
+.an-dur { border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; margin: 8px 0; background: #fbfcfd; } .an-dur p { margin: 2px 0; }
+.chk-steps { margin: 4px 0 6px; padding-left: 20px; }
+dl.kv.an-kv dd.wrap { white-space: normal; font-weight: 400; }
+.fu-panel { border: 1px dashed #8a9bb3; border-radius: 8px; padding: 8px 12px; margin: 8px 0; background: #fafbfd; } .fu-panel h4 { margin: 0 0 4px; }
+.fu-rev { margin: 6px 0 2px; }
+.chk-form { border-top: 1px solid var(--line); margin-top: 8px; padding-top: 8px; } .chk-form h5 { margin: 0 0 4px; }
+.chk-form label { display: flex; flex-direction: column; gap: 3px; } .chk-form label.chk { flex-direction: row; }

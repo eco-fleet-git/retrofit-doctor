@@ -3,6 +3,8 @@
 // SYS-xxx, data is stored only in this browser, and nothing here runs the benchmark diagnosis engine. Readiness
 // describes which analyses the actually received data could support; it is never a health score or a diagnosis.
 
+import { isValidCheck, CHECK_LIMITS } from './check-loop.js';
+
 export const QUESTIONS = ['hydraulic', 'mechanical', 'energy'];
 export const SITE_KINDS = ['vessel', 'plant', 'datacentre'];
 export const INTERFACES = ['file', 'lan', 'gateway'];
@@ -306,6 +308,9 @@ export function isValidSystem(s) {
     const a = s.analysis;
     if (!isObj(a) || !isStr(a.density) || !isStr(a.bandPct) || typeof a.geometryAck !== 'boolean' || typeof a.affinity !== 'boolean') return false;
   }
+  // Task023 append-only follow-up checks (optional; absent on older saves)
+  if (s.checks !== undefined && (!Array.isArray(s.checks) || s.checks.length > CHECK_LIMITS.maxChecks || !s.checks.every(isValidCheck)
+    || !s.checks.every((c, i) => c.id === `CHK-${String(i + 1).padStart(3, '0')}`))) return false;
   if (!isObj(s.device) || !INTERFACES.includes(s.device.interface) || !isObj(s.channels)) return false;
   if (!CHANNEL_IDS.every((c) => isObj(s.channels[c]) && STATUSES.includes(s.channels[c].status) && isStr(s.channels[c].location))) return false;
   if (s.source !== null) {

@@ -8,7 +8,8 @@ import {
   createSystemsStore, CHANNELS, CHANNEL_IDS, SENSOR_SETS, CSV_TEMPLATE, LIMITS, QUESTIONS, SITE_KINDS, INTERFACES, STATUSES,
 } from './systems-model.js';
 import { withDefaults, exampleCsv, exampleSystem, cutoffRange } from './hydraulic-analysis.js';
-import { referenceEditor, validateAnalysis, assessmentPanel, examplesBlock, exampleFileName, EXAMPLE_TXT } from './analysis-view.js';
+import { referenceEditor, validateAnalysis, assessmentPanel, examplesBlock, exampleFileName, EXAMPLE_TXT, defaultCheckValues } from './analysis-view.js';
+import { validateCheck, appendCheck, ILLUSTRATIVE_FILL } from './check-loop.js';
 
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const storage = {
@@ -19,6 +20,7 @@ export const systemsStore = createSystemsStore(storage);
 // Wizard state survives re-renders and language changes (module state, not persisted until Save).
 const wz = { key: null, draft: null, step: 1, errors: {}, csv: null, saveError: null };
 const cutoffs = {}; // selected as-of time per system id ('draft' in the wizard); session only
+const checkForms = {}; // open follow-up form per saved system id; session only (nothing saved until "Save check result")
 export const wizardState = wz; // exposed for DOM-free view tests
 
 const T = {
@@ -332,7 +334,7 @@ export function renderSystemDetail(route) {
     <div class="ws-head"><div><h1>${esc(s.name)}</h1><p class="sub">${esc(s.site.name)} · ${esc(tr(T.kind[s.site.kind]))} · ${esc(tr(T.question[s.question]))}</p></div>
       <div><a class="button primary" id="sys-edit" href="#/systems/${s.id}/edit">${esc(L('Edit', 'Изменить'))}</a></div></div>
     <p>${sourceSummary(s.source)}</p>
-    ${assessmentPanel(s, cutoffs[s.id] ?? null, { idPrefix: 'an' })}
+    ${assessmentPanel(s, cutoffs[s.id] ?? null, { idPrefix: 'an', saved: true, form: checkForms[s.id] ?? null })}
     <div class="review-grid"><div class="evid">${inventory(readinessBlock(s), readiness(s).conflicts.length > 0)}</div>
       <aside class="sch-side">${schematic(s)}<section class="panel-sub small"><h4>${esc(L('Passport', 'Паспорт'))}</h4>
         ${e.provenance === 'challenge-example' ? `<p><span class="state s-attn">${esc(L(`From challenge example ${e.sourceAsset}`, `Из примера задания ${e.sourceAsset}`))}</span></p>` : ''}
@@ -363,4 +365,31 @@ export function systemsShell(route) {
 function bindCutoff(main, key, rerender) {
   main.querySelector('[data-an-cutoff]')?.addEventListener('change', (e) => { cutoffs[key] = Number(e.target.value); rerender(); main.querySelector('[data-an-cutoff]')?.focus(); });
 }
-export function bindSystemDetail(main, { rerender, id }) { bindCutoff(main, id, rerender); }
+export function bindSystemDetail(main, { rerender, id }) {
+  bindCutoff(main, id, rerender);
+  const on = (sel, fn) => main.querySelector(sel)?.addEventListener('click', fn);
+  const selectedMinute = () => { const el = main.querySelector('[data-an-cutoff]'); const cut = Number(el?.value); return Number.isFinite(cut) && el ? Math.floor(cut / 60_000) * 60_000 - 60_000 : null; };
+  on('#chk-open', () => {
+    const sys = systemsStore.get(id); if (!sys) return;
+    const m = selectedMinute() ?? (cutoffs[id] != null ? Math.floor(cutoffs[id] / 60_000) * 60_000 - 60_000 : Math.floor((sys.source?.window?.end ?? 0) / 60_000) * 60_000);
+    checkForms[id] = { open: true, values: defaultCheckValues(sys, m), errors: {}, saveError: null };
+    rerender(); main.querySelector('#chk-q')?.focus();
+  });
+  const f = checkForms[id]; if (!f?.open) return;
+  main.querySelectorAll('[data-chk]').forEach((el) => el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', () => { f.values[el.dataset.chk] = el.value; }));
+  main.querySelectorAll('[data-chk-check]').forEach((el) => el.addEventListener('change', () => { f.values[el.dataset.chkCheck] = el.checked; }));
+  const fill = (k) => { Object.assign(f.values, ILLUSTRATIVE_FILL[k], { origin: 'illustrative' }); f.errors = {}; rerender(); };
+  on('#chk-fill-agree', () => fill('agree'));
+  on('#chk-fill-discrepant', () => fill('discrepant'));
+  on('#chk-cancel', () => { delete checkForms[id]; rerender(); });
+  on('#chk-save', () => {
+    const sys = systemsStore.get(id); if (!sys) return;
+    const v = validateCheck(sys, f.values);
+    if (!v.ok) { f.errors = v.errors; f.saveError = null; rerender(); main.querySelector('#chk-form [aria-invalid="true"]')?.focus(); return; }
+    const ap = appendCheck(sys, v.check);
+    if (!ap.ok) { f.errors = {}; f.saveError = ap.error; rerender(); return; }
+    const r = systemsStore.save(ap.system);
+    if (!r.ok) { f.errors = {}; f.saveError = r.error; rerender(); return; } // no false success on quota/corrupt store
+    delete checkForms[id]; rerender(); main.querySelector('#fu-panel')?.scrollIntoView?.({ block: 'nearest' });
+  });
+}

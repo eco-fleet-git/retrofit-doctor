@@ -248,7 +248,7 @@ test('views EN/RU: reference editor validation, assessment panel with charts, ch
       assert.match(h, /Q, m³\/h/); assert.match(h, /H, m/); assert.match(h, /n_ref 1480 rpm/);
       assert.match(h, ru ? /Возможные объяснения \(ни одно не достоверно\)/ : /Possible explanations \(none is certain\)/);
       assert.match(h, ru ? /Чего эти данные не различают/ : /What this data cannot distinguish/);
-      assert.match(h, ru ? /В рамках этого иллюстративного сценария[\s\S]*независимым временным прибором/ : /Within this illustrative scenario[\s\S]*independent temporary meter/);
+      assert.match(h, ru ? /В рамках этого иллюстративного сценария[\s\S]*временным накладным расходомером/ : /Within this illustrative scenario[\s\S]*temporary clamp-on meter/);
       assert.doesNotMatch(h, ru ? /Опора не подтверждена: проверьте источник/ : /not user-confirmed/);
       assert.match(h, ru ? /не диагноз кавитации/ : /not a cavitation diagnosis/);
       assert.match(h, /data-an-cutoff/); assert.match(h, /ksb\.com/);

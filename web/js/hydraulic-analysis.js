@@ -207,9 +207,37 @@ export function timeline(sys, cutoffMs) {
   const out = [];
   for (let m = first; m <= last; m += 60_000) {
     const a = assessMinuteRows(se, m, cfg);
-    out.push({ t: m, status: a.status, residualPct: a.residualPct ?? null, dpMedian: a.status === 'noData' || a.dpRows < RULES.minRows ? null : a.dpMedian });
+    out.push({ t: m, status: a.status, residualPct: a.residualPct ?? null, dpMedian: a.status === 'noData' || a.dpRows < RULES.minRows ? null : a.dpMedian, qMedian: a.qMedian ?? null, nMedian: a.nMedian ?? null });
   }
   return out;
+}
+
+// Duration and recurrence (Task023), from closed minutes in the lookback only (prefix invariant).
+// A run = consecutive minutes back from the selected minute with the SAME verdict direction and a comparable regime:
+// minute Q/n medians within ±10 % / ±5 % of the selected minute (a fixed anchor, so slow drift cannot chain).
+// Anything else breaks the run: no data, invalid, transient, incomplete, within band, direction or regime change.
+// "Sustained" = ≥ 3 such minutes. It is a prototype criterion, not proof of wear; a return to the band is not a repair.
+export const EPISODE = { minMinutes: 3, flowTolPct: 10, speedTolPct: 5 };
+const near = (x, a, pct) => x != null && a != null && (a > 0 ? Math.abs(x - a) / a <= pct / 100 : x === a);
+export function persistence(sys, cutoffMs) {
+  const tl = timeline(sys, cutoffMs);
+  if (!tl.length) return null;
+  const se = analysisSeries(sys);
+  const dataStart = Math.floor(se.t[0] / 60_000) * 60_000;
+  const cur = tl.at(-1);
+  const base = { lookbackStart: tl[0].t, lookbackMinutes: tl.length, truncated: tl[0].t > dataStart, current: cur.status, minuteStart: cur.t };
+  if (cur.status !== 'below' && cur.status !== 'above') return { ...base, run: 0, sustained: false, episodes: [] };
+  const anchor = { q: cur.qMedian, n: cur.nMedian };
+  const match = (m) => m.status === cur.status && near(m.qMedian, anchor.q, EPISODE.flowTolPct) && near(m.nMedian, anchor.n, EPISODE.speedTolPct);
+  let i = tl.length - 1;
+  while (i >= 0 && match(tl[i])) i -= 1;
+  const startIdx = i + 1; const run = tl.length - startIdx;
+  // earlier episodes of the same direction and comparable regime, separated by at least one non-matching minute
+  const episodes = []; let g = null;
+  for (let k = 0; k < startIdx; k += 1) {
+    if (match(tl[k])) { if (!g) { g = { start: tl[k].t, minutes: 0, atLeast: k === 0 }; episodes.push(g); } g.minutes += 1; } else g = null;
+  }
+  return { ...base, run, runStart: tl[startIdx].t, sustained: run >= EPISODE.minMinutes, atLeast: startIdx === 0, anchor, episodes };
 }
 
 // Cutoff choices: minute boundaries from the end of the first data minute to the end of the last data minute.

@@ -34,11 +34,13 @@ Saved systems use `rd-systems-v1` in this browser (maximum 20). New imports reta
 
 The optional Q–H reference editor takes 2–20 pairs, reference speed, provenance/status and applicability acknowledgement. Density and pressure-tap assumptions must be supplied. Comparison uses linear interpolation within the curve range, with optional approximate affinity scaling. No extrapolation or substitution of nominal for measured speed. User-configured comparison bands and fixed data/regime checks are engineering assumptions, not certified limits.
 
-The analysis examines one closed UTC minute at a time and shows a causal time chart, a Q–H operating point, plausible explanations and the next independent measurement. It abstains for missing reference/data, gaps and unsupported/transient regimes. Agreement with a curve does not establish overall equipment health. Mechanical values are descriptive only; energy efficiency is not calculated. This is an advisory hydraulic consistency check, not a validated general fault classifier.
+The analysis examines closed UTC minutes and shows a causal time chart, a Q–H operating point, duration/recurrence in the selected regime, plausible explanations and the next independent measurement. The prototype sustained criterion is three consecutive comparable mismatch minutes; gaps, transients and regime changes break the run. The lookback is bounded to240 minutes. It abstains for missing reference/data, gaps and unsupported/transient regimes. Agreement with a curve does not establish overall equipment health. Mechanical values are descriptive only; energy efficiency is not calculated. This is an advisory hydraulic consistency check, not a validated general fault classifier.
 
 Open **Illustrative examples** on My systems to create a separate draft or download a CSV: stable, low head, changing regime, missing flow and outside curve range. All five are authored synthetic demonstrations, not manufacturer curves or diagnostic accuracy evidence.
 
-Run all focused browser-model checks with `node --test --test-timeout=30000 tests/*.mjs`. The [Task022 coordinator review](../docs/tasks/022-coordinator-review.md) records checks and limitations.
+Saved systems also provide **Record check result**: independent Q and/or ΔP, instrument/method, measurement timestamp, origin, declared agreement threshold and same-regime acknowledgement. Up to20 append-only checks are stored. Only the latest whole eligible check for the selected minute revises the separate follow-up explanation; earlier checks are history, not merged. Both measurement and entry times are shown. Future-relative checks are deferred, and source/reference/equipment/mapping changes prevent application while the configuration differs. The original measurements and as-of calculation remain unchanged. A matching measurement supports an observation, not a unique fault diagnosis; the entered threshold is not an instrument uncertainty model.
+
+Run all focused browser-model checks with `node --test --test-timeout=30000 tests/*.mjs`. The [Task023 coordinator review](../docs/tasks/023-coordinator-review.md) records checks and limitations.
 
 ## Regenerate the bundle (analysis environment only)
 
@@ -64,6 +66,7 @@ node --test tests/web_replay.test.mjs                            # as-of slicing
 - `js/app.js` — hash routes `#/fleet`, `#/pumps/:id?t=<UTC>`, `#/pumps/:id/retrofit`, `#/evidence`, `#/diagnosis`, `#/systems`, `#/systems/new`, `#/systems/:id`, `#/systems/:id/edit`.
 - `js/systems-model.js`, `js/systems-view.js` — local system onboarding, strict CSV import, persistence and conservative readiness checks.
 - `js/hydraulic-analysis.js`, `js/analysis-view.js` — pump references, causal minute assessment, explanation and graphs for local systems; isolated from benchmark inference.
+- `js/check-loop.js` — independent-check records, comparison, configuration identity and retrospective review.
 - `js/i18n.js`, `js/ru-text.js` — local display translations, without a translation service.
 - `js/review-visuals.js` — clock-gated review visuals and a passport-based single-pump diagram.
 - `data/` — generated bundle (synthetic benchmark data, provenance + SHA-256 of inputs inside `fleet.json`).
