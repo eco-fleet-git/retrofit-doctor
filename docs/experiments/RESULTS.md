@@ -1,6 +1,6 @@
 # Diagnostic hypothesis outcomes
 
-7 November 2026. Final bounded research round for this demo. All observations are synthetic and development-informed. Earlier validation was already inspected; failed candidates were not selected by validation. Causal B1 with fixed seed 0 remains selected.
+7 November 2026. Completed first bounded research round for this demo. All observations are synthetic and development-informed. Earlier validation was already inspected; failed candidates were not selected by validation. Causal B1 with fixed seed 0 remains selected.
 
 | Hypothesis | Completed work | Result and implication |
 |---|---|---|
@@ -14,7 +14,11 @@
 
 Sources: [B2](../../results/causal_b2/CAUSAL_B2_FINDINGS.md), [sparse follow-up](../../results/sparse_stuck_followup/FINDINGS.md), [E3/E4](../../results/regime_reference/FINDINGS.md), [sensor ablation](../../results/sensor_ablation/FINDINGS.md). Detailed checks and limitations are in their coordinator reviews under `docs/tasks/`.
 
-The registry describes tested definitions, not all conceivable diagnostic methods. No post-result expansion of the search is included. More complex methods require a new design and new independent evidence. A practical result of this project is a reviewed decision workflow that exposes insufficient evidence and costs, alongside the retained baseline.
+The table describes tested definitions, not all conceivable diagnostic methods. No post-result expansion is included in those historical experiment families. More complex methods require a new design and new independent evidence. A practical result of this project is a reviewed decision workflow that exposes insufficient evidence and costs, alongside the retained baseline.
+
+## New adaptive research round — Task010 (pending)
+
+After the completed round above, the user explicitly requested continued search and confirmed diagnostic accuracy and explanations as the priority. [Task010](../tasks/010-diagnosis-fusion.md) registers a separate prospective wave: retain B1 alarm emission times and compare minute-feature learning, completed vibration snapshots and their combination. Its candidate definitions and code must be frozen before scoring. This is adaptive development on the already inspected seven training assets, with actual leave-one-asset-out model fitting; it is not a new independent validation set. No improvement is claimed yet. Test data and frozen release predictions are excluded from further development. Historical failures and their gates remain unchanged.
 
 ## Reproducibility caveat
 
