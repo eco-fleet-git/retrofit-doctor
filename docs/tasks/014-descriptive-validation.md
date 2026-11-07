@@ -16,6 +16,8 @@ Expected B1 control: detected8, type4, class8, false1, excess0, sensor type+chan
 
 Descriptive adoption gate, fixed before the new check: detected>=8, correct type>=4, correct class>=8, false+excess<=1, sensor type+channel>=2, nuisance<=1. Also preserve every B1-correct type event and B1-correct sensor type+channel event; report all event transitions. The train improvement gate must still pass. Full-evidence prefix/future-mutation checks and fresh seed0 reproduction must pass. Explain whether validation improved or simply stayed unchanged; never merge train and validation into an unsupported accuracy claim.
 
+Pre-validation clarification (2026-11-07, while Task013 train audit is running, before any new validation prediction): the adoption check must also prevent an unresolved cause becoming an incorrect specific claim without a compensating correctness claim. Require wrong-specific first diagnoses <= the concurrently reproduced B1 count, and wrong-channel claims <= its count. Previously stored validation_summary.json has4 correct types among7 specific first diagnoses (3 wrong-specific) and1 wrong-channel claim. This is a prospective quality guard motivated by the UNKNOWN fallback contract, with no new validation evidence consulted. Report counts as well as denominators; do not interpret UNKNOWN as correct or healthy.
+
 Audit at every alert boundary, reference and snapshot boundaries, and deterministic random/sub-minute cuts using the existing Task010 cut definition. For raw residual candidates additionally rerun raw aggregation prefix/future-mutation boundary checks as in Task013. Compare explanations/provenance as well as diagnoses. No future rows, snapshots, reference counts or evaluation labels may alter earlier explanations.
 
 ## Handoff
