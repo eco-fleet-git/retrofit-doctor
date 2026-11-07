@@ -16,9 +16,13 @@ Sources: [B2](../../results/causal_b2/CAUSAL_B2_FINDINGS.md), [sparse follow-up]
 
 The table describes tested definitions, not all conceivable diagnostic methods. No post-result expansion is included in those historical experiment families. More complex methods require a new design and new independent evidence. A practical result of this project is a reviewed decision workflow that exposes insufficient evidence and costs, alongside the retained baseline.
 
-## New adaptive research round — Task010 (pending)
+## New adaptive research round — Task010 (completed, negative)
 
-After the completed round above, the user explicitly requested continued search and confirmed diagnostic accuracy and explanations as the priority. [Task010](../tasks/010-diagnosis-fusion.md) registers a separate prospective wave: retain B1 alarm emission times and compare minute-feature learning, completed vibration snapshots and their combination. Its candidate definitions and code must be frozen before scoring. This is adaptive development on the already inspected seven training assets, with actual leave-one-asset-out model fitting; it is not a new independent validation set. No improvement is claimed yet. Test data and frozen release predictions are excluded from further development. Historical failures and their gates remain unchanged.
+After the completed round above, the user explicitly requested continued search and confirmed diagnostic accuracy and explanations as the priority. [Task010](../tasks/010-diagnosis-fusion.md) registered a separate prospective wave: retain B1 alarm emission times and compare minute-feature learning, completed vibration snapshots and their combination. Definitions/code were sealed before scoring. All six new candidates failed the improvement gate; all2744 causal comparisons and fresh-process reproduction checks passed. W1 gained one correct UNKNOWN refinement but displaced a simultaneous fault, while learned candidates lost correct diagnoses. See [findings](../../results/diagnosis_fusion/FINDINGS.md) and [coordinator review](../tasks/010-coordinator-review.md).
+
+This is adaptive development on the already inspected seven training assets, with actual leave-one-asset-out model fitting; it is not a new independent validation set. No replacement is selected. Test data and frozen release predictions remain excluded from further development. Historical failures and their gates remain unchanged.
+
+[Task011](../tasks/011-noise-and-unresolved.md) now registers a separate bounded wave: isolated within-minute spread for a sensor-noise hypothesis, combined with waveform refinement of UNKNOWN only. Four new configurations; no learned fitting, no new scores yet. Its success gate is unchanged.
 
 ## Reproducibility caveat
 
