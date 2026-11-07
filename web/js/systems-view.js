@@ -7,6 +7,8 @@ import {
   newSystem, validateStep, applyChallengeExample, mapDataChannels, parseCsv, compactSource, challengeSource, networkSource, readiness, nextStep,
   createSystemsStore, CHANNELS, CHANNEL_IDS, SENSOR_SETS, CSV_TEMPLATE, LIMITS, QUESTIONS, SITE_KINDS, INTERFACES, STATUSES,
 } from './systems-model.js';
+import { withDefaults, exampleCsv, exampleSystem, cutoffRange } from './hydraulic-analysis.js';
+import { referenceEditor, validateAnalysis, assessmentPanel, examplesBlock, exampleFileName, EXAMPLE_TXT } from './analysis-view.js';
 
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const storage = {
@@ -16,6 +18,7 @@ export const systemsStore = createSystemsStore(storage);
 
 // Wizard state survives re-renders and language changes (module state, not persisted until Save).
 const wz = { key: null, draft: null, step: 1, errors: {}, csv: null, saveError: null };
+const cutoffs = {}; // selected as-of time per system id ('draft' in the wizard); session only
 export const wizardState = wz; // exposed for DOM-free view tests
 
 const T = {
@@ -116,28 +119,17 @@ function schematic(sys) {
     <span class="sys-leg"><span class="lg-dot inst"></span>${esc(tr(T.status.installed))} <span class="lg-dot prop"></span>${esc(tr(T.status.proposed))}</span></figcaption></figure>`;
 }
 
-function preview(sys) {
-  const src = sys.source;
-  if (src && src.kind !== 'network' && !readiness(sys).previewOk && src.coverage?.ps && src.coverage?.pd) {
-    return `<p class="empty small">${esc(L('A pressure-rise chart is shown only after Ps and Pd are mapped as installed sensors at the pump taps.', 'График прироста давления показывается только после сопоставления Ps и Pd с установленными датчиками на отборах насоса.'))}</p>`;
-  }
-  if (!src || src.kind === 'network' || !src.sample?.values?.ps || !src.sample?.values?.pd) {
-    return `<p class="empty small">${esc(src?.kind === 'network' ? tr(T.note.configurationOnly) : L('No simultaneous Ps/Pd measurements to chart.', 'Нет одновременных измерений Ps/Pd для графика.'))}</p>`;
-  }
-  const pts = src.sample.t.map((tm, i) => [tm, src.sample.values.ps[i], src.sample.values.pd[i]]).filter(([, a, b]) => a != null && b != null).map(([tm, a, b]) => [tm, b - a]);
-  if (pts.length < 2) return `<p class="empty small">${esc(L('No simultaneous Ps/Pd measurements to chart.', 'Нет одновременных измерений Ps/Pd для графика.'))}</p>`;
-  const W = 300; const H = 90; const x0 = pts[0][0]; const x1 = pts.at(-1)[0]; const ys = pts.map((p) => p[1]); const lo = Math.min(...ys); const hi = Math.max(...ys);
-  const sx = (x) => 6 + ((x - x0) / (x1 - x0 || 1)) * (W - 12); const sy = (y) => 6 + (1 - (y - lo) / (hi - lo || 1)) * (H - 12);
-  const kpa = getLang() === 'ru' ? 'кПа' : 'kPa';
-  return `<figure class="sys-prev"><figcaption class="small"><b>${esc(L('Measured pressure rise Pd − Ps', 'Измеренный прирост давления Pd − Ps'))}</b>, ${kpa} · <span class="num">${esc(formatUtc(x0, { seconds: true }))} – ${esc(formatUtc(x1, { seconds: true }).slice(11))}</span> · ${lo.toFixed(1)}–${hi.toFixed(1)} ${kpa}</figcaption>
-    <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(L('Measured pressure rise', 'Измеренный прирост давления'))}, ${pts.length}"><path d="${pts.map((p, i) => `${i ? 'L' : 'M'}${sx(p[0]).toFixed(1)},${sy(p[1]).toFixed(1)}`).join('')}" fill="none" stroke="#1f5fbf" stroke-width="1.5"/></svg></figure>`;
-}
+// Whole-record readiness is an inventory, not an as-of result: collapsed unless a mapping action is needed.
+const inventory = (html, open) => `<details class="panel-sub inv"${open ? ' open' : ''} id="sys-inventory"><summary><b>${esc(L('Whole-file channel inventory and readiness', 'Инвентаризация каналов и готовность по всему файлу'))}</b> <span class="small muted">${esc(L('(whole record, not as-of)', '(вся запись, не на момент)'))}</span></summary>${html}</details>`;
 
 function sourceSummary(src) {
   if (!src) return `<span class="state s-gray">${esc(L('No data source', 'Нет источника данных'))}</span>`;
   if (src.kind === 'network') return `<span class="state s-gray">${esc(L('Configuration only · not connected', 'Только конфигурация · не подключено'))}</span>`;
-  const what = src.kind === 'challenge' ? L('Challenge recording loaded (historical, synthetic)', 'Загружена запись задания (историческая, синтетическая)') : L(`CSV loaded: ${src.fileName ?? ''}`, `CSV загружен: ${src.fileName ?? ''}`);
-  return `<span class="state s-info">${esc(what)}</span> <span class="small muted num">${esc(formatUtc(src.window.start, { seconds: true }))} – ${esc(formatUtc(src.window.end, { seconds: true }))} · ${esc(L(`${src.rowsTotal} rows`, `строк: ${src.rowsTotal}`))}${src.rowsStored < src.rowsTotal ? ` · ${esc(L(`${src.rowsStored} stored locally (full file not kept)`, `сохранено локально: ${src.rowsStored} (полный файл не хранится)`))}` : ''}</span>`;
+  const what = src.kind === 'challenge' ? L('Challenge recording loaded (historical, synthetic)', 'Загружена запись задания (историческая, синтетическая)')
+    : src.kind === 'example' ? L(`Illustrative synthetic example loaded: ${src.fileName ?? ''} (authored, not measured)`, `Загружен иллюстративный синтетический пример: ${src.fileName ?? ''} (авторский, не измерения)`)
+      : L(`CSV loaded: ${src.fileName ?? ''}`, `CSV загружен: ${src.fileName ?? ''}`);
+  const legacy = !src.series && src.rowsStored < src.rowsTotal ? ` · <b>${esc(L('re-import needed for analysis (only a thinned sample was saved)', 'для анализа нужен повторный импорт (сохранена только прореженная выборка)'))}</b>` : '';
+  return `<span class="state s-info">${esc(what)}</span> <span class="small muted num">${esc(formatUtc(src.window.start, { seconds: true }))} – ${esc(formatUtc(src.window.end, { seconds: true }))} · ${esc(L(`${src.rowsTotal} rows`, `строк: ${src.rowsTotal}`))}${src.series && src.rowsStored < src.rowsTotal ? ` · ${esc(L(`${src.rowsStored} in the preview; full series kept for analysis`, `в предпросмотре: ${src.rowsStored}; полный ряд сохранён для анализа`))}` : ''}${legacy}</span>`;
 }
 
 const chName = (c) => tr(T.ch[c]);
@@ -193,7 +185,9 @@ function step2(s) {
       ${input('equipment.pump.ratedRpm', e.pump.ratedRpm, L('Rated speed', 'Номинальная частота'), { unit: 'rpm' })}${input('equipment.motor.ratedKw', e.motor.ratedKw, L('Motor rating', 'Мощность двигателя'), { unit: 'kW' })}
       ${input('equipment.valve.name', e.valve.name, L('Valve name', 'Название клапана'))}
       <label for="sf-valve-placement">${esc(L('Valve placement', 'Расположение клапана'))}<select id="sf-valve-placement" data-sys="equipment.valve.placement"><option value="after-pump"${e.valve.placement === 'after-pump' ? ' selected' : ''}>${esc(L('After the pump (template assumption)', 'После насоса (допущение шаблона)'))}</option><option value="unknown"${e.valve.placement === 'unknown' ? ' selected' : ''}>${esc(L('Unknown', 'Неизвестно'))}</option></select></label></div>
-    <p class="small muted">${esc(L('Design flow and head form one design point, not a pump curve. No manufacturer or certification is implied.', 'Расчётные расход и напор — одна расчётная точка, а не характеристика насоса. Производитель и сертификация не подразумеваются.'))}</p>`;
+    <p class="small muted">${esc(L('Design flow and head form one design point, not a pump curve. No manufacturer or certification is implied.', 'Расчётные расход и напор — одна расчётная точка, а не характеристика насоса. Производитель и сертификация не подразумеваются.'))}</p>
+    ${e.referenceCleared ? `<p class="note small" role="status" id="ref-cleared">${esc(L('The previously entered reference curve and its applicability confirmation were cleared, because they belonged to the pump that the example passport replaced.', 'Ранее введённая опорная кривая и подтверждение её применимости очищены: они относились к насосу, паспорт которого заменён примером.'))}</p>` : ''}
+    ${referenceEditor(s, wz.errors)}`;
 }
 
 function step3(s, cases) {
@@ -228,7 +222,7 @@ function step3(s, cases) {
 }
 
 function step4(s) {
-  return `${preview(s)}${readinessBlock(s, { wizard: true })}${wz.saveError ? `<div class="error" role="alert">${esc(tr(T.storeErr[wz.saveError] ?? T.storeErr.unavailable))}</div>` : ''}`;
+  return `${assessmentPanel(s, cutoffs.draft ?? null, { idPrefix: 'wz-an' })}${inventory(readinessBlock(s, { wizard: true }), readiness(s).conflicts.length > 0)}${wz.saveError ? `<div class="error" role="alert">${esc(tr(T.storeErr[wz.saveError] ?? T.storeErr.unavailable))}</div>` : ''}`;
 }
 
 export function renderSystemsWizard(route, { cases }) {
@@ -236,7 +230,8 @@ export function renderSystemsWizard(route, { cases }) {
   if (wz.key !== key) {
     const existing = route.id !== 'new' ? systemsStore.get(route.id) : null;
     if (route.id !== 'new' && !existing) return `<h1>${esc(L('System not found', 'Система не найдена'))}</h1><p><a class="button primary" href="#/systems">${esc(L('My systems', 'Мои системы'))}</a></p>`;
-    Object.assign(wz, { key, draft: existing ? structuredClone(existing) : newSystem(), step: 1, errors: {}, csv: null, saveError: null });
+    Object.assign(wz, { key, draft: withDefaults(existing ?? newSystem()), step: 1, errors: {}, csv: null, saveError: null });
+    delete cutoffs.draft;
   }
   const s = wz.draft;
   const body = [step1, step2, (x) => step3(x, cases), step4][wz.step - 1](s);
@@ -256,10 +251,14 @@ export function bindSystemsWizard(main, { rerender, cases, challengeAsset }) {
     setPath(s, el.dataset.sys, el.value);
     if (el.tagName === 'SELECT' || el.type === 'radio') rerender();
   }));
+  main.querySelectorAll('[data-sys-check]').forEach((el) => el.addEventListener('change', () => { setPath(s, el.dataset.sysCheck, el.checked); rerender(); }));
   const on = (id, fn) => main.querySelector(`#${id}`)?.addEventListener('click', fn);
+  on('sys-ref-add', () => { s.equipment.reference.points.push({ q: '', h: '' }); rerender(); });
+  on('sys-ref-del', () => { s.equipment.reference.points.pop(); rerender(); });
+  bindCutoff(main, 'draft', rerender);
   on('sys-back', () => { wz.step -= 1; wz.errors = {}; rerender(); main.querySelector('#sys-step-h')?.focus(); });
   on('sys-next', () => {
-    wz.errors = validateStep(s, wz.step);
+    wz.errors = { ...validateStep(s, wz.step), ...(wz.step === 2 ? validateAnalysis(s) : {}) };
     if (Object.keys(wz.errors).length) { rerender(); main.querySelector('[aria-invalid="true"]')?.focus(); return; }
     wz.step += 1; rerender(); main.querySelector('#sys-step-h')?.focus();
   });
@@ -284,8 +283,8 @@ export function bindSystemsWizard(main, { rerender, cases, challengeAsset }) {
     rerender();
   });
   on('sys-save', () => {
-    const errs = Object.assign({}, validateStep(s, 1), validateStep(s, 2), validateStep(s, 3));
-    if (Object.keys(errs).length) { wz.errors = errs; wz.step = validateStep(s, 1) && Object.keys(validateStep(s, 1)).length ? 1 : Object.keys(validateStep(s, 2)).length ? 2 : 3; rerender(); return; }
+    const errs = Object.assign({}, validateStep(s, 1), validateStep(s, 2), validateAnalysis(s), validateStep(s, 3));
+    if (Object.keys(errs).length) { wz.errors = errs; wz.step = Object.keys(validateStep(s, 1)).length ? 1 : Object.keys({ ...validateStep(s, 2), ...validateAnalysis(s) }).length ? 2 : 3; rerender(); return; }
     const r = systemsStore.save(s);
     if (!r.ok) { wz.saveError = r.error; rerender(); return; }
     wz.key = null; location.hash = `#/systems/${r.system.id}`;
@@ -302,11 +301,23 @@ export function renderSystemsList() {
       <div class="small">${sourceSummary(s.source)}</div><div class="small">${QUESTIONS.map((q) => `${esc(tr(T.cap[q]))}: <b>${esc(tr(T.capStatus[rd.capabilities[q].status]))}</b>`).join(' · ')}</div></li>`;
   }).join('');
   return `<div class="page-head"><h1>${esc(L('My systems', 'Мои системы'))}</h1><span class="state s-gray">${esc(L('Saved only in this browser · not connected to equipment', 'Хранится только в этом браузере · без связи с оборудованием'))}</span></div>
-    <p><a class="button primary" id="sys-add" href="#/systems/new">+ ${esc(L('Add system', 'Добавить систему'))}</a></p>${err}
+    <p><a class="button primary" id="sys-add" href="#/systems/new">+ ${esc(L('Add system', 'Добавить систему'))}</a></p>${err}${examplesBlock()}
     ${r.systems.length ? `<ul class="sys-list">${items}</ul>` : r.ok ? `<div class="empty"><p>${esc(L('No systems yet. Add your own pump system, or start from the challenge example.', 'Систем пока нет. Добавьте свою насосную систему или начните с примера задания.'))}</p>
       <p><a class="button primary" href="#/systems/new">+ ${esc(L('Add system', 'Добавить систему'))}</a> <button type="button" id="sys-start-example">${esc(L('Use challenge example', 'Использовать пример задания'))}</button></p></div>` : ''}`;
 }
 export function bindSystemsList(main, { challengeAsset }) {
+  main.querySelectorAll('[data-example]').forEach((b) => b.addEventListener('click', () => {
+    const k = b.dataset.example;
+    Object.assign(wz, { key: 'new', draft: exampleSystem(newSystem(), k, parseCsv(exampleCsv(k)), compactSource, { name: `${L('Illustrative example', 'Иллюстративный пример')}: ${L(...EXAMPLE_TXT[k])}` }), step: 4, errors: {}, csv: null, saveError: null });
+    delete cutoffs.draft;
+    location.hash = '#/systems/new';
+  }));
+  main.querySelectorAll('[data-example-dl]').forEach((b) => b.addEventListener('click', () => {
+    const k = b.dataset.exampleDl;
+    const url = URL.createObjectURL(new Blob([exampleCsv(k)], { type: 'text/csv' }));
+    const a = document.createElement('a'); a.href = url; a.download = exampleFileName(k); document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }));
   main.querySelector('#sys-start-example')?.addEventListener('click', () => {
     Object.assign(wz, { key: 'new', draft: challengeAsset ? applyChallengeExample(newSystem(), challengeAsset) : newSystem(), step: 1, errors: {}, csv: null, saveError: null });
     location.hash = '#/systems/new';
@@ -321,9 +332,11 @@ export function renderSystemDetail(route) {
     <div class="ws-head"><div><h1>${esc(s.name)}</h1><p class="sub">${esc(s.site.name)} · ${esc(tr(T.kind[s.site.kind]))} · ${esc(tr(T.question[s.question]))}</p></div>
       <div><a class="button primary" id="sys-edit" href="#/systems/${s.id}/edit">${esc(L('Edit', 'Изменить'))}</a></div></div>
     <p>${sourceSummary(s.source)}</p>
-    <div class="review-grid"><div class="evid">${preview(s)}${readinessBlock(s)}</div>
+    ${assessmentPanel(s, cutoffs[s.id] ?? null, { idPrefix: 'an' })}
+    <div class="review-grid"><div class="evid">${inventory(readinessBlock(s), readiness(s).conflicts.length > 0)}</div>
       <aside class="sch-side">${schematic(s)}<section class="panel-sub small"><h4>${esc(L('Passport', 'Паспорт'))}</h4>
         ${e.provenance === 'challenge-example' ? `<p><span class="state s-attn">${esc(L(`From challenge example ${e.sourceAsset}`, `Из примера задания ${e.sourceAsset}`))}</span></p>` : ''}
+        ${e.provenance === 'illustrative-example' ? `<p><span class="state s-attn">${esc(L('Illustrative example: authored synthetic values', 'Иллюстративный пример: авторские синтетические значения'))}</span></p>` : ''}
         <dl class="kv small"><dt>${esc(L('Pump', 'Насос'))}</dt><dd>${esc(e.pump.name)}</dd><dt>${esc(L('Design point', 'Расчётная точка'))}</dt><dd>${v(e.pump.designFlow, 'm³/h')} · ${v(e.pump.designHead, 'm')}</dd>
           <dt>${esc(L('Rated speed', 'Номинальная частота'))}</dt><dd>${v(e.pump.ratedRpm, 'rpm')}</dd><dt>${esc(L('Motor', 'Двигатель'))}</dt><dd>${esc(e.motor.name)} · ${v(e.motor.ratedKw, 'kW')}</dd>
           <dt>${esc(L('Valve', 'Клапан'))}</dt><dd>${esc(e.valve.name)} · ${esc(e.valve.placement === 'after-pump' ? L('after the pump (assumption)', 'после насоса (допущение)') : L('placement unknown', 'место неизвестно'))}</dd>
@@ -337,6 +350,7 @@ export function systemsShell(route) {
   const srcLabel = !src ? L('No data loaded', 'Данные не загружены')
     : src.kind === 'csv' ? L('Local CSV record', 'Локальная CSV-запись')
       : src.kind === 'challenge' ? L('Historical challenge sample', 'Исторический образец задания')
+        : src.kind === 'example' ? L('Illustrative synthetic example', 'Иллюстративный синтетический пример')
         : L('Not connected · configuration only', 'Не подключено · только конфигурация');
   return {
     foot: L('Local user configuration stored in this browser; no equipment connection; advisory only.', 'Локальная конфигурация пользователя в этом браузере; без связи с оборудованием; только рекомендации.'),
@@ -345,3 +359,8 @@ export function systemsShell(route) {
     provenance: src?.kind === 'challenge' ? L(`Sample from ${src.origin}`, `Образец из ${src.origin}`) : '',
   };
 }
+
+function bindCutoff(main, key, rerender) {
+  main.querySelector('[data-an-cutoff]')?.addEventListener('change', (e) => { cutoffs[key] = Number(e.target.value); rerender(); main.querySelector('[data-an-cutoff]')?.focus(); });
+}
+export function bindSystemDetail(main, { rerender, id }) { bindCutoff(main, id, rerender); }

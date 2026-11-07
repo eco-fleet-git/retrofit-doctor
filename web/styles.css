@@ -601,3 +601,37 @@ ul.sys-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; 
 .sys-item > div { min-width: 0; overflow-wrap: break-word; }
 .sys-item .state { white-space: normal; max-width: 100%; }
 .sys-item a { position: relative; z-index: 1; display: inline-block; padding: 2px 0; }
+/* Task022: pump reference editor and hydraulic consistency panel */
+.ref-ed { margin-top: 10px; } .ref-ed h5 { margin: 10px 0 4px; }
+table.ref-tbl { width: auto; } table.ref-tbl input { width: 96px; }
+label.chk { display: flex; gap: 8px; align-items: flex-start; margin: 6px 0; font-size: 13.5px; } label.chk input { margin-top: 3px; flex: none; }
+.an-panel { margin: 10px 0 14px; border: 1px solid var(--line); border-radius: 8px; padding: 12px; background: #fff; }
+.an-panel h3 { margin: 0 0 8px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.an-status { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 6px; }
+.an-status .state { white-space: normal; font-size: 14px; }
+.an-cut { display: flex; flex-direction: column; gap: 4px; max-width: 520px; margin-bottom: 8px; font-size: 13px; } .an-cut input { width: 100%; }
+.an-qual { border-left: 3px solid var(--amber); background: var(--amber-bg); padding: 4px 10px; border-radius: 4px; }
+.an-kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 2px 12px; margin: 6px 0; font-size: 14px; } .an-kv dt { color: var(--muted); } .an-kv dd { margin: 0; font-weight: 600; }
+.an-charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; margin: 8px 0; }
+.an-chart { margin: 0; min-width: 0; } .an-chart svg { width: 100%; height: auto; display: block; background: #fbfcfd; border: 1px solid var(--line); border-radius: 6px; }
+.an-legend { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; margin: 4px 0 0; }
+.lg-line { display: inline-block; width: 18px; border-top: 2px solid #1f5fbf; } .lg-line.dash { border-top: 1.5px dashed #8a9bb3; }
+.lg-dot.op { background: #b35c00; }
+.an-chain { border-left: 3px solid #8a9bb3; padding: 2px 10px; margin: 8px 0; } .an-chain h4 { margin: 0 0 4px; }
+.an-next { border-left: 4px solid var(--action); background: #f6f9fe; border-radius: 6px; padding: 8px 12px; margin: 8px 0; } .an-next h4 { margin: 0 0 4px; } .an-next p { margin: 0 0 4px; }
+.an-qnote { border: 1px dashed var(--line); padding: 6px 10px; border-radius: 6px; }
+.ex-list li { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 4px 0; }
+@media (max-width: 600px) { .an-kv { grid-template-columns: minmax(0, 1fr); } .an-kv dd { margin-bottom: 4px; } }
+/* Task022 mobile fix: dl.kv (element+class) outranked .an-kv, so the one-column rule never applied. */
+dl.kv.an-kv { grid-template-columns: minmax(0, max-content) minmax(7em, 1fr); }
+dl.kv.an-kv dt { min-width: 0; overflow-wrap: anywhere; }
+dl.kv.an-kv dd { white-space: nowrap; }
+.an-panel, .an-panel > * { min-width: 0; max-width: 100%; }
+.an-panel { overflow-wrap: break-word; }
+table.ref-tbl input { width: 100%; max-width: 110px; min-width: 0; box-sizing: border-box; }
+@media (max-width: 600px) {
+  dl.kv.an-kv { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  dl.kv.an-kv dd { white-space: normal; margin-bottom: 6px; }
+  .an-panel { padding: 10px; }
+  table.ref-tbl { width: 100%; } table.ref-tbl th:first-child { width: 2em; } table.ref-tbl input { max-width: none; }
+}

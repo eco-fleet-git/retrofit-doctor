@@ -16,7 +16,7 @@ Open [Start / Fleet](http://127.0.0.1:8765/#/fleet), select English or Russian, 
 
 The interface supports English / Russian for jury presentation and rehearsal. The pitch remains English. Exact source identifiers and verbatim technical outputs retain their original wording. [Russian working notes](README.ru.md) preserve the earlier development context.
 
-**Product workflow, 7 November:** the English/Russian interface now includes a collapsible site portfolio, a separately labelled 200-asset illustrative scenario, and [My systems](http://127.0.0.1:8765/#/systems). Add a site/system, equipment passport, acquisition-device configuration and measurement points; load a local CSV or an explicitly selected challenge example; then review data readiness and the next useful measurement. Online ingestion is configuration only. Local systems do not run the benchmark detector. See the [Task021 review](docs/tasks/021-coordinator-review.md) for verification and limits. User acceptance remains open; new video production is paused until interface approval, and the existing deck/PDF depicts an earlier version.
+**Product workflow, 7 November:** the English/Russian interface now includes a collapsible site portfolio, a separately labelled 200-asset illustrative scenario, and [My systems](http://127.0.0.1:8765/#/systems). Add a site/system, equipment passport, acquisition-device configuration and measurement points; load a local CSV or an explicitly selected challenge example; then compare imported measurements with a user-supplied Q–H pump curve. The new closed-minute hydraulic assessment shows observed versus expected head, missing evidence, alternative explanations and the next useful independent check. Five explicitly illustrative CSV scenarios exercise the workflow. Online ingestion is configuration only, and this advisory consistency check is separate from the benchmark detector. See the [Task022 review](docs/tasks/022-coordinator-review.md) for verification and limits. User acceptance remains open; new video production is paused until interface approval, and the existing deck/PDF depicts an earlier version.
 
 ## What is demonstrated
 
@@ -54,7 +54,7 @@ The proposed fleet reference has no channel supported by three eligible fit asse
 
 ## Limits that matter
 
-All data are synthetic: seven training pumps, two previously inspected validation pumps, three test pumps. Validation is descriptive, not independent field evidence. The browser contains the full validation-week bundle and filters it by clock for display; this is not secure concealment of future data. Test assets are metadata-only in the UI.
+All benchmark data are synthetic: seven training pumps, two previously inspected validation pumps, three test pumps. Validation is descriptive, not independent field evidence. The browser contains the full validation-week bundle and filters it by clock for display; this is not secure concealment of future data. Test assets are metadata-only in the UI.
 
 The app is static batch replay, not a persistent edge service. Real arrival delays, restart recovery, installation quality, maintenance effort and field diagnostic performance have not been demonstrated. Confidence is a heuristic, not calibrated probability. Inherited B1 set iteration can change a diagnosis across Python hash seeds; reproducible inference requires the recorded environment and seed 0 at interpreter startup. The proposed measurement package is not certified or priced by a supplier. Controls, trips and interlocks are outside the assistant.
 

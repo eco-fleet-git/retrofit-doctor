@@ -15,7 +15,7 @@ import { t, getLang, setLang, CHANNEL_RU, durationShort } from './i18n.js';
 import { tx } from './ru-text.js';
 import { trendCharts } from './trend.js';
 import { renderPortfolio } from './portfolio-view.js';
-import { renderSystemsList, bindSystemsList, renderSystemsWizard, bindSystemsWizard, renderSystemDetail, systemsShell } from './systems-view.js';
+import { renderSystemsList, bindSystemsList, renderSystemsWizard, bindSystemsWizard, renderSystemDetail, bindSystemDetail, systemsShell } from './systems-view.js';
 import { ruExplainBaseline, FAULT_RU } from './explain-ru.js';
 
 // Documented starting checkpoints (issue times of stored causal alerts); replay starts paused here.
@@ -660,6 +660,7 @@ function bind(main, route) {
   if (route.name === 'planner') { const asset = assetById(route.assetId); if (asset) bindPlanner(main, asset, render); return; }
   if (route.name === 'diagnosis') { bindDiagnosis(main, render); return; }
   if (route.name === 'systems') { bindSystemsList(main, { challengeAsset: assetById('PUMP-04') }); return; }
+  if (route.name === 'systemDetail') { bindSystemDetail(main, { rerender: render, id: route.id }); return; }
   if (route.name === 'systemsEdit') { bindSystemsWizard(main, { rerender: render, cases: reviewCases(render), challengeAsset: assetById('PUMP-04') }); return; }
   if (route.name !== 'pump') return;
   const id = route.assetId;

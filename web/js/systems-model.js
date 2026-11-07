@@ -92,6 +92,11 @@ export function applyChallengeExample(sys, asset) {
     pump: { name: `${asset.assetId} pump (example)`, designFlow: String(asset.designFlowM3h), designHead: String(asset.designHeadM), ratedRpm: String(asset.ratedRpmMetadata) },
     motor: { name: `${asset.assetId} motor (example)`, ratedKw: String(asset.motorRatedKw) },
   };
+  // A curve entered for another pump must not survive a passport swap (Task022): reset it, visibly.
+  delete s.equipment.referenceCleared;
+  const ref = sys.equipment.reference;
+  if (ref && (ref.applies || ref.rpm || ref.name || ref.points?.some((p) => p.q !== '' || p.h !== ''))) s.equipment.referenceCleared = true;
+  if (ref) s.equipment.reference = { name: '', status: 'unverified', rpm: '', points: Array.from({ length: 6 }, () => ({ q: '', h: '' })), applies: false };
   return s;
 }
 
@@ -170,7 +175,8 @@ function simultaneous(src, ids) {
   return n;
 }
 
-// Bounded summary + evenly downsampled rows for storage. The full file is not persisted.
+// Bounded summary + evenly downsampled preview rows, plus (Task022) the full analysis series within the import
+// limits (≤ 10 000 rows / 2 MB). Older saved sources without `series` and with thinned samples require reimport.
 export function compactSource(kind, parsed, meta = {}) {
   const coverage = Object.fromEntries(parsed.channels.map((c) => [c, parsed.values[c].filter((v) => v != null).length]));
   const pairs = { psPd: simultaneous(parsed, ['ps', 'pd']), psPdQ: simultaneous(parsed, ['ps', 'pd', 'q']), energy: simultaneous(parsed, ['ps', 'pd', 'q', 'power']), qN: simultaneous(parsed, ['q', 'n']) };
@@ -180,6 +186,7 @@ export function compactSource(kind, parsed, meta = {}) {
     kind, ...meta, channels: parsed.channels, rowsTotal: parsed.rows, rowsStored: idx.length,
     window: parsed.window, coverage, pairs,
     sample: { t: idx.map((i) => parsed.t[i]), values: Object.fromEntries(parsed.channels.map((c) => [c, idx.map((i) => parsed.values[c][i])])) },
+    series: { t: parsed.t.slice(), values: Object.fromEntries(parsed.channels.map((c) => [c, parsed.values[c].slice()])) },
   };
 }
 
@@ -195,6 +202,14 @@ export function challengeSource(rawMinute) {
 
 export function networkSource(device) {
   return { kind: 'network', status: 'configuration-only', endpoint: device.endpoint || '', transport: device.transport || '', channels: [], rowsTotal: 0, rowsStored: 0, coverage: {}, pairs: {} };
+}
+
+// A supplied Q/H reference the user confirmed applies to this pump (any status; unverified still qualifies results).
+function hasReference(sys) {
+  const ref = sys.equipment.reference;
+  if (!ref || ref.applies !== true) return false;
+  const pts = ref.points.filter((p) => String(p.q).trim() !== '' && String(p.h).trim() !== '').map((p) => [Number(p.q), Number(p.h)]);
+  return pts.length >= 2 && pts.every(([q, h], i) => q >= 0 && h > 0 && (!i || q > pts[i - 1][0])) && Number(ref.rpm) > 0;
 }
 
 // ---- Readiness ----
@@ -222,7 +237,7 @@ export function readiness(sys) {
   if (!hydraulic.missing.length) hydraulic.can.push('pressureRise');
   if (!(has('q') && pairOk('psPdQ'))) hydraulic.missing.push('flowSimultaneous');
   if (!designPoint) hydraulic.missing.push('designPoint');
-  hydraulic.missing.push('pumpCurve'); // a verified full curve/reference is always still required
+  if (!hasReference(sys)) hydraulic.missing.push('pumpCurve'); // a curve/reference confirmed to apply (Task022 editor)
   if (!has('n')) hydraulic.missing.push('speedContext'); // the rated speed is passport data, not a measurement
   // With simultaneous flow and a design point, the measured point can be compared with that single design point.
   if (hydraulic.can.length && has('q') && pairOk('psPdQ') && designPoint) hydraulic.can.push('designPointComparison');
@@ -280,19 +295,35 @@ export function isValidSystem(s) {
   if (!isObj(s) || s.version !== 1 || !/^SYS-\d{3}$/.test(s.id) || !isStr(s.name)) return false;
   if (!isObj(s.site) || !isStr(s.site.name) || !SITE_KINDS.includes(s.site.kind) || !QUESTIONS.includes(s.question)) return false;
   const e = s.equipment;
-  if (!isObj(e) || !['user', 'challenge-example'].includes(e.provenance) || !isObj(e.pump) || !isObj(e.motor) || !isObj(e.valve)) return false;
+  if (!isObj(e) || !['user', 'challenge-example', 'illustrative-example'].includes(e.provenance) || !isObj(e.pump) || !isObj(e.motor) || !isObj(e.valve)) return false;
   if (![e.pump.name, e.pump.designFlow, e.pump.designHead, e.pump.ratedRpm, e.motor.name, e.motor.ratedKw, e.valve.name].every(isStr)) return false;
+  if (e.reference !== undefined) {
+    const r = e.reference;
+    if (!isObj(r) || !isStr(r.name) || !isStr(r.rpm) || typeof r.applies !== 'boolean' || !['unverified', 'user-confirmed', 'illustrative'].includes(r.status)) return false;
+    if (!Array.isArray(r.points) || r.points.length > 20 || !r.points.every((p) => isObj(p) && isStr(p.q) && isStr(p.h))) return false;
+  }
+  if (s.analysis !== undefined) {
+    const a = s.analysis;
+    if (!isObj(a) || !isStr(a.density) || !isStr(a.bandPct) || typeof a.geometryAck !== 'boolean' || typeof a.affinity !== 'boolean') return false;
+  }
   if (!isObj(s.device) || !INTERFACES.includes(s.device.interface) || !isObj(s.channels)) return false;
   if (!CHANNEL_IDS.every((c) => isObj(s.channels[c]) && STATUSES.includes(s.channels[c].status) && isStr(s.channels[c].location))) return false;
   if (s.source !== null) {
     const src = s.source;
-    if (!isObj(src) || !['csv', 'challenge', 'network'].includes(src.kind) || !Array.isArray(src.channels) || !isObj(src.coverage) || !isObj(src.pairs)) return false;
+    if (!isObj(src) || !['csv', 'challenge', 'network', 'example'].includes(src.kind) || !Array.isArray(src.channels) || !isObj(src.coverage) || !isObj(src.pairs)) return false;
     if (!src.channels.every((c) => CHANNEL_IDS.includes(c))) return false;
     if (src.kind !== 'network') {
       if (!isObj(src.window) || !Number.isFinite(src.window.start) || !Number.isFinite(src.window.end)) return false;
       if (!isObj(src.sample) || !Array.isArray(src.sample.t) || !src.sample.t.every(Number.isFinite) || !isObj(src.sample.values)) return false;
       const okCell = (v) => v === null || Number.isFinite(v);
+      const increasing = (t) => t.every((x, i) => Number.isFinite(x) && (!i || x > t[i - 1]));
+      if (!increasing(src.sample.t)) return false;
       if (!src.channels.every((c) => Array.isArray(src.sample.values[c]) && src.sample.values[c].length === src.sample.t.length && src.sample.values[c].every(okCell))) return false;
+      if (src.series !== undefined) { // Task022 full analysis series
+        const se = src.series;
+        if (!isObj(se) || !Array.isArray(se.t) || se.t.length !== src.rowsTotal || se.t.length > LIMITS.maxRows || !increasing(se.t) || !isObj(se.values)) return false;
+        if (!src.channels.every((c) => Array.isArray(se.values[c]) && se.values[c].length === se.t.length && se.values[c].every(okCell))) return false;
+      }
     }
   }
   return true;

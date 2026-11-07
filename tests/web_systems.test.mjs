@@ -285,11 +285,11 @@ test('loaded-but-unmapped data: counted separately, no preview, explicit mapping
       v.wizardState.key = 'new'; v.wizardState.draft = s; v.wizardState.step = 4;
       const h = v.renderSystemsWizard({ id: 'new' }, { cases: bundle.cases });
       assert.match(h, lang === 'ru' ? /Каналов в загруженных данных: <b>4<\/b>[\s\S]*?сопоставлено и используется[\s\S]*?<b>0<\/b>/ : /Channels in the loaded data[\s\S]*?<b>4<\/b>[\s\S]*?mapped and usable[\s\S]*?<b>0<\/b>/);
-      assert.doesNotMatch(h, /<figure class="sys-prev">/, 'no pressure-rise chart before mapping');
+      assert.doesNotMatch(h, /class="an-chart"|class="sys-prev"/, 'no pressure-rise chart before mapping');
       assert.match(h, /id="sys-map-data"/);
       assert.match(h, lang === 'ru' ? /Ps · давление на всасывании \(suction_pressure_kpa\)/ : /Ps · suction pressure \(suction_pressure_kpa\)/);
       v.wizardState.draft = m;
-      assert.match(v.renderSystemsWizard({ id: 'new' }, { cases: bundle.cases }), /<figure class="sys-prev">/);
+      assert.match(v.renderSystemsWizard({ id: 'new' }, { cases: bundle.cases }), /class="an-chart"/, 'as-of per-minute ΔP chart after mapping');
     } finally { setLang('en'); }
   }
   delete globalThis.localStorage;
