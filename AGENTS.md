@@ -1,6 +1,6 @@
 # Retrofit Doctor working agreement
 
-User-approved goal: first working demo by 2026-11-07 12:00 Europe/Berlin; two review iterations afterwards. English product/pitch; Russian collaboration. No physical hardware build.
+User-approved goal: first working demo by 2026-11-07 12:00 Europe/Berlin; two review iterations afterwards. Bilingual English / Russian product (user clarification 2026-11-07), English jury pitch; Russian collaboration/rehearsal. No physical hardware build.
 
 Claude Code implements application and diagnostic code. Codex owns scope, task packets, experiments protocol, product decisions and focused verification. One active code writer; helper chats own only their assigned documentation directories. Do not spawn additional chats without coordinating with the main chat.
 

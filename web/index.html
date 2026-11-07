@@ -9,21 +9,22 @@
   <script type="module" src="js/app.js"></script>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
+  <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
   <div class="shell">
     <aside class="sidebar">
-      <div class="brand">Retrofit Doctor<span>Pump diagnostics review</span></div>
+      <div class="brand">Retrofit Doctor<span data-i18n="brand.sub">Pump diagnostics review</span></div>
+      <div class="lang-switch" role="group" aria-label="Language / Язык"><button type="button" id="lang-en" lang="en" aria-pressed="true">EN</button><button type="button" id="lang-ru" lang="ru" aria-pressed="false">RU</button></div>
       <nav aria-label="Primary">
-        <a href="#/fleet" data-nav="fleet">Fleet Overview</a>
-        <a href="#/pumps/PUMP-08" data-nav="pump">Pump Detail <span class="nav-asset" data-nav-asset></span></a>
-        <a href="#/pumps/PUMP-08/retrofit" data-nav="planner">Retrofit Planner <span class="nav-asset" data-nav-asset></span></a>
-        <a href="#/evidence" data-nav="evidence">Evidence &amp; Validation</a>
-        <a href="#/diagnosis" data-nav="diagnosis">Diagnosis Comparison</a>
+        <a href="#/fleet" data-nav="fleet"><span data-i18n="nav.fleet">Start · Fleet</span></a>
+        <a href="#/diagnosis" data-nav="diagnosis"><span data-i18n="nav.review">Review a Warning</span></a>
+        <a href="#/pumps/PUMP-08" data-nav="pump"><span data-i18n="nav.pump">Pump Detail</span> <span class="nav-asset" data-nav-asset></span></a>
+        <a href="#/pumps/PUMP-08/retrofit" data-nav="planner"><span data-i18n="nav.planner">Retrofit Planner</span> <span class="nav-asset" data-nav-asset></span></a>
+        <a href="#/evidence" data-nav="evidence"><span data-i18n="nav.evidence">Evidence &amp; Validation</span></a>
       </nav>
       <div class="badges">
-        <span class="badge badge-synthetic">Synthetic benchmark</span>
-        <span class="badge">Replay / metadata only</span>
-        <span class="badge">Advisory, read-only</span>
+        <span class="badge badge-synthetic" data-i18n="badge.synthetic">Synthetic benchmark</span>
+        <span class="badge" data-i18n="badge.replay">Replay / metadata only</span>
+        <span class="badge" data-i18n="badge.advisory">Advisory, read-only</span>
       </div>
     </aside>
     <div class="content">
@@ -31,7 +32,7 @@
         <p class="loading" role="status">Loading source data…</p>
       </main>
       <footer class="foot">
-        Synthetic data from the RETROFIT AI 2026 benchmark. No connection to equipment; this interface cannot send commands.
+        <span data-i18n="foot">Synthetic data from the RETROFIT AI 2026 benchmark. No connection to equipment; this interface cannot send commands.</span>
         <span id="provenance-foot"></span>
       </footer>
     </div>

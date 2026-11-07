@@ -16,6 +16,14 @@ Verified on 2026-11-07 from a fresh clone of commit `971fbaf` without `vendor/be
 
 Only PUMP-08/09 (validation) have full replay files. The new `#/diagnosis` view provides four source-verified historical cases from train/validation and the frozen Z995 comparison with B1. It has a separate `diagnosis-comparison.json` bundle; original replay files remain unchanged. PUMP-10/11/12 (test) are metadata only. See `../docs/tasks/015-coordinator-review.md` and the Task015 handoff for checks and limits.
 
+## Language and visual walkthrough
+
+Start at `#/fleet`. The EN / RU switch stores its preference locally (`rd-lang`), with English as the fresh-browser default. Switching changes the display language, not the data, observation clock, route or engineering draft. Raw source outputs and historical technical material retain their original wording where indicated.
+
+The main PUMP-04 button opens a recorded warning with the hypothesis, actual pressure/flow charts, an installed-sensor map and an advisory next check. PUMP-02 and PUMP-08 show earlier vibration-feature comparisons with an explicit recording timeline; these are not invented waveforms. PUMP-01 illustrates an unresolved cause with a missing flow measurement. The before-warning control hides inference and evidence that are not yet available; the schematic then shows static inventory only. All full explanations, limitations and source values remain available in disclosures.
+
+The sensor diagram is generic: passport inventory supports the channel list, not an actual installation drawing or paired-pump topology. The full comparison and original replay bundles are unchanged. See `../docs/tasks/017-coordinator-review.md` for the reviewed interface and its limits.
+
 ## Regenerate the bundle (analysis environment only)
 
 Regeneration needs the immutable organizer dataset restored at `vendor/benchmark/data/full/` and the pinned environment: Python 3.13.16 with exactly `requirements.lock.txt` (the original environment is `../../work/.venv`). PYTHONHASHSEED must be 0 at interpreter start.
@@ -38,6 +46,8 @@ node --test tests/web_replay.test.mjs                            # as-of slicing
 - `js/knowledge.js` — rule paraphrases of vendor B1 `diagnose()` and engineering prompts (alternatives, missing measurements, next checks), labelled as not evaluated by the detector.
 - `js/explain.js` — pure selected-alert explanation (hypothesis, observations at the alert minute, gaps, alternatives, next check, technical fields); inputs are only the as-of view, the selected alert and the static passport.
 - `js/app.js` — hash routes `#/fleet`, `#/pumps/:id?t=<UTC>`, `#/pumps/:id/retrofit`, `#/evidence`, `#/diagnosis`.
+- `js/i18n.js`, `js/ru-text.js` — local display translations, without a translation service.
+- `js/review-visuals.js` — clock-gated review visuals and a passport-based single-pump diagram.
 - `data/` — generated bundle (synthetic benchmark data, provenance + SHA-256 of inputs inside `fleet.json`).
 
 The comparison exporter is `scripts/export_diagnosis_comparison.py`; it reads only the frozen train/validation results and the documented source inputs, without re-scoring. The browser explanation helper is `js/comparison.js`, with view code in `js/diagnosis-view.js`. Run `node --test tests/web_comparison.test.mjs` for focused source/clock checks; source-hash verification requires the restored analytical inputs. Viewing the committed app does not.

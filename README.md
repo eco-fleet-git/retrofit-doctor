@@ -12,9 +12,11 @@ The committed browser bundle needs only Python's static server. No dataset downl
 python3 -m http.server 8765 --bind 127.0.0.1 -d web
 ```
 
-Open [the new Diagnosis Comparison](http://127.0.0.1:8765/#/diagnosis) for the reviewed gains, four actual cases and before/at-alert evidence controls. [Review](docs/tasks/015-coordinator-review.md) and [60-second walkthrough](docs/tasks/015-handoff.md#60-second-demo-path). For the preserved baseline workflow, start with [PUMP-08 at the recorded alert](http://127.0.0.1:8765/#/pumps/PUMP-08?t=2025-09-10T12%3A38%3A00Z), then inspect [retrospective evidence](http://127.0.0.1:8765/#/evidence) and [the Retrofit Planner](http://127.0.0.1:8765/#/pumps/PUMP-08/retrofit). Drafts are stored in this browser, not sent to equipment or a server.
+Open [Start / Fleet](http://127.0.0.1:8765/#/fleet), select English or Russian, then follow the primary PUMP-04 example into [the warning review](http://127.0.0.1:8765/#/diagnosis). Four recorded cases connect the hypothesis, visual evidence, installed measurements and next engineering check. Before/at-warning controls retain the evidence-time boundary. The [Task015 scientific review](docs/tasks/015-coordinator-review.md) documents the unchanged source bundle. For the preserved baseline workflow, open [PUMP-08 at the recorded alert](http://127.0.0.1:8765/#/pumps/PUMP-08?t=2025-09-10T12%3A38%3A00Z), then inspect [retrospective evidence](http://127.0.0.1:8765/#/evidence) and [the Retrofit Planner](http://127.0.0.1:8765/#/pumps/PUMP-08/retrofit). Drafts are stored in this browser, not sent to equipment or a server.
 
-The interface and pitch are in English. [Russian working notes](README.ru.md) preserve the earlier development context.
+The interface supports English / Russian for jury presentation and rehearsal. The pitch remains English. Exact source identifiers and verbatim technical outputs retain their original wording. [Russian working notes](README.ru.md) preserve the earlier development context.
+
+**Visual walkthrough, 7 November:** the core English/Russian workflow now shows actual evidence charts, a passport-based sensor map and an explicit next action. Explanations and costs expand on request. The [Task016–017 review](docs/tasks/017-coordinator-review.md) records 94 passing web tests, browser checks at 1440/940/390 px and unchanged source hashes. Historical technical tables retain their original wording. User acceptance and timed rehearsal remain open; the exported deck/PDF still depicts Task015.
 
 ## What is demonstrated
 

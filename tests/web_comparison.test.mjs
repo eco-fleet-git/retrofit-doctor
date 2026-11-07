@@ -206,3 +206,80 @@ test('helper limits: other stored fields are trusted as exported (no general mal
   c.z995.ruleDetail.minute.std_E_kpa = 99;
   assert.match(explainAt(c.caseId, c.alertUtc, c).derived[0], /99\.000 kPa/);
 });
+
+// Task016: plain-language first-screen layer (title, observations, uncertainty, metric cards).
+test('plain layer: action titles follow the source/kind and never claim confirmation', () => {
+  const titles = Object.fromEntries(bundle.cases.map((c) => [c.caseId, explainAt(c.caseId, c.alertUtc).plain.title]));
+  assert.deepEqual(titles, { 'pump04-train': 'Check the flow measurement', 'pump02-train': 'Check shaft alignment', 'pump08-validation': 'Inspect the bearing condition', 'pump01-train': 'Cause still unresolved: flow input missing' });
+  for (const c of bundle.cases) {
+    const p = explainAt(c.caseId, c.alertUtc).plain;
+    assert.ok(p.observations.length >= 2 && p.observations.length <= 3, c.caseId);
+    assert.doesNotMatch(text(p), /\bB1\b|Z995|E995|\bW1\b|_kpa|_m3_h|_rpm|0\.013|tail|covariance|p-value|confirmed (fault|failure)|is broken|%/, c.caseId);
+  }
+});
+
+test('plain layer: case-specific uncertainty stays visible in plain words', () => {
+  const r = explainAt('pump04-train', '2025-06-18T22:06:00Z').plain;
+  assert.match(r.uncertainty, /close to the rule boundary; verify with an independent measurement/);
+  assert.match(r.uncertainty, /only from training pumps/);
+  assert.match(r.observations.join(' '), /not verified healthy/);
+  assert.match(r.observations[0], /difference between the measured and the calculated pressure rise fluctuates more than in any of the 1431 reference minutes from this pump's first recorded day/);
+  assert.doesNotMatch(text(r), /first day of operation|commissioning/);
+  const w = explainAt('pump08-validation', '2025-09-12T20:47:00Z');
+  assert.match(w.plain.uncertainty, /3 h 39 min 37 s older than the warning/);
+  assert.match(w.plain.observations[0], /finished 3 h 39 min 37 s before the warning \(2025-09-11 17:07:23 UTC\)/);
+  assert.match(w.plain.observations[0], /no vibration waveform was recorded in the warning minute itself/);
+  assert.doesNotMatch(text(w.plain), /pump state/);
+  assert.ok(w.gaps.some((g) => /no vibration waveform was recorded in the warning minute/.test(g.text)));
+  assert.doesNotMatch(text(w.gaps), /machine state/);
+  assert.equal(w.snapshot.ageNow, '27 h 39 min 37 s');
+  assert.match(w.plain.observations[1], /outer-race tone is about 4\.8× its local background; that ratio is about 2\.6× the ratio in the initial reference recordings/);
+  const u = explainAt('pump01-train', '2025-08-12T19:27:00Z').plain;
+  assert.match(u.observations.join(' '), /no flow meter.*could not assess the cause/);
+  assert.match(u.observations.join(' '), /Not assessed is not a healthy result/);
+  assert.deepEqual(u.metrics.map((m) => m.value), ['Not installed']);
+});
+
+test('plain layer is absent before the alert and for rejected evidence', () => {
+  for (const c of bundle.cases) assert.equal(explainAt(c.caseId, new Date(at(c.alertUtc) - 1000).toISOString()).plain, undefined);
+  const bad = structuredClone(kase('pump02-train')); bad.z995.waveform.wf_age_s = '1.0';
+  assert.equal(explainAt(bad.caseId, bad.alertUtc, bad).plain, undefined);
+});
+
+// Task017: Russian plain layer. Same gating and numbers; no English core sentences on the first screen.
+const explainRu = (id, clock, c = kase(id)) => explainCase(sliceCase(c, at(clock)), asset(c.assetId), { lang: 'ru' });
+test('RU: plain layer is Russian, keeps the same numbers, and is absent before the alert', () => {
+  for (const c of bundle.cases) {
+    const en = explainAt(c.caseId, c.alertUtc); const ru = explainRu(c.caseId, c.alertUtc);
+    for (const x of [ru.plain.title, ru.plain.summary, ...ru.plain.observations, ru.plain.uncertainty, ru.nextCheck.text, ru.nextCheck.reason]) {
+      assert.match(x, /[а-яё]/i, c.caseId);
+      assert.doesNotMatch(x, /\b(the|and|check|measurement|warning|recording)\b/i, `${c.caseId}: ${x}`);
+    }
+    assert.deepEqual(ru.technical, en.technical, 'technical layer stays original');
+    assert.equal(explainRu(c.caseId, new Date(at(c.alertUtc) - 1000).toISOString()).plain, undefined);
+    assert.match(explainRu(c.caseId, new Date(at(c.alertUtc) - 1000).toISOString()).text, /ещё не закрыта/);
+  }
+  const r = explainRu('pump04-train', '2025-06-18T22:06:00Z');
+  assert.equal(r.plain.title, 'Проверьте показания расходомера');
+  assert.equal(r.nextCheck.text, 'Сравните расход с независимым прибором');
+  assert.match(r.plain.uncertainty, /^Вывод близок к порогу правила/);
+  assert.equal(r.plain.caution, 'Вывод близок к порогу правила; нужна независимая проверка.');
+  for (const c of bundle.cases) for (const l of ['en', 'ru']) {
+    const p = explainCase(sliceCase(c, at(c.alertUtc)), asset(c.assetId), { lang: l }).plain;
+    assert.ok(p.caution && p.caution.length <= 80, `${c.caseId} ${l}: ${p.caution}`);
+  }
+  assert.equal(explainAt('pump08-validation', '2025-09-11T20:47:00Z').plain.caution, 'Older recording (3 h 39 min 37 s before the warning), one direction only.');
+  assert.match(explainAt('pump04-train', '2025-06-18T22:06:00Z').plain.uncertainty, /only from training pumps/);
+  assert.doesNotMatch(r.plain.uncertainty, /подтвержден/);
+  assert.deepEqual(r.plain.metrics.map((m) => m.value), ['7.3 кПа', '60 из 60']);
+  const b = explainRu('pump08-validation', '2025-09-12T20:47:00Z');
+  assert.equal(b.snapshot.ageAtAlert, '3 ч 39 мин 37 с');
+  assert.equal(b.plain.title, 'Проверьте состояние подшипника');
+  assert.match(b.plain.summary, /^Виброзапись сделана раньше предупреждения/);
+  assert.equal(explainRu('pump01-train', '2025-08-12T19:27:00Z').plain.title, 'Причина пока не ясна');
+  assert.equal(b.snapshot.ageNow, '27 ч 39 мин 37 с');
+  assert.match(b.plain.observations[1], /4\.8× выше локального фона; это отношение примерно в 2\.6×/);
+  const u = explainRu('pump01-train', '2025-08-12T19:27:00Z');
+  assert.equal(u.nextCheck.text, 'Сверьте показание «давление на всасывании» с эталонным манометром.');
+  assert.match(u.plain.observations.join(' '), /не признак исправности/);
+});

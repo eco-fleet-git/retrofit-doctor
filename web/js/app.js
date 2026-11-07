@@ -9,7 +9,10 @@ import { explainAlert } from './explain.js';
 import { renderPlannerPage, bindPlanner } from './planner.js';
 import { renderSchematic, bindSchematic } from './schematic.js';
 import { renderExperiments } from './experiments.js';
-import { renderDiagnosisPage, bindDiagnosis, diagnosisFooter } from './diagnosis-view.js';
+import { renderDiagnosisPage, bindDiagnosis, diagnosisFooter, reviewCases } from './diagnosis-view.js';
+import { t, getLang, setLang, CHANNEL_RU, durationShort } from './i18n.js';
+import { tx } from './ru-text.js';
+import { ruExplainBaseline, FAULT_RU } from './explain-ru.js';
 
 // Documented starting checkpoints (issue times of stored causal alerts); replay starts paused here.
 const CHECKPOINTS = { 'PUMP-08': '2025-09-10T12:38:00Z', 'PUMP-09': '2026-02-10T06:28:00Z' };
@@ -20,7 +23,7 @@ const state = {
   fleet: null, fleetError: null,
   replays: {}, // assetId -> { status: 'loading'|'ready'|'error', data, error }
   clocks: {}, // assetId -> ms
-  filters: { q: '', split: 'all', site: 'all' },
+  filters: { q: '', split: 'all', site: 'all', show: 'all' },
   showLabels: false, labelsAsset: null,
   chart: { channel: {}, spanMin: 1440 },
   selectedAlert: {},
@@ -29,11 +32,33 @@ const state = {
 };
 
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const label = (c) => CHANNEL_LABELS[c] ?? c;
+const label = (c) => (getLang() === 'ru' ? CHANNEL_RU[c] : CHANNEL_LABELS[c]) ?? c;
 const humanType = (t) => (t ?? '').toLowerCase().replace(/_/g, ' ').replace(/^./, (m) => m.toUpperCase());
 const pill = (cls, text, title = '') => `<span class="state ${cls}"${title ? ` title="${esc(title)}"` : ''}>${esc(text)}</span>`;
 const fmtNum = (v, d = 2) => (v == null ? '—' : Number(v).toFixed(d));
 const cadence = (s) => (s >= 60 ? `${s / 60} min` : `${s} s`);
+const L = (en, ru) => (getLang() === 'ru' ? ru : en);
+// Russian labels for replay.js status objects (values unchanged; English passes through).
+function ruStatus(o) {
+  if (getLang() !== 'ru' || !o) return o ?? {};
+  const n = (re) => (o.detail?.match(re) ?? [])[1];
+  const m = {
+    COLLECTING_REFERENCE: o.label === 'Reference window complete'
+      ? { label: 'Окно опоры завершено', detail: 'Ожидание первой минуты после опорного периода.' }
+      : { label: 'Сбор опоры', detail: 'Статистические отклонения появятся после первых 24 часов.' },
+    REFERENCE_AVAILABLE: { label: `Опора доступна · каналов: ${o.ready}`, detail: 'Эмпирическая опора по первым 24 часам; исправность не подтверждена.' },
+    INSUFFICIENT_REFERENCE: { label: 'Недостаточная опора', detail: 'В первые 24 часа нет пригодной опоры. z-оценки недоступны; более поздние данные для опоры не используются.' },
+    NO_DATA_YET: { label: 'Ещё нет закрытой минуты' },
+    PACKETS_MISSING: { label: 'Пакеты не получены', detail: `Нет строк телеметрии за закрытых минут: ${n(/for (\d+) completed/) ?? '?'} до текущего времени.` },
+    RECEIVING: { label: 'Пакеты получены в последнюю минуту', detail: `Строк в последнюю закрытую минуту: ${n(/^(\d+) rows/) ?? '?'} (таблица 1 Гц).` },
+    NO_VISIBLE_ALERT: { label: 'Нет предупреждений базового детектора в видимой истории' },
+    UNKNOWN_DIAGNOSIS: { label: 'Причина не установлена · вывод базового детектора: UNKNOWN' },
+    DATA_QUALITY_ALERT: { label: 'Предупреждение о датчике / качестве данных' },
+    ALERT_PRESENT: { label: 'Последнее видимое предупреждение' },
+  }[o.state];
+  return m ? { ...o, ...m } : o;
+}
+const dur = (ms) => (getLang() === 'ru' ? durationShort(ms) : formatDuration(ms));
 const assetById = (id) => state.fleet?.assets.find((a) => a.assetId === id);
 
 // ---------- data loading ----------
@@ -161,83 +186,111 @@ function render() {
     if (a.dataset.nav === route.name) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
   });
   document.querySelectorAll('[data-nav-asset]').forEach((el) => { el.textContent = navAsset; });
+  // Static shell strings and the language switch follow the current language (no global innerHTML replace).
+  document.documentElement.lang = getLang();
+  document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
+  for (const l of ['en', 'ru']) document.getElementById(`lang-${l}`)?.setAttribute('aria-pressed', String(getLang() === l));
   if (state.fleetError) {
-    main.innerHTML = `<h1>Source data unavailable</h1><div class="error" role="alert">Could not read <span class="mono">${esc(state.fleetError)}</span>.</div>
-      <p><button id="retry-fleet" class="primary">Retry</button></p>
-      <p class="muted small">Run <span class="mono">python scripts/export_demo.py</span> and serve the <span class="mono">web/</span> folder (see web/README.md).</p>`;
+    main.innerHTML = `<h1>${L('Source data unavailable', 'Исходные данные недоступны')}</h1><div class="error" role="alert">${L('Could not read', 'Не удалось прочитать')} <span class="mono">${esc(state.fleetError)}</span>.</div>
+      <p><button id="retry-fleet" class="primary">${L('Retry', 'Повторить')}</button></p>
+      <p class="muted small">${L('Run', 'Запустите')} <span class="mono">python scripts/export_demo.py</span> ${L('and serve the', 'и раздайте папку')} <span class="mono">web/</span> ${L('folder (see web/README.md).', '(см. web/README.md).')}</p>`;
     bind(main, route);
     return;
   }
-  if (!state.fleet) { main.innerHTML = '<p class="loading" role="status">Loading source data…</p>'; return; }
+  if (!state.fleet) { main.innerHTML = `<p class="loading" role="status">${L('Loading source data…', 'Загрузка исходных данных…')}</p>`; return; }
   const views = { fleet: renderFleet, pump: renderPump, planner: renderPlanner, evidence: renderEvidence, diagnosis: (r) => renderDiagnosisPage(r, assetById, render) };
   main.innerHTML = views[route.name](route);
   const foot = document.getElementById('provenance-foot');
-  if (foot) foot.textContent = route.name === 'diagnosis' ? (diagnosisFooter() ?? '') : `Bundle generated by ${state.fleet.provenance.generator} from ${state.fleet.provenance.inputs.length} hashed source files.`;
+  if (foot) foot.textContent = route.name === 'diagnosis' ? (diagnosisFooter() ?? '') : getLang() === 'ru' ? `Пакет создан ${state.fleet.provenance.generator} из ${state.fleet.provenance.inputs.length} хэшированных исходных файлов.` : `Bundle generated by ${state.fleet.provenance.generator} from ${state.fleet.provenance.inputs.length} hashed source files.`;
   bind(main, route);
   if (focusId) document.getElementById(focusId)?.focus({ preventScroll: true });
 }
 
+// Measurement coverage in plain words, from the passport channel list only (no health inference).
+const COVERAGE = [
+  ['pressures', ['suction_pressure_kpa', 'discharge_pressure_kpa']], ['flow', ['flow_m3_h']], ['speed', ['motor_speed_rpm']],
+  ['vibration', ['vibration_rms_mm_s', 'vibration_accel_rms_g', 'vibration_crest_factor']], ['temperatures', ['bearing_temp_c', 'motor_winding_temp_c', 'fluid_temp_c']],
+];
+function coverageText(a) {
+  const has = new Set(a.channelsAvailable);
+  const yes = COVERAGE.filter(([, cs]) => cs.some((c) => has.has(c))).map(([n]) => t(`cov.${n}`));
+  const no = COVERAGE.filter(([, cs]) => !cs.some((c) => has.has(c))).map(([n]) => (n === 'flow' ? t('cov.noflow') : n === 'speed' ? t('cov.nospeed') : t('cov.no', { x: t(`cov.${n}`) })));
+  return `${yes.length ? `${t('cov.has')}: ${yes.join(', ')}` : t('cov.none')}${no.length ? ` · ${no.join(', ')}` : ''}`;
+}
+
+const reviewHref = (c) => `#/diagnosis?case=${c.caseId}&t=${c.alertUtc}`;
+const reviewCase = (assetId) => reviewCases(render)?.find((c) => c.assetId === assetId) ?? null;
+
+function availability(a, cases) {
+  const review = (cases ?? []).find((c) => c.assetId === a.assetId);
+  const out = [];
+  if (review) out.push({ kind: 'review', pill: pill('s-info', t('av.review')), href: reviewHref(review), action: t('act.review') });
+  if (a.mode === 'VALIDATION_REPLAY') out.push({ kind: 'replay', pill: pill('s-info', t('av.replay')), href: `#/pumps/${a.assetId}`, action: t('act.replay') });
+  if (!out.length) out.push({ kind: 'inventory', pill: pill('s-gray', t('av.inventory')), href: `#/pumps/${a.assetId}`, action: t('act.inventory') });
+  return out;
+}
+
+const STEP_ICON = [
+  '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="2" fill="none"/></svg>',
+  '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18l5-6 4 3 6-8 3 3" stroke="currentColor" stroke-width="2" fill="none"/></svg>',
+  '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l5 5" stroke="currentColor" stroke-width="2"/></svg>',
+];
+
 function renderFleet() {
   const { assets } = state.fleet;
   const f = state.filters;
+  const cases = reviewCases(render);
   const sites = [...new Set(assets.map((a) => a.site))].sort();
-  for (const a of assets) if (a.mode === 'VALIDATION_REPLAY') ensureReplay(a);
   const q = f.q.trim().toLowerCase();
   const rows = assets.filter((a) => (f.split === 'all' || a.split === f.split) && (f.site === 'all' || a.site === f.site)
+    && (f.show === 'all' || availability(a, cases).some((x) => x.kind === f.show))
     && (!q || `${a.assetId} ${a.site} ${a.system}`.toLowerCase().includes(q)));
-  const by = (s) => assets.filter((a) => a.split === s).length;
+  const by = (sp) => assets.filter((a) => a.split === sp).length;
+  const cs = (id) => cases?.find((c) => c.caseId === id);
   const body = rows.map((a) => {
-    let asOf; let alert; let ref; let action;
-    if (a.mode === 'TEST_METADATA_ONLY') {
-      asOf = pill('s-gray', 'Metadata only');
-      alert = pill('s-gray', 'Diagnosis unavailable');
-      ref = pill('s-gray', 'Reference unavailable');
-      action = `<a href="#/pumps/${a.assetId}">View sensor inventory<span class="sr"> for ${a.assetId}</span></a>`;
-    } else if (a.mode === 'VALIDATION_REPLAY') {
-      const r = state.replays[a.assetId];
-      action = `<a href="#/pumps/${a.assetId}">Open replay<span class="sr"> for ${a.assetId}</span></a>`;
-      if (!r || r.status === 'loading') { asOf = alert = ref = '<span class="muted">Loading…</span>'; } else if (r.status === 'error') {
-        asOf = alert = ref = pill('s-gray', 'Source unavailable');
-      } else {
-        const view = sliceReplay(r.data, state.clocks[a.assetId]);
-        asOf = `<span class="num">${esc(formatUtc(view.asOfMs))}</span>`;
-        const d = diagnosticState(view);
-        alert = d.alert ? `${pill(d.state === 'UNKNOWN_DIAGNOSIS' ? 's-attn' : 's-alert', humanType(d.alert.fault_type))}<div class="small muted">Baseline prediction · ${esc(formatUtc(parseUtc(d.alert.alert_time_utc)))}</div>` : pill('s-gray', 'No baseline alert in visible history');
-        const rs = referenceState(view);
-        ref = pill(rs.state === 'REFERENCE_AVAILABLE' ? 's-info' : rs.state === 'INSUFFICIENT_REFERENCE' ? 's-attn' : 's-gray', rs.label);
-      }
-    } else {
-      asOf = pill('s-gray', 'Replay not loaded');
-      alert = '<span class="muted">Not loaded</span>';
-      ref = '<span class="muted">Not loaded</span>';
-      action = `<a href="#/pumps/${a.assetId}">View sensor inventory<span class="sr"> for ${a.assetId}</span></a>`;
-    }
+    const av = availability(a, cases);
     return `<tr><th scope="row"><a href="#/pumps/${a.assetId}">${a.assetId}</a></th>
-      <td>${esc(a.site)}<div class="small muted">${esc(a.system)}</div></td>
-      <td>${esc(SPLIT_LABEL[a.split])}</td><td>${esc(a.instrumentationTier)}<div class="small muted">${a.channelsAvailable.length} channels · ${esc(a.control)}</div></td>
-      <td>${asOf}</td><td>${alert}</td><td>${ref}</td><td>${action}</td></tr>`;
+      <td data-label="${esc(t('fleet.col.app'))}">${esc(tx(a.system))}<div class="small muted">${esc(tx(a.site))}</div></td>
+      <td data-label="${esc(t('fleet.col.meas'))}">${esc(coverageText(a))}<div class="small muted">${esc(t('fleet.channels', { n: a.channelsAvailable.length }))}</div></td>
+      <td data-label="${esc(t('fleet.col.open'))}">${av.map((x) => x.pill).join(' ')}</td>
+      <td data-label="${esc(t('fleet.col.action'))}">${av.map((x) => `<a href="${x.href}">${esc(x.action)}<span class="sr"> ${a.assetId}</span></a>`).join('<br>')}</td></tr>`;
   }).join('');
-  return `<h1>Fleet Overview</h1>
-    <p class="sub">Twelve independent pumps from the public benchmark passports. Site grouping is organisational only; no hydraulic coupling is modelled.</p>
-    <div class="counts" aria-label="Inventory counts (not diagnostic results)">
-      <div class="count"><b class="num">${assets.length}</b><span>independent pumps</span></div>
-      <div class="count"><b class="num">${by('train')}</b><span>training assets (replay not loaded)</span></div>
-      <div class="count"><b class="num">${by('validation')}</b><span>validation replay assets</span></div>
-      <div class="count"><b class="num">${by('test')}</b><span>blind test assets · metadata only</span></div>
+  const chipsHtml = [
+    cs('pump08-validation') && [reviewHref(cs('pump08-validation')), t('fleet.ex.p08')],
+    cs('pump02-train') && [reviewHref(cs('pump02-train')), t('fleet.ex.p02')],
+    cs('pump01-train') && [reviewHref(cs('pump01-train')), t('fleet.ex.p01')],
+    ['#/pumps/PUMP-08', t('fleet.ex.replay')],
+  ].filter(Boolean).map(([h, x]) => `<a class="button" href="${h}">${esc(x)}</a>`).join('');
+  return `<div class="hero">
+      <h1>${esc(t('fleet.h1'))}</h1>
+      <p class="sub">${esc(t('fleet.sub'))} ${pill('s-gray', t('fleet.badge'))}</p>
+      <ol class="path" aria-label="1–3">
+        ${[1, 2, 3].map((n, i) => `<li><span class="path-n">${n}</span><span class="path-i">${STEP_ICON[i]}</span><b>${esc(t(`fleet.step${n}`))}</b><span class="small muted">${esc(t(`fleet.step${n}s`))}</span></li>`).join('<li class="path-arrow" aria-hidden="true">→</li>')}
+      </ol>
+      <div class="hero-start">${cs('pump04-train') ? `<a class="button primary big" id="start-review" href="${reviewHref(cs('pump04-train'))}">${esc(t('fleet.start'))} →</a>` : `<span class="muted small">${esc(t('rv.loading'))}</span>`}
+        <span class="small muted">${esc(t('fleet.startNote'))}</span></div>
+      <div class="hero-more"><span class="small muted">${esc(t('fleet.more'))}:</span> ${chipsHtml}</div>
     </div>
+    <section class="panel" aria-labelledby="pumps-h"><h2 id="pumps-h">${esc(t('fleet.all'))}</h2>
     <div class="filters" role="search">
-      <label>Search<input id="f-q" type="search" value="${esc(f.q)}" placeholder="Pump, site, system"></label>
-      <label>Split<select id="f-split">${['all', 'train', 'validation', 'test'].map((s) => `<option value="${s}"${f.split === s ? ' selected' : ''}>${s === 'all' ? 'All' : SPLIT_LABEL[s]}</option>`).join('')}</select></label>
-      <label>Site<select id="f-site"><option value="all">All sites</option>${sites.map((s) => `<option${f.site === s ? ' selected' : ''}>${esc(s)}</option>`).join('')}</select></label>
-      <button id="f-reset" type="button">Reset filters</button>
-      <a class="button" href="#/evidence">View validation results</a>
+      <label>${esc(t('fleet.search'))}<input id="f-q" type="search" value="${esc(f.q)}" placeholder="${esc(t('fleet.searchPh'))}"></label>
+      <label>${esc(t('fleet.show'))}<select id="f-show">${[['all', t('fleet.showAll')], ['review', t('av.review')], ['replay', t('av.replay')], ['inventory', t('av.inventory')]].map(([v, x]) => `<option value="${v}"${f.show === v ? ' selected' : ''}>${esc(x)}</option>`).join('')}</select></label>
+      <label>${esc(t('fleet.site'))}<select id="f-site"><option value="all">${esc(t('fleet.allSites'))}</option>${sites.map((x) => `<option value="${esc(x)}"${f.site === x ? ' selected' : ''}>${esc(tx(x))}</option>`).join('')}</select></label>
+      <button id="f-reset" type="button">${esc(t('fleet.reset'))}</button>
     </div>
-    <p class="small muted">Independent snapshots · Observation weeks differ · Each replay has its own UTC as-of clock.</p>
-    ${rows.length ? `<div class="table-wrap" role="region" aria-label="Pump inventory table" tabindex="0"><table>
-      <thead><tr><th scope="col">Pump</th><th scope="col">Site / application</th><th scope="col">Split</th><th scope="col">Instrumentation</th>
-      <th scope="col">Replay as of (UTC)</th><th scope="col">Latest visible alert</th><th scope="col">Reference</th><th scope="col">Action</th></tr></thead>
+    <p class="small muted">${esc(t('fleet.indep'))}</p>
+    ${rows.length ? `<div class="table-wrap" role="region" aria-label="${esc(t('fleet.all'))}" tabindex="0"><table class="stack">
+      <thead><tr><th scope="col">${esc(t('fleet.col.pump'))}</th><th scope="col">${esc(t('fleet.col.app'))}</th><th scope="col">${esc(t('fleet.col.meas'))}</th><th scope="col">${esc(t('fleet.col.open'))}</th><th scope="col">${esc(t('fleet.col.action'))}</th></tr></thead>
       <tbody>${body}</tbody></table></div>`
-    : '<div class="empty"><p>No pumps match these filters.</p><button id="f-reset-empty" type="button">Reset filters</button></div>'}`;
+    : `<div class="empty"><p>${esc(t('fleet.none'))}</p><button id="f-reset-empty" type="button">${esc(t('fleet.reset'))}</button></div>`}
+    <details class="panel-sub" id="f-details"${f.split !== 'all' ? ' open' : ''}><summary>${esc(t('fleet.details'))}</summary>
+      <p class="small">${esc(t('fleet.splitText', { n: assets.length, tr: by('train'), va: by('validation'), te: by('test') }))}</p>
+      <label class="small">${esc(t('fleet.split'))}<select id="f-split">${['all', 'train', 'validation', 'test'].map((x) => `<option value="${x}"${f.split === x ? ' selected' : ''}>${esc(t(`split.${x}`))}</option>`).join('')}</select></label>
+      <div class="table-wrap" role="region" aria-label="${esc(t('fleet.details'))}" tabindex="0"><table>
+        <thead><tr><th scope="col">${esc(t('fleet.col.pump'))}</th><th scope="col">${esc(t('fleet.col.split'))}</th><th scope="col">${esc(t('fleet.col.tier'))}</th><th scope="col">${esc(t('fleet.col.control'))}</th><th scope="col" class="num">${esc(t('fleet.col.ch'))}</th><th scope="col">${esc(t('fleet.col.window'))}</th></tr></thead>
+        <tbody>${rows.map((a) => `<tr><th scope="row">${a.assetId}</th><td>${esc(t(`split.${a.split}`))}</td><td class="mono">${esc(a.instrumentationTier)}</td><td class="mono">${esc(a.control)}</td><td class="num">${a.channelsAvailable.length}</td><td class="num">${esc(formatUtc(parseUtc(a.windowStartUtc)).slice(0, 10))} – ${esc(formatUtc(parseUtc(a.windowEndUtc)).slice(0, 10))}</td></tr>`).join('')}</tbody></table></div>
+      <p class="small"><a href="#/evidence">${esc(t('fleet.links'))}</a> · <a href="#/diagnosis">${esc(t('fleet.linksAll'))}</a></p>
+    </details></section>`;
 }
 
 function inventoryTable(asset, view) {
@@ -246,60 +299,65 @@ function inventoryTable(asset, view) {
   const rows = ALL_CHANNELS.map((c) => {
     const isIn = installed.has(c);
     if (!view) {
-      return `<tr><th scope="row">${esc(label(c))}<div class="small muted mono">${c}</div></th><td>${isIn ? pill('s-info', 'Installed') : pill('s-gray', 'Not instrumented')}</td>
-        <td class="num">${isIn ? esc(cadence(meta[c].nativeUpdateSeconds)) : '—'}</td><td>${isIn ? esc(meta[c].unit) : '—'}</td><td class="small">${esc(CHANNEL_PLACEMENT[c])}</td></tr>`;
+      return `<tr><th scope="row">${esc(label(c))}<div class="small muted mono">${c}</div></th><td>${isIn ? pill('s-info', tx('Installed')) : pill('s-gray', tx('Not instrumented'))}</td>
+        <td class="num">${isIn ? esc(cadence(meta[c].nativeUpdateSeconds)) : '—'}</td><td>${isIn ? esc(meta[c].unit) : '—'}</td><td class="small">${esc(tx(CHANNEL_PLACEMENT[c]))}</td></tr>`;
     }
     const fr = channelFreshness(view, c, isIn);
     const cls = { NOT_INSTRUMENTED: 's-gray', NO_MEASUREMENT: 's-gray', UPDATE_OVERDUE: 's-attn', WITHIN_CADENCE: 's-info' }[fr.state];
-    const last = fr.windowEndMs != null ? `${esc(formatUtc(fr.windowEndMs))}<div class="small muted">sample in minute ending; age ${esc(formatDuration(fr.ageMinMs))}–${esc(formatDuration(fr.ageMaxMs))}</div>` : '—';
-    return `<tr><th scope="row">${esc(label(c))}<div class="small muted mono">${c}</div></th><td>${pill(cls, fr.label)}</td>
+    const last = fr.windowEndMs != null ? `${esc(formatUtc(fr.windowEndMs))}<div class="small muted">${L('sample in minute ending; age', 'отсчёт в минуте, заканчивающейся; возраст')} ${esc(dur(fr.ageMinMs))}–${esc(dur(fr.ageMaxMs))}</div>` : '—';
+    return `<tr><th scope="row">${esc(label(c))}<div class="small muted mono">${c}</div></th><td>${pill(cls, tx(fr.label))}</td>
       <td class="num">${isIn ? esc(cadence(meta[c].nativeUpdateSeconds)) : '—'}</td>
       <td class="num">${fr.value != null ? `${fmtNum(fr.value, 3)} ${esc(meta[c]?.unit)}` : '—'}</td>
-      <td class="num">${fr.z != null ? fmtNum(fr.z, 1) : (!isIn ? '—' : view.channels[c]?.z == null ? '<span class="muted small">not used by B1</span>' : '<span class="muted">unavailable</span>')}</td><td>${last}</td></tr>`;
+      <td class="num">${fr.z != null ? fmtNum(fr.z, 1) : (!isIn ? '—' : view.channels[c]?.z == null ? `<span class="muted small">${L('not used by B1', 'не используется B1')}</span>` : `<span class="muted">${L('unavailable', 'недоступно')}</span>`)}</td><td>${last}</td></tr>`;
   }).join('');
   const head = view
-    ? '<th scope="col">Channel</th><th scope="col">State</th><th scope="col" class="num">Native interval</th><th scope="col" class="num">Last value</th><th scope="col" class="num">Causal z</th><th scope="col">Last measured (UTC)</th>'
-    : '<th scope="col">Channel</th><th scope="col">Installed</th><th scope="col" class="num">Native interval</th><th scope="col">Unit</th><th scope="col">Conceptual placement</th>';
+    ? `<th scope="col">${L('Channel', 'Канал')}</th><th scope="col">${L('State', 'Состояние')}</th><th scope="col" class="num">${L('Native interval', 'Период датчика')}</th><th scope="col" class="num">${L('Last value', 'Последнее значение')}</th><th scope="col" class="num">${L('Causal z', 'Причинный z')}</th><th scope="col">${L('Last measured (UTC)', 'Последнее измерение (UTC)')}</th>`
+    : `<th scope="col">${L('Channel', 'Канал')}</th><th scope="col">${L('Installed', 'Установлен')}</th><th scope="col" class="num">${L('Native interval', 'Период датчика')}</th><th scope="col">${L('Unit', 'Единица')}</th><th scope="col">${L('Conceptual placement', 'Условное расположение')}</th>`;
   return `<div class="table-wrap" role="region" aria-label="Sensor inventory" tabindex="0"><table>
-    <caption>${view ? 'Values are 1-minute window means. Sparse channels have no value between native samples (no forward fill). Overdue = no sample for longer than the native interval plus one window.' : 'From the public asset passport (assets.csv channels_available). Native intervals mirror the benchmark sensor model. Placement is conceptual, not a mounting drawing.'}</caption>
+    <caption>${view ? L('Values are 1-minute window means. Sparse channels have no value between native samples (no forward fill). Overdue = no sample for longer than the native interval plus one window.', 'Значения — средние за 1-минутные окна. У редких каналов между собственными отсчётами значений нет (без протягивания). Просрочено = нет отсчёта дольше периода датчика плюс одно окно.') : L('From the public asset passport (assets.csv channels_available). Native intervals mirror the benchmark sensor model. Placement is conceptual, not a mounting drawing.', 'Из открытого паспорта насоса (assets.csv channels_available). Периоды соответствуют модели датчиков бенчмарка. Расположение условное, это не монтажный чертёж.')}</caption>
     <thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
 function pumpHeader(asset, extra = '') {
-  const modeBadge = { VALIDATION_REPLAY: pill('s-info', 'Validation replay · Synthetic benchmark'), TEST_METADATA_ONLY: pill('s-gray', 'Blind test · Metadata only'), TRAIN_REPLAY: pill('s-gray', 'Training asset · Replay not loaded') }[asset.mode];
-  return `<a class="backlink" href="#/fleet">← Back to Fleet</a>
+  const modeBadge = { VALIDATION_REPLAY: pill('s-info', tx('Validation replay · Synthetic benchmark')), TEST_METADATA_ONLY: pill('s-gray', tx('Blind test · Metadata only')), TRAIN_REPLAY: pill('s-gray', L('Training pump · passport', 'Обучающий насос · паспорт')) }[asset.mode];
+  const rc = reviewCase(asset.assetId);
+  // Back path to the warning review (case kept; the review keeps its own clock when no t= is given).
+  return `<a class="backlink" href="#/fleet">${esc(t('pd.back'))}</a>${rc ? ` · <a class="backlink" href="#/diagnosis?case=${rc.caseId}">${L('← Back to the warning review', '← Назад к разбору предупреждения')}</a>` : ''}
     <h1>${asset.assetId}</h1>
-    <p class="sub">${esc(asset.site)} · ${esc(asset.system)} · ${esc(asset.instrumentationTier)} · ${esc(asset.control)} ${modeBadge}</p>
+    <p class="sub">${esc(tx(asset.site))} · ${esc(tx(asset.system))} · ${esc(asset.instrumentationTier)} · ${esc(asset.control)} ${modeBadge}</p>
     <div class="tabs" role="navigation" aria-label="Pump sections">
-      <a class="button${extra === 'planner' ? '' : ' primary'}" href="#/pumps/${asset.assetId}"${extra === 'planner' ? '' : ' aria-current="page"'}>Pump Detail</a>
-      <a class="button${extra === 'planner' ? ' primary' : ''}" href="#/pumps/${asset.assetId}/retrofit"${extra === 'planner' ? ' aria-current="page"' : ''}>Retrofit Planner</a>
+      <a class="button${extra === 'planner' ? '' : ' primary'}" href="#/pumps/${asset.assetId}"${extra === 'planner' ? '' : ' aria-current="page"'}>${esc(t('pd.tabDetail'))}</a>
+      <a class="button${extra === 'planner' ? ' primary' : ''}" href="#/pumps/${asset.assetId}/retrofit"${extra === 'planner' ? ' aria-current="page"' : ''}>${esc(t('pd.tabPlanner'))}</a>
     </div>`;
 }
 
 function metadataPanel(asset) {
-  return `<section class="panel" aria-labelledby="meta-h"><h2 id="meta-h">Passport metadata</h2><dl class="kv">
-    <dt>Observation window</dt><dd class="num">${esc(formatUtc(parseUtc(asset.windowStartUtc)))} – ${esc(formatUtc(parseUtc(asset.windowEndUtc)))}</dd>
-    <dt>Fluid</dt><dd>${esc(asset.fluid)}</dd><dt>Commissioned</dt><dd>${asset.commissionedYear}</dd>
-    <dt>Motor rated</dt><dd class="num">${asset.motorRatedKw} kW · ${asset.ratedRpmMetadata} rpm (passport rating, not a measurement)</dd>
-    <dt>Design point</dt><dd class="num">${asset.designFlowM3h} m³/h at ${asset.designHeadM} m</dd>
-    <dt>Speed measurement</dt><dd>${asset.channelsAvailable.includes('motor_speed_rpm') ? 'Measured speed channel installed' : 'No measured speed channel'}</dd>
-    <dt>Source</dt><dd class="mono">vendor/benchmark/data/full/assets.csv</dd></dl></section>`;
+  return `<section class="panel" aria-labelledby="meta-h"><h2 id="meta-h">${L('Passport metadata', 'Паспортные данные')}</h2><dl class="kv">
+    <dt>${L('Observation window', 'Окно наблюдения')}</dt><dd class="num">${esc(formatUtc(parseUtc(asset.windowStartUtc)))} – ${esc(formatUtc(parseUtc(asset.windowEndUtc)))}</dd>
+    <dt>${L('Fluid', 'Среда')}</dt><dd>${esc(tx(asset.fluid))}</dd><dt>${L('Commissioned', 'Ввод в эксплуатацию')}</dt><dd>${asset.commissionedYear}</dd>
+    <dt>${L('Motor rated', 'Двигатель, номинал')}</dt><dd class="num">${asset.motorRatedKw} kW · ${asset.ratedRpmMetadata} rpm ${L('(passport rating, not a measurement)', '(паспортный номинал, не измерение)')}</dd>
+    <dt>${L('Design point', 'Расчётная точка')}</dt><dd class="num">${asset.designFlowM3h} m³/h ${L('at', 'при')} ${asset.designHeadM} m</dd>
+    <dt>${L('Speed measurement', 'Измерение частоты вращения')}</dt><dd>${asset.channelsAvailable.includes('motor_speed_rpm') ? L('Measured speed channel installed', 'Канал измеренной частоты установлен') : L('No measured speed channel', 'Нет канала измеренной частоты')}</dd>
+    <dt>${L('Source', 'Источник')}</dt><dd class="mono">vendor/benchmark/data/full/assets.csv</dd></dl></section>`;
 }
 
 function renderPump(route) {
   const asset = assetById(route.assetId);
-  if (!asset) return '<h1>Pump not found</h1><p>No pump with this ID exists in the public metadata.</p><p><a class="button primary" href="#/fleet">Back to Fleet</a></p>';
+  if (!asset) return `<h1>${L('Pump not found', 'Насос не найден')}</h1><p>${L('No pump with this ID exists in the public metadata.', 'Насоса с таким идентификатором нет в открытых данных.')}</p><p><a class="button primary" href="#/fleet">${L('Back to Fleet', 'Назад к парку')}</a></p>`;
   if (asset.mode !== 'VALIDATION_REPLAY') {
     const banner = asset.mode === 'TEST_METADATA_ONLY'
-      ? '<div class="note" role="note"><b>Diagnosis unavailable.</b> Blind test asset: only the public passport and sensor inventory are bundled. No telemetry, alerts or labels exist in this application.</div>'
-      : '<div class="note" role="note"><b>Replay not loaded.</b> Training-asset replay is not part of this demo bundle. Sensor inventory is from the public passport.</div>';
-    return `${pumpHeader(asset)}${banner}<p></p>${schematicPanel(asset)}<div class="grid-2"><section class="panel" aria-labelledby="inv-h"><h2 id="inv-h">Sensor inventory</h2>${inventoryTable(asset, null)}</section>${metadataPanel(asset)}</div>`;
+      ? `<div class="note" role="note">${L('<b>Diagnosis unavailable.</b> Blind test asset: only the public passport and sensor inventory are bundled. No telemetry, alerts or labels exist in this application.', '<b>Диагностика недоступна.</b> Насос слепого теста: в приложении есть только открытый паспорт и перечень датчиков. Телеметрии, предупреждений и меток нет.')}</div>`
+      : reviewCase(asset.assetId)
+        ? `<div class="note" role="note">${L('<b>Full minute-by-minute replay is not included</b> for this training pump; a separate reviewed warning episode is available.', '<b>Полное поминутное воспроизведение не включено</b> для этого обучающего насоса; доступен отдельный разобранный эпизод.')}
+            <a class="button primary" href="${reviewHref(reviewCase(asset.assetId))}">${L('Open the reviewed warning', 'Открыть разобранное предупреждение')}</a></div>`
+        : `<div class="note" role="note">${L('<b>Replay not loaded.</b> Training-asset replay is not part of this demo bundle. Sensor inventory is from the public passport. Inventory only does not mean healthy.', '<b>Запись не загружена.</b> Записи этого обучающего насоса нет в демо-пакете. Перечень датчиков — из открытого паспорта. Только перечень — не признак исправности.')}</div>`;
+    return `${pumpHeader(asset)}${banner}<p></p>${schematicPanel(asset)}<div class="grid-2"><section class="panel" aria-labelledby="inv-h"><h2 id="inv-h">${L('Sensor inventory', 'Перечень датчиков')}</h2>${inventoryTable(asset, null)}</section>${metadataPanel(asset)}</div>`;
   }
   const r = ensureReplay(asset);
-  if (r.status === 'loading') return `${pumpHeader(asset)}<p class="loading" role="status">Loading replay source…</p>`;
+  if (r.status === 'loading') return `${pumpHeader(asset)}<p class="loading" role="status">${L('Loading replay source…', 'Загрузка записи…')}</p>`;
   if (r.status === 'error') {
-    return `${pumpHeader(asset)}<div class="error" role="alert"><b>Signal data unavailable.</b> Replay source could not be read: <span class="mono">${esc(r.error)}</span>. No curve or alert is shown instead.</div>
-      <p><button id="retry-replay" class="primary" data-asset="${asset.assetId}">Retry</button></p>
+    return `${pumpHeader(asset)}<div class="error" role="alert"><b>${L('Signal data unavailable.', 'Данные сигналов недоступны.')}</b> ${L('Replay source could not be read:', 'Не удалось прочитать запись:')} <span class="mono">${esc(r.error)}</span>. No curve or alert is shown instead.</div>
+      <p><button id="retry-replay" class="primary" data-asset="${asset.assetId}">${L('Retry', 'Повторить')}</button></p>
       <section class="panel"><h2>Sensor inventory</h2>${inventoryTable(asset, null)}</section>`;
   }
   const replay = r.data;
@@ -318,48 +376,48 @@ function renderPump(route) {
   const isoInput = new Date(asOf).toISOString().slice(0, 19);
   return `${pumpHeader(asset)}
     <section class="clockbar" aria-label="Replay clock">
-      <div><div class="small muted">Replay as of</div><div class="asof" aria-live="polite">${esc(formatUtc(asOf, { seconds: asOf % MINUTE_MS !== 0 }))}</div>
-        <div class="small muted">${view.visibleMinutes} of ${replay.minutes} completed minutes visible · window ${esc(formatUtc(start))} – ${esc(formatUtc(end))}</div></div>
+      <div><div class="small muted">${L('Replay as of', 'Время воспроизведения')}</div><div class="asof" aria-live="polite">${esc(formatUtc(asOf, { seconds: asOf % MINUTE_MS !== 0 }))}</div>
+        <div class="small muted">${L(`${view.visibleMinutes} of ${replay.minutes} completed minutes visible · window`, `Видно закрытых минут: ${view.visibleMinutes} из ${replay.minutes} · окно`)} ${esc(formatUtc(start))} – ${esc(formatUtc(end))}</div></div>
       <div class="controls">
-        <button id="play" type="button" class="primary" aria-pressed="${state.playing ? 'true' : 'false'}">${state.playing ? 'Pause' : 'Play'}</button>
-        <label>Speed<select id="speed">${SPEEDS.map((s) => `<option value="${s}"${state.speed === s ? ' selected' : ''}>${s} min / step</option>`).join('')}</select></label>
+        <button id="play" type="button" class="primary" aria-pressed="${state.playing ? 'true' : 'false'}">${state.playing ? L('Pause', 'Пауза') : L('Play', 'Пуск')}</button>
+        <label>${L('Speed', 'Скорость')}<select id="speed">${SPEEDS.map((s) => `<option value="${s}"${state.speed === s ? ' selected' : ''}>${s} ${L('min / step', 'мин / шаг')}</option>`).join('')}</select></label>
         <button id="back-h" type="button" aria-label="Back one hour">−1 h</button>
         <button id="back-m" type="button" aria-label="Previous completed minute">−1 min</button>
         <button id="fwd-m" type="button" aria-label="Next completed minute">+1 min</button>
         <button id="fwd-h" type="button" aria-label="Forward one hour">+1 h</button>
-        <label>Set time (UTC)<input id="t-input" type="datetime-local" step="1" value="${isoInput}" min="${new Date(start).toISOString().slice(0, 19)}" max="${new Date(end).toISOString().slice(0, 19)}"></label>
+        <label>${L('Set time (UTC)', 'Задать время (UTC)')}<input id="t-input" type="datetime-local" step="1" value="${isoInput}" min="${new Date(start).toISOString().slice(0, 19)}" max="${new Date(end).toISOString().slice(0, 19)}"></label>
       </div>
       <input id="t-range" type="range" min="0" max="${replay.minutes}" step="1" value="${visibleCount(replay, asOf)}" aria-label="Replay time, minutes since window start" aria-valuetext="${esc(formatUtc(asOf))}">
       ${state.endNotice ? `<span role="status">${pill('s-gray', state.endNotice)}</span>` : ''}
     </section>
-    ${selected ? diagnosisCard(asset, view, selected) : `<section class="panel diag" aria-labelledby="dx-h"><h2 id="dx-h" tabindex="-1">Selected alert</h2><div class="empty">No baseline alert in this visible history. No alert does not prove the pump is healthy.</div></section>`}
-    ${view.alerts.length ? `<details class="panel history" id="al-history"${state.open.history ? ' open' : ''}><summary><h2 id="al-h">Alert history (${view.alerts.length} visible)</h2>
-        <span class="small muted">Select an alert to explain it. Newest first.</span></summary>
+    ${selected ? diagnosisCard(asset, view, selected) : `<section class="panel diag" aria-labelledby="dx-h"><h2 id="dx-h" tabindex="-1">${L('Selected alert', 'Выбранное предупреждение')}</h2><div class="empty">${L('No baseline alert in this visible history. No alert does not prove the pump is healthy.', 'В видимой истории нет предупреждений базового детектора. Отсутствие предупреждений не доказывает исправность насоса.')}</div></section>`}
+    ${view.alerts.length ? `<details class="panel history" id="al-history"${state.open.history ? ' open' : ''}><summary><h2 id="al-h">${L('Alert history', 'История предупреждений')} (${view.alerts.length} ${L('visible', 'видимых')})</h2>
+        <span class="small muted">${L('Select an alert to explain it. Newest first.', 'Выберите предупреждение для разбора. Новые сверху.')}</span></summary>
       <ul class="alert-list">${[...view.alerts].reverse().map((a, i) => `<li><button type="button" id="al-${i}" data-alert="${esc(a.alert_time_utc)}" aria-pressed="${selected && a.alert_time_utc === selected.alert_time_utc}">
-        <span class="num">${esc(formatUtc(parseUtc(a.alert_time_utc)))}</span> · ${esc(humanType(a.fault_type))} <span class="small muted">${esc(a.event_class === 'SENSOR' ? 'data-quality rule' : 'machine rule')}</span></button></li>`).join('')}</ul>
+        <span class="num">${esc(formatUtc(parseUtc(a.alert_time_utc)))}</span> · ${esc(getLang() === 'ru' ? (FAULT_RU[a.fault_type]?.name ?? humanType(a.fault_type)) : humanType(a.fault_type))} <span class="small muted">${esc(a.event_class === 'SENSOR' ? L('data-quality rule', 'правило качества данных') : L('machine rule', 'правило машины'))}</span></button></li>`).join('')}</ul>
     </details>` : ''}
     <div class="status-row">
-      <section class="panel" aria-labelledby="st-ref"><h2 id="st-ref">Statistical reference</h2>${pill(ref.state === 'REFERENCE_AVAILABLE' ? 's-info' : ref.state === 'INSUFFICIENT_REFERENCE' ? 's-attn' : 's-gray', ref.label)}<p class="small muted">${esc(ref.detail)}</p></section>
-      <section class="panel" aria-labelledby="st-pk"><h2 id="st-pk">Data packets</h2>${pill(pk.state === 'PACKETS_MISSING' ? 's-attn' : pk.state === 'RECEIVING' ? 's-info' : 's-gray', pk.label)}<p class="small muted">${esc(pk.detail ?? '')} Operating mode: ${esc(view.rows.operatingMode[view.visibleMinutes - 1] ?? '—')}.</p></section>
-      <section class="panel" aria-labelledby="st-dx"><h2 id="st-dx">Baseline output (causal B1)</h2>${pill(diag.state === 'NO_VISIBLE_ALERT' ? 's-gray' : diag.state === 'UNKNOWN_DIAGNOSIS' ? 's-attn' : 's-alert', diag.label)}<p class="small muted">${diag.alert ? `${esc(humanType(diag.alert.fault_type))} · ${esc(formatUtc(parseUtc(diag.alert.alert_time_utc)))}. A historical alert is not necessarily an ongoing fault.` : 'No alert does not prove the pump is healthy.'}</p></section>
+      <section class="panel" aria-labelledby="st-ref"><h2 id="st-ref">${L('Statistical reference', 'Статистическая опора')}</h2>${pill(ref.state === 'REFERENCE_AVAILABLE' ? 's-info' : ref.state === 'INSUFFICIENT_REFERENCE' ? 's-attn' : 's-gray', ruStatus(ref).label)}<p class="small muted">${esc(ruStatus(ref).detail)}</p></section>
+      <section class="panel" aria-labelledby="st-pk"><h2 id="st-pk">${L('Data packets', 'Пакеты данных')}</h2>${pill(pk.state === 'PACKETS_MISSING' ? 's-attn' : pk.state === 'RECEIVING' ? 's-info' : 's-gray', ruStatus(pk).label)}<p class="small muted">${esc(ruStatus(pk).detail ?? '')} ${L('Operating mode', 'Режим работы')}: ${esc(view.rows.operatingMode[view.visibleMinutes - 1] ?? '—')}.</p></section>
+      <section class="panel" aria-labelledby="st-dx"><h2 id="st-dx">${L('Baseline output (causal B1)', 'Вывод базового детектора (B1)')}</h2>${pill(diag.state === 'NO_VISIBLE_ALERT' ? 's-gray' : diag.state === 'UNKNOWN_DIAGNOSIS' ? 's-attn' : 's-alert', ruStatus(diag).label)}<p class="small muted">${diag.alert ? `${esc(getLang() === 'ru' ? (FAULT_RU[diag.alert.fault_type]?.name ?? humanType(diag.alert.fault_type)) : humanType(diag.alert.fault_type))} · ${esc(formatUtc(parseUtc(diag.alert.alert_time_utc)))}. ${L('A historical alert is not necessarily an ongoing fault.', 'Историческое предупреждение не обязательно означает текущую неисправность.')}` : L('No alert does not prove the pump is healthy.', 'Отсутствие предупреждений не доказывает исправность насоса.')}</p></section>
     </div>
     <div class="grid-2">
       <section class="panel chart" aria-labelledby="ch-h">
-        <h2 id="ch-h">Trend up to the as-of time</h2>
+        <h2 id="ch-h">${L('Trend up to the as-of time', 'Тренд до текущего времени')}</h2>
         <div class="chart-tools">
-          <label>Channel<select id="ch-sel">${channels.map((c) => `<option value="${c}"${c === chartChannel ? ' selected' : ''}>${esc(label(c))} (${esc(view.channels[c].unit)})</option>`).join('')}</select></label>
-          <label>Span<select id="span-sel">${[[360, 'Last 6 h'], [1440, 'Last 24 h'], [0, 'All visible history']].map(([v, t]) => `<option value="${v}"${state.chart.spanMin === v ? ' selected' : ''}>${t}</option>`).join('')}</select></label>
+          <label>${L('Channel', 'Канал')}<select id="ch-sel">${channels.map((c) => `<option value="${c}"${c === chartChannel ? ' selected' : ''}>${esc(label(c))} (${esc(view.channels[c].unit)})</option>`).join('')}</select></label>
+          <label>${L('Span', 'Интервал')}<select id="span-sel">${[[360, L('Last 6 h', 'Последние 6 ч')], [1440, L('Last 24 h', 'Последние 24 ч')], [0, L('All visible history', 'Вся видимая история')]].map(([v, t]) => `<option value="${v}"${state.chart.spanMin === v ? ' selected' : ''}>${t}</option>`).join('')}</select></label>
         </div>
         ${trendCharts(view, chartChannel, state.chart.spanMin, state.showLabels ? sliceLabels(replay, asOf) : null)}
       </section>
       ${evaluationPanel(replay, asOf)}
     </div>
     ${schematicPanel(asset)}
-    <section class="panel" aria-labelledby="inv-h"><h2 id="inv-h">Sensor inventory and freshness at the as-of time</h2>${inventoryTable(asset, view)}</section>`;
+    <section class="panel" aria-labelledby="inv-h"><h2 id="inv-h">${L('Sensor inventory and freshness at the as-of time', 'Датчики и свежесть данных на текущее время')}</h2>${inventoryTable(asset, view)}</section>`;
 }
 
 function schematicPanel(asset) {
-  return `<section class="panel" aria-labelledby="sch-h"><h2 id="sch-h">Where the measurements are</h2>
+  return `<section class="panel" aria-labelledby="sch-h"><h2 id="sch-h">${L('Where the measurements are', 'Где расположены измерения')}</h2>
     ${renderSchematic(asset, { selected: state.schematicSel[asset.assetId], prefix: 'sch' })}</section>`;
 }
 
@@ -378,37 +436,40 @@ const KIND_PILL = {
 const zText = (z) => `${z > 0 ? '+' : z < 0 ? '−' : ''}${Math.abs(z).toFixed(2)}`;
 function diagnosisCard(asset, view, alert) {
   const e = explainAlert(view, alert, asset);
-  if (!e.available) return `<section class="panel diag" aria-labelledby="dx-h"><h2 id="dx-h" tabindex="-1">Selected alert</h2><div class="empty">${esc(e.timing)}</div></section>`;
+  if (!e.available) return `<section class="panel diag" aria-labelledby="dx-h"><h2 id="dx-h" tabindex="-1">${L('Selected alert', 'Выбранное предупреждение')}</h2><div class="empty">${esc(e.timing)}</div></section>`;
   const t = e.technical;
+  // Russian view: same structured explanation, composed in Russian (explain-ru.js); technical fields stay original.
+  const ru = getLang() === 'ru' ? ruExplainBaseline(e, alert, asset, view.asOfMs) : null;
+  const V = (en, r) => (ru ? r : en);
   const i = Math.round((e.issuedMs - view.gridStartMs) / MINUTE_MS) - 1;
-  const obs = e.observations.map((o) => `<li><b>${esc(o.label)}</b> ${o.named ? pill('s-info', 'Named in source evidence') : pill('s-gray', 'Also deviating · not named')}<br>
-      ${o.channelId ? `Measured <span class="num">${o.value != null ? `${esc(o.value)} ${esc(o.unit)}` : 'no sample in this minute'}</span> · Derived ${o.z != null ? `<span class="num">causal z ${esc(zText(o.z))}</span>, ${esc(o.direction)} reference` : 'reference comparison unavailable'}
-      <span class="small muted">· 1-min mean, minute ending ${esc(formatUtc(e.issuedMs).slice(11))} · ${esc(o.place)}</span>` : esc(o.text)}</li>`).join('');
+  const obs = e.observations.map((o) => `<li><b>${esc(o.channelId ? label(o.channelId) : V(o.label, 'Строки телеметрии'))}</b> ${o.named ? pill('s-info', V('Named in source evidence', 'Назван в исходных данных детектора')) : pill('s-gray', V('Also deviating · not named', 'Тоже отклоняется · не назван'))}<br>
+      ${o.channelId ? `${V('Measured', 'Измерено')} <span class="num">${o.value != null ? `${esc(o.value)} ${esc(o.unit)}` : V('no sample in this minute', 'нет отсчёта в эту минуту')}</span> · ${V('Derived', 'Рассчитано')} ${o.z != null ? `<span class="num">${V('causal z', 'причинный z')} ${esc(zText(o.z))}</span>, ${esc(ru ? `${ru.dir(o.direction)} опоры` : `${o.direction} reference`)}` : V('reference comparison unavailable', 'сравнение с опорой недоступно')}
+      <span class="small muted">· ${V('1-min mean, minute ending', 'среднее за 1 мин, минута до')} ${esc(formatUtc(e.issuedMs).slice(11))} · ${esc(tx(o.place))}</span>` : esc(ru ? ru.obsText(o) : o.text)}</li>`).join('');
   const rows = Object.entries(view.channels).map(([c, ch]) => [c, ch, ch.z?.[i] ?? null])
     .sort((a, b) => Math.abs(b[2] ?? 0) - Math.abs(a[2] ?? 0));
   const [kc, kt] = KIND_PILL[e.kind];
   return `<section class="panel diag" aria-labelledby="dx-h">
-    <div class="diag-head"><h2 id="dx-h" tabindex="-1">Selected alert · ${esc(humanType(alert.fault_type))}</h2>${pill(kc, kt)}</div>
-    <p class="small muted diag-time">${esc(e.timing)}</p>
+    <div class="diag-head"><h2 id="dx-h" tabindex="-1">${V('Selected alert', 'Выбранное предупреждение')} · ${esc(ru ? ru.title : humanType(alert.fault_type))}</h2>${pill(kc, ru ? { 'Machine rule · unconfirmed': 'Правило машины · не подтверждено', 'Cause unresolved · UNKNOWN': 'Причина не установлена · UNKNOWN', 'Data-quality warning': 'Качество данных', 'Data-quality warning · stuck reading': 'Качество данных · залипание', 'Data gap': 'Пропуск данных' }[kt] ?? kt : kt)}</div>
+    <p class="small muted diag-time">${esc(ru ? ru.timing : e.timing)}</p>
     <div class="diag-grid">
       <div>
-        <h3><span class="step">1</span> What the rule suggests</h3>
-        <p class="diag-headline">${esc(e.headline)}</p>
-        ${e.caveat ? `<p class="small">${esc(e.caveat)}</p>` : ''}
-        <h3><span class="step">2</span> What was observed</h3>
-        ${obs ? `<ul class="obs-list">${obs}</ul>` : '<p class="small muted">No channel value is available at the alert minute.</p>'}
-        ${e.referenceCaveat ? `<p class="small muted">${esc(e.referenceCaveat)}</p>` : ''}
+        <h3><span class="step">1</span> ${L('What the rule suggests', 'Что предполагает правило')}</h3>
+        <p class="diag-headline">${esc(ru ? ru.headline : e.headline)}</p>
+        ${(ru ? ru.caveat : e.caveat) ? `<p class="small">${esc(ru ? ru.caveat : e.caveat)}</p>` : ''}
+        <h3><span class="step">2</span> ${L('What was observed', 'Что наблюдалось')}</h3>
+        ${obs ? `<ul class="obs-list">${obs}</ul>` : `<p class="small muted">${V('No channel value is available at the alert minute.', 'В минуту предупреждения значений каналов нет.')}</p>`}
+        ${e.referenceCaveat ? `<p class="small muted">${esc(ru ? ru.referenceCaveat : e.referenceCaveat)}</p>` : ''}
       </div>
       <div>
-        <h3><span class="step">3</span> Why this is still uncertain</h3>
-        <p class="small"><span class="muted">Also possible (not ranked or evaluated):</span> ${e.alternatives.map(esc).join('; ')}.</p>
-        ${e.gapSummary.length ? `<ul class="gap-list small">${e.gapSummary.map((g) => `<li>${pill(...GAP_PILL[g.kind])} ${esc(g.text)}</li>`).join('')}</ul>` : ''}
-        <h3><span class="step">4</span> Next engineering check</h3>
-        <p>${esc(e.nextCheck.text)}</p>
-        <p class="small"><b>Why:</b> ${esc(e.nextCheck.reason)} <span class="muted">${esc(e.nextCheck.advisory)}</span></p>
+        <h3><span class="step">3</span> ${L('Why this is still uncertain', 'Почему это ещё не определённо')}</h3>
+        <p class="small"><span class="muted">${V('Also possible (not ranked or evaluated):', 'Также возможно (без ранжирования и оценки):')}</span> ${(ru ? ru.alternatives : e.alternatives).map(esc).join('; ')}.</p>
+        ${e.gapSummary.length ? `<ul class="gap-list small">${(ru ? ru.gaps : e.gapSummary).map((g) => `<li>${pill(GAP_PILL[g.kind][0], ru ? { 'not-installed': 'Не установлен', 'no-sample': 'Нет отсчёта в эту минуту', 'no-z': 'Нет сравнения с опорой', 'not-in-benchmark': 'Нет в бенчмарке', partial: 'Неполное покрытие', 'no-rows': 'Нет телеметрии' }[g.kind] : GAP_PILL[g.kind][1])} ${esc(g.text)}</li>`).join('')}</ul>` : ''}
+        <h3><span class="step">4</span> ${L('Next engineering check', 'Следующая инженерная проверка')}</h3>
+        <p>${esc(ru ? ru.next.text : e.nextCheck.text)}</p>
+        <p class="small"><b>${V('Why:', 'Зачем:')}</b> ${esc(ru ? ru.next.reason : e.nextCheck.reason)} <span class="muted">${esc(ru ? ru.next.advisory : e.nextCheck.advisory)}</span></p>
       </div>
     </div>
-    <details class="panel-sub" id="dx-tech"${state.open.tech ? ' open' : ''}><summary>Technical details: full rule interpretation, z, per-channel gaps, source evidence, score</summary>
+    <details class="panel-sub" id="dx-tech"${state.open.tech ? ' open' : ''}><summary>${L('Technical details: full rule interpretation, z, per-channel gaps, source evidence, score', 'Технические подробности (исходные формулировки на английском): правило, z, пропуски по каналам, исходные данные, оценка')}</summary>
       <dl class="kv">
         <dt>Rule interpretation</dt><dd class="small">${esc(e.hypothesis)}</dd>
         ${e.zNote ? `<dt>What z means</dt><dd class="small">${esc(e.zNote)}</dd>` : ''}
@@ -432,32 +493,32 @@ function evaluationPanel(replay, asOf) {
   const on = state.showLabels;
   const labels = on ? sliceLabels(replay, asOf) : [];
   return `<section class="panel eval-panel" aria-labelledby="eval-h">
-    <h2 id="eval-h">Retrospective evaluation</h2>
-    <label class="check"><input id="labels-toggle" type="checkbox"${on ? ' checked' : ''}> Show validation labels</label>
-    <p class="small muted">Ground truth from the benchmark labels. Never an input to the detector; toggling it does not change predictions or evidence above. Only events with onset ≤ as-of are shown; later timestamps are withheld.</p>
-    ${on ? (labels.length ? `<ul class="tight small">${labels.map((e) => `<li>${pill('s-eval', 'Ground truth')} <b>${esc(e.event_id)}</b> ${esc(e.event_class)} · ${esc(e.fault_type)}<br>
+    <h2 id="eval-h">${L('Retrospective evaluation', 'Ретроспективная оценка')}</h2>
+    <label class="check"><input id="labels-toggle" type="checkbox"${on ? ' checked' : ''}> ${L('Show validation labels', 'Показать валидационные метки')}</label>
+    <p class="small muted">${L('Ground truth from the benchmark labels. Never an input to the detector; toggling it does not change predictions or evidence above. Only events with onset ≤ as-of are shown; later timestamps are withheld.', 'Истина из меток бенчмарка. Никогда не используется детектором; переключение не меняет выводы и данные выше. Показываются только события с началом не позже текущего времени; более поздние отметки скрыты.')}</p>
+    ${on ? (labels.length ? `<ul class="tight small">${labels.map((e) => `<li>${pill('s-eval', L('Ground truth', 'Истина'))} <b>${esc(e.event_id)}</b> ${esc(e.event_class)} · ${esc(e.fault_type)}<br>
       Onset ${esc(formatUtc(parseUtc(e.onset_utc)))}${e.pre_existing === 'True' ? ' (pre-existing at window start)' : ''} · severity ${esc(e.severity)}<br>
-      ${e.endWithheld ? 'End: not revealed at this as-of time' : `End ${esc(formatUtc(parseUtc(e.end_utc)))}`}</li>`).join('')}</ul>`
-      : '<p class="small">No labelled event onset at or before the as-of time.</p>') + '<p class="small"><a href="#/evidence">Full-window results on Evidence &amp; Validation</a></p>' : ''}
+      ${e.endWithheld ? L('End: not revealed at this as-of time', 'Конец: не раскрыт на это время') : `End ${esc(formatUtc(parseUtc(e.end_utc)))}`}</li>`).join('')}</ul>`
+      : `<p class="small">${L('No labelled event onset at or before the as-of time.', 'К текущему времени размеченных начал событий нет.')}</p>`) + `<p class="small"><a href="#/evidence">${L('Full-window results on Evidence &amp; Validation', 'Результаты по всему окну — в разделе «Результаты проверки»')}</a></p>` : ''}
   </section>`;
 }
 
 function trendCharts(view, channelId, spanMin, labels) {
   const ch = view.channels[channelId];
   const n = view.visibleMinutes;
-  if (n === 0) return '<div class="empty">No completed minute yet at this as-of time.</div>';
+  if (n === 0) return `<div class="empty">${L('No completed minute yet at this as-of time.', 'К этому времени ещё нет закрытой минуты.')}</div>`;
   const i0 = spanMin ? Math.max(0, n - spanMin) : 0;
   const x0 = view.gridStartMs + i0 * MINUTE_MS; const x1 = view.asOfMs;
   const sparse = ch.nativeUpdateSeconds > 60;
   const pts = (arr) => { const out = []; for (let i = i0; i < n; i += 1) out.push(arr[i] == null ? null : [view.gridStartMs + (i + 1) * MINUTE_MS, arr[i]]); return out; };
   const alerts = view.alerts.filter((a) => parseUtc(a.alert_time_utc) >= x0);
   const k = view.detectorParameters.k;
-  const meanSvg = svgChart({ points: pts(ch.mean), x0, x1, sparse, unit: ch.unit, title: `${label(channelId)} (${ch.unit}), 1-min window mean`, alerts, labels });
+  const meanSvg = svgChart({ points: pts(ch.mean), x0, x1, sparse, unit: ch.unit, title: `${label(channelId)} (${ch.unit}), ${L('1-min window mean', 'среднее за 1 мин')}`, alerts, labels });
   const zPts = ch.z ? pts(ch.z) : [];
   const anyZ = zPts.some((p) => p);
-  const zSvg = anyZ ? svgChart({ points: zPts, x0, x1, sparse, unit: 'z', title: `Causal z-score (threshold ±${k})`, alerts, labels, thresholds: [k, -k] })
-    : `<div class="empty small">Causal z-score unavailable in this span${view.asOfMs < view.referenceEndMs + MINUTE_MS ? ' — reference still collecting (first 24 h)' : ''}.</div>`;
-  return `${meanSvg}${zSvg}<p class="small muted">${sparse ? `Sparse channel: one native sample every ${cadence(ch.nativeUpdateSeconds)}; points only where a sample exists.` : 'Gaps are minutes without samples.'} Points are plotted at window end (availability time). Right edge = as-of time; nothing later is drawn.</p>`;
+  const zSvg = anyZ ? svgChart({ points: zPts, x0, x1, sparse, unit: 'z', title: `${L('Causal z-score (threshold', 'Причинная z-оценка (порог')} ±${k})`, alerts, labels, thresholds: [k, -k] })
+    : `<div class="empty small">${L('Causal z-score unavailable in this span', 'Причинная z-оценка недоступна в этом интервале')}${view.asOfMs < view.referenceEndMs + MINUTE_MS ? L(' — reference still collecting (first 24 h)', ' — опора ещё собирается (первые 24 ч)') : ''}.</div>`;
+  return `${meanSvg}${zSvg}<p class="small muted">${sparse ? L(`Sparse channel: one native sample every ${cadence(ch.nativeUpdateSeconds)}; points only where a sample exists.`, `Редкий канал: один отсчёт раз в ${cadence(ch.nativeUpdateSeconds)}; точки только там, где есть отсчёт.`) : L('Gaps are minutes without samples.', 'Разрывы — минуты без отсчётов.')} ${L('Points are plotted at window end (availability time). Right edge = as-of time; nothing later is drawn.', 'Точки ставятся в конце окна (момент доступности). Правый край — текущее время; более позднее не рисуется.')}</p>`;
 }
 
 function svgChart({ points, x0, x1, sparse, unit, title, alerts, labels, thresholds = [] }) {
@@ -465,7 +526,7 @@ function svgChart({ points, x0, x1, sparse, unit, title, alerts, labels, thresho
   const narrow = window.innerWidth < 600;
   const W = narrow ? 320 : 900; const H = narrow ? 230 : 210; const L = narrow ? 46 : 62; const R = 10; const T = narrow ? 42 : 22; const B = 30;
   const vals = points.filter(Boolean).map((p) => p[1]).concat(thresholds);
-  if (!points.some(Boolean)) return `<div class="empty small">${esc(title)}: no samples in this span.</div>`;
+  if (!points.some(Boolean)) return `<div class="empty small">${esc(title)}: ${L('no samples in this span.', 'нет отсчётов в этом интервале.')}</div>`;
   let lo = Math.min(...vals); let hi = Math.max(...vals);
   if (lo === hi) { lo -= 1; hi += 1; }
   const pad = (hi - lo) * 0.08; lo -= pad; hi += pad;
@@ -483,7 +544,7 @@ function svgChart({ points, x0, x1, sparse, unit, title, alerts, labels, thresho
   const ticksY = [lo + pad, (lo + hi) / 2, hi - pad].map((v) => `<line x1="${L}" x2="${W - R}" y1="${sy(v)}" y2="${sy(v)}" stroke="#e3e7ec"/><text x="${L - 6}" y="${sy(v) + 4}" text-anchor="end" font-size="11" fill="#5a6573">${v.toFixed(Math.abs(v) < 10 ? 2 : 1)}</text>`).join('');
   const ticksX = (narrow ? [0, 0.5, 1] : [0, 0.25, 0.5, 0.75, 1]).map((f) => { const t = x0 + f * span; const s = new Date(t).toISOString(); return `<text x="${sx(t)}" y="${H - 8}" text-anchor="${f === 0 ? 'start' : f === 1 ? 'end' : 'middle'}" font-size="11" fill="#5a6573">${s.slice(5, 10)} ${s.slice(11, 16)}</text>`; }).join('');
   const th = thresholds.map((v) => `<line x1="${L}" x2="${W - R}" y1="${sy(v)}" y2="${sy(v)}" stroke="#a4262c" stroke-dasharray="5 4"/>`).join('');
-  const al = alerts.map((a) => { const x = sx(parseUtc(a.alert_time_utc)); const right = x > W - R - 60; return `<line x1="${x}" x2="${x}" y1="${T}" y2="${H - B}" stroke="#a4262c" stroke-width="1.5"/><text x="${right ? x - 4 : x + 4}" y="${T + 12}" text-anchor="${right ? 'end' : 'start'}" font-size="11" fill="#a4262c" stroke="#fff" stroke-width="3" paint-order="stroke">! alert</text>`; }).join('');
+  const al = alerts.map((a) => { const x = sx(parseUtc(a.alert_time_utc)); const right = x > W - R - 60; return `<line x1="${x}" x2="${x}" y1="${T}" y2="${H - B}" stroke="#a4262c" stroke-width="1.5"/><text x="${right ? x - 4 : x + 4}" y="${T + 12}" text-anchor="${right ? 'end' : 'start'}" font-size="11" fill="#a4262c" stroke="#fff" stroke-width="3" paint-order="stroke">! ${L('alert', 'предупр.')}</text>`; }).join('');
   const lb = (labels ?? []).map((e) => {
     const a = Math.max(x0, parseUtc(e.onset_utc)); const b = e.endWithheld ? x1 : Math.min(x1, parseUtc(e.end_utc));
     if (b < x0) return '';
@@ -493,7 +554,7 @@ function svgChart({ points, x0, x1, sparse, unit, title, alerts, labels, thresho
   return `<div class="plot-scroll" role="region" aria-label="${esc(title)} chart" tabindex="0"><svg viewBox="0 0 ${W} ${H}" class="plot${narrow ? ' plot-fixed' : ''}" style="--plot-w:${W}px" role="img" aria-label="${esc(title)}; ${points.filter(Boolean).length} points up to the as-of time">
     <text x="${narrow ? 2 : L}" y="14" font-size="12" font-weight="600" fill="#1d232b">${esc(title)}</text>
     ${ticksY}${th}${marks}${al}${lb}
-    <line x1="${W - R}" x2="${W - R}" y1="${T}" y2="${H - B}" stroke="#1d232b" stroke-width="2"/><text x="${W - R}" y="${narrow ? 32 : T - 6}" text-anchor="end" font-size="11" font-weight="600" fill="#1d232b">As of ${esc(formatUtc(x1).slice(5, 16))}</text>
+    <line x1="${W - R}" x2="${W - R}" y1="${T}" y2="${H - B}" stroke="#1d232b" stroke-width="2"/><text x="${W - R}" y="${narrow ? 32 : T - 6}" text-anchor="end" font-size="11" font-weight="600" fill="#1d232b">${L('As of', 'На')} ${esc(formatUtc(x1).slice(5, 16))}</text>
     <line x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}" stroke="#aab3be"/>${ticksX}
     <text x="12" y="${(H - B + T) / 2}" font-size="11" fill="#5a6573" transform="rotate(-90 12 ${(H - B + T) / 2})" text-anchor="middle">${esc(unit)}</text>
   </svg></div>`;
@@ -501,8 +562,9 @@ function svgChart({ points, x0, x1, sparse, unit, title, alerts, labels, thresho
 
 function renderPlanner(route) {
   const asset = assetById(route.assetId);
-  if (!asset) return '<h1>Pump not found</h1><p><a class="button primary" href="#/fleet">Back to Fleet</a></p>';
-  return renderPlannerPage(asset, pumpHeader(asset, 'planner'), state.fleet.experiments);
+  if (!asset) return `<h1>${L('Pump not found', 'Насос не найден')}</h1><p><a class="button primary" href="#/fleet">${L('Back to Fleet', 'Назад к парку')}</a></p>`;
+  const orient = `<section class="panel orient" aria-label="About this page"><p>${t('pl.orient', { id: asset.assetId })}</p></section>`;
+  return renderPlannerPage(asset, pumpHeader(asset, 'planner') + orient, state.fleet.experiments);
 }
 
 function renderEvidence() {
@@ -513,9 +575,9 @@ function renderEvidence() {
   const valEvents = ev.validationEvents;
   const typeCorrect = (v) => valEvents[v].filter((e) => e.type_correct === 'True').length;
   const original = Object.fromEntries(valEvents.original.map((e) => [e.event_id, e]));
-  return `<h1>Evidence &amp; Validation</h1>
-    <p class="sub">Stored results of the recorded baseline runs. ${pill('s-eval', 'Retrospective evaluation · Full validation window')}</p>
-    <div class="note" role="note"><b>Scope of this page.</b> These are the historical rounds up to Task008, in which causal B1 was retained and every experiment below was rejected. Later sealed rounds (Task013 train, Task014 descriptive validation) selected the Z995 research method: <a href="#/diagnosis">see the Diagnosis comparison</a>. The operator replay still uses causal B1.</div><p></p>
+  return `<h1>${esc(t('ev.h1'))}</h1>
+    <p class="sub">${esc(t('ev.sub'))} ${pill('s-eval', getLang() === 'ru' ? 'Ретроспективная оценка · всё окно валидации' : 'Retrospective evaluation · Full validation window')}</p>
+    <div class="note" role="note">${t('ev.scope')}${getLang() === 'ru' ? ' <span class="small">Подробные таблицы ниже — в исходной английской формулировке.</span>' : ''}</div><p></p>
     <section class="panel" aria-labelledby="ev-cmp"><h2 id="ev-cmp">Original vs causal B1</h2>
       <div class="table-wrap" role="region" aria-label="Metric comparison" tabindex="0"><table>
         <caption>Composite score is the benchmark's weighted score, not accuracy. Hover or see source for exact values. Source: <span class="mono">${esc(ev.comparisonSource)}</span></caption>
@@ -553,8 +615,9 @@ function bind(main, route) {
   on('retry-fleet', 'click', () => { state.fleet = null; loadFleet(); render(); });
   on('f-q', 'input', (e) => { state.filters.q = e.target.value; render(); });
   on('f-split', 'change', (e) => { state.filters.split = e.target.value; render(); });
+  on('f-show', 'change', (e) => { state.filters.show = e.target.value; render(); });
   on('f-site', 'change', (e) => { state.filters.site = e.target.value; render(); });
-  const reset = () => { state.filters = { q: '', split: 'all', site: 'all' }; render(); };
+  const reset = () => { state.filters = { q: '', split: 'all', site: 'all', show: 'all' }; render(); };
   on('f-reset', 'click', reset); on('f-reset-empty', 'click', reset);
   on('retry-replay', 'click', (e) => { delete state.replays[e.target.dataset.asset]; render(); });
   if (route.name === 'planner') { const asset = assetById(route.assetId); if (asset) bindPlanner(main, asset, render); return; }
@@ -584,5 +647,8 @@ function bind(main, route) {
 window.addEventListener('hashchange', onRouteChange);
 let wasNarrow = window.innerWidth < 600;
 window.addEventListener('resize', () => { const n = window.innerWidth < 600; if (n !== wasNarrow) { wasNarrow = n; render(); } });
+// Language switch: re-renders the current route; hash, clocks, filters and planner drafts are untouched.
+for (const l of ['en', 'ru']) document.getElementById(`lang-${l}`)?.addEventListener('click', () => { setLang(l); render(); });
+document.documentElement.lang = getLang();
 lastRouteKey = null;
 loadFleet().then(onRouteChange);
