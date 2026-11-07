@@ -1,0 +1,82 @@
+{
+  "manifest_sha256": "a63f145db05bf6f378f6332f778a403a9c1847dd0806c2f29742dc98a8e08e39",
+  "code_sha256": {
+    "scripts/run_validation_z995.py": "a861ee4b6b0c12f7664e8f0f81f8f5ef5630fd93165bd4138d7563910765c962",
+    "tests/test_validation_z995.py": "62e5c41023fe19e87875557f0261d533b3e4a7ac6b9ca98027a763ffb44c98df",
+    "src/retrofit_doctor/synchronized_residual.py": "76ad49e474ccac802bc36295c830612729ed2da83e92c9ac97bce5567f616feb",
+    "src/retrofit_doctor/hydraulic_spread.py": "ffc17d1e220cfc3c78e8278e713d47916665b26e1adb3bf171f0a2e8f3af317b",
+    "src/retrofit_doctor/diagnosis_fusion.py": "c62a5bc17cd5caeb9b2e0d767e6d1c2125ee67b38387f3c028eab3305ac3d036",
+    "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+    "scripts/run_b1.py": "83c6b591ddcd1d07b15dbdba08e26f7731f237c420201a87339ba0d0e39a4d3e",
+    "scripts/run_causal_b2.py": "d77afebd33210805c72812ef9c3cbfe5a79031f7c55a3821f0a3aec88c65816b",
+    "scripts/run_diagnosis_fusion.py": "6acc68119690da41ede25b4f6b4df00f35b5ee38e76c6556e737d8a50aaeb04a",
+    "scripts/run_synchronized_residual.py": "af6c591ad97e54c1c2c8ed35c72606091db9afa03ec020b868cac8d531f3193f",
+    "tests/test_synchronized_residual.py": "d15b57bf3e49985174ee5bd7412a9ffa044eff53be247609ec6a9c8ed016b052",
+    "tests/test_diagnosis_fusion.py": "006d711209edc3740af4935978d26b2d34f7e0088a5722e56a53c7bbcdc6c3aa",
+    "docs/experiments/protocol_v1.json": "f018c40d4aec809e6496b8f7a8220176f821401e51321364295c0fa75cc02477",
+    "vendor/benchmark/src/retrofit_sim/baselines.py": "4bf291d6a1834aa79ced8d2d862d0331fb60e3210630c4c1aa25744ebd7a27dc",
+    "vendor/benchmark/src/retrofit_sim/scoring.py": "5293c2e427d6181e0f24cfd64d617fc96d284c31a949410d3c88769a7e1802c2",
+    "requirements.lock.txt": "09030a82f9d1c9344f798b332c497f575ed1e44f0f71bace5f027f36075afd53",
+    "docs/tasks/014-descriptive-validation.md": "47a0f816a415290ca8dead863c5304a5a2412cf5185c8d0ab0270089a5676928",
+    "results/causal_b1/predictions_causal_validation.csv": "8889d043ff00b3a39a268eb43023d592c3e4afa3ba5b1752e120367ee65e42c9",
+    "results/causal_b2/validation_summary.json": "755323ca1d9a0992c60e4b33256b23a251cc604b926735315c624574a56e5360"
+  },
+  "candidate": "Z995",
+  "inputs": {
+    "assets_validation_rows": "f79840eaf0a95bc068b78e68e76736fcda981c060a6608220ea3c79d3d1db212",
+    "features_validation_rows": "35456fe10d99959cbf5f513bcf3f610681ce576323ed6b70904caf785bb2ac08",
+    "snapshots_validation_rows": "cfa880a23968f337a29b4bd5959b0036b8f57796cc352d4fa219224aaa6625cb",
+    "events_validation": "3430ebd62f38c5e89ca08a457ecd1f78662d03f23de87ee11baab154a90ef1fb",
+    "benign_validation_rows": "298bc9af99f5e1936bc884d773edf982b3825b8c80140d675e887fcb4b153b85",
+    "row_counts": {
+      "assets": 2,
+      "features": 20060,
+      "snapshots": 76,
+      "events": 9
+    },
+    "asset_ids": [
+      "PUMP-08",
+      "PUMP-09"
+    ],
+    "split": "validation",
+    "allowlist": [
+      "PUMP-08",
+      "PUMP-09"
+    ],
+    "test_touched": false
+  },
+  "raw_inputs": {
+    "PUMP-08": {
+      "loaded": false,
+      "capability": "channels_not_installed:flow_m3_h"
+    },
+    "PUMP-09": {
+      "loaded": false,
+      "capability": "channels_not_installed:motor_speed_rpm"
+    }
+  },
+  "aggregation": {
+    "PUMP-08": {
+      "minutes": 0,
+      "invalid_minutes": {},
+      "minutes_paired_ge_30": 0,
+      "sha256": "c630fb7d1c0e8c83f163363bad6a59f95dd468ae2f1017faea4b489a1958c456"
+    },
+    "PUMP-09": {
+      "minutes": 0,
+      "invalid_minutes": {},
+      "minutes_paired_ge_30": 0,
+      "sha256": "c630fb7d1c0e8c83f163363bad6a59f95dd468ae2f1017faea4b489a1958c456"
+    }
+  },
+  "prediction_sha256": {
+    "B1": "b9a4fa52561a5e976e9e18c5aa424cf559b78a71e9beb83d86475a2bfe5860f0",
+    "Z995": "be8bb400835f5e547219aa7c5f903785ea26908818d09b46a4b012157757962a"
+  },
+  "train_gate_still_passes": true,
+  "fitted_models": null,
+  "seed": "0",
+  "python": "3.13.16",
+  "test_touched": false,
+  "scored": false
+}

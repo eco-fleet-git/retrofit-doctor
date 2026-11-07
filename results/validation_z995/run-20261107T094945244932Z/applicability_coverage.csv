@@ -1,0 +1,6 @@
+asset_id,outcome,reason,emitted_source,wf_status,alerts
+PUMP-08,not_evaluated_protected,-,B1,STALE,1
+PUMP-08,unsupported,applicability:input_unavailable_flow_m3_h,B1,FRESH,2
+PUMP-08,unsupported,applicability:input_unavailable_flow_m3_h,W1,FRESH,3
+PUMP-09,not_evaluated_protected,-,B1,FRESH,1
+PUMP-09,unsupported,applicability:input_unavailable_motor_speed_rpm,B1,FRESH,8

@@ -67,3 +67,29 @@
 ## For the coordinator
 
 Write `results/validation_z995/SEAL.json` with `{"manifest_sha256": "a63f145db05bf6f378f6332f778a403a9c1847dd0806c2f29742dc98a8e08e39"}`, then authorize `PYTHONHASHSEED=0 ../../work/.venv/bin/python scripts/run_validation_z995.py validate`. Run it as a standalone command so its true exit code is kept. No test data, release or UI is touched. Git is yours.
+
+## Validation run — executed once (exit code 0, 120.2 s)
+
+**Run:** `results/validation_z995/run-20261107T094945244932Z`.
+
+**Correctness: all passed.**
+- Control equals saved B1 (8 / 4 / 8 / 1 / 0 / 2, 15 alerts, composite 76.0125…).
+- Both reports show split validation, PUMP-08/09 and 14.0 asset-days.
+- Emission equal to B1.
+- Causality: 0 failures in 138 checks per configuration.
+- Fresh-process hashes equal.
+- Raw-aggregation checks: **0 performed.** No validation pump has the full residual instrument set (PUMP-08 has no flow meter, PUMP-09 no speed), so no raw telemetry was loaded.
+
+**Result:** adoption gate **passed**, all 12 conditions.
+
+| Metric | B1 | Z995 |
+|---|---:|---:|
+| Correct type | 4 | 5 |
+| UNKNOWN first | 1 | 0 |
+| Composite | 76.01 | 78.79 |
+
+Detected 8, class 8, false 1 / excess 0, nuisance 1, sensor type+channel 2, wrong-specific 3 and wrong-channel 1 are all unchanged.
+
+**Only change:** PUMP-08-E02 BEARING_WEAR, from UNKNOWN to correct through the W1 waveform fallback (3 re-labelled alerts). The residual rule was unsupported at every validation alert.
+
+Details are in `results/validation_z995/FINDINGS.md`. Stopping for coordinator review: no test reads, release or UI change.

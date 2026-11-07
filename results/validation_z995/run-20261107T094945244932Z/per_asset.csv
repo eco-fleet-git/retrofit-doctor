@@ -1,0 +1,5 @@
+config,asset_id,events,detected,type_correct,class_correct,sensor_type_and_channel,false_episodes,excess_repeats,nuisance_benign,alerts
+B1,PUMP-08,4,3,2,3,1,0,0,0,6
+B1,PUMP-09,5,5,2,5,1,1,0,1,9
+Z995,PUMP-08,4,3,3,3,1,0,0,0,6
+Z995,PUMP-09,5,5,2,5,1,1,0,1,9

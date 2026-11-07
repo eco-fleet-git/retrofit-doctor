@@ -1,0 +1,3 @@
+candidate,composite_score,detected,type_correct,class_correct,events,false_episodes,excess_repeats,false_plus_excess,nuisance_benign,alerts,sensor_events,sensor_type_and_channel,sensor_type_and_channel_non_gateway,non_gateway_sensor_events,channel_localization_among_hits,wrong_channel_claims,selective_diagnosis,unknown_first_diagnoses,useful_diagnosis_delay,wrong_specific_first,wrong_channel_claim_count
+B1,76.01253946421124,8,4,8,9,1,0,1,1,15,4,2,1,3,"[1, 2]","[1, 2]","[4, 7, 9]",1,not_implemented_in_session1,3,1
+Z995,78.79031724198903,8,5,8,9,1,0,1,1,15,4,2,1,3,"[1, 2]","[1, 2]","[5, 8, 9]",0,not_implemented_in_session1,3,1

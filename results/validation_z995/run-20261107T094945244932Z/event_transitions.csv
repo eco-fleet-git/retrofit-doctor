@@ -1,0 +1,10 @@
+event_id,asset_id,event_class,fault_type,sensor_tag,b1_detected,b1_predicted_fault_type,b1_predicted_class,b1_predicted_channel,b1_type_correct,b1_class_correct,b1_type_and_channel,z_detected,z_predicted_fault_type,z_predicted_class,z_predicted_channel,z_type_correct,z_class_correct,z_type_and_channel,changed
+PUMP-08-E02,PUMP-08,MACHINE,BEARING_WEAR,,True,UNKNOWN,MACHINE,fluid_temp_c,False,True,False,True,BEARING_WEAR,MACHINE,,True,True,False,True
+PUMP-08-E01,PUMP-08,MACHINE,SUCTION_STRAINER_CLOGGING,,True,SUCTION_STRAINER_CLOGGING,MACHINE,suction_pressure_kpa,True,True,False,True,SUCTION_STRAINER_CLOGGING,MACHINE,suction_pressure_kpa,True,True,False,False
+PUMP-08-E03,PUMP-08,SENSOR,COMMUNICATION_LOSS,GATEWAY,True,COMMUNICATION_LOSS,SENSOR,GATEWAY,True,True,True,True,COMMUNICATION_LOSS,SENSOR,GATEWAY,True,True,True,False
+PUMP-08-E04,PUMP-08,SENSOR,SENSOR_NOISE_SPIKES,discharge_pressure_kpa,False,,,,False,False,False,False,,,,False,False,False,False
+PUMP-09-E04,PUMP-09,SENSOR,SENSOR_DRIFT,motor_current_a,True,SENSOR_CALIBRATION_SHIFT,SENSOR,vibration_rms_mm_s,False,True,False,True,SENSOR_CALIBRATION_SHIFT,SENSOR,vibration_rms_mm_s,False,True,False,False
+PUMP-09-E01,PUMP-09,MACHINE,MISALIGNMENT,,True,IMBALANCE,MACHINE,,False,True,False,True,IMBALANCE,MACHINE,,False,True,False,False
+PUMP-09-E03,PUMP-09,SENSOR,SENSOR_STUCK,bearing_temp_c,True,SENSOR_STUCK,SENSOR,bearing_temp_c,True,True,True,True,SENSOR_STUCK,SENSOR,bearing_temp_c,True,True,True,False
+PUMP-09-E02,PUMP-09,MACHINE,DISCHARGE_RESTRICTION,,True,DISCHARGE_RESTRICTION,MACHINE,,True,True,False,True,DISCHARGE_RESTRICTION,MACHINE,,True,True,False,False
+PUMP-09-E06,PUMP-09,MACHINE,AIR_ENTRAINMENT,,True,SUCTION_STRAINER_CLOGGING,MACHINE,,False,True,False,True,SUCTION_STRAINER_CLOGGING,MACHINE,,False,True,False,False

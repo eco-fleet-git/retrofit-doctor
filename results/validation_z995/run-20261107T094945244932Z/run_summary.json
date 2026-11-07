@@ -1,0 +1,69 @@
+{
+  "manifest_sha256": "a63f145db05bf6f378f6332f778a403a9c1847dd0806c2f29742dc98a8e08e39",
+  "candidate": "Z995",
+  "checks": {
+    "control_equals_saved": true,
+    "emission_equal_control": true,
+    "control_metrics": {
+      "detected": true,
+      "type_correct": true,
+      "class_correct": true,
+      "false_episodes": true,
+      "excess_repeats": true,
+      "sensor_type_and_channel": true,
+      "sensor_type_and_channel_non_gateway": true,
+      "alerts": true,
+      "events": true
+    },
+    "control_composite": true,
+    "report_context": {
+      "B1": {
+        "split_validation": true,
+        "assets_08_09": true,
+        "asset_days_14": true
+      },
+      "Z995": {
+        "split_validation": true,
+        "assets_08_09": true,
+        "asset_days_14": true
+      }
+    },
+    "causality_failures": {
+      "B1": 0,
+      "Z995": 0
+    },
+    "causality_checks": {
+      "B1": 138,
+      "Z995": 138
+    },
+    "raw_aggregation_failures": 0,
+    "raw_aggregation_checks": 0,
+    "determinism": {
+      "B1": true,
+      "Z995": true
+    }
+  },
+  "adoption_gate": {
+    "detected": true,
+    "type_correct": true,
+    "class_correct": true,
+    "false_plus_excess": true,
+    "sensor_type_and_channel": true,
+    "nuisance": true,
+    "preserves_b1_correct_types": true,
+    "preserves_b1_type_and_channel": true,
+    "wrong_specific_not_above_b1": true,
+    "wrong_channel_not_above_b1": true,
+    "train_gate_still_passes": true,
+    "correctness": true
+  },
+  "adoption_pass": true,
+  "lost_type_events": [],
+  "lost_type_and_channel_events": [],
+  "changed_events": [
+    "PUMP-08-E02"
+  ],
+  "nature": "descriptive non-regression on previously inspected validation; not blind evidence",
+  "test_touched": false,
+  "runtime_s": 120.2
+}
