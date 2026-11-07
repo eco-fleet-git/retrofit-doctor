@@ -13,6 +13,7 @@ import { renderDiagnosisPage, bindDiagnosis, diagnosisFooter, reviewCases, revie
 import { availabilityKinds, overviewCounts, selectVisibleCase } from './overview.js';
 import { t, getLang, setLang, CHANNEL_RU, durationShort } from './i18n.js';
 import { tx } from './ru-text.js';
+import { trendCharts } from './trend.js';
 import { ruExplainBaseline, FAULT_RU } from './explain-ru.js';
 
 // Documented starting checkpoints (issue times of stored causal alerts); replay starts paused here.
@@ -229,17 +230,14 @@ function coverageText(a) {
 const reviewHref = (c) => `#/diagnosis?case=${c.caseId}&t=${c.alertUtc}`;
 const reviewCase = (assetId) => reviewCases(render)?.find((c) => c.assetId === assetId) ?? null;
 
-function availability(a, cases) {
-  const review = (cases ?? []).find((c) => c.assetId === a.assetId);
-  return availabilityKinds(a, cases).map((kind) => ({
-    kind,
-    pill: kind === 'review' ? pill('s-info', t('av.review')) : kind === 'replay' ? pill('s-info', t('av.replay'))
-      : a.split === 'test' ? pill('s-gray', t('av.blind')) : pill('s-gray', t('av.inventory')),
-    href: kind === 'review' ? reviewHref(review) : `#/pumps/${a.assetId}`,
-    action: kind === 'review' ? t('act.review') : kind === 'replay' ? t('act.replay') : t('act.inventory'),
-  }));
-}
-
+// Compact sensor codes (Ps, Pd, Q, n, V, I) with their full names from the dictionary.
+const COV_CODE = { 'ov.c.ps': 'Ps', 'ov.c.pd': 'Pd', 'ov.c.q': 'Q', 'ov.c.n': 'n', 'ov.c.vib': 'V', 'ov.c.i': 'I' };
+// Small inline icons (no dependency): review = chart, replay = play, passport = document.
+const ICON = {
+  review: '<svg viewBox="0 0 20 20" aria-hidden="true" class="ico"><path d="M3 16h14M4 13l4-4 3 3 5-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  replay: '<svg viewBox="0 0 20 20" aria-hidden="true" class="ico"><circle cx="10" cy="10" r="7.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.3 6.8v6.4l5-3.2z" fill="currentColor"/></svg>',
+  inventory: '<svg viewBox="0 0 20 20" aria-hidden="true" class="ico"><path d="M5 2.8h7l3 3v11.4H5z M12 2.8v3h3 M7.5 9.5h5 M7.5 12.5h5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+};
 const COV_COLS = [['ov.c.ps', ['suction_pressure_kpa']], ['ov.c.pd', ['discharge_pressure_kpa']], ['ov.c.q', ['flow_m3_h']], ['ov.c.n', ['motor_speed_rpm']],
   ['ov.c.vib', ['vibration_rms_mm_s', 'vibration_accel_rms_g', 'vibration_crest_factor']], ['ov.c.i', ['motor_current_a']]];
 
@@ -284,15 +282,28 @@ function renderFleet() {
       <p class="ov-links"><a class="button primary" href="${reviewHref(sel)}">${esc(t('ov.openFull'))} →</a>${pv.kind === 'unsupported' ? ` <a class="button" href="#/pumps/${sel.assetId}/retrofit">${esc(t('ov.assess'))}</a>` : ''}</p>`;
   }
   const mark = (on) => (on ? `<span class="cov-yes" aria-hidden="true">●</span><span class="sr">${esc(t('ov.yes'))}</span>` : `<span class="cov-no" aria-hidden="true">○</span><span class="sr">${esc(t('ov.no'))}</span>`);
+  // One functional data column: each icon is a labelled link to what exists (review, replay, sensor list).
+  const dataLinks = (a) => {
+    const review = (cases ?? []).find((c) => c.assetId === a.assetId);
+    const kinds = availabilityKinds(a, cases);
+    const link = (kind, href, name) => `<a class="ico-link ico-${kind}" href="${href}" title="${esc(name)}" aria-label="${esc(name)}">${ICON[kind]}</a>`;
+    return kinds.map((k) => (k === 'review' ? link('review', reviewHref(review), t('cov.reviewA', { id: a.assetId }))
+      : k === 'replay' ? link('replay', `#/pumps/${a.assetId}`, t('cov.replayA', { id: a.assetId }))
+        : link('inventory', `#/pumps/${a.assetId}`, t('cov.passportA', { id: a.assetId })))).join('')
+      + (a.split === 'test' ? `<span class="test-badge" title="${esc(t('cov.testL'))}">${esc(t('cov.test'))}<span class="sr"> — ${esc(t('cov.testL'))}</span></span>` : '');
+  };
   const covRows = rows.map((a) => {
     const has = new Set(a.channelsAvailable);
-    const av = availability(a, cases);
-    const invOnly = av.length === 1 && av[0].kind === 'inventory';
-    return `<tr><th scope="row"><a href="#/pumps/${a.assetId}">${a.assetId}</a><div class="small muted cov-sys">${esc(tx(a.system))} · ${esc(tx(a.site))}</div></th>
-      ${COV_COLS.map(([k, chs]) => `<td class="cov" data-label="${esc(t(k))}">${mark(chs.some((c) => has.has(c)))}</td>`).join('')}
-      <td data-label="${esc(t('fleet.col.open'))}">${av.map((x) => x.pill).join(' ')}${invOnly ? `<div class="small muted">${esc(t('ov.cond'))}</div>` : ''}</td>
-      <td data-label="${esc(t('fleet.col.action'))}">${av.map((x) => `<a href="${x.href}">${esc(x.action)}<span class="sr"> ${a.assetId}</span></a>`).join('<br>')}</td></tr>`;
+    const full = `${tx(a.system)} · ${tx(a.site)}`;
+    return `<tr><th scope="row"><a class="cov-id" href="#/pumps/${a.assetId}">${a.assetId}</a><span class="cov-sys small muted" title="${esc(full)}">${esc(full)}</span></th>
+      ${COV_COLS.map(([k, chs]) => `<td class="cov" data-label="${esc(COV_CODE[k])} · ${esc(t(k))}">${mark(chs.some((c) => has.has(c)))}</td>`).join('')}
+      <td class="cov-data" data-label="${esc(t('cov.col.data'))}">${dataLinks(a)}</td></tr>`;
   }).join('');
+  const legend = `<div class="cov-legend small" aria-label="${esc(t('cov.legend'))}">
+      <p><b>${esc(t('cov.legendSensors'))}:</b> ${COV_COLS.map(([k]) => `<span class="lg-item"><b>${esc(COV_CODE[k])}</b> ${esc(t(k).toLowerCase())}</span>`).join('')}</p>
+      <p><span class="lg-item"><span class="cov-yes" aria-hidden="true">●</span> ${esc(t('cov.installed'))}</span><span class="lg-item"><span class="cov-no" aria-hidden="true">○</span> ${esc(t('cov.missing'))}</span><span class="muted">${esc(t('cov.instNote'))}</span></p>
+      <p><b>${esc(t('cov.col.data'))}:</b> <span class="lg-item"><span class="ico-link ico-review lg-ico">${ICON.review}</span> ${esc(t('cov.review'))}</span><span class="lg-item"><span class="ico-link ico-replay lg-ico">${ICON.replay}</span> ${esc(t('cov.replay'))}</span><span class="lg-item"><span class="ico-link ico-inventory lg-ico">${ICON.inventory}</span> ${esc(t('cov.passport'))}</span><span class="lg-item"><span class="test-badge">${esc(t('cov.test'))}</span> ${esc(t('cov.testL'))}</span></p>
+    </div>`;
   return `<div class="page-head"><h1>${esc(t('ov.h1'))}</h1>${pill('s-gray', t('fleet.badge'))}</div>
     <div class="filters ov-filters" role="search">
       <label>${esc(t('fleet.search'))}<input id="f-q" type="search" value="${esc(f.q)}" placeholder="${esc(t('fleet.searchPh'))}"></label>
@@ -312,9 +323,10 @@ function renderFleet() {
       </section>
       <section class="panel ov-preview" aria-labelledby="ov-prev-h" aria-live="polite">${preview}</section>
     </div>
-    <section class="panel" aria-labelledby="pumps-h"><div class="panel-head"><h2 id="pumps-h">${esc(t('ov.cov'))}</h2><span class="small muted">${esc(t('ov.covNote'))}</span></div>
-      ${rows.length ? `<div class="table-wrap" role="region" aria-label="${esc(t('ov.cov'))}" tabindex="0"><table class="stack cov-table">
-        <thead><tr><th scope="col">${esc(t('fleet.col.pump'))}</th>${COV_COLS.map(([k]) => `<th scope="col" class="cov">${esc(t(k))}</th>`).join('')}<th scope="col">${esc(t('fleet.col.open'))}</th><th scope="col">${esc(t('fleet.col.action'))}</th></tr></thead>
+    <section class="panel" aria-labelledby="pumps-h"><div class="panel-head"><h2 id="pumps-h">${esc(t('ov.cov'))}</h2></div>
+      ${legend}
+      ${rows.length ? `<div class="table-wrap" role="region" aria-label="${esc(t('ov.cov'))}" tabindex="0"><table class="cov-table">
+        <thead><tr><th scope="col">${esc(t('fleet.col.pump'))}</th>${COV_COLS.map(([k]) => `<th scope="col" class="cov"><abbr title="${esc(t(k))}">${esc(COV_CODE[k])}</abbr><span class="sr"> — ${esc(t(k))}</span></th>`).join('')}<th scope="col">${esc(t('cov.col.data'))}</th></tr></thead>
         <tbody>${covRows}</tbody></table></div>`
       : `<div class="empty"><p>${esc(t('fleet.none'))}</p></div>`}
       <details class="panel-sub" id="f-details"${f.split !== 'all' ? ' open' : ''}><summary>${esc(t('fleet.details'))}</summary>
@@ -537,63 +549,6 @@ function evaluationPanel(replay, asOf) {
       ${e.endWithheld ? L('End: not revealed at this as-of time', 'Конец: не раскрыт на это время') : `End ${esc(formatUtc(parseUtc(e.end_utc)))}`}</li>`).join('')}</ul>`
       : `<p class="small">${L('No labelled event onset at or before the as-of time.', 'К текущему времени размеченных начал событий нет.')}</p>`) + `<p class="small"><a href="#/evidence">${L('Full-window results on Evidence &amp; Validation', 'Результаты по всему окну — в разделе «Результаты проверки»')}</a></p>` : ''}
   </section>`;
-}
-
-function trendCharts(view, channelId, spanMin, labels) {
-  const ch = view.channels[channelId];
-  const n = view.visibleMinutes;
-  if (n === 0) return `<div class="empty">${L('No completed minute yet at this as-of time.', 'К этому времени ещё нет закрытой минуты.')}</div>`;
-  const i0 = spanMin ? Math.max(0, n - spanMin) : 0;
-  const x0 = view.gridStartMs + i0 * MINUTE_MS; const x1 = view.asOfMs;
-  const sparse = ch.nativeUpdateSeconds > 60;
-  const pts = (arr) => { const out = []; for (let i = i0; i < n; i += 1) out.push(arr[i] == null ? null : [view.gridStartMs + (i + 1) * MINUTE_MS, arr[i]]); return out; };
-  const alerts = view.alerts.filter((a) => parseUtc(a.alert_time_utc) >= x0);
-  const k = view.detectorParameters.k;
-  const meanSvg = svgChart({ points: pts(ch.mean), x0, x1, sparse, unit: ch.unit, title: `${label(channelId)} (${ch.unit}), ${L('1-min window mean', 'среднее за 1 мин')}`, alerts, labels });
-  const zPts = ch.z ? pts(ch.z) : [];
-  const anyZ = zPts.some((p) => p);
-  const zSvg = anyZ ? svgChart({ points: zPts, x0, x1, sparse, unit: 'z', title: `${L('Causal z-score (threshold', 'Причинная z-оценка (порог')} ±${k})`, alerts, labels, thresholds: [k, -k] })
-    : `<div class="empty small">${L('Causal z-score unavailable in this span', 'Причинная z-оценка недоступна в этом интервале')}${view.asOfMs < view.referenceEndMs + MINUTE_MS ? L(' — reference still collecting (first 24 h)', ' — опора ещё собирается (первые 24 ч)') : ''}.</div>`;
-  return `${meanSvg}${zSvg}<p class="small muted">${sparse ? L(`Sparse channel: one native sample every ${cadence(ch.nativeUpdateSeconds)}; points only where a sample exists.`, `Редкий канал: один отсчёт раз в ${cadence(ch.nativeUpdateSeconds)}; точки только там, где есть отсчёт.`) : L('Gaps are minutes without samples.', 'Разрывы — минуты без отсчётов.')} ${L('Points are plotted at window end (availability time). Right edge = as-of time; nothing later is drawn.', 'Точки ставятся в конце окна (момент доступности). Правый край — текущее время; более позднее не рисуется.')}</p>`;
-}
-
-function svgChart({ points, x0, x1, sparse, unit, title, alerts, labels, thresholds = [] }) {
-  // Narrow screens get their own coordinate system so text is not scaled down below ~11 px.
-  const narrow = window.innerWidth < 600;
-  const W = narrow ? 320 : 900; const H = narrow ? 230 : 210; const L = narrow ? 46 : 62; const R = 10; const T = narrow ? 42 : 22; const B = 30;
-  const vals = points.filter(Boolean).map((p) => p[1]).concat(thresholds);
-  if (!points.some(Boolean)) return `<div class="empty small">${esc(title)}: ${L('no samples in this span.', 'нет отсчётов в этом интервале.')}</div>`;
-  let lo = Math.min(...vals); let hi = Math.max(...vals);
-  if (lo === hi) { lo -= 1; hi += 1; }
-  const pad = (hi - lo) * 0.08; lo -= pad; hi += pad;
-  const span = Math.max(1, x1 - x0);
-  const sx = (t) => L + ((t - x0) / span) * (W - L - R);
-  const sy = (v) => T + (1 - (v - lo) / (hi - lo)) * (H - T - B);
-  let marks = '';
-  if (sparse) {
-    marks = points.filter(Boolean).map(([t, v]) => `<circle cx="${sx(t).toFixed(1)}" cy="${sy(v).toFixed(1)}" r="2.2" fill="#1f5fbf"/>`).join('');
-  } else {
-    let d = ''; let pen = false;
-    for (const p of points) { if (!p) { pen = false; continue; } d += `${pen ? 'L' : 'M'}${sx(p[0]).toFixed(1)},${sy(p[1]).toFixed(1)}`; pen = true; }
-    marks = `<path d="${d}" fill="none" stroke="#1f5fbf" stroke-width="1.3"/>`;
-  }
-  const ticksY = [lo + pad, (lo + hi) / 2, hi - pad].map((v) => `<line x1="${L}" x2="${W - R}" y1="${sy(v)}" y2="${sy(v)}" stroke="#e3e7ec"/><text x="${L - 6}" y="${sy(v) + 4}" text-anchor="end" font-size="11" fill="#5a6573">${v.toFixed(Math.abs(v) < 10 ? 2 : 1)}</text>`).join('');
-  const ticksX = (narrow ? [0, 0.5, 1] : [0, 0.25, 0.5, 0.75, 1]).map((f) => { const t = x0 + f * span; const s = new Date(t).toISOString(); return `<text x="${sx(t)}" y="${H - 8}" text-anchor="${f === 0 ? 'start' : f === 1 ? 'end' : 'middle'}" font-size="11" fill="#5a6573">${s.slice(5, 10)} ${s.slice(11, 16)}</text>`; }).join('');
-  const th = thresholds.map((v) => `<line x1="${L}" x2="${W - R}" y1="${sy(v)}" y2="${sy(v)}" stroke="#a4262c" stroke-dasharray="5 4"/>`).join('');
-  const al = alerts.map((a) => { const x = sx(parseUtc(a.alert_time_utc)); const right = x > W - R - 60; return `<line x1="${x}" x2="${x}" y1="${T}" y2="${H - B}" stroke="#a4262c" stroke-width="1.5"/><text x="${right ? x - 4 : x + 4}" y="${T + 12}" text-anchor="${right ? 'end' : 'start'}" font-size="11" fill="#a4262c" stroke="#fff" stroke-width="3" paint-order="stroke">! ${L('alert', 'предупр.')}</text>`; }).join('');
-  const lb = (labels ?? []).map((e) => {
-    const a = Math.max(x0, parseUtc(e.onset_utc)); const b = e.endWithheld ? x1 : Math.min(x1, parseUtc(e.end_utc));
-    if (b < x0) return '';
-    return `<rect x="${sx(a)}" y="${H - B - 8}" width="${Math.max(2, sx(b) - sx(a))}" height="8" fill="#6b3fa0" opacity=".55"><title>Ground truth (retrospective): ${esc(e.event_id)} ${esc(e.fault_type)}</title></rect>`;
-  }).join('');
-  // Narrow: drawn at 1:1 CSS pixels (svg width = W) inside its own scroller, so text is never scaled down.
-  return `<div class="plot-scroll" role="region" aria-label="${esc(title)} chart" tabindex="0"><svg viewBox="0 0 ${W} ${H}" class="plot${narrow ? ' plot-fixed' : ''}" style="--plot-w:${W}px" role="img" aria-label="${esc(title)}; ${points.filter(Boolean).length} points up to the as-of time">
-    <text x="${narrow ? 2 : L}" y="14" font-size="12" font-weight="600" fill="#1d232b">${esc(title)}</text>
-    ${ticksY}${th}${marks}${al}${lb}
-    <line x1="${W - R}" x2="${W - R}" y1="${T}" y2="${H - B}" stroke="#1d232b" stroke-width="2"/><text x="${W - R}" y="${narrow ? 32 : T - 6}" text-anchor="end" font-size="11" font-weight="600" fill="#1d232b">${L('As of', 'На')} ${esc(formatUtc(x1).slice(5, 16))}</text>
-    <line x1="${L}" x2="${W - R}" y1="${H - B}" y2="${H - B}" stroke="#aab3be"/>${ticksX}
-    <text x="12" y="${(H - B + T) / 2}" font-size="11" fill="#5a6573" transform="rotate(-90 12 ${(H - B + T) / 2})" text-anchor="middle">${esc(unit)}</text>
-  </svg></div>`;
 }
 
 function renderPlanner(route) {

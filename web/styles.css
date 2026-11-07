@@ -455,3 +455,28 @@ details.timebar-d[open] > .timebar { border-radius: 0 0 8px 8px; margin-bottom: 
   .kpi-k { font-size: 12px; text-transform: none; letter-spacing: 0; line-height: 1.25; overflow-wrap: normal; word-break: normal; hyphens: manual; min-width: 0; }
   .kpi b { font-size: 20px; flex: none; }
 }
+/* Task019: compact coverage table — short sensor codes, legend above, one icon column, no mid-word breaks */
+.cov-table, .cov-table th, .cov-table td { overflow-wrap: normal; word-break: normal; }
+.cov-table { table-layout: fixed; width: 100%; }
+.cov-table thead th { white-space: nowrap; }
+.cov-table thead th:first-child { width: auto; }
+.cov-table thead th.cov { width: 3.4em; text-align: center; font-size: 13px; }
+.cov-table thead th:last-child { width: 9.5em; }
+.cov-table abbr { text-decoration: none; border-bottom: 1px dotted var(--muted); cursor: help; }
+.cov-table th[scope="row"] { white-space: normal; }
+.cov-id { display: block; font-weight: 700; white-space: nowrap; }
+.cov-sys { display: block; font-weight: 400; overflow-wrap: break-word; hyphens: auto; }
+.cov-table td.cov { text-align: center; vertical-align: middle; }
+.cov-table td.cov-data { white-space: nowrap; vertical-align: middle; }
+.ico { width: 18px; height: 18px; display: block; }
+.ico-link { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: 1px solid var(--line); border-radius: 6px; margin-right: 4px; background: #fff; color: var(--action); vertical-align: middle; }
+a.ico-link:hover { background: var(--action-bg); border-color: var(--action); }
+.ico-inventory { color: var(--gray); }
+.lg-ico { width: 24px; height: 24px; margin-right: 2px; }
+.lg-ico .ico { width: 15px; height: 15px; }
+.test-badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .04em; padding: 2px 6px; border-radius: 4px; border: 1px dashed #8a5a00; color: #6b4500; background: #fffaf0; vertical-align: middle; }
+.cov-legend { border: 1px solid var(--line); border-radius: 8px; background: #fbfcfd; padding: 6px 10px; margin-bottom: 10px; }
+.cov-legend p { margin: 3px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; }
+.lg-item { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+@media (max-width: 1100px) { .cov-table { table-layout: fixed; min-width: 600px; } }
+@media (max-width: 600px) { .cov-table { min-width: 560px; } .lg-item { white-space: normal; } }
