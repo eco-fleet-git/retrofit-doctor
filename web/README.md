@@ -24,6 +24,16 @@ The main PUMP-04 button opens a recorded warning with the hypothesis, actual pre
 
 The sensor diagram is generic: passport inventory supports the channel list, not an actual installation drawing or paired-pump topology. The full comparison and original replay bundles are unchanged. See `../docs/tasks/017-coordinator-review.md` for the reviewed interface and its limits.
 
+## Local systems and data readiness
+
+Open `#/systems` or choose **Add system** on the overview. The four-step EN/RU wizard collects the site and engineering question, pump/motor/valve passport, device and measurement-point configuration, and data readiness. It accepts a local CSV using the downloadable template or an explicitly selected historical PUMP-04 challenge minute. The network/gateway option stores a plan only: it does not connect or fetch data.
+
+Installed and proposed sensors, received channels and mapped channels are separate. Ps/Pd must be mapped to the pump taps before the pressure-rise chart is shown. Unknown ratings stay unknown; nominal rpm does not replace measured speed. A design point is not a pump curve. Additional measurements are recommendations, not automatic purchases or equipment controls.
+
+Saved systems use `rd-systems-v1` in this browser (maximum 20; at most 600 sampled rows per source plus full-record counts). Unsaved wizard drafts survive language/step changes but not reload. Files stay local; their full content is not retained for larger imports. No saved-system export, actual network ingestion or fault inference on imported data is implemented. This is a readiness workflow, not production commissioning. Benchmark, user imports and illustrative portfolio data remain distinct.
+
+Run all focused browser-model checks with `node --test --test-timeout=30000 tests/*.mjs`. The [Task021 coordinator review](../docs/tasks/021-coordinator-review.md) records browser acceptance checks and limitations.
+
 ## Regenerate the bundle (analysis environment only)
 
 Regeneration needs the immutable organizer dataset restored at `vendor/benchmark/data/full/` and the pinned environment: Python 3.13.16 with exactly `requirements.lock.txt` (the original environment is `../../work/.venv`). PYTHONHASHSEED must be 0 at interpreter start.
@@ -45,7 +55,8 @@ node --test tests/web_replay.test.mjs                            # as-of slicing
 - `js/replay.js` — pure as-of logic: `sliceReplay()` is the only path from bundle to rendering; reference, freshness, packet and diagnostic states.
 - `js/knowledge.js` — rule paraphrases of vendor B1 `diagnose()` and engineering prompts (alternatives, missing measurements, next checks), labelled as not evaluated by the detector.
 - `js/explain.js` — pure selected-alert explanation (hypothesis, observations at the alert minute, gaps, alternatives, next check, technical fields); inputs are only the as-of view, the selected alert and the static passport.
-- `js/app.js` — hash routes `#/fleet`, `#/pumps/:id?t=<UTC>`, `#/pumps/:id/retrofit`, `#/evidence`, `#/diagnosis`.
+- `js/app.js` — hash routes `#/fleet`, `#/pumps/:id?t=<UTC>`, `#/pumps/:id/retrofit`, `#/evidence`, `#/diagnosis`, `#/systems`, `#/systems/new`, `#/systems/:id`, `#/systems/:id/edit`.
+- `js/systems-model.js`, `js/systems-view.js` — local system onboarding, strict CSV import, persistence and conservative readiness checks.
 - `js/i18n.js`, `js/ru-text.js` — local display translations, without a translation service.
 - `js/review-visuals.js` — clock-gated review visuals and a passport-based single-pump diagram.
 - `data/` — generated bundle (synthetic benchmark data, provenance + SHA-256 of inputs inside `fleet.json`).

@@ -1,0 +1,2 @@
+timestamp_utc,suction_pressure_kpa,discharge_pressure_kpa,flow_m3_h,motor_speed_rpm,motor_power_kw
+2026-02-30T10:00:00Z,100,300,120,1450,15

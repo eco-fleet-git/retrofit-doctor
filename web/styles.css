@@ -554,3 +554,50 @@ details.portfolio[open] > summary .pf-chev { transform: rotate(45deg); }
 /* Task020: six site cards as a 3 × 2 grid on desktop (plants first row, vessels second), 2 columns narrower */
 .pf-sites { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @media (max-width: 900px) { .pf-sites { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* Task021: My systems — wizard, readiness cards, data sources */
+.page-head-action { margin-left: auto; }
+.stepper { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 8px 0 12px; }
+.stepper li { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font-size: 13.5px; color: var(--muted); }
+.stepper li .n { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--gray-bg); font-weight: 700; font-size: 12px; }
+.stepper li.on { border-color: var(--action); color: var(--action); font-weight: 600; } .stepper li.on .n { background: var(--action); color: #fff; }
+.stepper li.done .n { background: var(--action-bg); color: var(--action); }
+.sys-step h2 { margin-bottom: 10px; }
+.sys-grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 16px; margin-bottom: 10px; }
+.sys-grid2 label, .sys-src label { display: flex; flex-direction: column; gap: 3px; }
+.sys-q { margin: 8px 0 12px; } .sys-q legend { font-weight: 600; margin-bottom: 6px; }
+.sys-nav { display: flex; justify-content: space-between; gap: 8px; margin: 4px 0 24px; }
+.sys-nav button, .sys-nav .button { padding: 8px 18px; font-weight: 600; }
+table.sys-ch select { width: 100%; }
+.sys-src { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 8px; }
+.sys-src section { border: 1px solid var(--line); border-radius: 8px; padding: 10px; background: #fbfcfd; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.sys-src h5 { margin: 0; font-size: 14px; }
+.sys-sch { margin: 8px 0; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: #fff; }
+.sys-sch svg { width: 100%; max-width: 380px; display: block; margin: 0 auto; }
+.sys-leg { display: inline-flex; align-items: center; gap: 4px; margin-left: 8px; }
+.lg-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; } .lg-dot.inst { background: #2458c6; } .lg-dot.prop { background: #fff5df; border: 1.5px dashed #8a5a00; }
+.sys-prev svg { width: 100%; max-width: 420px; height: 90px; display: block; background: #fbfcfd; border: 1px solid var(--line); border-radius: 6px; }
+.cap-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 8px 0; }
+.cap-card { border: 1px solid var(--line); border-radius: 8px; padding: 10px; background: #fff; min-width: 0; }
+.cap-card.cap-main { border: 2px solid var(--action); }
+.cap-card h4 { margin: 0 0 6px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.cap-can li { color: #1f5f2f; }
+.sys-warn { border-left: 3px solid var(--amber); background: var(--amber-bg); padding: 6px 10px 6px 24px; border-radius: 4px; }
+.sys-next { border-left: 4px solid var(--action); background: #f6f9fe; border-radius: 6px; padding: 8px 12px; margin: 8px 0; }
+.sys-next h4 { margin: 0 0 4px; display: flex; gap: 8px; align-items: center; }
+ul.sys-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.sys-item { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1.2fr); gap: 6px 14px; align-items: center; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+@media (max-width: 900px) { .sys-src, .cap-grid { grid-template-columns: minmax(0, 1fr); } .sys-item { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 600px) { .sys-grid2 { grid-template-columns: minmax(0, 1fr); } .page-head-action { margin-left: 0; } }
+/* Task021 polish: capability cards never squeeze into narrow columns; badges wrap inside the sidebar */
+.cap-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.review-grid .evid .cap-grid { grid-template-columns: minmax(0, 1fr); }
+.cap-card h4 .state { white-space: normal; }
+.cap-missing > summary { cursor: pointer; color: var(--muted); }
+.cap-missing[open] > summary { margin-bottom: 2px; }
+.sidebar .badges { max-width: 100%; }
+.sidebar .badge { white-space: normal; max-width: 100%; overflow-wrap: break-word; }
+@media (max-width: 600px) { table.sys-ch td select { width: 100%; } .sys-src section { padding: 8px; } }
+/* Task021 final: list cells shrink and wrap; status badges never spill into the next column */
+.sys-item > div { min-width: 0; overflow-wrap: break-word; }
+.sys-item .state { white-space: normal; max-width: 100%; }
+.sys-item a { position: relative; z-index: 1; display: inline-block; padding: 2px 0; }

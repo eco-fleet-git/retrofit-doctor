@@ -16,7 +16,7 @@ Open [Start / Fleet](http://127.0.0.1:8765/#/fleet), select English or Russian, 
 
 The interface supports English / Russian for jury presentation and rehearsal. The pitch remains English. Exact source identifiers and verbatim technical outputs retain their original wording. [Russian working notes](README.ru.md) preserve the earlier development context.
 
-**Visual walkthrough, 7 November:** the core English/Russian workflow now shows actual evidence charts, a passport-based sensor map and an explicit next action. Explanations and costs expand on request. The [Task016–017 review](docs/tasks/017-coordinator-review.md) records 94 passing web tests, browser checks at 1440/940/390 px and unchanged source hashes. Historical technical tables retain their original wording. User acceptance and timed rehearsal remain open; the exported deck/PDF still depicts Task015.
+**Product workflow, 7 November:** the English/Russian interface now includes a collapsible site portfolio, a separately labelled 200-asset illustrative scenario, and [My systems](http://127.0.0.1:8765/#/systems). Add a site/system, equipment passport, acquisition-device configuration and measurement points; load a local CSV or an explicitly selected challenge example; then review data readiness and the next useful measurement. Online ingestion is configuration only. Local systems do not run the benchmark detector. See the [Task021 review](docs/tasks/021-coordinator-review.md) for verification and limits. User acceptance remains open; new video production is paused until interface approval, and the existing deck/PDF depicts an earlier version.
 
 ## What is demonstrated
 
