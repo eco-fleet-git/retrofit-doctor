@@ -61,3 +61,25 @@ Task010 is preserved unchanged: its sealed run, `FINDINGS.md` and phase-2 handof
 ## For the coordinator
 
 Write `results/noise_unresolved/SEAL.json` with `{"manifest_sha256": "4a365967643fd63fa2757e870cc78df5ba5d88cd491551dead014c08712acccc"}`, then authorize `PYTHONHASHSEED=0 ../../work/.venv/bin/python scripts/run_noise_unresolved.py train`. Git is yours.
+
+## Phase 2 (executed once under SEAL)
+
+**Run:** `PYTHONHASHSEED=0 ../../work/.venv/bin/python scripts/run_noise_unresolved.py train`, exit 0, 305 s, writing `results/noise_unresolved/run-20261107T084946436461Z/`.
+
+**Correctness: all passed.**
+- Control equality and expected metrics.
+- Emission multiset equal to the control.
+- Causality: 0 failures.
+- Fresh-child determinism.
+
+**Success gate: no candidate passed, so `selected = null`.**
+
+| Candidate | Correct type | Correct class | Detected | False + excess | Sensor type+channel |
+|---|---:|---:|---:|---:|---:|
+| B1 / Q1 / Q2 | 8 | 14 | 18 | 3 + 3 | 3 |
+| U1 / U2 | 9 | 14 | 18 | 3 + 3 | 3 |
+
+- Q never emitted: no isolated source at any of 41 alerts.
+- U gained PUMP-02-E02 MISALIGNMENT with no losses, but missed the type-9 branch of the gate by one sensor type+channel (needs ≥4).
+
+Details are in `results/noise_unresolved/FINDINGS.md`. No validation, test, UI or release change, and no edits after scoring. B1 is retained, pending the coordinator's decision.

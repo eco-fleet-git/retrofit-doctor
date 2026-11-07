@@ -22,7 +22,9 @@ After the completed round above, the user explicitly requested continued search 
 
 This is adaptive development on the already inspected seven training assets, with actual leave-one-asset-out model fitting; it is not a new independent validation set. No replacement is selected. Test data and frozen release predictions remain excluded from further development. Historical failures and their gates remain unchanged.
 
-[Task011](../tasks/011-noise-and-unresolved.md) now registers a separate bounded wave: isolated within-minute spread for a sensor-noise hypothesis, combined with waveform refinement of UNKNOWN only. Four new configurations; no learned fitting, no new scores yet. Its success gate is unchanged.
+[Task011](../tasks/011-noise-and-unresolved.md) completed: Q1/Q2 never emitted; U1/U2 gained one correct UNKNOWN refinement (type8→9) with other principal counts unchanged. The fixed gate was not met; no promotion or validation check. All2046 causal comparisons and fresh-process reproduction passed. See [findings](../../results/noise_unresolved/FINDINGS.md) and [review](../tasks/011-coordinator-review.md). Nothing was learned/fitted in this wave.
+
+[Task012](../tasks/012-hydraulic-spread.md) is a new prospective wave: assess flow/pressure variability against a budget propagated from the public pump characteristic, with explicit applicability limits, optionally refining UNKNOWN by the unchanged waveform rule. Four new configurations; the success gate stays unchanged. No Task012 scores yet.
 
 ## Reproducibility caveat
 

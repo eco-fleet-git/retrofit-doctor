@@ -1,0 +1,53 @@
+{
+  "manifest_sha256": "4a365967643fd63fa2757e870cc78df5ba5d88cd491551dead014c08712acccc",
+  "code_sha256": {
+    "src/retrofit_doctor/noise_unresolved.py": "c1229203d882ec11961abb34e3de73006cf5c5f761c742e08933222c70b0587f",
+    "scripts/run_noise_unresolved.py": "c0cff8f8394bab1dd0593001fcfa0226a13bf510bbfca34c0ed63877a8ed8436",
+    "tests/test_noise_unresolved.py": "cf1c9999a324eb6b1807d0bbff3c930c6e41c26f9b33dc48321f355d5e276912",
+    "src/retrofit_doctor/diagnosis_fusion.py": "c62a5bc17cd5caeb9b2e0d767e6d1c2125ee67b38387f3c028eab3305ac3d036",
+    "scripts/run_diagnosis_fusion.py": "6acc68119690da41ede25b4f6b4df00f35b5ee38e76c6556e737d8a50aaeb04a",
+    "tests/test_diagnosis_fusion.py": "006d711209edc3740af4935978d26b2d34f7e0088a5722e56a53c7bbcdc6c3aa",
+    "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+    "scripts/run_b1.py": "83c6b591ddcd1d07b15dbdba08e26f7731f237c420201a87339ba0d0e39a4d3e",
+    "scripts/run_regime_reference.py": "a8f6292f2789e143067ac43ee36ffe356eb3103d3f1d9585eef58271328d4f53",
+    "scripts/run_sensor_ablation.py": "57fa0191d724a82fa1e00166ec3008b3edab78a7953c7bd69b3a17700b059d49",
+    "vendor/benchmark/src/retrofit_sim/baselines.py": "4bf291d6a1834aa79ced8d2d862d0331fb60e3210630c4c1aa25744ebd7a27dc",
+    "vendor/benchmark/src/retrofit_sim/scoring.py": "5293c2e427d6181e0f24cfd64d617fc96d284c31a949410d3c88769a7e1802c2",
+    "requirements.lock.txt": "09030a82f9d1c9344f798b332c497f575ed1e44f0f71bace5f027f36075afd53"
+  },
+  "inputs": {
+    "assets_train_rows": "5c8d470e4a56c55d9e09d2fc3df94bc9294fcc388d29f4159e4a9248969d9cc7",
+    "features_train_rows": "8195ae001c7c62377c317d97e4b5f36152bc4917a0826b9bef710cdd3f4b129b",
+    "snapshots_train_rows": "d4985bad1ceaf187aa08952c5c662a4c6c87f503af73100720c140c97fdc1185",
+    "events_train": "5874ae7073d1b5835eac813b2f45e2ea6c3afd8af57d12b261ed0154d1238566",
+    "benign_train_rows": "9825494e3cf05ca525a2e38c4691a601c5102d7d33ab99779e0bed5ffa9578b4",
+    "row_counts": {
+      "assets": 7,
+      "features": 70494,
+      "snapshots": 198,
+      "events": 27
+    },
+    "asset_ids": [
+      "PUMP-01",
+      "PUMP-02",
+      "PUMP-03",
+      "PUMP-04",
+      "PUMP-05",
+      "PUMP-06",
+      "PUMP-07"
+    ]
+  },
+  "prediction_sha256": {
+    "B1": "a52c10c72d9bfe4bfdc25eb5bde4377ac041b253046ba38ab52bf1c827278f63",
+    "Q1": "47562aa53fa6cde4c3c7afe690abf26faae20c8360ae0f6ba72599196634f58e",
+    "Q2": "a7258892def6dc680b08180088c1837b12787d75fbdeaffd5d9780ffb60d0397",
+    "U1": "fd804b1a10fb6135b08861cbc83d54fad435ce34eea3d66f7fcf7ca6b89b975a",
+    "U2": "dd7973bebe8581dc788831f07bbafd8a02f60a41f8befcc58b5d260b3a42e745"
+  },
+  "fitted_models": null,
+  "seed": "0",
+  "python": "3.13.16",
+  "validation_touched": false,
+  "test_touched": false,
+  "scored": false
+}
