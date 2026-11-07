@@ -102,3 +102,25 @@ Passing all of these gives SENSOR_NOISE_SPIKES on that channel. Every abstention
 ## For the coordinator
 
 Write `results/synchronized_residual/SEAL.json` with `{"manifest_sha256": "4e673ca28dd1c9dd0dac0770969bef693402ba34bcfa5d335bccf14c46ed19a9"}`, then authorize `PYTHONHASHSEED=0 ../../work/.venv/bin/python scripts/run_synchronized_residual.py train`. Git is yours.
+
+## Phase 2 attempt 1 — FAILED (preserved)
+
+**Attempt:** `results/synchronized_residual/run-20261107T093222280839Z`, exit code 1.
+
+**Failure:** `raw_audit` → `mutate_raw_future` raised `TypeError` writing "STOPPED" into the real parquet's Categorical `operating_mode`. This is a harness defect that the synthetic fixtures (plain strings) didn't cover.
+
+**Completed before the failure:**
+- Provenance, predictions and applicability coverage.
+- The full-evidence causality audit: 0 failures in 392 checks per candidate.
+- Unchecked scores.
+
+**Not run:** the raw-aggregation audit, determinism, the final comparison and summary, and `COMPLETED.json`.
+
+**UNCHECKED gate metrics:**
+- E995 reaches type 9 with sensor type+channel 4, from the PUMP-04-E03 flow noise.
+- Z995 reaches type 10 with sensor type+channel 4, from PUMP-04-E03 plus the W1 gain at PUMP-02-E02.
+- No candidate has losses.
+
+**No selection.** Details are in `results/synchronized_residual/FINDINGS.md`.
+
+**Proposed repair, not applied:** a categorical-safe mutation plus a categorical fixture. This needs coordinator review, a new manifest hash and a new seal, followed by one new full attempt.

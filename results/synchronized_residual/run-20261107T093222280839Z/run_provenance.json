@@ -1,0 +1,171 @@
+{
+  "manifest_sha256": "4e673ca28dd1c9dd0dac0770969bef693402ba34bcfa5d335bccf14c46ed19a9",
+  "code_sha256": {
+    "src/retrofit_doctor/synchronized_residual.py": "76ad49e474ccac802bc36295c830612729ed2da83e92c9ac97bce5567f616feb",
+    "scripts/run_synchronized_residual.py": "af6c591ad97e54c1c2c8ed35c72606091db9afa03ec020b868cac8d531f3193f",
+    "tests/test_synchronized_residual.py": "d15b57bf3e49985174ee5bd7412a9ffa044eff53be247609ec6a9c8ed016b052",
+    "src/retrofit_doctor/hydraulic_spread.py": "ffc17d1e220cfc3c78e8278e713d47916665b26e1adb3bf171f0a2e8f3af317b",
+    "src/retrofit_doctor/diagnosis_fusion.py": "c62a5bc17cd5caeb9b2e0d767e6d1c2125ee67b38387f3c028eab3305ac3d036",
+    "scripts/run_diagnosis_fusion.py": "6acc68119690da41ede25b4f6b4df00f35b5ee38e76c6556e737d8a50aaeb04a",
+    "tests/test_diagnosis_fusion.py": "006d711209edc3740af4935978d26b2d34f7e0088a5722e56a53c7bbcdc6c3aa",
+    "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+    "scripts/run_b1.py": "83c6b591ddcd1d07b15dbdba08e26f7731f237c420201a87339ba0d0e39a4d3e",
+    "scripts/run_regime_reference.py": "a8f6292f2789e143067ac43ee36ffe356eb3103d3f1d9585eef58271328d4f53",
+    "scripts/run_sensor_ablation.py": "57fa0191d724a82fa1e00166ec3008b3edab78a7953c7bd69b3a17700b059d49",
+    "vendor/benchmark/src/retrofit_sim/baselines.py": "4bf291d6a1834aa79ced8d2d862d0331fb60e3210630c4c1aa25744ebd7a27dc",
+    "vendor/benchmark/src/retrofit_sim/scoring.py": "5293c2e427d6181e0f24cfd64d617fc96d284c31a949410d3c88769a7e1802c2",
+    "requirements.lock.txt": "09030a82f9d1c9344f798b332c497f575ed1e44f0f71bace5f027f36075afd53",
+    "docs/tasks/013-synchronized-residual.md": "2761695ea8de7c5864f876ad6a312f60343c637eada2a566f0eb67d6dde1052a",
+    "docs/tasks/013-amendment-empirical-tail.md": "0fe2c4a92c4936ad1237f50a2714ef3182f22802e6f0aa2a8e4ada75c47edfba"
+  },
+  "inputs": {
+    "assets_train_rows": "5c8d470e4a56c55d9e09d2fc3df94bc9294fcc388d29f4159e4a9248969d9cc7",
+    "features_train_rows": "8195ae001c7c62377c317d97e4b5f36152bc4917a0826b9bef710cdd3f4b129b",
+    "snapshots_train_rows": "d4985bad1ceaf187aa08952c5c662a4c6c87f503af73100720c140c97fdc1185",
+    "events_train": "5874ae7073d1b5835eac813b2f45e2ea6c3afd8af57d12b261ed0154d1238566",
+    "benign_train_rows": "9825494e3cf05ca525a2e38c4691a601c5102d7d33ab99779e0bed5ffa9578b4",
+    "row_counts": {
+      "assets": 7,
+      "features": 70494,
+      "snapshots": 198,
+      "events": 27
+    },
+    "asset_ids": [
+      "PUMP-01",
+      "PUMP-02",
+      "PUMP-03",
+      "PUMP-04",
+      "PUMP-05",
+      "PUMP-06",
+      "PUMP-07"
+    ]
+  },
+  "raw_inputs": {
+    "PUMP-01": {
+      "loaded": false,
+      "capability": "channels_not_installed:flow_m3_h"
+    },
+    "PUMP-02": {
+      "loaded": true,
+      "capability": null,
+      "rows": 604800,
+      "columns": [
+        "timestamp_utc",
+        "operating_mode",
+        "sample_interval_s",
+        "discharge_pressure_kpa",
+        "suction_pressure_kpa",
+        "flow_m3_h",
+        "motor_speed_rpm"
+      ],
+      "first_utc": "2025-12-01 00:00:00+00:00",
+      "last_utc": "2025-12-07 23:59:59+00:00",
+      "sha256": "1310d3e25140609fbe65c161902cee7942c949aabbf12d54b6173c21250c9410"
+    },
+    "PUMP-03": {
+      "loaded": false,
+      "capability": "channels_not_installed:suction_pressure_kpa,flow_m3_h,motor_speed_rpm"
+    },
+    "PUMP-04": {
+      "loaded": true,
+      "capability": null,
+      "rows": 604800,
+      "columns": [
+        "timestamp_utc",
+        "operating_mode",
+        "sample_interval_s",
+        "discharge_pressure_kpa",
+        "suction_pressure_kpa",
+        "flow_m3_h",
+        "motor_speed_rpm"
+      ],
+      "first_utc": "2025-06-16 00:00:00+00:00",
+      "last_utc": "2025-06-22 23:59:59+00:00",
+      "sha256": "14b536baa06dceaaf7a1233c02548192f1bfe347f7e203a3f36be7b4f20553e7"
+    },
+    "PUMP-05": {
+      "loaded": false,
+      "capability": "channels_not_installed:suction_pressure_kpa,flow_m3_h,motor_speed_rpm"
+    },
+    "PUMP-06": {
+      "loaded": false,
+      "capability": "channels_not_installed:flow_m3_h,motor_speed_rpm"
+    },
+    "PUMP-07": {
+      "loaded": true,
+      "capability": null,
+      "rows": 604800,
+      "columns": [
+        "timestamp_utc",
+        "operating_mode",
+        "sample_interval_s",
+        "discharge_pressure_kpa",
+        "suction_pressure_kpa",
+        "flow_m3_h",
+        "motor_speed_rpm"
+      ],
+      "first_utc": "2025-05-12 00:00:00+00:00",
+      "last_utc": "2025-05-18 23:59:59+00:00",
+      "sha256": "7e68dbbd2e1198797222569dc5407079cdc131a15a6031965d757d22658e1151"
+    }
+  },
+  "aggregation": {
+    "PUMP-01": {
+      "minutes": 0,
+      "invalid_minutes": {},
+      "minutes_paired_ge_30": 0,
+      "sha256": "c630fb7d1c0e8c83f163363bad6a59f95dd468ae2f1017faea4b489a1958c456"
+    },
+    "PUMP-02": {
+      "minutes": 10080,
+      "invalid_minutes": {},
+      "minutes_paired_ge_30": 9351,
+      "sha256": "9e6551b5e0abb8f78da373a1476004c84920e21fbb09020f76d4f7709acca1d5"
+    },
+    "PUMP-03": {
+      "minutes": 0,
+      "invalid_minutes": {},
+      "minutes_paired_ge_30": 0,
+      "sha256": "c630fb7d1c0e8c83f163363bad6a59f95dd468ae2f1017faea4b489a1958c456"
+    },
+    "PUMP-04": {
+      "minutes": 10080,
+      "invalid_minutes": {},
+      "minutes_paired_ge_30": 8742,
+      "sha256": "e0b90938b344cdf6abb4e439e9e89f668c1282fa8034a5db860a548f7fb4ca42"
+    },
+    "PUMP-05": {
+      "minutes": 0,
+      "invalid_minutes": {},
+      "minutes_paired_ge_30": 0,
+      "sha256": "c630fb7d1c0e8c83f163363bad6a59f95dd468ae2f1017faea4b489a1958c456"
+    },
+    "PUMP-06": {
+      "minutes": 0,
+      "invalid_minutes": {},
+      "minutes_paired_ge_30": 0,
+      "sha256": "c630fb7d1c0e8c83f163363bad6a59f95dd468ae2f1017faea4b489a1958c456"
+    },
+    "PUMP-07": {
+      "minutes": 10080,
+      "invalid_minutes": {},
+      "minutes_paired_ge_30": 8258,
+      "sha256": "0f9102d3cfc6b7c328f5122315094591041704c62c9e0e268cdae9331f253278"
+    }
+  },
+  "prediction_sha256": {
+    "B1": "a52c10c72d9bfe4bfdc25eb5bde4377ac041b253046ba38ab52bf1c827278f63",
+    "R3": "0853a2198344e8d2d90142b9a2d2c792041e5689a71c19d273d29d0a71a37dde",
+    "R5": "1fcf577f0b39417b52e89c0513884045448914b782526d217bd1ccba16837762",
+    "E995": "125a21a8fe58de6673bbb95bdac730255bed93c8502f95cb3baa9b42d1de1361",
+    "Y3": "53ea79a51519628c7c929f81b199e894a7a4a100093c9267d17639e60eb8873e",
+    "Y5": "a199f5a5a2449c4cc31293f19119909c410a63f7962c8699bf3399ded3f82233",
+    "Z995": "3448845b1abb7b38943ac9172b6db7972d25461450cec209787296d45eebb685"
+  },
+  "fitted_models": null,
+  "seed": "0",
+  "python": "3.13.16",
+  "validation_touched": false,
+  "test_touched": false,
+  "scored": false
+}
