@@ -1,0 +1,1898 @@
+{
+  "manifest_sha256": "8eda43e1463843f8da30f5b2f24e5ce300e70d856dadef22125a405f5f6bae6a",
+  "code_sha256": {
+    "src/retrofit_doctor/diagnosis_fusion.py": "c62a5bc17cd5caeb9b2e0d767e6d1c2125ee67b38387f3c028eab3305ac3d036",
+    "scripts/run_diagnosis_fusion.py": "6acc68119690da41ede25b4f6b4df00f35b5ee38e76c6556e737d8a50aaeb04a",
+    "tests/test_diagnosis_fusion.py": "006d711209edc3740af4935978d26b2d34f7e0088a5722e56a53c7bbcdc6c3aa",
+    "tests/test_diagnosis_fusion_runner.py": "39263c87ba1aefa1c12f928a400d9c509fcf56fbee83170e33bf366b924aebe4",
+    "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+    "scripts/run_b1.py": "83c6b591ddcd1d07b15dbdba08e26f7731f237c420201a87339ba0d0e39a4d3e",
+    "scripts/run_regime_reference.py": "a8f6292f2789e143067ac43ee36ffe356eb3103d3f1d9585eef58271328d4f53",
+    "scripts/run_sensor_ablation.py": "57fa0191d724a82fa1e00166ec3008b3edab78a7953c7bd69b3a17700b059d49",
+    "vendor/benchmark/src/retrofit_sim/baselines.py": "4bf291d6a1834aa79ced8d2d862d0331fb60e3210630c4c1aa25744ebd7a27dc",
+    "vendor/benchmark/src/retrofit_sim/scoring.py": "5293c2e427d6181e0f24cfd64d617fc96d284c31a949410d3c88769a7e1802c2",
+    "requirements.lock.txt": "09030a82f9d1c9344f798b332c497f575ed1e44f0f71bace5f027f36075afd53"
+  },
+  "inputs": {
+    "assets_train_rows": "5c8d470e4a56c55d9e09d2fc3df94bc9294fcc388d29f4159e4a9248969d9cc7",
+    "features_train_rows": "8195ae001c7c62377c317d97e4b5f36152bc4917a0826b9bef710cdd3f4b129b",
+    "snapshots_train_rows": "d4985bad1ceaf187aa08952c5c662a4c6c87f503af73100720c140c97fdc1185",
+    "events_train": "5874ae7073d1b5835eac813b2f45e2ea6c3afd8af57d12b261ed0154d1238566",
+    "benign_train_rows": "9825494e3cf05ca525a2e38c4691a601c5102d7d33ab99779e0bed5ffa9578b4",
+    "row_counts": {
+      "assets": 7,
+      "features": 70494,
+      "snapshots": 198,
+      "events": 27
+    },
+    "asset_ids": [
+      "PUMP-01",
+      "PUMP-02",
+      "PUMP-03",
+      "PUMP-04",
+      "PUMP-05",
+      "PUMP-06",
+      "PUMP-07"
+    ]
+  },
+  "folds": [
+    {
+      "held_out": "PUMP-01",
+      "fit_assets": [
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "kind": "minute",
+      "model_id": "minute/heldout-PUMP-01",
+      "classes": [
+        "BEARING_WEAR",
+        "MISALIGNMENT",
+        "NORMAL"
+      ],
+      "support": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "BEARING_WEAR": {
+          "groups": 2,
+          "assets": 2
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "MISALIGNMENT": {
+          "groups": 2,
+          "assets": 2
+        },
+        "NORMAL": {
+          "groups": 3,
+          "assets": 2
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        }
+      },
+      "unsupported_classes": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        }
+      },
+      "training_rows": 1046,
+      "fitted": true,
+      "estimator_params": {
+        "n_estimators": 300,
+        "max_depth": 6,
+        "min_samples_leaf": 3,
+        "max_features": "sqrt",
+        "bootstrap": false,
+        "random_state": 0,
+        "n_jobs": 1
+      },
+      "feature_names": [
+        "present_v",
+        "z_v",
+        "zs_v",
+        "ztrail_v",
+        "present_a",
+        "z_a",
+        "zs_a",
+        "ztrail_a",
+        "present_c",
+        "z_c",
+        "zs_c",
+        "ztrail_c",
+        "present_bt",
+        "z_bt",
+        "zs_bt",
+        "ztrail_bt",
+        "present_ps",
+        "z_ps",
+        "zs_ps",
+        "ztrail_ps",
+        "present_pd",
+        "z_pd",
+        "zs_pd",
+        "ztrail_pd",
+        "present_i",
+        "z_i",
+        "zs_i",
+        "ztrail_i",
+        "present_pw",
+        "z_pw",
+        "zs_pw",
+        "ztrail_pw",
+        "present_q",
+        "z_q",
+        "zs_q",
+        "ztrail_q",
+        "present_n",
+        "z_n",
+        "zs_n",
+        "ztrail_n",
+        "present_wt",
+        "z_wt",
+        "zs_wt",
+        "ztrail_wt",
+        "present_tf",
+        "z_tf",
+        "zs_tf",
+        "ztrail_tf",
+        "present_vp",
+        "z_vp",
+        "zs_vp",
+        "ztrail_vp"
+      ],
+      "fitted_state_sha256": "e8c080ede36e2fa6a1495afba198ce642a550b2f3c7fb2bd3e9155f596ea437f",
+      "held_out_labels_seen": false
+    },
+    {
+      "held_out": "PUMP-01",
+      "fit_assets": [
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "kind": "fused",
+      "model_id": "fused/heldout-PUMP-01",
+      "classes": [
+        "BEARING_WEAR",
+        "MISALIGNMENT",
+        "NORMAL"
+      ],
+      "support": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "BEARING_WEAR": {
+          "groups": 2,
+          "assets": 2
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "MISALIGNMENT": {
+          "groups": 2,
+          "assets": 2
+        },
+        "NORMAL": {
+          "groups": 3,
+          "assets": 2
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        }
+      },
+      "unsupported_classes": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        }
+      },
+      "training_rows": 1046,
+      "fitted": true,
+      "estimator_params": {
+        "n_estimators": 300,
+        "max_depth": 6,
+        "min_samples_leaf": 3,
+        "max_features": "sqrt",
+        "bootstrap": false,
+        "random_state": 0,
+        "n_jobs": 1
+      },
+      "feature_names": [
+        "present_v",
+        "z_v",
+        "zs_v",
+        "ztrail_v",
+        "present_a",
+        "z_a",
+        "zs_a",
+        "ztrail_a",
+        "present_c",
+        "z_c",
+        "zs_c",
+        "ztrail_c",
+        "present_bt",
+        "z_bt",
+        "zs_bt",
+        "ztrail_bt",
+        "present_ps",
+        "z_ps",
+        "zs_ps",
+        "ztrail_ps",
+        "present_pd",
+        "z_pd",
+        "zs_pd",
+        "ztrail_pd",
+        "present_i",
+        "z_i",
+        "zs_i",
+        "ztrail_i",
+        "present_pw",
+        "z_pw",
+        "zs_pw",
+        "ztrail_pw",
+        "present_q",
+        "z_q",
+        "zs_q",
+        "ztrail_q",
+        "present_n",
+        "z_n",
+        "zs_n",
+        "ztrail_n",
+        "present_wt",
+        "z_wt",
+        "zs_wt",
+        "ztrail_wt",
+        "present_tf",
+        "z_tf",
+        "zs_tf",
+        "ztrail_tf",
+        "present_vp",
+        "z_vp",
+        "zs_vp",
+        "ztrail_vp",
+        "wf_log_1x_gain",
+        "wf_log_2x_gain",
+        "wf_2x_over_1x",
+        "wf_log_env_ratio",
+        "wf_log_env_gain",
+        "wf_available"
+      ],
+      "fitted_state_sha256": "58aa4f333d5e9c0db9b4c48b40fbb0553d8670612a530be6a86f519f500fb207",
+      "held_out_labels_seen": false
+    },
+    {
+      "held_out": "PUMP-02",
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "kind": "minute",
+      "model_id": "minute/heldout-PUMP-02",
+      "classes": [],
+      "support": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "BEARING_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "MISALIGNMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "NORMAL": {
+          "groups": 28,
+          "assets": 2
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "unsupported_classes": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "BEARING_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "MISALIGNMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "training_rows": 0,
+      "fitted": false,
+      "estimator_params": {
+        "n_estimators": 300,
+        "max_depth": 6,
+        "min_samples_leaf": 3,
+        "max_features": "sqrt",
+        "bootstrap": false,
+        "random_state": 0,
+        "n_jobs": 1
+      },
+      "feature_names": [],
+      "fitted_state_sha256": null,
+      "held_out_labels_seen": false
+    },
+    {
+      "held_out": "PUMP-02",
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "kind": "fused",
+      "model_id": "fused/heldout-PUMP-02",
+      "classes": [],
+      "support": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "BEARING_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "MISALIGNMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "NORMAL": {
+          "groups": 28,
+          "assets": 2
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "unsupported_classes": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "BEARING_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "MISALIGNMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "training_rows": 0,
+      "fitted": false,
+      "estimator_params": {
+        "n_estimators": 300,
+        "max_depth": 6,
+        "min_samples_leaf": 3,
+        "max_features": "sqrt",
+        "bootstrap": false,
+        "random_state": 0,
+        "n_jobs": 1
+      },
+      "feature_names": [],
+      "fitted_state_sha256": null,
+      "held_out_labels_seen": false
+    },
+    {
+      "held_out": "PUMP-03",
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "kind": "minute",
+      "model_id": "minute/heldout-PUMP-03",
+      "classes": [
+        "BEARING_WEAR",
+        "MISALIGNMENT",
+        "NORMAL"
+      ],
+      "support": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "BEARING_WEAR": {
+          "groups": 2,
+          "assets": 2
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "MISALIGNMENT": {
+          "groups": 2,
+          "assets": 2
+        },
+        "NORMAL": {
+          "groups": 29,
+          "assets": 3
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "unsupported_classes": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "training_rows": 1098,
+      "fitted": true,
+      "estimator_params": {
+        "n_estimators": 300,
+        "max_depth": 6,
+        "min_samples_leaf": 3,
+        "max_features": "sqrt",
+        "bootstrap": false,
+        "random_state": 0,
+        "n_jobs": 1
+      },
+      "feature_names": [
+        "present_v",
+        "z_v",
+        "zs_v",
+        "ztrail_v",
+        "present_a",
+        "z_a",
+        "zs_a",
+        "ztrail_a",
+        "present_c",
+        "z_c",
+        "zs_c",
+        "ztrail_c",
+        "present_bt",
+        "z_bt",
+        "zs_bt",
+        "ztrail_bt",
+        "present_ps",
+        "z_ps",
+        "zs_ps",
+        "ztrail_ps",
+        "present_pd",
+        "z_pd",
+        "zs_pd",
+        "ztrail_pd",
+        "present_i",
+        "z_i",
+        "zs_i",
+        "ztrail_i",
+        "present_pw",
+        "z_pw",
+        "zs_pw",
+        "ztrail_pw",
+        "present_q",
+        "z_q",
+        "zs_q",
+        "ztrail_q",
+        "present_n",
+        "z_n",
+        "zs_n",
+        "ztrail_n",
+        "present_wt",
+        "z_wt",
+        "zs_wt",
+        "ztrail_wt",
+        "present_tf",
+        "z_tf",
+        "zs_tf",
+        "ztrail_tf",
+        "present_vp",
+        "z_vp",
+        "zs_vp",
+        "ztrail_vp"
+      ],
+      "fitted_state_sha256": "e917ed3d454c2c769612e60cf5d4616e4434987d6f2ee96c093cd4698c7eaf95",
+      "held_out_labels_seen": false
+    },
+    {
+      "held_out": "PUMP-03",
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "kind": "fused",
+      "model_id": "fused/heldout-PUMP-03",
+      "classes": [
+        "BEARING_WEAR",
+        "MISALIGNMENT",
+        "NORMAL"
+      ],
+      "support": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "BEARING_WEAR": {
+          "groups": 2,
+          "assets": 2
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "MISALIGNMENT": {
+          "groups": 2,
+          "assets": 2
+        },
+        "NORMAL": {
+          "groups": 29,
+          "assets": 3
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "unsupported_classes": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "training_rows": 1098,
+      "fitted": true,
+      "estimator_params": {
+        "n_estimators": 300,
+        "max_depth": 6,
+        "min_samples_leaf": 3,
+        "max_features": "sqrt",
+        "bootstrap": false,
+        "random_state": 0,
+        "n_jobs": 1
+      },
+      "feature_names": [
+        "present_v",
+        "z_v",
+        "zs_v",
+        "ztrail_v",
+        "present_a",
+        "z_a",
+        "zs_a",
+        "ztrail_a",
+        "present_c",
+        "z_c",
+        "zs_c",
+        "ztrail_c",
+        "present_bt",
+        "z_bt",
+        "zs_bt",
+        "ztrail_bt",
+        "present_ps",
+        "z_ps",
+        "zs_ps",
+        "ztrail_ps",
+        "present_pd",
+        "z_pd",
+        "zs_pd",
+        "ztrail_pd",
+        "present_i",
+        "z_i",
+        "zs_i",
+        "ztrail_i",
+        "present_pw",
+        "z_pw",
+        "zs_pw",
+        "ztrail_pw",
+        "present_q",
+        "z_q",
+        "zs_q",
+        "ztrail_q",
+        "present_n",
+        "z_n",
+        "zs_n",
+        "ztrail_n",
+        "present_wt",
+        "z_wt",
+        "zs_wt",
+        "ztrail_wt",
+        "present_tf",
+        "z_tf",
+        "zs_tf",
+        "ztrail_tf",
+        "present_vp",
+        "z_vp",
+        "zs_vp",
+        "ztrail_vp",
+        "wf_log_1x_gain",
+        "wf_log_2x_gain",
+        "wf_2x_over_1x",
+        "wf_log_env_ratio",
+        "wf_log_env_gain",
+        "wf_available"
+      ],
+      "fitted_state_sha256": "f2f3f7e0bd875f70472ff536b16371ad38e8bb596c8a06e3be39c84d2874b973",
+      "held_out_labels_seen": false
+    },
+    {
+      "held_out": "PUMP-04",
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "kind": "minute",
+      "model_id": "minute/heldout-PUMP-04",
+      "classes": [
+        "BEARING_WEAR",
+        "MISALIGNMENT",
+        "NORMAL"
+      ],
+      "support": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "BEARING_WEAR": {
+          "groups": 2,
+          "assets": 2
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "MISALIGNMENT": {
+          "groups": 2,
+          "assets": 2
+        },
+        "NORMAL": {
+          "groups": 29,
+          "assets": 3
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "unsupported_classes": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "training_rows": 1098,
+      "fitted": true,
+      "estimator_params": {
+        "n_estimators": 300,
+        "max_depth": 6,
+        "min_samples_leaf": 3,
+        "max_features": "sqrt",
+        "bootstrap": false,
+        "random_state": 0,
+        "n_jobs": 1
+      },
+      "feature_names": [
+        "present_v",
+        "z_v",
+        "zs_v",
+        "ztrail_v",
+        "present_a",
+        "z_a",
+        "zs_a",
+        "ztrail_a",
+        "present_c",
+        "z_c",
+        "zs_c",
+        "ztrail_c",
+        "present_bt",
+        "z_bt",
+        "zs_bt",
+        "ztrail_bt",
+        "present_ps",
+        "z_ps",
+        "zs_ps",
+        "ztrail_ps",
+        "present_pd",
+        "z_pd",
+        "zs_pd",
+        "ztrail_pd",
+        "present_i",
+        "z_i",
+        "zs_i",
+        "ztrail_i",
+        "present_pw",
+        "z_pw",
+        "zs_pw",
+        "ztrail_pw",
+        "present_q",
+        "z_q",
+        "zs_q",
+        "ztrail_q",
+        "present_n",
+        "z_n",
+        "zs_n",
+        "ztrail_n",
+        "present_wt",
+        "z_wt",
+        "zs_wt",
+        "ztrail_wt",
+        "present_tf",
+        "z_tf",
+        "zs_tf",
+        "ztrail_tf",
+        "present_vp",
+        "z_vp",
+        "zs_vp",
+        "ztrail_vp"
+      ],
+      "fitted_state_sha256": "e917ed3d454c2c769612e60cf5d4616e4434987d6f2ee96c093cd4698c7eaf95",
+      "held_out_labels_seen": false
+    },
+    {
+      "held_out": "PUMP-04",
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-05",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "kind": "fused",
+      "model_id": "fused/heldout-PUMP-04",
+      "classes": [
+        "BEARING_WEAR",
+        "MISALIGNMENT",
+        "NORMAL"
+      ],
+      "support": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "BEARING_WEAR": {
+          "groups": 2,
+          "assets": 2
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "MISALIGNMENT": {
+          "groups": 2,
+          "assets": 2
+        },
+        "NORMAL": {
+          "groups": 29,
+          "assets": 3
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "unsupported_classes": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "training_rows": 1098,
+      "fitted": true,
+      "estimator_params": {
+        "n_estimators": 300,
+        "max_depth": 6,
+        "min_samples_leaf": 3,
+        "max_features": "sqrt",
+        "bootstrap": false,
+        "random_state": 0,
+        "n_jobs": 1
+      },
+      "feature_names": [
+        "present_v",
+        "z_v",
+        "zs_v",
+        "ztrail_v",
+        "present_a",
+        "z_a",
+        "zs_a",
+        "ztrail_a",
+        "present_c",
+        "z_c",
+        "zs_c",
+        "ztrail_c",
+        "present_bt",
+        "z_bt",
+        "zs_bt",
+        "ztrail_bt",
+        "present_ps",
+        "z_ps",
+        "zs_ps",
+        "ztrail_ps",
+        "present_pd",
+        "z_pd",
+        "zs_pd",
+        "ztrail_pd",
+        "present_i",
+        "z_i",
+        "zs_i",
+        "ztrail_i",
+        "present_pw",
+        "z_pw",
+        "zs_pw",
+        "ztrail_pw",
+        "present_q",
+        "z_q",
+        "zs_q",
+        "ztrail_q",
+        "present_n",
+        "z_n",
+        "zs_n",
+        "ztrail_n",
+        "present_wt",
+        "z_wt",
+        "zs_wt",
+        "ztrail_wt",
+        "present_tf",
+        "z_tf",
+        "zs_tf",
+        "ztrail_tf",
+        "present_vp",
+        "z_vp",
+        "zs_vp",
+        "ztrail_vp",
+        "wf_log_1x_gain",
+        "wf_log_2x_gain",
+        "wf_2x_over_1x",
+        "wf_log_env_ratio",
+        "wf_log_env_gain",
+        "wf_available"
+      ],
+      "fitted_state_sha256": "f2f3f7e0bd875f70472ff536b16371ad38e8bb596c8a06e3be39c84d2874b973",
+      "held_out_labels_seen": false
+    },
+    {
+      "held_out": "PUMP-05",
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "kind": "minute",
+      "model_id": "minute/heldout-PUMP-05",
+      "classes": [
+        "BEARING_WEAR",
+        "MISALIGNMENT",
+        "NORMAL"
+      ],
+      "support": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "BEARING_WEAR": {
+          "groups": 2,
+          "assets": 2
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "MISALIGNMENT": {
+          "groups": 2,
+          "assets": 2
+        },
+        "NORMAL": {
+          "groups": 29,
+          "assets": 3
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "unsupported_classes": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "training_rows": 1098,
+      "fitted": true,
+      "estimator_params": {
+        "n_estimators": 300,
+        "max_depth": 6,
+        "min_samples_leaf": 3,
+        "max_features": "sqrt",
+        "bootstrap": false,
+        "random_state": 0,
+        "n_jobs": 1
+      },
+      "feature_names": [
+        "present_v",
+        "z_v",
+        "zs_v",
+        "ztrail_v",
+        "present_a",
+        "z_a",
+        "zs_a",
+        "ztrail_a",
+        "present_c",
+        "z_c",
+        "zs_c",
+        "ztrail_c",
+        "present_bt",
+        "z_bt",
+        "zs_bt",
+        "ztrail_bt",
+        "present_ps",
+        "z_ps",
+        "zs_ps",
+        "ztrail_ps",
+        "present_pd",
+        "z_pd",
+        "zs_pd",
+        "ztrail_pd",
+        "present_i",
+        "z_i",
+        "zs_i",
+        "ztrail_i",
+        "present_pw",
+        "z_pw",
+        "zs_pw",
+        "ztrail_pw",
+        "present_q",
+        "z_q",
+        "zs_q",
+        "ztrail_q",
+        "present_n",
+        "z_n",
+        "zs_n",
+        "ztrail_n",
+        "present_wt",
+        "z_wt",
+        "zs_wt",
+        "ztrail_wt",
+        "present_tf",
+        "z_tf",
+        "zs_tf",
+        "ztrail_tf",
+        "present_vp",
+        "z_vp",
+        "zs_vp",
+        "ztrail_vp"
+      ],
+      "fitted_state_sha256": "e917ed3d454c2c769612e60cf5d4616e4434987d6f2ee96c093cd4698c7eaf95",
+      "held_out_labels_seen": false
+    },
+    {
+      "held_out": "PUMP-05",
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-06",
+        "PUMP-07"
+      ],
+      "kind": "fused",
+      "model_id": "fused/heldout-PUMP-05",
+      "classes": [
+        "BEARING_WEAR",
+        "MISALIGNMENT",
+        "NORMAL"
+      ],
+      "support": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "BEARING_WEAR": {
+          "groups": 2,
+          "assets": 2
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "MISALIGNMENT": {
+          "groups": 2,
+          "assets": 2
+        },
+        "NORMAL": {
+          "groups": 29,
+          "assets": 3
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "unsupported_classes": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "training_rows": 1098,
+      "fitted": true,
+      "estimator_params": {
+        "n_estimators": 300,
+        "max_depth": 6,
+        "min_samples_leaf": 3,
+        "max_features": "sqrt",
+        "bootstrap": false,
+        "random_state": 0,
+        "n_jobs": 1
+      },
+      "feature_names": [
+        "present_v",
+        "z_v",
+        "zs_v",
+        "ztrail_v",
+        "present_a",
+        "z_a",
+        "zs_a",
+        "ztrail_a",
+        "present_c",
+        "z_c",
+        "zs_c",
+        "ztrail_c",
+        "present_bt",
+        "z_bt",
+        "zs_bt",
+        "ztrail_bt",
+        "present_ps",
+        "z_ps",
+        "zs_ps",
+        "ztrail_ps",
+        "present_pd",
+        "z_pd",
+        "zs_pd",
+        "ztrail_pd",
+        "present_i",
+        "z_i",
+        "zs_i",
+        "ztrail_i",
+        "present_pw",
+        "z_pw",
+        "zs_pw",
+        "ztrail_pw",
+        "present_q",
+        "z_q",
+        "zs_q",
+        "ztrail_q",
+        "present_n",
+        "z_n",
+        "zs_n",
+        "ztrail_n",
+        "present_wt",
+        "z_wt",
+        "zs_wt",
+        "ztrail_wt",
+        "present_tf",
+        "z_tf",
+        "zs_tf",
+        "ztrail_tf",
+        "present_vp",
+        "z_vp",
+        "zs_vp",
+        "ztrail_vp",
+        "wf_log_1x_gain",
+        "wf_log_2x_gain",
+        "wf_2x_over_1x",
+        "wf_log_env_ratio",
+        "wf_log_env_gain",
+        "wf_available"
+      ],
+      "fitted_state_sha256": "f2f3f7e0bd875f70472ff536b16371ad38e8bb596c8a06e3be39c84d2874b973",
+      "held_out_labels_seen": false
+    },
+    {
+      "held_out": "PUMP-06",
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-07"
+      ],
+      "kind": "minute",
+      "model_id": "minute/heldout-PUMP-06",
+      "classes": [
+        "BEARING_WEAR",
+        "NORMAL"
+      ],
+      "support": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "BEARING_WEAR": {
+          "groups": 2,
+          "assets": 2
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "MISALIGNMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "NORMAL": {
+          "groups": 29,
+          "assets": 3
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "unsupported_classes": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "MISALIGNMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "training_rows": 855,
+      "fitted": true,
+      "estimator_params": {
+        "n_estimators": 300,
+        "max_depth": 6,
+        "min_samples_leaf": 3,
+        "max_features": "sqrt",
+        "bootstrap": false,
+        "random_state": 0,
+        "n_jobs": 1
+      },
+      "feature_names": [
+        "present_v",
+        "z_v",
+        "zs_v",
+        "ztrail_v",
+        "present_a",
+        "z_a",
+        "zs_a",
+        "ztrail_a",
+        "present_c",
+        "z_c",
+        "zs_c",
+        "ztrail_c",
+        "present_bt",
+        "z_bt",
+        "zs_bt",
+        "ztrail_bt",
+        "present_ps",
+        "z_ps",
+        "zs_ps",
+        "ztrail_ps",
+        "present_pd",
+        "z_pd",
+        "zs_pd",
+        "ztrail_pd",
+        "present_i",
+        "z_i",
+        "zs_i",
+        "ztrail_i",
+        "present_pw",
+        "z_pw",
+        "zs_pw",
+        "ztrail_pw",
+        "present_q",
+        "z_q",
+        "zs_q",
+        "ztrail_q",
+        "present_n",
+        "z_n",
+        "zs_n",
+        "ztrail_n",
+        "present_wt",
+        "z_wt",
+        "zs_wt",
+        "ztrail_wt",
+        "present_tf",
+        "z_tf",
+        "zs_tf",
+        "ztrail_tf",
+        "present_vp",
+        "z_vp",
+        "zs_vp",
+        "ztrail_vp"
+      ],
+      "fitted_state_sha256": "124f7378e2ab99edeccf793cefb1e09e2080aea9fa4c1a5e2210128b947487e3",
+      "held_out_labels_seen": false
+    },
+    {
+      "held_out": "PUMP-06",
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-07"
+      ],
+      "kind": "fused",
+      "model_id": "fused/heldout-PUMP-06",
+      "classes": [
+        "BEARING_WEAR",
+        "NORMAL"
+      ],
+      "support": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "BEARING_WEAR": {
+          "groups": 2,
+          "assets": 2
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "MISALIGNMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "NORMAL": {
+          "groups": 29,
+          "assets": 3
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "unsupported_classes": {
+        "AIR_ENTRAINMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "MISALIGNMENT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SENSOR_CALIBRATION_SHIFT": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "training_rows": 855,
+      "fitted": true,
+      "estimator_params": {
+        "n_estimators": 300,
+        "max_depth": 6,
+        "min_samples_leaf": 3,
+        "max_features": "sqrt",
+        "bootstrap": false,
+        "random_state": 0,
+        "n_jobs": 1
+      },
+      "feature_names": [
+        "present_v",
+        "z_v",
+        "zs_v",
+        "ztrail_v",
+        "present_a",
+        "z_a",
+        "zs_a",
+        "ztrail_a",
+        "present_c",
+        "z_c",
+        "zs_c",
+        "ztrail_c",
+        "present_bt",
+        "z_bt",
+        "zs_bt",
+        "ztrail_bt",
+        "present_ps",
+        "z_ps",
+        "zs_ps",
+        "ztrail_ps",
+        "present_pd",
+        "z_pd",
+        "zs_pd",
+        "ztrail_pd",
+        "present_i",
+        "z_i",
+        "zs_i",
+        "ztrail_i",
+        "present_pw",
+        "z_pw",
+        "zs_pw",
+        "ztrail_pw",
+        "present_q",
+        "z_q",
+        "zs_q",
+        "ztrail_q",
+        "present_n",
+        "z_n",
+        "zs_n",
+        "ztrail_n",
+        "present_wt",
+        "z_wt",
+        "zs_wt",
+        "ztrail_wt",
+        "present_tf",
+        "z_tf",
+        "zs_tf",
+        "ztrail_tf",
+        "present_vp",
+        "z_vp",
+        "zs_vp",
+        "ztrail_vp",
+        "wf_log_1x_gain",
+        "wf_log_2x_gain",
+        "wf_2x_over_1x",
+        "wf_log_env_ratio",
+        "wf_log_env_gain",
+        "wf_available"
+      ],
+      "fitted_state_sha256": "cb3da9c1bfe81dcffe930e9dc4f81d51c0a5d3a3a0fed2333386caaffc063f1a",
+      "held_out_labels_seen": false
+    },
+    {
+      "held_out": "PUMP-07",
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06"
+      ],
+      "kind": "minute",
+      "model_id": "minute/heldout-PUMP-07",
+      "classes": [
+        "MISALIGNMENT",
+        "NORMAL"
+      ],
+      "support": {
+        "BEARING_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "MISALIGNMENT": {
+          "groups": 2,
+          "assets": 2
+        },
+        "NORMAL": {
+          "groups": 27,
+          "assets": 2
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "unsupported_classes": {
+        "BEARING_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "training_rows": 535,
+      "fitted": true,
+      "estimator_params": {
+        "n_estimators": 300,
+        "max_depth": 6,
+        "min_samples_leaf": 3,
+        "max_features": "sqrt",
+        "bootstrap": false,
+        "random_state": 0,
+        "n_jobs": 1
+      },
+      "feature_names": [
+        "present_v",
+        "z_v",
+        "zs_v",
+        "ztrail_v",
+        "present_a",
+        "z_a",
+        "zs_a",
+        "ztrail_a",
+        "present_c",
+        "z_c",
+        "zs_c",
+        "ztrail_c",
+        "present_bt",
+        "z_bt",
+        "zs_bt",
+        "ztrail_bt",
+        "present_ps",
+        "z_ps",
+        "zs_ps",
+        "ztrail_ps",
+        "present_pd",
+        "z_pd",
+        "zs_pd",
+        "ztrail_pd",
+        "present_i",
+        "z_i",
+        "zs_i",
+        "ztrail_i",
+        "present_pw",
+        "z_pw",
+        "zs_pw",
+        "ztrail_pw",
+        "present_q",
+        "z_q",
+        "zs_q",
+        "ztrail_q",
+        "present_n",
+        "z_n",
+        "zs_n",
+        "ztrail_n",
+        "present_wt",
+        "z_wt",
+        "zs_wt",
+        "ztrail_wt",
+        "present_tf",
+        "z_tf",
+        "zs_tf",
+        "ztrail_tf",
+        "present_vp",
+        "z_vp",
+        "zs_vp",
+        "ztrail_vp"
+      ],
+      "fitted_state_sha256": "8b0454d35d3229c9adcce37f477a70b2d701f5a5b24fcbc94815e06c87b77e18",
+      "held_out_labels_seen": false
+    },
+    {
+      "held_out": "PUMP-07",
+      "fit_assets": [
+        "PUMP-01",
+        "PUMP-02",
+        "PUMP-03",
+        "PUMP-04",
+        "PUMP-05",
+        "PUMP-06"
+      ],
+      "kind": "fused",
+      "model_id": "fused/heldout-PUMP-07",
+      "classes": [
+        "MISALIGNMENT",
+        "NORMAL"
+      ],
+      "support": {
+        "BEARING_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "MISALIGNMENT": {
+          "groups": 2,
+          "assets": 2
+        },
+        "NORMAL": {
+          "groups": 27,
+          "assets": 2
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "unsupported_classes": {
+        "BEARING_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMBALANCE": {
+          "groups": 1,
+          "assets": 1
+        },
+        "IMPELLER_WEAR": {
+          "groups": 1,
+          "assets": 1
+        },
+        "SUCTION_STRAINER_CLOGGING": {
+          "groups": 2,
+          "assets": 1
+        }
+      },
+      "training_rows": 535,
+      "fitted": true,
+      "estimator_params": {
+        "n_estimators": 300,
+        "max_depth": 6,
+        "min_samples_leaf": 3,
+        "max_features": "sqrt",
+        "bootstrap": false,
+        "random_state": 0,
+        "n_jobs": 1
+      },
+      "feature_names": [
+        "present_v",
+        "z_v",
+        "zs_v",
+        "ztrail_v",
+        "present_a",
+        "z_a",
+        "zs_a",
+        "ztrail_a",
+        "present_c",
+        "z_c",
+        "zs_c",
+        "ztrail_c",
+        "present_bt",
+        "z_bt",
+        "zs_bt",
+        "ztrail_bt",
+        "present_ps",
+        "z_ps",
+        "zs_ps",
+        "ztrail_ps",
+        "present_pd",
+        "z_pd",
+        "zs_pd",
+        "ztrail_pd",
+        "present_i",
+        "z_i",
+        "zs_i",
+        "ztrail_i",
+        "present_pw",
+        "z_pw",
+        "zs_pw",
+        "ztrail_pw",
+        "present_q",
+        "z_q",
+        "zs_q",
+        "ztrail_q",
+        "present_n",
+        "z_n",
+        "zs_n",
+        "ztrail_n",
+        "present_wt",
+        "z_wt",
+        "zs_wt",
+        "ztrail_wt",
+        "present_tf",
+        "z_tf",
+        "zs_tf",
+        "ztrail_tf",
+        "present_vp",
+        "z_vp",
+        "zs_vp",
+        "ztrail_vp",
+        "wf_log_1x_gain",
+        "wf_log_2x_gain",
+        "wf_2x_over_1x",
+        "wf_log_env_ratio",
+        "wf_log_env_gain",
+        "wf_available"
+      ],
+      "fitted_state_sha256": "5e75463ea6de743a744b555e895d67f7e406a6e861802564e5b1b995455bf24a",
+      "held_out_labels_seen": false
+    }
+  ],
+  "prediction_sha256": {
+    "B1": "d8ddd6906144ac9835be353510b7476f96581bf916ffb16ab5c8cd564d835864",
+    "W1": "de511abe9dd8da3d6a3aa8382456441affb743c5acfb4a136d22d165bef56465",
+    "M1": "c5265db42b202239869a36a0d90e73d73b9c976c8a7da254ab0e3e4c8637f464",
+    "M2": "e79f47c8135b79055bd70d32c2a56c226a2bba49b5b5282a203e731ba9088bdc",
+    "F1": "ed101b82c4780930878452d45642871cdee20ea9963d1508aa7b414646e47cae",
+    "F2": "3332eac2c99b40c10c667ea55f8d9c4da91b8abf27b2f5b7d4976dba0aa0f21d",
+    "X1": "620e184ff00efc62f5b952288f63212c541a53e282dc84abc9ca89f63fdf5fae"
+  },
+  "seed": "0",
+  "python": "3.13.16",
+  "validation_touched": false,
+  "test_touched": false,
+  "scored": false
+}

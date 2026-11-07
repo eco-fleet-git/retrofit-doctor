@@ -1,0 +1,200 @@
+[
+  {
+    "held_out": "PUMP-01",
+    "kind": "minute",
+    "held_out_types": [
+      "COMMUNICATION_LOSS",
+      "SENSOR_STUCK",
+      "SUCTION_STRAINER_CLOGGING"
+    ],
+    "unpredictable_types": [
+      "COMMUNICATION_LOSS",
+      "SENSOR_STUCK",
+      "SUCTION_STRAINER_CLOGGING"
+    ]
+  },
+  {
+    "held_out": "PUMP-01",
+    "kind": "fused",
+    "held_out_types": [
+      "COMMUNICATION_LOSS",
+      "SENSOR_STUCK",
+      "SUCTION_STRAINER_CLOGGING"
+    ],
+    "unpredictable_types": [
+      "COMMUNICATION_LOSS",
+      "SENSOR_STUCK",
+      "SUCTION_STRAINER_CLOGGING"
+    ]
+  },
+  {
+    "held_out": "PUMP-02",
+    "kind": "minute",
+    "held_out_types": [
+      "BEARING_WEAR",
+      "MISALIGNMENT",
+      "SENSOR_DRIFT"
+    ],
+    "unpredictable_types": [
+      "BEARING_WEAR",
+      "MISALIGNMENT",
+      "SENSOR_DRIFT"
+    ]
+  },
+  {
+    "held_out": "PUMP-02",
+    "kind": "fused",
+    "held_out_types": [
+      "BEARING_WEAR",
+      "MISALIGNMENT",
+      "SENSOR_DRIFT"
+    ],
+    "unpredictable_types": [
+      "BEARING_WEAR",
+      "MISALIGNMENT",
+      "SENSOR_DRIFT"
+    ]
+  },
+  {
+    "held_out": "PUMP-03",
+    "kind": "minute",
+    "held_out_types": [
+      "DISCHARGE_RESTRICTION",
+      "IMPELLER_WEAR",
+      "SENSOR_CALIBRATION_SHIFT"
+    ],
+    "unpredictable_types": [
+      "DISCHARGE_RESTRICTION",
+      "IMPELLER_WEAR",
+      "SENSOR_CALIBRATION_SHIFT"
+    ]
+  },
+  {
+    "held_out": "PUMP-03",
+    "kind": "fused",
+    "held_out_types": [
+      "DISCHARGE_RESTRICTION",
+      "IMPELLER_WEAR",
+      "SENSOR_CALIBRATION_SHIFT"
+    ],
+    "unpredictable_types": [
+      "DISCHARGE_RESTRICTION",
+      "IMPELLER_WEAR",
+      "SENSOR_CALIBRATION_SHIFT"
+    ]
+  },
+  {
+    "held_out": "PUMP-04",
+    "kind": "minute",
+    "held_out_types": [
+      "BEARING_WEAR",
+      "DISCHARGE_RESTRICTION",
+      "IMBALANCE",
+      "SENSOR_NOISE_SPIKES"
+    ],
+    "unpredictable_types": [
+      "DISCHARGE_RESTRICTION",
+      "IMBALANCE",
+      "SENSOR_NOISE_SPIKES"
+    ]
+  },
+  {
+    "held_out": "PUMP-04",
+    "kind": "fused",
+    "held_out_types": [
+      "BEARING_WEAR",
+      "DISCHARGE_RESTRICTION",
+      "IMBALANCE",
+      "SENSOR_NOISE_SPIKES"
+    ],
+    "unpredictable_types": [
+      "DISCHARGE_RESTRICTION",
+      "IMBALANCE",
+      "SENSOR_NOISE_SPIKES"
+    ]
+  },
+  {
+    "held_out": "PUMP-05",
+    "kind": "minute",
+    "held_out_types": [
+      "IMPELLER_WEAR",
+      "SENSOR_STUCK"
+    ],
+    "unpredictable_types": [
+      "IMPELLER_WEAR",
+      "SENSOR_STUCK"
+    ]
+  },
+  {
+    "held_out": "PUMP-05",
+    "kind": "fused",
+    "held_out_types": [
+      "IMPELLER_WEAR",
+      "SENSOR_STUCK"
+    ],
+    "unpredictable_types": [
+      "IMPELLER_WEAR",
+      "SENSOR_STUCK"
+    ]
+  },
+  {
+    "held_out": "PUMP-06",
+    "kind": "minute",
+    "held_out_types": [
+      "CAVITATION",
+      "MISALIGNMENT",
+      "SENSOR_DRIFT",
+      "SUCTION_STRAINER_CLOGGING"
+    ],
+    "unpredictable_types": [
+      "CAVITATION",
+      "MISALIGNMENT",
+      "SENSOR_DRIFT",
+      "SUCTION_STRAINER_CLOGGING"
+    ]
+  },
+  {
+    "held_out": "PUMP-06",
+    "kind": "fused",
+    "held_out_types": [
+      "CAVITATION",
+      "MISALIGNMENT",
+      "SENSOR_DRIFT",
+      "SUCTION_STRAINER_CLOGGING"
+    ],
+    "unpredictable_types": [
+      "CAVITATION",
+      "MISALIGNMENT",
+      "SENSOR_DRIFT",
+      "SUCTION_STRAINER_CLOGGING"
+    ]
+  },
+  {
+    "held_out": "PUMP-07",
+    "kind": "minute",
+    "held_out_types": [
+      "AIR_ENTRAINMENT",
+      "BEARING_WEAR",
+      "SENSOR_CALIBRATION_SHIFT"
+    ],
+    "unpredictable_types": [
+      "AIR_ENTRAINMENT",
+      "BEARING_WEAR",
+      "SENSOR_CALIBRATION_SHIFT"
+    ]
+  },
+  {
+    "held_out": "PUMP-07",
+    "kind": "fused",
+    "held_out_types": [
+      "AIR_ENTRAINMENT",
+      "BEARING_WEAR",
+      "SENSOR_CALIBRATION_SHIFT"
+    ],
+    "unpredictable_types": [
+      "AIR_ENTRAINMENT",
+      "BEARING_WEAR",
+      "SENSOR_CALIBRATION_SHIFT"
+    ]
+  }
+]

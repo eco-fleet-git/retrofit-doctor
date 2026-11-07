@@ -95,3 +95,27 @@ No candidate definition or gate changed.
 2. Authorize phase 2: `PYTHONHASHSEED=0 ../../work/.venv/bin/python scripts/run_diagnosis_fusion.py train` (one run; it refuses to overwrite).
 
 Any further code change alters the manifest hashes, so the manifest must be regenerated before sealing. Git is yours.
+
+## Phase 2 (executed once under SEAL)
+
+**Run:** `PYTHONHASHSEED=0 ../../work/.venv/bin/python scripts/run_diagnosis_fusion.py train`, exit 0, 451 s, writing `results/diagnosis_fusion/run-20261107T083245565432Z/`. `COMPLETED.json` was written, and stdout/stderr are kept as `train_stdout.log` / `train_stderr.log`.
+
+**Correctness: all passed.**
+- Control equality.
+- Emission multiset equal to the control for all 7 candidates.
+- Causality: 0 failures in 392 checks per candidate.
+- Determinism: main hash equals both child hashes.
+
+**Success gate: no candidate passed, so `selected = null`.**
+
+| Candidate | Correct type | Correct class | Detected | Sensor type+channel |
+|---|---:|---:|---:|---:|
+| B1 | 8 | 14 | 18 | 3 |
+| W1 | 8 | 13 | 18 | 3 |
+| M1 / F1 | 6 | 14 | 17 | 2 |
+| M2 / F2 | 6 | 13 | 17 | 2 |
+| X1 | 7 | 13 | 16 | 2 |
+
+W1 also lowered excess by 1.
+
+Details, per-event changes and causes are in `results/diagnosis_fusion/FINDINGS.md`. No validation, test, UI or release change. No code was edited after scoring. B1 is retained.
