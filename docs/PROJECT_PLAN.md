@@ -6,7 +6,7 @@ Approved 2026-11-06. First usable demo: **2026-11-07 12:00 Europe/Berlin (11:00 
 
 An engineer can inspect a pump, understand whether the evidence suggests a machine fault, sensor fault or insufficient information, and decide the next measurement/check. Retrofit Planner explains what additional instrumentation would resolve, what it cannot resolve, and when installing it is not worth the total cost. No device is built. No automatic control, certification or real-world performance is claimed.
 
-Four views: Fleet Overview (12 independent assets and actual sensor coverage), Pump Detail (time-bounded trends/evidence/alternatives/action), Retrofit Planner (existing vs added measurements and integration assumptions), Evidence (baseline comparison, experiments and limitations). Test assets show metadata/coverage only during development; labeled replay uses train/validation assets.
+Baseline views: Fleet Overview (12 independent assets and actual sensor coverage), Pump Detail (time-bounded trends/evidence/alternatives/action), Retrofit Planner (existing vs added measurements and integration assumptions), Evidence (baseline comparison, experiments and limitations). Test assets show metadata/coverage only during development; labeled replay uses train/validation assets.
 
 ## Delivery sequence
 
@@ -19,7 +19,7 @@ Four views: Fleet Overview (12 independent assets and actual sensor coverage), P
 
 ## Acceptance
 
-Current implementation queue after the reviewed negative B2 result: Task003 Planner → Task004 fixed sensor ablation → Task008 bounded sparse-stuck follow-up → Task005 regime/reference experiments → Task006 integrated demo and corrected UX Pilot direction → Task007 final sealed export/release. Task008 is explicitly a new experiment registered after observing quantization-related false warnings, not a hidden change to B2 v1. Each experiment has a finite candidate budget; negative results do not trigger an open-ended search. No second paid UX Pilot generation is planned.
+Historical first-release implementation queue after the reviewed negative B2 result: Task003 Planner → Task004 fixed sensor ablation → Task008 bounded sparse-stuck follow-up → Task005 regime/reference experiments → Task006 integrated demo and corrected UX Pilot direction → Task007 final sealed export/release. Task008 is explicitly a new experiment registered after observing quantization-related false warnings, not a hidden change to B2 v1. Each experiment has a finite candidate budget. The later user-authorized continued search registers new bounded waves rather than changing failed gates. No second paid UX Pilot generation is planned.
 
 - Fresh local run instructions work; core demo operates without cloud services after dependencies are installed.
 - 12 assets use verified metadata; missing inputs are not zero/healthy.
@@ -39,3 +39,7 @@ Keep Python detector/evidence export and a small local browser UI. Prefer static
 Baseline: README.md, B1_FINDINGS.md, CAUSAL_B1_FINDINGS.md, results/. Sensor map: diagrams/. Organizer: vendor/benchmark/RETROFIT_FEASIBILITY.md and challenge brief. Read current authoritative sources before making new regulatory or current product-price claims; dated organizer BOM remains a dated example, not a fresh quote.
 
 Main Codex chat owns this plan/Git/task status; UX helper owns docs/ux; experiments helper owns docs/experiments; Claude owns implementation. Todoist project: https://app.todoist.com/app/project/6hwchMHXFQVmmj9M. Obsidian Project Context stores decisions and resume point, not a duplicate backlog.
+
+## Current research iteration — 7 November
+
+Tasks010–012 were negative. Task013 selected the frozen Z995 combination on train: correct type8→10/26, sensor type+channel3→4/8, detection18/26 and burden6 unchanged. Task014 passed descriptive validation: type4→5/9, detection8/9 and burden1 unchanged, no prior correct diagnosis lost. Validation is previously inspected and its gain is waveform-only. Task015 adds a separate source-specific comparison view with real before/at-alert gating and four cases including an unchanged error. Baseline replay and frozen test export stay B1. See the experiment registry and coordinator reviews013/014 for provenance and limitations. User visual feedback and timed spoken rehearsal are still pending.

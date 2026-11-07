@@ -31,7 +31,9 @@ The interface and pitch are in English. [Russian working notes](README.ru.md) pr
 
 ## Measured evidence
 
-The selected replay detector remains **causal B1, k=6, persistence=15 minutes**, using a fixed first-day empirical reference. That reference is not certified healthy.
+The new research comparison uses **Z995**, combining synchronized hydraulic evidence with UNKNOWN-only vibration refinement. Both components retain B1 alert times. On seven training pumps, correct fault types improved **8→10/26**, sensor type+channel **3→4/8**, with detection18/26 and false+repeat burden6 unchanged. On two previously inspected validation pumps, correct types improved **4→5/9**, with detection8/9 and burden1 unchanged. No earlier correct event was lost. The validation gain is from vibration only; the hydraulic gain has training-only support. [Training review](docs/tasks/013-coordinator-review.md), [descriptive validation review](docs/tasks/014-coordinator-review.md).
+
+The preserved historical replay and frozen test export use **causal B1, k=6, persistence=15 minutes**, with a first-day empirical reference that is not certified healthy. Its original-versus-causal comparison remains:
 
 | Synthetic validation, 9 events / 2 pumps | Causal B1 | Historical original B1 |
 |---|---:|---:|
@@ -46,7 +48,7 @@ Five new B2 candidates failed the registered training gates: more detections cam
 
 Sensor mask/restore effects were mixed. On ten original train events, full inputs gave 9 detections and 2 correct types; removing vibration/temperature gave 8 and 0. Removing flow/power lost a detection but gained a correct type. Restoration reproduced the full-input features. These are information-ablation results for an unchanged detector, not hardware ROI. See [paired results and adverse cases](results/sensor_ablation/FINDINGS.md).
 
-The proposed fleet reference has no channel supported by three eligible fit assets under the registered comparability rules. It remains a fixture-only prototype. The regime/abstention candidates also failed their gates; causal B1 remains retained. All seven bounded hypotheses are summarized in [research outcomes](docs/experiments/RESULTS.md). See [the registered experiment and exposure log](docs/experiments/followup/2026-11-07-e3-e4-manifest.json).
+The proposed fleet reference has no channel supported by three eligible fit assets under the registered comparability rules. It remains a fixture-only prototype. The regime/abstention candidates also failed their gates; causal B1 was retained in that historical round. The seven initial hypotheses and subsequent combined-method results are summarized in [research outcomes](docs/experiments/RESULTS.md). See [the registered experiment and exposure log](docs/experiments/followup/2026-11-07-e3-e4-manifest.json).
 
 ## Limits that matter
 

@@ -32,7 +32,7 @@ Details: [`web/README.md`](../../web/README.md).
 
 ## 3. Model choice and measured evidence
 
-**Released detector: unchanged causal B1** (k = 6, persistence 15 min, 24 h causal commissioning reference). Nine bounded candidates were evaluated under registered train gates, and none justified replacing it:
+**Frozen test-release detector: unchanged causal B1** (k = 6, persistence 15 min, 24 h causal commissioning reference). Nine bounded candidates were evaluated under registered train gates, and none justified replacing it:
 
 | Experiment | Candidates | Result |
 |---|---|---|
@@ -41,7 +41,7 @@ Details: [`web/README.md`](../../web/README.md).
 | Task005 E3 | R1/R2 | Seed, causality and type gates failed |
 | Task005 E4 | — | Not testable: no prior support |
 
-No improvement over the baseline is claimed. The hypothesis summary is in [`docs/experiments/RESULTS.md`](../experiments/RESULTS.md). Detailed findings:
+No improvement was claimed in that historical release round. Subsequent Task013/014 research selected Z995 (train correct type8→10/26; descriptive validation4→5/9, unchanged detection and false/repeat burden). This new research comparison does not replace the frozen B1 test export. Its validation gain is waveform-only; synthetic, previously inspected data does not establish field generalization. The current hypothesis summary is in [`docs/experiments/RESULTS.md`](../experiments/RESULTS.md). Detailed findings:
 
 - [causal B2](../../results/causal_b2/CAUSAL_B2_FINDINGS.md)
 - [sensor mask/restore](../../results/sensor_ablation/FINDINGS.md)

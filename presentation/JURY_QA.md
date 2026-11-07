@@ -1,6 +1,6 @@
 # Jury questions — evidence-backed answers
 
-7 November 2026. English speaking notes. Current measured diagnostic release: causal B1. Refresh implemented-feature statements after the final integration review. Sources are repository-relative for rehearsal; they are not claims of an external deployment.
+7 November 2026. English speaking notes. Selected research method: Z995; preserved replay and frozen test release: causal B1. Sources are repository-relative for rehearsal; they are not claims of an external deployment.
 
 ## What is Retrofit Doctor?
 
@@ -34,17 +34,19 @@ Source: vendor/benchmark/BENCHMARK_RULES.md; results/causal_b1/report_causal_val
 
 ## Did the new diagnostic model improve the baseline?
 
-The first B2 experiment did not. Five candidates used cadence/quality states and, in four cases, temporal shape checks. They detected 21/26 train events instead of 18/26, but correctly typed only 6–7 instead of 8 and produced 20–21 false plus excessive repeat episodes instead of 6 over 49 asset-days. None passed the registered gates, so we kept causal B1. We do not present extra detections alone as success.
+Yes, within this small synthetic dataset. Frozen Z995 combines synchronized hydraulic-residual evidence with UNKNOWN-only vibration refinement while retaining B1 emission times. On26 train events /7 pumps /49asset-days, correct types improve8→10, correctly localized sensor faults3→4 of8, while detected18, class14 and false3+excess3 remain unchanged. No earlier correct event is lost. On9 previously inspected validation events /2 pumps /14asset-days, correct types improve4→5, detected8 and false1+excess0 remain unchanged, again without losing a previous correct event/channel.
 
-A specific lesson was false “stuck sensor” alerts on normally quantized, sparse bearing temperatures. Identical successive readings are not enough evidence that an instrument has failed. Sources: results/causal_b2/CAUSAL_B2_FINDINGS.md and selection.json. This result does not establish that all cadence-aware methods fail.
+The train gains are flow-sensor noise on PUMP-04 and misalignment on PUMP-02. Validation adds bearing wear on PUMP-08. The hydraulic component cannot run on either validation pump because required inputs are absent; the validation gain is waveform-only. Training was adaptively inspected, validation was already inspected, and all measurements are synthetic. This is not independent generalization or field accuracy. The flow contribution only narrowly exceeds the fixed threshold; commissioning references are empirical, not certified healthy. Older radial vibration snapshots support a hypothesis, not a confirmed current fault.
 
-The bounded sparse-sensor follow-up also retained the control. Its reference-aware rule reduced sparse alerts outside true stuck events from 23 to 6, but total false plus excessive repeat burden remained 14 versus the control's 6. It failed the workload gate. Only one labeled sparse stuck event was eligible, so this does not establish general effectiveness. Source: results/sparse_stuck_followup/FINDINGS.md and docs/tasks/008-coordinator-review.md. The regime-support candidate did not reduce nuisance burden; the abstention candidate removed one correct diagnosis. Both failed the registered cross-seed correctness gate, and the abstention candidate also failed the type gate. We retain the original configured baseline. See results/regime_reference/FINDINGS.md.
+Twenty-three earlier candidate configurations failed their registered gates. Six new configurations were sealed before scoring; two passed and the prespecified ranking selected Z995. We preserved failures and did not tune on test data. Training passed2744 causal comparisons and30 raw aggregation checks; validation passed276 causal/evidence comparisons. A separately sealed audit-only recovery corrected a categorical test mutator after the scored train run failed; original predictions and scores were preserved. The fixed B1 test export remains unchanged.
+
+Sources: results/synchronized_residual/FINDINGS.md; results/validation_z995/FINDINGS.md; docs/tasks/013-coordinator-review.md; docs/tasks/014-coordinator-review.md; docs/experiments/RESULTS.md.
 
 ## Where is the AI?
 
-The current inference uses auditable statistical normalization and explicit diagnostic rules. The product is not presented as a trained language model diagnosing equipment, and no generative model invents the live evidence. We use coding/design assistants in development. More complex inference would have to outperform the retained baseline under the same causal, diagnostic and workload checks before replacing it.
+The new comparison uses auditable statistical normalization, a pump-equation residual with covariance attribution, and frequency/envelope features from completed vibration snapshots. Learned ExtraTrees candidates were tested with asset-separated fitting and rejected because they lost correct diagnoses. The product is not presented as a trained language model diagnosing equipment, and no generative model invents the live evidence. We use coding/design assistants in development. The combined rule method passed those diagnostic, causality and workload checks; its independent field usefulness remains unproven.
 
-Source: src/retrofit_doctor/causal_b1.py; results/causal_b2/CAUSAL_B2_FINDINGS.md. Reproducibility requires the recorded Python/dependency environment and PYTHONHASHSEED=0 at startup: inherited set iteration can change fault types under other seeds. We do not claim seed invariance.
+Sources: src/retrofit_doctor/synchronized_residual.py; results/diagnosis_fusion/FINDINGS.md; results/synchronized_residual/FINDINGS.md. Reproducibility requires the recorded Python/dependency environment and PYTHONHASHSEED=0 at startup: inherited set iteration can change fault types under other seeds. We do not claim seed invariance.
 
 ## Why would another sensor help?
 
