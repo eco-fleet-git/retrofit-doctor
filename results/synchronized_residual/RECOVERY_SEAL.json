@@ -1,0 +1,6 @@
+{
+  "recovery_manifest_sha256": "15eb5a391f60857b3738eec1d83223baf22d2803b0e984fc7d95e8e444e9d5ed",
+  "authorization": "Finish only unfinished correctness checks against unchanged original inputs and predictions; no scoring or model changes",
+  "coordinator": "Codex",
+  "date": "2026-11-07"
+}

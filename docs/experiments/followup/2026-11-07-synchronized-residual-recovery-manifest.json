@@ -1,0 +1,99 @@
+{
+  "task": "013-audit-recovery",
+  "status": "PROPOSED_AWAITING_COORDINATOR_RECOVERY_SEAL",
+  "date": "2026-11-07",
+  "protocol": "docs/tasks/013-audit-recovery.md",
+  "reason": "Original sealed attempt run-20261107T093222280839Z exited 1 in raw_audit: the original mutate_raw_future assigned future operating_mode='STOPPED' to a pandas Categorical lacking that category (TypeError). Test-harness representation defect; no diagnosis change.",
+  "repair": "New script only: a COPY of raw operating_mode is cast to object, then the unchanged original mutate_raw_future applies exactly the registered future mutation (values x3+50 for the four raw channels, mode STOPPED, timestamps >= cut). Prefix inputs, inference, thresholds and scores unchanged.",
+  "exposure": "Unchecked scores of the failed attempt are known to implementer and coordinator (E995: type 9, sensor type+channel 4; Z995: type 10, sensor type+channel 4; others no gate). The recovery cannot change predictions or scores; any hash mismatch or audit failure stops recovery.",
+  "authorizes_only": [
+    "verification of original code/manifest/SEAL/run files",
+    "train-only input/raw/aggregation hash re-verification",
+    "original raw_aggregation audit with the categorical-safe wrapper",
+    "original determinism-child in a fresh seed-0 process",
+    "final artifacts from original unchecked metrics + verified flags via original select()"
+  ],
+  "forbidden": [
+    "train/scoring rerun",
+    "any edit to sealed Task013 code/manifest/SEAL or saved artifacts",
+    "validation/test reads"
+  ],
+  "original": {
+    "manifest": "docs/experiments/followup/2026-11-07-synchronized-residual-manifest.json",
+    "manifest_sha256": "4e673ca28dd1c9dd0dac0770969bef693402ba34bcfa5d335bccf14c46ed19a9",
+    "seal_sha256": "8d3057247f25f0affd8cbb79acbc8f74582ffe9b2d886bfd8368e7d625d24e1d",
+    "run_dir": "results/synchronized_residual/run-20261107T093222280839Z",
+    "file_sha256": {
+      "applicability_coverage.csv": "1cb1d4dfaeb0a3d57ad2aadef9b94494468372bddd34d3e094c43e68edf27898",
+      "causality_audit.csv": "4c2cd3bf82490d6b620d57d17833468f132b4d07b8b73cea3760d0415b87750f",
+      "comparison_unchecked.csv": "551701e3c18670fa183f48b5a682ba27398c40b9236ba2d89a0b6e641341f609",
+      "per_asset.csv": "b9e634fe3489176e5587684c572892ddfa6a12c3cc87faf80709c185e93a2d69",
+      "per_event_B1.csv": "3fc388052ad67231a91d8c8767f5db9d65ea8e5ecfa8646226107a0e35bafd08",
+      "per_event_E995.csv": "b092c4b879429bdbdaa057b7578520f3598f1e5712e78af3d9b8f4a56e9e7d57",
+      "per_event_R3.csv": "2026c0fea6df926310baa98019da99b7bd82740cbc5c80311fcc0552db11555c",
+      "per_event_R5.csv": "ee60c7053dabee77e3b048da1e930ba6f1a0a07ce31011393c9e8e5d6b65aad8",
+      "per_event_Y3.csv": "e4e78272d2d5dda1a30a4a25947e57afcaa8d7210325b7c75ad41758240ed183",
+      "per_event_Y5.csv": "193cbe08adf2c0bd6d00cba96efa527eb2f089ba66e8fc13a4674f5a98edbf6b",
+      "per_event_Z995.csv": "7c913fdf1a6a4b7e82a4387bd473b78b389fc4ccdbf373846e723335f03ab97c",
+      "predictions_B1.csv": "a52c10c72d9bfe4bfdc25eb5bde4377ac041b253046ba38ab52bf1c827278f63",
+      "predictions_E995.csv": "125a21a8fe58de6673bbb95bdac730255bed93c8502f95cb3baa9b42d1de1361",
+      "predictions_R3.csv": "0853a2198344e8d2d90142b9a2d2c792041e5689a71c19d273d29d0a71a37dde",
+      "predictions_R5.csv": "1fcf577f0b39417b52e89c0513884045448914b782526d217bd1ccba16837762",
+      "predictions_Y3.csv": "53ea79a51519628c7c929f81b199e894a7a4a100093c9267d17639e60eb8873e",
+      "predictions_Y5.csv": "a199f5a5a2449c4cc31293f19119909c410a63f7962c8699bf3399ded3f82233",
+      "predictions_Z995.csv": "3448845b1abb7b38943ac9172b6db7972d25461450cec209787296d45eebb685",
+      "run_provenance.json": "8aded989757ac84cda7d2791a340efb7ae014cd310a756d08f15b92d6d9b9336",
+      "unmatched_B1.csv": "f90253c50987228032a6c5bfb89c714974e8e2117cebd529a7c01fe109b2d0da",
+      "unmatched_E995.csv": "f90253c50987228032a6c5bfb89c714974e8e2117cebd529a7c01fe109b2d0da",
+      "unmatched_R3.csv": "f90253c50987228032a6c5bfb89c714974e8e2117cebd529a7c01fe109b2d0da",
+      "unmatched_R5.csv": "f90253c50987228032a6c5bfb89c714974e8e2117cebd529a7c01fe109b2d0da",
+      "unmatched_Y3.csv": "f90253c50987228032a6c5bfb89c714974e8e2117cebd529a7c01fe109b2d0da",
+      "unmatched_Y5.csv": "f90253c50987228032a6c5bfb89c714974e8e2117cebd529a7c01fe109b2d0da",
+      "unmatched_Z995.csv": "f90253c50987228032a6c5bfb89c714974e8e2117cebd529a7c01fe109b2d0da",
+      "waveform_and_fallback.csv": "b2d125f02aeb583802fd4eb879ef9fabaccd0d7918c497c1118afad053f3a440"
+    },
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "58292f6bbcb374b49f99bcfc12072a89e43d88958b1fa3929d727a813d2efa12",
+    "code_sha256": {
+      "src/retrofit_doctor/synchronized_residual.py": "76ad49e474ccac802bc36295c830612729ed2da83e92c9ac97bce5567f616feb",
+      "scripts/run_synchronized_residual.py": "af6c591ad97e54c1c2c8ed35c72606091db9afa03ec020b868cac8d531f3193f",
+      "tests/test_synchronized_residual.py": "d15b57bf3e49985174ee5bd7412a9ffa044eff53be247609ec6a9c8ed016b052",
+      "src/retrofit_doctor/hydraulic_spread.py": "ffc17d1e220cfc3c78e8278e713d47916665b26e1adb3bf171f0a2e8f3af317b",
+      "src/retrofit_doctor/diagnosis_fusion.py": "c62a5bc17cd5caeb9b2e0d767e6d1c2125ee67b38387f3c028eab3305ac3d036",
+      "scripts/run_diagnosis_fusion.py": "6acc68119690da41ede25b4f6b4df00f35b5ee38e76c6556e737d8a50aaeb04a",
+      "tests/test_diagnosis_fusion.py": "006d711209edc3740af4935978d26b2d34f7e0088a5722e56a53c7bbcdc6c3aa",
+      "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+      "scripts/run_b1.py": "83c6b591ddcd1d07b15dbdba08e26f7731f237c420201a87339ba0d0e39a4d3e",
+      "scripts/run_regime_reference.py": "a8f6292f2789e143067ac43ee36ffe356eb3103d3f1d9585eef58271328d4f53",
+      "scripts/run_sensor_ablation.py": "57fa0191d724a82fa1e00166ec3008b3edab78a7953c7bd69b3a17700b059d49",
+      "vendor/benchmark/src/retrofit_sim/baselines.py": "4bf291d6a1834aa79ced8d2d862d0331fb60e3210630c4c1aa25744ebd7a27dc",
+      "vendor/benchmark/src/retrofit_sim/scoring.py": "5293c2e427d6181e0f24cfd64d617fc96d284c31a949410d3c88769a7e1802c2",
+      "requirements.lock.txt": "09030a82f9d1c9344f798b332c497f575ed1e44f0f71bace5f027f36075afd53",
+      "docs/tasks/013-synchronized-residual.md": "2761695ea8de7c5864f876ad6a312f60343c637eada2a566f0eb67d6dde1052a",
+      "docs/tasks/013-amendment-empirical-tail.md": "0fe2c4a92c4936ad1237f50a2714ef3182f22802e6f0aa2a8e4ada75c47edfba"
+    }
+  },
+  "outputs_added_on_success": [
+    "raw_aggregation_audit.csv",
+    "determinism.json",
+    "comparison.csv",
+    "run_summary.json",
+    "recovery_provenance.json",
+    "results/synchronized_residual/COMPLETED.json"
+  ],
+  "stop_conditions": [
+    "any original file/hash differs",
+    "existing recovery output",
+    "input/raw/aggregation hash differs from original provenance (writes STOPPED recovery_provenance only)",
+    "raw audit failure or determinism mismatch -> completed with correctness_pass false, no selection"
+  ],
+  "recovery_code_sha256": {
+    "scripts/recover_synchronized_residual_audit.py": "6db6f5a7ea2e8b7c98123fb864c0da34c276424a2a79f0ac70785bab489f487c",
+    "tests/test_synchronized_residual_recovery.py": "4e24a896770f3b51b1bbe57ffadbf93fb0c6e759f739688a40707fa7f3ae50e2",
+    "docs/tasks/013-audit-recovery.md": "e6dcf98f41cdb66c969d781d1fd8613f5d01afd8b4f1e4d14ba7a370b295ffc4"
+  },
+  "fixture_results": {
+    "tests": "tests/test_synchronized_residual_recovery.py",
+    "result": "8 passed"
+  }
+}
