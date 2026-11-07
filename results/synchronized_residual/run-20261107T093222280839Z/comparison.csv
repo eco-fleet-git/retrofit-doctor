@@ -1,0 +1,8 @@
+candidate,events,composite_score,detected,class_correct,type_correct,false_episodes,excess_repeats,false_plus_excess,sensor_events,sensor_type_and_channel,nuisance_benign,benign_exposure_minutes,alerts,unknown_alerts,unknown_first,anomaly_alert_coverage,specific_diagnosis_coverage,wrong_specific_first,unmatched_specific_bursts,correct_type_reached,useful_reached,missed_useful,unmatched_bursts_0_24h,unmatched_bursts_later,pre_existing_events,pre_existing_detected,pre_existing_type_correct,pre_existing_useful_reached,period_0_24h_events,period_0_24h_detected,period_0_24h_type_correct,period_0_24h_useful_reached,period_later_events,period_later_detected,period_later_type_correct,period_later_useful_reached,useful_diagnoses,overrides,noise_claims,waveform_refinements,gate_pass,correctness_pass
+B1,26,59.20719120527966,18,14,8,3,3,6,8,3,2,12510.883333333333,43,3,2,18,16,8,3,11,11,15,0,3,4,3,1,2,7,6,1,3,19,12,7,8,8,0,0,0,False,True
+R3,26,59.20719120527966,18,14,8,3,3,6,8,3,2,12510.883333333333,43,3,2,18,16,8,3,11,11,15,0,3,4,3,1,2,7,6,1,3,19,12,7,8,8,0,0,0,False,True
+R5,26,59.20719120527966,18,14,8,3,3,6,8,3,2,12510.883333333333,43,3,2,18,16,8,3,11,11,15,0,3,4,3,1,2,7,6,1,3,19,12,7,8,8,0,0,0,False,True
+E995,26,60.16872966681813,18,14,9,3,3,6,8,4,2,12510.883333333333,43,3,2,18,16,7,3,12,12,14,0,3,4,3,1,2,7,6,1,3,19,12,8,9,9,1,1,0,True,True
+Y3,26,60.16872966681813,18,14,9,3,3,6,8,3,2,12510.883333333333,43,2,1,18,17,8,3,12,12,14,0,3,4,3,1,2,7,6,1,3,19,12,8,9,9,1,0,1,False,True
+Y5,26,60.16872966681813,18,14,9,3,3,6,8,3,2,12510.883333333333,43,2,1,18,17,8,3,12,12,14,0,3,4,3,1,2,7,6,1,3,19,12,8,9,9,1,0,1,False,True
+Z995,26,61.13026812835659,18,14,10,3,3,6,8,4,2,12510.883333333333,43,2,1,18,17,7,3,13,13,13,0,3,4,3,1,2,7,6,1,3,19,12,9,10,10,2,1,1,True,True

@@ -1,0 +1,69 @@
+{
+  "manifest_sha256": "4e673ca28dd1c9dd0dac0770969bef693402ba34bcfa5d335bccf14c46ed19a9",
+  "checks": {
+    "control_equals_saved": true,
+    "emission_equal_control": {
+      "B1": true,
+      "R3": true,
+      "R5": true,
+      "E995": true,
+      "Y3": true,
+      "Y5": true,
+      "Z995": true
+    },
+    "control_metrics": {
+      "detected": true,
+      "type_correct": true,
+      "class_correct": true,
+      "false_episodes": true,
+      "excess_repeats": true,
+      "sensor_type_and_channel": true,
+      "events": true
+    },
+    "causality_failures": {
+      "B1": 0,
+      "R3": 0,
+      "R5": 0,
+      "E995": 0,
+      "Y3": 0,
+      "Y5": 0,
+      "Z995": 0
+    },
+    "causality_checks": {
+      "B1": 392,
+      "R3": 392,
+      "R5": 392,
+      "E995": 392,
+      "Y3": 392,
+      "Y5": 392,
+      "Z995": 392
+    },
+    "inputs_identical": {
+      "inputs": true,
+      "raw_inputs": true,
+      "aggregation": true
+    },
+    "raw_aggregation_failures": 0,
+    "determinism": {
+      "B1": true,
+      "R3": true,
+      "R5": true,
+      "E995": true,
+      "Y3": true,
+      "Y5": true,
+      "Z995": true
+    }
+  },
+  "gate": {
+    "detected_min": 18,
+    "class_correct_min": 14,
+    "false_plus_excess_max": 6,
+    "sensor_type_and_channel_min": 3
+  },
+  "selected": "Z995",
+  "completion": "AUDIT-ONLY RECOVERY after the initial process failed (exit 1) in raw_audit; not an uninterrupted exit-0 run; scores are the original unchecked metrics, not recomputed",
+  "validation_touched": false,
+  "test_touched": false,
+  "original_runtime_s": null,
+  "recovery_runtime_s": 37.4
+}
