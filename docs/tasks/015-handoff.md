@@ -8,9 +8,9 @@ Implementation owner: Claude Code (sole code writer). Base: HEAD `d3ae0a2`. No G
   - B1/Z995 predictions, with SHA-256 asserted against each run's `run_provenance.json`;
   - SEAL/COMPLETED, checking that the selected candidate is Z995 and adoption passed;
   - `comparison.csv`, `per_event_B1/Z995.csv` (train) and `event_transitions.csv` (validation).
-  
+
   It also reads the events labels for the four case event IDs only, `assets.csv` rows for the four case assets, and one train raw parquet day partition (PUMP-04 2025-06-18), from which it keeps only rows `22:05:00 <= t < 22:06:00`.
-  
+
   Asserts:
   - Exactly 2 train and 3 validation changed alert outputs.
   - 26 train / 9 validation events.
