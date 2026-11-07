@@ -1,0 +1,15 @@
+# Task013 pre-score amendment — empirical reference tail
+
+2026-11-07, before any Task013 benchmark raw inspection, manifest seal or score. Codex adds two prospectively defined candidates, retaining R3/R5/Y3/Y5 unchanged. This is an explicit expansion of the unsealed wave, not a post-result change. The coordinator has now seen Task012's noise-alert spread budget (flow sigma17.116, total budget17.572) and negative completed result. No Task013 raw residual values or scores are known.
+
+R3/R5 are fixed engineering excess factors. A distinct alternative is to compare the residual with the distribution of its own first-day minute spreads. This avoids assuming that the same ratio is appropriate for every pump, and does not require Gaussian independent raw samples or claim a calibrated false-alarm rate.
+
+Add **E995**: same raw inputs, applicability, covariance decomposition/dominance, source spread z>6, protected alerts and abstention as R3, but replace only `std(E)>factor*reference_median` with the empirical upper-tail rank defined below. Add **Z995**: E995 first, unchanged W1 only on abstention from B1 UNKNOWN. No other new configuration.
+
+Use exactly the same eligible first24h residual reference minutes. Require at least199 eligible minutes, a positive median, completed reference and finite positive current variance. Let N be eligible reference count, b the number of reference std(E) values >= current std(E), and `tail_rank=(1+b)/(N+1)`. Emit only when tail_rank<=0.005 AND the same unique-channel covariance and source-z checks pass. Ties count against the candidate. No interpolation, label screening, global distribution, operating-regime fitting or expanding reference. No need to lower the original factor3/factor5 thresholds.
+
+This number is an empirical upper-tail rank, **not a fault probability, p-value with guaranteed validity, or calibrated false-alarm rate**: commissioning data may be contaminated, serially correlated and not exchangeable with later operation. Record N, b, tail_rank, limit0.005 and median native kPa in rule_detail and evidence; no complete reference distribution may leak into pre-reference alert evidence. Other R/Y evidence stays as originally registered.
+
+Fixture additions: resolution at N198 (unsupported), N199 with b0 (eligible rank.005) and a tie (rank.01, abstain), larger N with known b, stable distribution/non-excessive current observation, missing/nonfinite reference filtering, future mutations and pre24h evidence. Retain all existing physics/localization tests. The manifest and runner must list all six candidates plus B1, preserve all scores, run audits and fresh reproduction for every candidate.
+
+Same train success gate and ranking metrics. Final simplicity tie order: R3, R5, E995, Y3, Y5, Z995 (single hydraulic rule before combined waveform fallback). This order is fixed before any Task013 score. The next validation still considers only the single train-selected candidate under Task014, never validation-based selection among candidates.
