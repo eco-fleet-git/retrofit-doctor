@@ -1,21 +1,19 @@
 # English demonstration pitch
 
-Eight slides, reviewed 7 November 2026: implemented interface, dataset/splits, diagnostic failures, original/causal comparison, measured sensor ablation, concrete measurement package, negative retrofit economics and proposed pilot.
+Eight slides, updated and reviewed 7 November 2026: implemented comparison interface, dataset/splits, diagnostic gains and remaining error, train results with descriptive validation, baseline sensor ablation, proposed retrofit architecture, negative economics example and pilot pathway.
 
-The editable presentation is saved in Spaces: Page `page_b0a41b6380bc81918599f90bafe95e60`, **Retrofit Doctor — engineering demo**. Current connection `artifact_external_b64cafa1-47de-40f4-9fbf-613770efdb1c`, state version 11. Reconnect by Page ID if the connection expires. Tables and text remain editable; detailed sources and qualifications are in speaker notes.
+The editable presentation is saved in Spaces: Page `page_b0a41b6380bc81918599f90bafe95e60`, **Retrofit Doctor — engineering demo**. Current connection `artifact_external_d0ea7620-f0da-41c0-9050-feaf8287def9`, state version16. Reconnect by Page ID if the connection expires. Tables/text are editable; sources and qualifications are in speaker notes.
 
-- `retrofit-doctor-pitch.pdf`: offline projection fallback, eight 16:9 raster pages. It was composed from inspected native slide renders after the editor's native PDF export failed with an ArrayBuffer conversion error. It is not intended for editing or accessible text extraction.
-- `deck-content.json`: local content inspection of all eight slides.
-- `PITCH_SCRIPT.md`: timed three-minute English narration for the slide presentation.
-- `JURY_QA.md`: longer evidence-backed answers and deployment limits.
-- `../docs/tasks/006-demo-script.md`: alternative three-minute live application walkthrough, superseding the original UX proposal.
+- `retrofit-doctor-pitch.pdf`: offline projection fallback, eight16:9 raster pages, refreshed from the inspected native slide renders. The earlier editor PDF export failed with an ArrayBuffer conversion error, so this fallback uses the actual renders; it is not intended for text extraction or editing.
+- `deck-content.json`: full inspection of the eight slides, including speaker notes and image descriptions.
+- `PITCH_SCRIPT.md`: three-minute English narration; timing is a target, not a completed spoken rehearsal.
+- `JURY_QA.md`: evidence-backed answers and deployment limits.
+- `../docs/tasks/015-handoff.md`: a60-second walkthrough of the new diagnosis comparison. `../docs/tasks/006-demo-script.md` covers the broader baseline/retrofit workflow.
 
-The cover uses the actual reviewed light interface from Task006, committed at c63efdb, not the unverified UX Pilot mockup. The sensor schematic and source evidence are visible. The baseline slide records the final decision: nine new candidates were rejected and causal B1 remains selected, with its environment and seed pinned. The ablation slide shows mixed effects on the same ten train events, not hardware ROI. The physical-package slide is a proposed field design, not an installed device. The economics example reproduces −EUR 2,200 annual net and −EUR 15,500 over five years at zero discount; its inputs are illustrative assumptions.
+The cover is an actual screenshot of the reviewed Task015 interface (`review/task015/01-pump04-at-alert-1440.png`), not a mockup. Slides3/4 show the selected Z995 gains: correct type8→10/26 on train, sensor type+channel3→4/8, unchanged detection/burden; descriptive validation4→5/9 with unchanged detection/burden. Validation had already been inspected, and its gain is waveform-only. The hydraulic gain has train-only support. P01's unchanged wrong diagnosis remains visible.
 
-All slide layouts were visually inspected during authoring. Updated cover, baseline, ablation and hardware slides were also checked after PDF rendering; shifted slides were re-rendered. The final PDF was reopened and verified to contain eight pages. No field performance, certified reliability or achieved customer savings are claimed.
+Sensor ablation still uses unchanged B1 and has mixed outcomes; it does not measure the new method's hardware benefit. The architecture is a proposal, not an installed device. The illustrative economics remain −EUR2,200 annually and −EUR15,500 over five years at zero discount. No field performance, certification or achieved customer savings are claimed.
 
-The local interface passed coordinator review after two correction rounds. Final user application feedback and a timed spoken rehearsal remain outstanding; the user has approved the light visual direction. Test-export readiness is recorded separately in the release package and must not be inferred from these slides.
+All eight native slide renders were inspected. Updated cover and results/proposal slides were inspected again after PDF rendering; the PDF was reopened and verified as eight pages. The new UI passed coordinator review, but final user application feedback and a timed spoken rehearsal remain pending.
 
-Release update: slide 2 speaker notes disclose pre-gate PUMP-10 process-memory access during mutation testing and the subsequent fixed-model export (23 rows; 42 prefix checks). Slide 2 now labels the split “Test”; the eight-page PDF was regenerated to match. No pristine blind-evaluation claim is made; test diagnostic quality is unknown.
-
-Task009 later improved the diagnosis card in the local app. This deck/PDF retains its Task006 cover screenshot; for the current explanation UI see `../review/task009/03-p08-1238-card-1440.png`. Numerical results and the physical proposal are unchanged.
+The frozen test export still uses causal B1:23 rows and42 prefix checks, quality unknown. Slide2 speaker notes retain the disclosed pre-gate PUMP-10 process-memory read during mutation testing. The Z995 research comparison does not replace that export, and no pristine blind-test or new test-quality claim is made.

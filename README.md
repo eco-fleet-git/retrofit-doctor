@@ -12,7 +12,7 @@ The committed browser bundle needs only Python's static server. No dataset downl
 python3 -m http.server 8765 --bind 127.0.0.1 -d web
 ```
 
-Open [the local demo](http://127.0.0.1:8765/). Start with [PUMP-08 at the recorded alert](http://127.0.0.1:8765/#/pumps/PUMP-08?t=2025-09-10T12%3A38%3A00Z), then inspect [retrospective evidence](http://127.0.0.1:8765/#/evidence) and [the Retrofit Planner](http://127.0.0.1:8765/#/pumps/PUMP-08/retrofit). Drafts are stored in this browser, not sent to equipment or a server.
+Open [the new Diagnosis Comparison](http://127.0.0.1:8765/#/diagnosis) for the reviewed gains, four actual cases and before/at-alert evidence controls. [Review](docs/tasks/015-coordinator-review.md) and [60-second walkthrough](docs/tasks/015-handoff.md#60-second-demo-path). For the preserved baseline workflow, start with [PUMP-08 at the recorded alert](http://127.0.0.1:8765/#/pumps/PUMP-08?t=2025-09-10T12%3A38%3A00Z), then inspect [retrospective evidence](http://127.0.0.1:8765/#/evidence) and [the Retrofit Planner](http://127.0.0.1:8765/#/pumps/PUMP-08/retrofit). Drafts are stored in this browser, not sent to equipment or a server.
 
 The interface and pitch are in English. [Russian working notes](README.ru.md) preserve the earlier development context.
 

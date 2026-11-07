@@ -226,3 +226,13 @@ details.history .alert-list { margin-top: 8px; }
 @media (max-width: 900px) { .diag-grid { grid-template-columns: minmax(0, 1fr); } }
 ul.obs-list li { line-height: 1.6; }
 .diag h2:focus { outline: none; } .diag h2:focus-visible { outline: 3px solid var(--focus); }
+/* Task015: diagnosis comparison */
+.case-pick { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 12px; }
+.case-pick button[aria-pressed="true"] { background: var(--action-bg); border-color: var(--action); color: var(--action); font-weight: 600; }
+.cmp-row { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 8px; align-items: stretch; margin: 10px 0 4px; }
+.cmp-box { border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; background: #fbfcfd; display: flex; flex-direction: column; gap: 2px; min-width: 0; overflow-wrap: anywhere; }
+.cmp-new { border-color: var(--action); background: var(--action-bg); }
+.cmp-arrow { align-self: center; color: var(--muted); font-size: 20px; }
+.rise-chart { margin: 8px 0; }
+pre.json { max-height: 320px; overflow: auto; background: #f3f5f8; border-radius: 6px; padding: 8px; white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (max-width: 600px) { .cmp-row { grid-template-columns: minmax(0, 1fr); } .cmp-arrow { transform: rotate(90deg); justify-self: center; } }

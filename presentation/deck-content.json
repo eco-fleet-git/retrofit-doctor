@@ -212,7 +212,7 @@
         "order": 4,
         "scope": "slide",
         "editable": true,
-        "alt": "Implemented light Pump Detail view: sensor schematic, source evidence and measurement gaps for PUMP-08",
+        "alt": "Implemented light Diagnosis Comparison view for PUMP-04: earlier B1 versus Z995, measured evidence, uncertainty and next engineering check",
         "position": {
           "left": 536,
           "top": 126,
@@ -223,14 +223,14 @@
         "fit": "contain",
         "asset": {
           "contentType": "image/png",
-          "uri": "library-file:fde1_bGliZmlsZV9EQ0FHSFlPSkR3N3FwZmItOVdTbUN3_FileDrive_dcce2ba5c4b881918df5697f961b5033"
+          "uri": "library-file:fde1_bGliZmlsZV9EZDg2bHZQeXpQVjBSN2Mtc1pUTWZ3_FileDrive_dcce2ba5c4b881918df5697f961b5033"
         }
       }
     ],
     "notes": {
       "id": "nt/kxr8wu",
       "kind": "notes",
-      "text": "Retrofit Doctor connects an alert to its evidence and a reviewable retrofit proposal. The screenshot is the implemented local light interface, Task006, reviewed and committed at c63efdb on 7 November 2026. It shows the pump sensor schematic and actual causal baseline evidence; all measurements are synthetic. No physical device is built. Source: review/task006/03-pump08-alert-1440.png; docs/tasks/006-coordinator-review.md. The user approved the light visual direction; final user application review remains pending. This screenshot is not the unverified UX Pilot mockup."
+      "text": "Retrofit Doctor connects a pump warning to its measured evidence, uncertainty and a reviewable next check or retrofit proposal. The cover is an actual screenshot of the implemented Task015 light interface, reviewed on 7 November 2026. It shows PUMP-04 at the closed minute2025-06-18 22:05–22:06 UTC: earlier B1 calibration shift on winding temperature versus Z995 flow-sensor noise. The four-case comparison includes train gains, descriptive validation and an unchanged wrong diagnosis, with explicit causal clock controls and opt-in labels. All data are synthetic; no physical device was built. Source: review/task015/01-pump04-at-alert-1440.png and docs/tasks/015-coordinator-review.md. The final user visual review remains pending; this is an implemented interface, not the UX Pilot mockup."
     },
     "inheritedLayers": [
       {
@@ -807,7 +807,7 @@
       "id": "ly/a9gzmts3",
       "name": "Blank"
     },
-    "title": "Diagnostic evidence and limits",
+    "title": "Diagnostic gains and a remaining error",
     "position": {
       "left": 0,
       "top": 0,
@@ -823,7 +823,7 @@
         "order": 1,
         "scope": "slide",
         "editable": true,
-        "text": "Diagnostic evidence and limits",
+        "text": "Diagnostic gains and a remaining error",
         "position": {
           "left": 64,
           "top": 56,
@@ -841,7 +841,7 @@
         "paragraphs": [
           {
             "index": 1,
-            "text": "Diagnostic evidence and limits",
+            "text": "Diagnostic gains and a remaining error",
             "style": {
               "fontSize": 44,
               "color": "#15333C",
@@ -850,7 +850,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "Diagnostic evidence and limits",
+                "text": "Diagnostic gains and a remaining error",
                 "fontSize": 44,
                 "color": "#15333C",
                 "bold": true
@@ -867,7 +867,7 @@
         "order": 2,
         "scope": "slide",
         "editable": true,
-        "text": "Validation example\tCausal B1 output\tRetrospective result\nPUMP-08-E01\tSuction strainer clogging\tCorrect fault type\nPUMP-08-E02\tUnknown cause\tEvent matched; unresolved\nPUMP-08-E04\tNo matched alert\tPressure-sensor noise missed",
+        "text": "Case / split\tEarlier B1\tCombined method\nPUMP-04 / train\tCalibration shift,\nwinding temperature\tFlow-sensor noise\nCorrect type and channel\nPUMP-08 / validation\tUnknown cause\tBearing wear\nCorrect fault type\nPUMP-01 / train\tSuction-pressure\ncalibration shift\tSame incorrect cause\nFlow check unavailable",
         "rows": 4,
         "cols": 3,
         "position": {
@@ -887,7 +887,7 @@
               "width": 330,
               "height": 85
             },
-            "text": "Validation example",
+            "text": "Case / split",
             "fillColor": "#15333C",
             "style": {
               "fontSize": 25,
@@ -897,11 +897,16 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Validation example",
+                "text": "Case / split",
+                "style": {
+                  "fontSize": 25,
+                  "color": "#FFFFFF",
+                  "bold": true
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Validation example",
+                    "text": "Case / split",
                     "fontSize": 25,
                     "color": "#FFFFFF",
                     "bold": true
@@ -920,7 +925,7 @@
               "width": 405,
               "height": 85
             },
-            "text": "Causal B1 output",
+            "text": "Earlier B1",
             "fillColor": "#15333C",
             "style": {
               "fontSize": 25,
@@ -930,11 +935,16 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Causal B1 output",
+                "text": "Earlier B1",
+                "style": {
+                  "fontSize": 25,
+                  "color": "#FFFFFF",
+                  "bold": true
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Causal B1 output",
+                    "text": "Earlier B1",
                     "fontSize": 25,
                     "color": "#FFFFFF",
                     "bold": true
@@ -953,7 +963,7 @@
               "width": 417,
               "height": 85
             },
-            "text": "Retrospective result",
+            "text": "Combined method",
             "fillColor": "#15333C",
             "style": {
               "fontSize": 25,
@@ -963,11 +973,16 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Retrospective result",
+                "text": "Combined method",
+                "style": {
+                  "fontSize": 25,
+                  "color": "#FFFFFF",
+                  "bold": true
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Retrospective result",
+                    "text": "Combined method",
                     "fontSize": 25,
                     "color": "#FFFFFF",
                     "bold": true
@@ -986,7 +1001,7 @@
               "width": 330,
               "height": 85
             },
-            "text": "PUMP-08-E01",
+            "text": "PUMP-04 / train",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -995,11 +1010,15 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "PUMP-08-E01",
+                "text": "PUMP-04 / train",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "PUMP-08-E01",
+                    "text": "PUMP-04 / train",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1017,7 +1036,7 @@
               "width": 405,
               "height": 85
             },
-            "text": "Suction strainer clogging",
+            "text": "Calibration shift,\nwinding temperature",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -1026,11 +1045,31 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Suction strainer clogging",
+                "text": "Calibration shift,",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Suction strainer clogging",
+                    "text": "Calibration shift,",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              },
+              {
+                "index": 2,
+                "text": "winding temperature",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "winding temperature",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1048,7 +1087,7 @@
               "width": 417,
               "height": 85
             },
-            "text": "Correct fault type",
+            "text": "Flow-sensor noise\nCorrect type and channel",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -1057,11 +1096,31 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Correct fault type",
+                "text": "Flow-sensor noise",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Correct fault type",
+                    "text": "Flow-sensor noise",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              },
+              {
+                "index": 2,
+                "text": "Correct type and channel",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Correct type and channel",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1079,7 +1138,7 @@
               "width": 330,
               "height": 85
             },
-            "text": "PUMP-08-E02",
+            "text": "PUMP-08 / validation",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -1088,11 +1147,15 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "PUMP-08-E02",
+                "text": "PUMP-08 / validation",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "PUMP-08-E02",
+                    "text": "PUMP-08 / validation",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1120,6 +1183,10 @@
               {
                 "index": 1,
                 "text": "Unknown cause",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
@@ -1141,7 +1208,7 @@
               "width": 417,
               "height": 85
             },
-            "text": "Event matched; unresolved",
+            "text": "Bearing wear\nCorrect fault type",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -1150,11 +1217,31 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Event matched; unresolved",
+                "text": "Bearing wear",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Event matched; unresolved",
+                    "text": "Bearing wear",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              },
+              {
+                "index": 2,
+                "text": "Correct fault type",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Correct fault type",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1172,7 +1259,7 @@
               "width": 330,
               "height": 85
             },
-            "text": "PUMP-08-E04",
+            "text": "PUMP-01 / train",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -1181,11 +1268,15 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "PUMP-08-E04",
+                "text": "PUMP-01 / train",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "PUMP-08-E04",
+                    "text": "PUMP-01 / train",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1203,7 +1294,7 @@
               "width": 405,
               "height": 85
             },
-            "text": "No matched alert",
+            "text": "Suction-pressure\ncalibration shift",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -1212,11 +1303,31 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "No matched alert",
+                "text": "Suction-pressure",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "No matched alert",
+                    "text": "Suction-pressure",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              },
+              {
+                "index": 2,
+                "text": "calibration shift",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "calibration shift",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1234,7 +1345,7 @@
               "width": 417,
               "height": 85
             },
-            "text": "Pressure-sensor noise missed",
+            "text": "Same incorrect cause\nFlow check unavailable",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -1243,11 +1354,31 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Pressure-sensor noise missed",
+                "text": "Same incorrect cause",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Pressure-sensor noise missed",
+                    "text": "Same incorrect cause",
+                    "fontSize": 27,
+                    "color": "#15333C"
+                  }
+                ]
+              },
+              {
+                "index": 2,
+                "text": "Flow check unavailable",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "Flow check unavailable",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1264,7 +1395,7 @@
         "order": 3,
         "scope": "slide",
         "editable": true,
-        "text": "Detection does not establish the correct cause.",
+        "text": "Engineering checks still determine the cause.",
         "position": {
           "left": 64,
           "top": 568,
@@ -1282,7 +1413,7 @@
         "paragraphs": [
           {
             "index": 1,
-            "text": "Detection does not establish the correct cause.",
+            "text": "Engineering checks still determine the cause.",
             "style": {
               "fontSize": 32,
               "color": "#006D70",
@@ -1291,7 +1422,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "Detection does not establish the correct cause.",
+                "text": "Engineering checks still determine the cause.",
                 "fontSize": 32,
                 "color": "#006D70",
                 "bold": true
@@ -1309,7 +1440,7 @@
         "order": 4,
         "scope": "slide",
         "editable": true,
-        "text": "Synthetic validation. Evaluation labels stay separate from live-clock evidence.",
+        "text": "Retrospective synthetic labels. Field confirmation remains open.",
         "position": {
           "left": 64,
           "top": 631,
@@ -1326,7 +1457,7 @@
         "paragraphs": [
           {
             "index": 1,
-            "text": "Synthetic validation. Evaluation labels stay separate from live-clock evidence.",
+            "text": "Retrospective synthetic labels. Field confirmation remains open.",
             "style": {
               "fontSize": 22,
               "color": "#15333C",
@@ -1335,7 +1466,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "Synthetic validation. Evaluation labels stay separate from live-clock evidence.",
+                "text": "Retrospective synthetic labels. Field confirmation remains open.",
                 "fontSize": 22,
                 "color": "#15333C",
                 "bold": false
@@ -1350,7 +1481,7 @@
     "notes": {
       "id": "nt/5892ye",
       "kind": "notes",
-      "text": "The first causal alert for PUMP-08-E01 is 2025-09-10 12:38 UTC with suction_pressure_kpa z=-6.7. This is an inference from pump pressure, not a direct measurement of strainer differential pressure. E02 bearing wear matches an unknown-cause alert; E04 pressure-sensor noise has no matched alert. Sources: results/causal_b1/report_causal_validation.json and predictions_causal_validation.csv. No labels are fed into replay diagnosis."
+      "text": "Retrospective examples from the frozen Z995 method. Train PUMP-04-E03 changes from B1 calibration shift on winding temperature to sensor noise on flow_m3_h, correctly matching simulated type and channel. Previously inspected validation PUMP-08-E02 changes from UNKNOWN to BEARING_WEAR through W1. Its first refined alert is2025-09-11T20:47Z, using snapshotPUMP-08-S023 completed17:07:23Z,13177s old, speedMATCH and6 empirical reference snapshots. BPFO envelope line is about4.8x local floor and2.6x commissioning reference. One radial snapshot is consistent with outer-race damage but does not establish a confirmed current fault. Three refined alerts belong to this one event. Train PUMP-01-E01 retains an incorrect B1 suction-pressure calibration-shift cause while simulated ground truth is strainer clogging. Missing flow prevents hydraulic cross-checking. This illustrates a capability gap, not proven installation benefit. No field confirmation. Source: results/synchronized_residual/run-20261107T093222280839Z and results/validation_z995/run-20261107T094945244932Z; docs/tasks/013-coordinator-review.md and014-coordinator-review.md."
     },
     "inheritedLayers": [
       {
@@ -1378,7 +1509,7 @@
       "id": "ly/a9gzmts3",
       "name": "Blank"
     },
-    "title": "Causal baseline validation",
+    "title": "Diagnosis improved on training data",
     "position": {
       "left": 0,
       "top": 0,
@@ -1394,7 +1525,7 @@
         "order": 1,
         "scope": "slide",
         "editable": true,
-        "text": "Causal baseline validation",
+        "text": "Diagnosis improved on training data",
         "position": {
           "left": 64,
           "top": 56,
@@ -1412,7 +1543,7 @@
         "paragraphs": [
           {
             "index": 1,
-            "text": "Causal baseline validation",
+            "text": "Diagnosis improved on training data",
             "style": {
               "fontSize": 44,
               "color": "#15333C",
@@ -1421,7 +1552,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "Causal baseline validation",
+                "text": "Diagnosis improved on training data",
                 "fontSize": 44,
                 "color": "#15333C",
                 "bold": true
@@ -1438,7 +1569,7 @@
         "order": 2,
         "scope": "slide",
         "editable": true,
-        "text": "Metric\tCausal B1\tOriginal B1\nComposite score\t76.01\t78.01\nEvents detected\t8 / 9\t8 / 9\nCorrect fault type\t4 / 9\t4 / 9\nFalse alert episodes\t1\t1",
+        "text": "Metric\tCausal B1\tCombined method\nCorrect fault type\t8 / 26\t10 / 26\nSensor fault type + channel\t3 / 8\t4 / 8\nEvents detected\t18 / 26\t18 / 26\nFalse + repeated alert episodes\t6\t6",
         "rows": 5,
         "cols": 3,
         "position": {
@@ -1469,6 +1600,11 @@
               {
                 "index": 1,
                 "text": "Metric",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#FFFFFF",
+                  "bold": true
+                },
                 "runs": [
                   {
                     "index": 1,
@@ -1502,6 +1638,11 @@
               {
                 "index": 1,
                 "text": "Causal B1",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#FFFFFF",
+                  "bold": true
+                },
                 "runs": [
                   {
                     "index": 1,
@@ -1524,7 +1665,7 @@
               "width": 296,
               "height": 66
             },
-            "text": "Original B1",
+            "text": "Combined method",
             "fillColor": "#15333C",
             "style": {
               "fontSize": 27,
@@ -1534,11 +1675,16 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Original B1",
+                "text": "Combined method",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#FFFFFF",
+                  "bold": true
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Original B1",
+                    "text": "Combined method",
                     "fontSize": 27,
                     "color": "#FFFFFF",
                     "bold": true
@@ -1557,7 +1703,7 @@
               "width": 560,
               "height": 66
             },
-            "text": "Composite score",
+            "text": "Correct fault type",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -1566,11 +1712,15 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Composite score",
+                "text": "Correct fault type",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Composite score",
+                    "text": "Correct fault type",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1588,7 +1738,7 @@
               "width": 296,
               "height": 66
             },
-            "text": "76.01",
+            "text": "8 / 26",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -1597,11 +1747,15 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "76.01",
+                "text": "8 / 26",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "76.01",
+                    "text": "8 / 26",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1619,7 +1773,7 @@
               "width": 296,
               "height": 66
             },
-            "text": "78.01",
+            "text": "10 / 26",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -1628,11 +1782,15 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "78.01",
+                "text": "10 / 26",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "78.01",
+                    "text": "10 / 26",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1650,7 +1808,7 @@
               "width": 560,
               "height": 66
             },
-            "text": "Events detected",
+            "text": "Sensor fault type + channel",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -1659,11 +1817,15 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Events detected",
+                "text": "Sensor fault type + channel",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Events detected",
+                    "text": "Sensor fault type + channel",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1681,7 +1843,7 @@
               "width": 296,
               "height": 66
             },
-            "text": "8 / 9",
+            "text": "3 / 8",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -1690,11 +1852,15 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "8 / 9",
+                "text": "3 / 8",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "8 / 9",
+                    "text": "3 / 8",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1712,7 +1878,7 @@
               "width": 296,
               "height": 66
             },
-            "text": "8 / 9",
+            "text": "4 / 8",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -1721,11 +1887,15 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "8 / 9",
+                "text": "4 / 8",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "8 / 9",
+                    "text": "4 / 8",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1743,7 +1913,7 @@
               "width": 560,
               "height": 66
             },
-            "text": "Correct fault type",
+            "text": "Events detected",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -1752,11 +1922,15 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Correct fault type",
+                "text": "Events detected",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Correct fault type",
+                    "text": "Events detected",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1774,7 +1948,7 @@
               "width": 296,
               "height": 66
             },
-            "text": "4 / 9",
+            "text": "18 / 26",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -1783,11 +1957,15 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "4 / 9",
+                "text": "18 / 26",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "4 / 9",
+                    "text": "18 / 26",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1805,7 +1983,7 @@
               "width": 296,
               "height": 66
             },
-            "text": "4 / 9",
+            "text": "18 / 26",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -1814,11 +1992,15 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "4 / 9",
+                "text": "18 / 26",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "4 / 9",
+                    "text": "18 / 26",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1836,7 +2018,7 @@
               "width": 560,
               "height": 66
             },
-            "text": "False alert episodes",
+            "text": "False + repeated alert episodes",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -1845,11 +2027,15 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "False alert episodes",
+                "text": "False + repeated alert episodes",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "False alert episodes",
+                    "text": "False + repeated alert episodes",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1867,7 +2053,7 @@
               "width": 296,
               "height": 66
             },
-            "text": "1",
+            "text": "6",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -1876,11 +2062,15 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "1",
+                "text": "6",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "1",
+                    "text": "6",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1898,7 +2088,7 @@
               "width": 296,
               "height": 66
             },
-            "text": "1",
+            "text": "6",
             "fillColor": "#F5F8F7",
             "style": {
               "fontSize": 27,
@@ -1907,11 +2097,15 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "1",
+                "text": "6",
+                "style": {
+                  "fontSize": 27,
+                  "color": "#15333C"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "1",
+                    "text": "6",
                     "fontSize": 27,
                     "color": "#15333C"
                   }
@@ -1928,7 +2122,7 @@
         "order": 3,
         "scope": "slide",
         "editable": true,
-        "text": "Original B1 used future reference data in early predictions.",
+        "text": "Seven pumps, 26 events and 49 asset-days. Synthetic data.",
         "position": {
           "left": 64,
           "top": 520,
@@ -1945,7 +2139,7 @@
         "paragraphs": [
           {
             "index": 1,
-            "text": "Original B1 used future reference data in early predictions.",
+            "text": "Seven pumps, 26 events and 49 asset-days. Synthetic data.",
             "style": {
               "fontSize": 27,
               "color": "#15333C",
@@ -1954,7 +2148,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "Original B1 used future reference data in early predictions.",
+                "text": "Seven pumps, 26 events and 49 asset-days. Synthetic data.",
                 "fontSize": 27,
                 "color": "#15333C",
                 "bold": false
@@ -1972,7 +2166,7 @@
         "order": 4,
         "scope": "slide",
         "editable": true,
-        "text": "Nine new diagnostic candidates rejected; causal B1 retained.\nReproducibility requires the pinned environment and seed 0.",
+        "text": "Two corrected causes. No loss of earlier correct diagnoses.\nNew independent data is needed to establish generalization.",
         "position": {
           "left": 64,
           "top": 573,
@@ -1989,7 +2183,7 @@
         "paragraphs": [
           {
             "index": 1,
-            "text": "Nine new diagnostic candidates rejected; causal B1 retained.",
+            "text": "Two corrected causes. No loss of earlier correct diagnoses.",
             "style": {
               "fontSize": 25,
               "color": "#006D70",
@@ -1998,7 +2192,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "Nine new diagnostic candidates rejected; causal B1 retained.",
+                "text": "Two corrected causes. No loss of earlier correct diagnoses.",
                 "fontSize": 25,
                 "color": "#006D70",
                 "bold": false
@@ -2008,7 +2202,7 @@
           },
           {
             "index": 2,
-            "text": "Reproducibility requires the pinned environment and seed 0.",
+            "text": "New independent data is needed to establish generalization.",
             "style": {
               "fontSize": 25,
               "color": "#006D70",
@@ -2017,7 +2211,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "Reproducibility requires the pinned environment and seed 0.",
+                "text": "New independent data is needed to establish generalization.",
                 "fontSize": 25,
                 "color": "#006D70",
                 "bold": false
@@ -2035,7 +2229,7 @@
         "order": 5,
         "scope": "slide",
         "editable": true,
-        "text": "Synthetic validation, 9 scored events. No field validation.",
+        "text": "Validation: 4/9 to 5/9 correct types, from vibration. Previously inspected data.",
         "position": {
           "left": 64,
           "top": 661,
@@ -2052,7 +2246,7 @@
         "paragraphs": [
           {
             "index": 1,
-            "text": "Synthetic validation, 9 scored events. No field validation.",
+            "text": "Validation: 4/9 to 5/9 correct types, from vibration. Previously inspected data.",
             "style": {
               "fontSize": 22,
               "color": "#15333C",
@@ -2061,7 +2255,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "Synthetic validation, 9 scored events. No field validation.",
+                "text": "Validation: 4/9 to 5/9 correct types, from vibration. Previously inspected data.",
                 "fontSize": 22,
                 "color": "#15333C",
                 "bold": false
@@ -2076,7 +2270,7 @@
     "notes": {
       "id": "nt/azu784",
       "kind": "notes",
-      "text": "Exact scores: causal 76.01253946; original 78.01253946. Score is not accuracy. The two-point decrease follows a later first match for PUMP-09-E04: 2026-02-11 06:28 UTC versus original 2026-02-09 12:46, a 41 h 42 min delay. The type remains wrong and evidence points at vibration instead of the drifting current sensor. Diagnostic rules did not improve. The first 24-hour reference may contain degradation. Checks are recorded software evidence, not a universal proof for all inputs. Source: CAUSAL_B1_FINDINGS.md; results/causal_b1/comparison.csv and verification.json. Subsequent B2 experiments are not claimed by this slide.\nNew evidence, reviewed 6 November 2026: Task002 r2 train control C0 detected18/26, correctly typed8/26, false+excess6 over49 asset-days. C1:21/26,7/26,21; C2–C5:21/26,6/26,20. All five fail registered gates, so C0 remains selected. None of the rejected candidates was scored on validation. 59 tests passed;1547 new prefix comparisons and810 supplemental original train-cut comparisons had no failures. R1 is archived invalid due None/NaN representation instability; corrected r2 disclosed. Source: results/causal_b2/CAUSAL_B2_FINDINGS.md and selection.json, commit0b3fb89. This does not establish that all cadence-aware approaches fail.\nFinal bounded research: five B2 candidates plus S2/S3 sparse follow-ups and R1/R2 regime/abstention candidates, nine new candidates total. None replaces causal B1. S3 total false+excess burden 14 vs 6 control. R1 burden unchanged, R2 type 7 vs 8 control. R1/R2 fail four-seed correctness; inherited B1 set iteration can change fault type. Reproducibility is conditional on pinned Python 3.13.16/dependencies and PYTHONHASHSEED=0 at startup, not seed invariance. E3 null comparison failures are separately disclosed and selection not rerun. Fleet-prior E4 not testable with eligible support; not scored. Sources: docs/experiments/RESULTS.md; results/sparse_stuck_followup/FINDINGS.md; results/regime_reference/FINDINGS.md. These are development-informed synthetic results; no general claim against all future methods."
+      "text": "Train: seven assets,26 events,49asset-days. Z995 correct type8 to10, sensor type+channel3/8 to4/8, detection18/26 unchanged, false3+excess3 unchanged, class14 and nuisance2 unchanged. Wrong-specific8 to7, UNKNOWN first2 to1. Only two alert outputs change. Train selection was prospective within adaptive development on inspected synthetic data. There were23 earlier negative configurations, and four of the six Task013 configurations also failed; E995 andZ995 pass, withZ995 selected by the registered ranking. All2744 train prediction/evidence checks,30 raw aggregation checks and fresh reproduction pass. A separately sealed audit-only recovery fixed categorical future-data mutation without changing code, predictions, inputs or scores. Descriptive validation: two assets,9events,14asset-days; correct type4 to5, detected8 unchanged, class8, false1/excess0/nuisance1 unchanged, sensor type+channel2/4, wrong-specific3, wrong-channel1 unchanged. No previous correct event is lost. The changed event is PUMP-08-E02 bearing wear. All276 validation causal/evidence checks and fresh seed0 reproduction pass. There are zero applicable raw-validation checks: PUMP-08 lacks flow andPUMP-09 lacks measuredRPM. Thus the validation gain supports the waveform refinement descriptively, not independent validation of hydraulic noise attribution. Validation was already inspected, so no blind-generalization claim. Composite validation76.012539 to78.790317 is not accuracy. Original future-using B1 validation was78.012539; future reference use was removed. Sources: completed result comparison/report/run_summary files in both runs,013/014-coordinator-review.md. Seed0 and pinned environment required."
     },
     "inheritedLayers": [
       {
@@ -2104,7 +2298,7 @@
       "id": "ly/a9gzmts3",
       "name": "Blank"
     },
-    "title": "Measured value of sensor information",
+    "title": "Sensor-information test with the baseline",
     "position": {
       "left": 0,
       "top": 0,
@@ -2120,7 +2314,7 @@
         "order": 1,
         "scope": "slide",
         "editable": true,
-        "text": "Measured value of sensor information",
+        "text": "Sensor-information test with the baseline",
         "position": {
           "left": 72,
           "top": 60,
@@ -2138,7 +2332,7 @@
         "paragraphs": [
           {
             "index": 1,
-            "text": "Measured value of sensor information",
+            "text": "Sensor-information test with the baseline",
             "style": {
               "fontSize": 44,
               "typeface": "Arial",
@@ -2148,7 +2342,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "Measured value of sensor information",
+                "text": "Sensor-information test with the baseline",
                 "fontSize": 44,
                 "typeface": "Arial",
                 "color": "#173640",
@@ -2167,7 +2361,7 @@
         "order": 2,
         "scope": "slide",
         "editable": true,
-        "text": "Same causal B1 detector · 3 train assets · 10 original events",
+        "text": "Three training pumps, 10 events. Same causal B1 detector.",
         "position": {
           "left": 72,
           "top": 132,
@@ -2184,7 +2378,7 @@
         "paragraphs": [
           {
             "index": 1,
-            "text": "Same causal B1 detector · 3 train assets · 10 original events",
+            "text": "Three training pumps, 10 events. Same causal B1 detector.",
             "style": {
               "fontSize": 26,
               "typeface": "Arial",
@@ -2194,7 +2388,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "Same causal B1 detector · 3 train assets · 10 original events",
+                "text": "Three training pumps, 10 events. Same causal B1 detector.",
                 "fontSize": 26,
                 "typeface": "Arial",
                 "color": "#173640",
@@ -2945,7 +3139,7 @@
         "order": 5,
         "scope": "slide",
         "editable": true,
-        "text": "Vibration / temperature helps overall; other effects are mixed.\nMore sensors do not guarantee better diagnosis.",
+        "text": "Vibration / temperature improved overall counts.\nOther effects were mixed. Installation benefit remains unproven.",
         "position": {
           "left": 72,
           "top": 580,
@@ -2962,7 +3156,7 @@
         "paragraphs": [
           {
             "index": 1,
-            "text": "Vibration / temperature helps overall; other effects are mixed.",
+            "text": "Vibration / temperature improved overall counts.",
             "style": {
               "fontSize": 26,
               "typeface": "Arial",
@@ -2972,7 +3166,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "Vibration / temperature helps overall; other effects are mixed.",
+                "text": "Vibration / temperature improved overall counts.",
                 "fontSize": 26,
                 "typeface": "Arial",
                 "color": "#007C83",
@@ -2983,7 +3177,7 @@
           },
           {
             "index": 2,
-            "text": "More sensors do not guarantee better diagnosis.",
+            "text": "Other effects were mixed. Installation benefit remains unproven.",
             "style": {
               "fontSize": 26,
               "typeface": "Arial",
@@ -2993,7 +3187,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "More sensors do not guarantee better diagnosis.",
+                "text": "Other effects were mixed. Installation benefit remains unproven.",
                 "fontSize": 26,
                 "typeface": "Arial",
                 "color": "#007C83",
@@ -3083,7 +3277,7 @@
       "id": "ly/a9gzmts3",
       "name": "Blank"
     },
-    "title": "Proposed measurement package",
+    "title": "Proposed retrofit architecture",
     "position": {
       "left": 0,
       "top": 0,
@@ -3099,7 +3293,7 @@
         "order": 1,
         "scope": "slide",
         "editable": true,
-        "text": "Proposed measurement package",
+        "text": "Proposed retrofit architecture",
         "position": {
           "left": 64,
           "top": 50,
@@ -3117,7 +3311,7 @@
         "paragraphs": [
           {
             "index": 1,
-            "text": "Proposed measurement package",
+            "text": "Proposed retrofit architecture",
             "style": {
               "fontSize": 44,
               "typeface": "Arial",
@@ -3127,7 +3321,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "Proposed measurement package",
+                "text": "Proposed retrofit architecture",
                 "fontSize": 44,
                 "typeface": "Arial",
                 "color": "#173640",
@@ -3146,7 +3340,7 @@
         "order": 2,
         "scope": "slide",
         "editable": true,
-        "text": "Example: a missing bearing-housing measurement point",
+        "text": "Existing measurements first, targeted additions where needed",
         "position": {
           "left": 64,
           "top": 133,
@@ -3163,7 +3357,7 @@
         "paragraphs": [
           {
             "index": 1,
-            "text": "Example: a missing bearing-housing measurement point",
+            "text": "Existing measurements first, targeted additions where needed",
             "style": {
               "fontSize": 28,
               "typeface": "Arial",
@@ -3173,7 +3367,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "Example: a missing bearing-housing measurement point",
+                "text": "Existing measurements first, targeted additions where needed",
                 "fontSize": 28,
                 "typeface": "Arial",
                 "color": "#173640",
@@ -3191,7 +3385,7 @@
         "order": 3,
         "scope": "slide",
         "editable": true,
-        "text": "Element\tProposed implementation\tSite decision needed\nMeasurement\tVibration / temperature on pump bearing housing\tLocation, rigid mount,\nmeasurement bandwidth\nLink and power\tCable to local IO, or radio after survey\tRouting / power, or\nbattery service and coverage\nGateway\tLocal enclosure, buffer and advisory analysis\tIO, power, environment,\nmaintenance owner\nEngineering display\tExisting data + new point with quality and time\tTag mapping, freshness,\nreview workflow",
+        "text": "Element\tProposed implementation\tSite decision needed\nExisting signals\tPressure, flow and VFD speed, where installed\tTag mapping, time alignment,\nupdate cadence\nMissing measurement\tTargeted flow or housing vibration / temperature\tSuitability, mounting, range\nand measurement bandwidth\nGateway\tRead-only collection, timestamps,\nlocal buffering and advisory analysis\tIO, power, environment,\nmaintenance owner\nEngineering display\tEvidence, uncertainty and next engineering check\tReview workflow,\nreference checks",
         "rows": 5,
         "cols": 3,
         "position": {
@@ -3223,6 +3417,12 @@
               {
                 "index": 1,
                 "text": "Element",
+                "style": {
+                  "fontSize": 24,
+                  "typeface": "Arial",
+                  "color": "#FFFFFF",
+                  "bold": true
+                },
                 "runs": [
                   {
                     "index": 1,
@@ -3258,6 +3458,12 @@
               {
                 "index": 1,
                 "text": "Proposed implementation",
+                "style": {
+                  "fontSize": 24,
+                  "typeface": "Arial",
+                  "color": "#FFFFFF",
+                  "bold": true
+                },
                 "runs": [
                   {
                     "index": 1,
@@ -3293,6 +3499,12 @@
               {
                 "index": 1,
                 "text": "Site decision needed",
+                "style": {
+                  "fontSize": 24,
+                  "typeface": "Arial",
+                  "color": "#FFFFFF",
+                  "bold": true
+                },
                 "runs": [
                   {
                     "index": 1,
@@ -3316,7 +3528,7 @@
               "width": 300,
               "height": 66
             },
-            "text": "Measurement",
+            "text": "Existing signals",
             "fillColor": "#F4F8F8",
             "style": {
               "fontSize": 23,
@@ -3326,11 +3538,16 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Measurement",
+                "text": "Existing signals",
+                "style": {
+                  "fontSize": 23,
+                  "typeface": "Arial",
+                  "color": "#173640"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Measurement",
+                    "text": "Existing signals",
                     "fontSize": 23,
                     "typeface": "Arial",
                     "color": "#173640"
@@ -3349,7 +3566,7 @@
               "width": 500,
               "height": 66
             },
-            "text": "Vibration / temperature on pump bearing housing",
+            "text": "Pressure, flow and VFD speed, where installed",
             "fillColor": "#F4F8F8",
             "style": {
               "fontSize": 23,
@@ -3359,11 +3576,16 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Vibration / temperature on pump bearing housing",
+                "text": "Pressure, flow and VFD speed, where installed",
+                "style": {
+                  "fontSize": 23,
+                  "typeface": "Arial",
+                  "color": "#173640"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Vibration / temperature on pump bearing housing",
+                    "text": "Pressure, flow and VFD speed, where installed",
                     "fontSize": 23,
                     "typeface": "Arial",
                     "color": "#173640"
@@ -3382,7 +3604,7 @@
               "width": 352,
               "height": 66
             },
-            "text": "Location, rigid mount,\nmeasurement bandwidth",
+            "text": "Tag mapping, time alignment,\nupdate cadence",
             "fillColor": "#F4F8F8",
             "style": {
               "fontSize": 23,
@@ -3392,11 +3614,16 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Location, rigid mount,",
+                "text": "Tag mapping, time alignment,",
+                "style": {
+                  "fontSize": 23,
+                  "typeface": "Arial",
+                  "color": "#173640"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Location, rigid mount,",
+                    "text": "Tag mapping, time alignment,",
                     "fontSize": 23,
                     "typeface": "Arial",
                     "color": "#173640"
@@ -3405,11 +3632,16 @@
               },
               {
                 "index": 2,
-                "text": "measurement bandwidth",
+                "text": "update cadence",
+                "style": {
+                  "fontSize": 23,
+                  "typeface": "Arial",
+                  "color": "#173640"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "measurement bandwidth",
+                    "text": "update cadence",
                     "fontSize": 23,
                     "typeface": "Arial",
                     "color": "#173640"
@@ -3428,7 +3660,7 @@
               "width": 300,
               "height": 66
             },
-            "text": "Link and power",
+            "text": "Missing measurement",
             "fillColor": "#F4F8F8",
             "style": {
               "fontSize": 23,
@@ -3438,11 +3670,16 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Link and power",
+                "text": "Missing measurement",
+                "style": {
+                  "fontSize": 23,
+                  "typeface": "Arial",
+                  "color": "#173640"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Link and power",
+                    "text": "Missing measurement",
                     "fontSize": 23,
                     "typeface": "Arial",
                     "color": "#173640"
@@ -3461,7 +3698,7 @@
               "width": 500,
               "height": 66
             },
-            "text": "Cable to local IO, or radio after survey",
+            "text": "Targeted flow or housing vibration / temperature",
             "fillColor": "#F4F8F8",
             "style": {
               "fontSize": 23,
@@ -3471,11 +3708,16 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Cable to local IO, or radio after survey",
+                "text": "Targeted flow or housing vibration / temperature",
+                "style": {
+                  "fontSize": 23,
+                  "typeface": "Arial",
+                  "color": "#173640"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Cable to local IO, or radio after survey",
+                    "text": "Targeted flow or housing vibration / temperature",
                     "fontSize": 23,
                     "typeface": "Arial",
                     "color": "#173640"
@@ -3494,7 +3736,7 @@
               "width": 352,
               "height": 66
             },
-            "text": "Routing / power, or\nbattery service and coverage",
+            "text": "Suitability, mounting, range\nand measurement bandwidth",
             "fillColor": "#F4F8F8",
             "style": {
               "fontSize": 23,
@@ -3504,11 +3746,16 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Routing / power, or",
+                "text": "Suitability, mounting, range",
+                "style": {
+                  "fontSize": 23,
+                  "typeface": "Arial",
+                  "color": "#173640"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Routing / power, or",
+                    "text": "Suitability, mounting, range",
                     "fontSize": 23,
                     "typeface": "Arial",
                     "color": "#173640"
@@ -3517,11 +3764,16 @@
               },
               {
                 "index": 2,
-                "text": "battery service and coverage",
+                "text": "and measurement bandwidth",
+                "style": {
+                  "fontSize": 23,
+                  "typeface": "Arial",
+                  "color": "#173640"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "battery service and coverage",
+                    "text": "and measurement bandwidth",
                     "fontSize": 23,
                     "typeface": "Arial",
                     "color": "#173640"
@@ -3551,6 +3803,11 @@
               {
                 "index": 1,
                 "text": "Gateway",
+                "style": {
+                  "fontSize": 23,
+                  "typeface": "Arial",
+                  "color": "#173640"
+                },
                 "runs": [
                   {
                     "index": 1,
@@ -3573,7 +3830,7 @@
               "width": 500,
               "height": 66
             },
-            "text": "Local enclosure, buffer and advisory analysis",
+            "text": "Read-only collection, timestamps,\nlocal buffering and advisory analysis",
             "fillColor": "#F4F8F8",
             "style": {
               "fontSize": 23,
@@ -3583,11 +3840,34 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Local enclosure, buffer and advisory analysis",
+                "text": "Read-only collection, timestamps,",
+                "style": {
+                  "fontSize": 23,
+                  "typeface": "Arial",
+                  "color": "#173640"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Local enclosure, buffer and advisory analysis",
+                    "text": "Read-only collection, timestamps,",
+                    "fontSize": 23,
+                    "typeface": "Arial",
+                    "color": "#173640"
+                  }
+                ]
+              },
+              {
+                "index": 2,
+                "text": "local buffering and advisory analysis",
+                "style": {
+                  "fontSize": 23,
+                  "typeface": "Arial",
+                  "color": "#173640"
+                },
+                "runs": [
+                  {
+                    "index": 1,
+                    "text": "local buffering and advisory analysis",
                     "fontSize": 23,
                     "typeface": "Arial",
                     "color": "#173640"
@@ -3617,6 +3897,11 @@
               {
                 "index": 1,
                 "text": "IO, power, environment,",
+                "style": {
+                  "fontSize": 23,
+                  "typeface": "Arial",
+                  "color": "#173640"
+                },
                 "runs": [
                   {
                     "index": 1,
@@ -3630,6 +3915,11 @@
               {
                 "index": 2,
                 "text": "maintenance owner",
+                "style": {
+                  "fontSize": 23,
+                  "typeface": "Arial",
+                  "color": "#173640"
+                },
                 "runs": [
                   {
                     "index": 1,
@@ -3663,6 +3953,11 @@
               {
                 "index": 1,
                 "text": "Engineering display",
+                "style": {
+                  "fontSize": 23,
+                  "typeface": "Arial",
+                  "color": "#173640"
+                },
                 "runs": [
                   {
                     "index": 1,
@@ -3685,7 +3980,7 @@
               "width": 500,
               "height": 66
             },
-            "text": "Existing data + new point with quality and time",
+            "text": "Evidence, uncertainty and next engineering check",
             "fillColor": "#F4F8F8",
             "style": {
               "fontSize": 23,
@@ -3695,11 +3990,16 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Existing data + new point with quality and time",
+                "text": "Evidence, uncertainty and next engineering check",
+                "style": {
+                  "fontSize": 23,
+                  "typeface": "Arial",
+                  "color": "#173640"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Existing data + new point with quality and time",
+                    "text": "Evidence, uncertainty and next engineering check",
                     "fontSize": 23,
                     "typeface": "Arial",
                     "color": "#173640"
@@ -3718,7 +4018,7 @@
               "width": 352,
               "height": 66
             },
-            "text": "Tag mapping, freshness,\nreview workflow",
+            "text": "Review workflow,\nreference checks",
             "fillColor": "#F4F8F8",
             "style": {
               "fontSize": 23,
@@ -3728,11 +4028,16 @@
             "paragraphs": [
               {
                 "index": 1,
-                "text": "Tag mapping, freshness,",
+                "text": "Review workflow,",
+                "style": {
+                  "fontSize": 23,
+                  "typeface": "Arial",
+                  "color": "#173640"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "Tag mapping, freshness,",
+                    "text": "Review workflow,",
                     "fontSize": 23,
                     "typeface": "Arial",
                     "color": "#173640"
@@ -3741,11 +4046,16 @@
               },
               {
                 "index": 2,
-                "text": "review workflow",
+                "text": "reference checks",
+                "style": {
+                  "fontSize": 23,
+                  "typeface": "Arial",
+                  "color": "#173640"
+                },
                 "runs": [
                   {
                     "index": 1,
-                    "text": "review workflow",
+                    "text": "reference checks",
                     "fontSize": 23,
                     "typeface": "Arial",
                     "color": "#173640"
@@ -3763,7 +4073,7 @@
         "order": 4,
         "scope": "slide",
         "editable": true,
-        "text": "Proposed field architecture. Current demo: static synthetic replay.\nReuse existing signals where sufficient; controls remain independent.",
+        "text": "The demo replays synthetic data. The proposed gateway needs site validation.\nExisting controls and operational alarms remain independent.",
         "position": {
           "left": 64,
           "top": 588,
@@ -3780,7 +4090,7 @@
         "paragraphs": [
           {
             "index": 1,
-            "text": "Proposed field architecture. Current demo: static synthetic replay.",
+            "text": "The demo replays synthetic data. The proposed gateway needs site validation.",
             "style": {
               "fontSize": 25,
               "typeface": "Arial",
@@ -3790,7 +4100,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "Proposed field architecture. Current demo: static synthetic replay.",
+                "text": "The demo replays synthetic data. The proposed gateway needs site validation.",
                 "fontSize": 25,
                 "typeface": "Arial",
                 "color": "#173640",
@@ -3801,7 +4111,7 @@
           },
           {
             "index": 2,
-            "text": "Reuse existing signals where sufficient; controls remain independent.",
+            "text": "Existing controls and operational alarms remain independent.",
             "style": {
               "fontSize": 25,
               "typeface": "Arial",
@@ -3811,7 +4121,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "Reuse existing signals where sufficient; controls remain independent.",
+                "text": "Existing controls and operational alarms remain independent.",
                 "fontSize": 25,
                 "typeface": "Arial",
                 "color": "#173640",
@@ -3830,7 +4140,7 @@
         "order": 5,
         "scope": "slide",
         "editable": true,
-        "text": "No hardware built • No selected supplier, fixed BOM or certification claim",
+        "text": "No hardware built. No selected supplier, fixed BOM or certification claim.",
         "position": {
           "left": 64,
           "top": 675,
@@ -3847,7 +4157,7 @@
         "paragraphs": [
           {
             "index": 1,
-            "text": "No hardware built • No selected supplier, fixed BOM or certification claim",
+            "text": "No hardware built. No selected supplier, fixed BOM or certification claim.",
             "style": {
               "fontSize": 19,
               "typeface": "Arial",
@@ -3857,7 +4167,7 @@
             "runs": [
               {
                 "index": 1,
-                "text": "No hardware built • No selected supplier, fixed BOM or certification claim",
+                "text": "No hardware built. No selected supplier, fixed BOM or certification claim.",
                 "fontSize": 19,
                 "typeface": "Arial",
                 "color": "#62747C",
@@ -3873,7 +4183,7 @@
     "notes": {
       "id": "nt/nrcje2",
       "kind": "notes",
-      "text": "Source: docs/engineering/DECISION_BRIEF.md and SOURCES_AND_UNKNOWNS.md; Task006 measurement-concept contract. This is a functional proposal for an asset missing the stated measurement, not a proposed extra vibration sensor for PUMP-08, which already has vibration and bearing-temperature channels. Select the physical package only after a survey. One measurement point does not cover all bearings. Summary vibration features are not raw waveforms. Wireless is an alternative requiring coverage/battery maintenance, not a guaranteed easier installation. A gateway requires IO/enclosure/power/environment/service decisions. Field buffer/restart/quality behavior has not been implemented or validated by this static replay. The current local engineering UI is implemented; real field integration is proposed. A temporary route or no permanent device remains a valid decision. No purchased equipment, supplier quote, proven installation time, safety certification or diagnostic improvement is implied."
+      "text": "This is a proposal, not a built device. Reuse installed pressure, flow and VFD speed where reliable, synchronized and available at adequate cadence. Task013 used existing synthetic 1Hz telemetry; it did not demonstrate the benefit of installing new hardware. A targeted missing channel can enable a particular check, but placement, range, bandwidth, signal quality and incremental diagnostic value require site validation. A proposed read-only local gateway would timestamp and buffer measurements and run advisory analysis. Wired IO or a surveyed wireless link is an installation decision; power, routing, radio coverage/battery service, environmental enclosure and maintenance ownership remain open. Controls and operational alarms remain independent. No supplier selection, certification, physical prototype or measured ROI. Sources: docs/engineering/DECISION_BRIEF.md; SOURCES_AND_UNKNOWNS.md; docs/tasks/013-coordinator-review.md; existing sensor inventory in assets.csv. The preceding ablation uses causal B1, not the new combined method."
     },
     "inheritedLayers": [
       {

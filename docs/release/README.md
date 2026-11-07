@@ -126,4 +126,8 @@ The fixed inference adapter was reviewed and committed at `1a87601`; its exact m
 
 ## 10. Diagnostic-clarity iteration
 
-Task009 updates the local interface after the first release: hypothesis → observed measurement → uncertainty → next engineering check, with technical details behind a disclosure. [Current diagnosis screenshot](../../review/task009/03-p08-1238-card-1440.png), [walkthrough and test coverage](../tasks/009-handoff.md), [coordinator review](../tasks/009-coordinator-review.md). The detector, committed data and issued test predictions remain unchanged. The pitch PDF still uses the earlier Task006 cover screenshot; it is not a screenshot of the new card. Human final review remains pending.
+Task009 updates the local interface after the first release: hypothesis → observed measurement → uncertainty → next engineering check, with technical details behind a disclosure. [Current diagnosis screenshot](../../review/task009/03-p08-1238-card-1440.png), [walkthrough and test coverage](../tasks/009-handoff.md), [coordinator review](../tasks/009-coordinator-review.md). The detector, committed data and issued test predictions remain unchanged. The pitch was subsequently refreshed for Task015 with the actual new comparison screen. Human final review remains pending.
+
+## Later diagnostic comparison — Task015
+
+The reviewed `#/diagnosis` route shows frozen Z995 research results alongside B1, including measured/derived evidence, old waveform ages, real before/at-alert gating and an unchanged error. Train correct types8→10/26; descriptive validation4→5/9, with detection and false/repeat burden unchanged. Validation gain is waveform-only on previously inspected synthetic data. See [Task015 review](../tasks/015-coordinator-review.md). The aligned presentation and local PDF now include these results. This changes neither the original B1 replay data nor the frozen test export. User feedback and spoken rehearsal remain pending.

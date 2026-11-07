@@ -1,0 +1,2062 @@
+{
+ "schema": "retrofit-doctor-diagnosis-comparison/1",
+ "notice": "Research comparison, not a production-detector replacement. Synthetic benchmark measurements; Z995 was adaptively developed on inspected training assets; validation (PUMP-08/09) was already inspected, so its result is descriptive and development-informed. No test asset, telemetry or prediction is included.",
+ "provenance": {
+  "generator": "scripts/export_diagnosis_comparison.py",
+  "selectedCandidate": "Z995",
+  "train": {
+   "runDir": "results/synchronized_residual/run-20261107T093222280839Z",
+   "manifestSha256": "4e673ca28dd1c9dd0dac0770969bef693402ba34bcfa5d335bccf14c46ed19a9",
+   "predictionSha256": {
+    "B1": "a52c10c72d9bfe4bfdc25eb5bde4377ac041b253046ba38ab52bf1c827278f63",
+    "Z995": "3448845b1abb7b38943ac9172b6db7972d25461450cec209787296d45eebb685"
+   },
+   "codeSha256": {
+    "src/retrofit_doctor/synchronized_residual.py": "76ad49e474ccac802bc36295c830612729ed2da83e92c9ac97bce5567f616feb",
+    "scripts/run_synchronized_residual.py": "af6c591ad97e54c1c2c8ed35c72606091db9afa03ec020b868cac8d531f3193f",
+    "tests/test_synchronized_residual.py": "d15b57bf3e49985174ee5bd7412a9ffa044eff53be247609ec6a9c8ed016b052",
+    "src/retrofit_doctor/hydraulic_spread.py": "ffc17d1e220cfc3c78e8278e713d47916665b26e1adb3bf171f0a2e8f3af317b",
+    "src/retrofit_doctor/diagnosis_fusion.py": "c62a5bc17cd5caeb9b2e0d767e6d1c2125ee67b38387f3c028eab3305ac3d036",
+    "scripts/run_diagnosis_fusion.py": "6acc68119690da41ede25b4f6b4df00f35b5ee38e76c6556e737d8a50aaeb04a",
+    "tests/test_diagnosis_fusion.py": "006d711209edc3740af4935978d26b2d34f7e0088a5722e56a53c7bbcdc6c3aa",
+    "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+    "scripts/run_b1.py": "83c6b591ddcd1d07b15dbdba08e26f7731f237c420201a87339ba0d0e39a4d3e",
+    "scripts/run_regime_reference.py": "a8f6292f2789e143067ac43ee36ffe356eb3103d3f1d9585eef58271328d4f53",
+    "scripts/run_sensor_ablation.py": "57fa0191d724a82fa1e00166ec3008b3edab78a7953c7bd69b3a17700b059d49",
+    "vendor/benchmark/src/retrofit_sim/baselines.py": "4bf291d6a1834aa79ced8d2d862d0331fb60e3210630c4c1aa25744ebd7a27dc",
+    "vendor/benchmark/src/retrofit_sim/scoring.py": "5293c2e427d6181e0f24cfd64d617fc96d284c31a949410d3c88769a7e1802c2",
+    "requirements.lock.txt": "09030a82f9d1c9344f798b332c497f575ed1e44f0f71bace5f027f36075afd53",
+    "docs/tasks/013-synchronized-residual.md": "2761695ea8de7c5864f876ad6a312f60343c637eada2a566f0eb67d6dde1052a",
+    "docs/tasks/013-amendment-empirical-tail.md": "0fe2c4a92c4936ad1237f50a2714ef3182f22802e6f0aa2a8e4ada75c47edfba"
+   },
+   "inputs": {
+    "assets_train_rows": "5c8d470e4a56c55d9e09d2fc3df94bc9294fcc388d29f4159e4a9248969d9cc7",
+    "features_train_rows": "8195ae001c7c62377c317d97e4b5f36152bc4917a0826b9bef710cdd3f4b129b",
+    "snapshots_train_rows": "d4985bad1ceaf187aa08952c5c662a4c6c87f503af73100720c140c97fdc1185",
+    "events_train": "5874ae7073d1b5835eac813b2f45e2ea6c3afd8af57d12b261ed0154d1238566",
+    "benign_train_rows": "9825494e3cf05ca525a2e38c4691a601c5102d7d33ab99779e0bed5ffa9578b4",
+    "row_counts": {
+     "assets": 7,
+     "features": 70494,
+     "snapshots": 198,
+     "events": 27
+    },
+    "asset_ids": [
+     "PUMP-01",
+     "PUMP-02",
+     "PUMP-03",
+     "PUMP-04",
+     "PUMP-05",
+     "PUMP-06",
+     "PUMP-07"
+    ]
+   },
+   "seal": {
+    "manifest_sha256": "4e673ca28dd1c9dd0dac0770969bef693402ba34bcfa5d335bccf14c46ed19a9",
+    "authorization": "One registered train-only run of six candidates plus control; no validation/test reads or post-score tuning",
+    "coordinator": "Codex",
+    "date": "2026-11-07"
+   },
+   "completed": {
+    "run_dir": "results/synchronized_residual/run-20261107T093222280839Z",
+    "selected": "Z995",
+    "completion": "audit-only recovery"
+   }
+  },
+  "validation": {
+   "runDir": "results/validation_z995/run-20261107T094945244932Z",
+   "manifestSha256": "a63f145db05bf6f378f6332f778a403a9c1847dd0806c2f29742dc98a8e08e39",
+   "predictionSha256": {
+    "B1": "b9a4fa52561a5e976e9e18c5aa424cf559b78a71e9beb83d86475a2bfe5860f0",
+    "Z995": "be8bb400835f5e547219aa7c5f903785ea26908818d09b46a4b012157757962a"
+   },
+   "codeSha256": {
+    "scripts/run_validation_z995.py": "a861ee4b6b0c12f7664e8f0f81f8f5ef5630fd93165bd4138d7563910765c962",
+    "tests/test_validation_z995.py": "62e5c41023fe19e87875557f0261d533b3e4a7ac6b9ca98027a763ffb44c98df",
+    "src/retrofit_doctor/synchronized_residual.py": "76ad49e474ccac802bc36295c830612729ed2da83e92c9ac97bce5567f616feb",
+    "src/retrofit_doctor/hydraulic_spread.py": "ffc17d1e220cfc3c78e8278e713d47916665b26e1adb3bf171f0a2e8f3af317b",
+    "src/retrofit_doctor/diagnosis_fusion.py": "c62a5bc17cd5caeb9b2e0d767e6d1c2125ee67b38387f3c028eab3305ac3d036",
+    "src/retrofit_doctor/causal_b1.py": "c637e0f8571f858301e0e7ebb6e27bcd8358906a5b1e8291ae981d44096bacf8",
+    "scripts/run_b1.py": "83c6b591ddcd1d07b15dbdba08e26f7731f237c420201a87339ba0d0e39a4d3e",
+    "scripts/run_causal_b2.py": "d77afebd33210805c72812ef9c3cbfe5a79031f7c55a3821f0a3aec88c65816b",
+    "scripts/run_diagnosis_fusion.py": "6acc68119690da41ede25b4f6b4df00f35b5ee38e76c6556e737d8a50aaeb04a",
+    "scripts/run_synchronized_residual.py": "af6c591ad97e54c1c2c8ed35c72606091db9afa03ec020b868cac8d531f3193f",
+    "tests/test_synchronized_residual.py": "d15b57bf3e49985174ee5bd7412a9ffa044eff53be247609ec6a9c8ed016b052",
+    "tests/test_diagnosis_fusion.py": "006d711209edc3740af4935978d26b2d34f7e0088a5722e56a53c7bbcdc6c3aa",
+    "docs/experiments/protocol_v1.json": "f018c40d4aec809e6496b8f7a8220176f821401e51321364295c0fa75cc02477",
+    "vendor/benchmark/src/retrofit_sim/baselines.py": "4bf291d6a1834aa79ced8d2d862d0331fb60e3210630c4c1aa25744ebd7a27dc",
+    "vendor/benchmark/src/retrofit_sim/scoring.py": "5293c2e427d6181e0f24cfd64d617fc96d284c31a949410d3c88769a7e1802c2",
+    "requirements.lock.txt": "09030a82f9d1c9344f798b332c497f575ed1e44f0f71bace5f027f36075afd53",
+    "docs/tasks/014-descriptive-validation.md": "47a0f816a415290ca8dead863c5304a5a2412cf5185c8d0ab0270089a5676928",
+    "results/causal_b1/predictions_causal_validation.csv": "8889d043ff00b3a39a268eb43023d592c3e4afa3ba5b1752e120367ee65e42c9",
+    "results/causal_b2/validation_summary.json": "755323ca1d9a0992c60e4b33256b23a251cc604b926735315c624574a56e5360"
+   },
+   "inputs": {
+    "assets_validation_rows": "f79840eaf0a95bc068b78e68e76736fcda981c060a6608220ea3c79d3d1db212",
+    "features_validation_rows": "35456fe10d99959cbf5f513bcf3f610681ce576323ed6b70904caf785bb2ac08",
+    "snapshots_validation_rows": "cfa880a23968f337a29b4bd5959b0036b8f57796cc352d4fa219224aaa6625cb",
+    "events_validation": "3430ebd62f38c5e89ca08a457ecd1f78662d03f23de87ee11baab154a90ef1fb",
+    "benign_validation_rows": "298bc9af99f5e1936bc884d773edf982b3825b8c80140d675e887fcb4b153b85",
+    "row_counts": {
+     "assets": 2,
+     "features": 20060,
+     "snapshots": 76,
+     "events": 9
+    },
+    "asset_ids": [
+     "PUMP-08",
+     "PUMP-09"
+    ],
+    "split": "validation",
+    "allowlist": [
+     "PUMP-08",
+     "PUMP-09"
+    ],
+    "test_touched": false
+   },
+   "seal": {
+    "manifest_sha256": "a63f145db05bf6f378f6332f778a403a9c1847dd0806c2f29742dc98a8e08e39",
+    "authorization": "One descriptive validation run of frozen Z995 and B1 on PUMP-08/09; no tuning, runner-ups, test reads or release changes",
+    "coordinator": "Codex",
+    "date": "2026-11-07"
+   },
+   "completed": {
+    "run_dir": "results/validation_z995/run-20261107T094945244932Z",
+    "adoption_pass": true
+   }
+  },
+  "filesRead": {
+   "results/synchronized_residual/COMPLETED.json": "00e1499ad1df22bcdcb6ce9c0d5477f0238b3ea511f04af75445181d8c97ba81",
+   "results/synchronized_residual/SEAL.json": "8d3057247f25f0affd8cbb79acbc8f74582ffe9b2d886bfd8368e7d625d24e1d",
+   "results/synchronized_residual/run-20261107T093222280839Z/comparison.csv": "a6d61076df7be594da49d5c8edb26ffc223241b6070dd6c0a1acf40108000546",
+   "results/synchronized_residual/run-20261107T093222280839Z/per_event_B1.csv": "3fc388052ad67231a91d8c8767f5db9d65ea8e5ecfa8646226107a0e35bafd08",
+   "results/synchronized_residual/run-20261107T093222280839Z/per_event_Z995.csv": "7c913fdf1a6a4b7e82a4387bd473b78b389fc4ccdbf373846e723335f03ab97c",
+   "results/synchronized_residual/run-20261107T093222280839Z/predictions_B1.csv": "a52c10c72d9bfe4bfdc25eb5bde4377ac041b253046ba38ab52bf1c827278f63",
+   "results/synchronized_residual/run-20261107T093222280839Z/predictions_Z995.csv": "3448845b1abb7b38943ac9172b6db7972d25461450cec209787296d45eebb685",
+   "results/synchronized_residual/run-20261107T093222280839Z/run_provenance.json": "8aded989757ac84cda7d2791a340efb7ae014cd310a756d08f15b92d6d9b9336",
+   "results/validation_z995/COMPLETED.json": "823e9d6da87078c3d501c5ac2c1e93434434b774211a51e31d07b6a6bbaf15cf",
+   "results/validation_z995/SEAL.json": "0f7cdc0a0acaa204b5e172c81df9d0b8846c182c5e69b7a6a3470536a0e7f5fe",
+   "results/validation_z995/run-20261107T094945244932Z/comparison.csv": "61ca1cf0728784030c62406b27837f3d5c79c1f94449acd8defb4ad8d6775135",
+   "results/validation_z995/run-20261107T094945244932Z/event_transitions.csv": "0f622f2a4ce8cb9b36f691aa3ea2ce1a7072c5915529af6491c0d63f57d261c7",
+   "results/validation_z995/run-20261107T094945244932Z/predictions_B1.csv": "b9a4fa52561a5e976e9e18c5aa424cf559b78a71e9beb83d86475a2bfe5860f0",
+   "results/validation_z995/run-20261107T094945244932Z/predictions_Z995.csv": "be8bb400835f5e547219aa7c5f903785ea26908818d09b46a4b012157757962a",
+   "results/validation_z995/run-20261107T094945244932Z/run_provenance.json": "837d4f28bab32e9cd55ac4e976feef2c011624e7d3351c29d8670e8da869105b",
+   "vendor/benchmark/data/full/assets.csv": "bf80906062ee87861adcf0d94accbf303b49b6c8c4f9060bbd3d5318dbeaef69",
+   "vendor/benchmark/data/full/events_train.csv": "08b607f38a64a34601de1b578896ca2c8314977bc76eecdec8dddb253f641392",
+   "vendor/benchmark/data/full/events_validation.csv": "68e7ffc01673dacf805c907a6367f0f9c91887a1316ab4bc79ed8384fea2bbad",
+   "vendor/benchmark/data/full/telemetry/asset_id=PUMP-04/day=2025-06-18/part-0.parquet": "b96ab3be379eb3d8490a78b3f03b054337c8e2480db412bbc5fe7dc9cc50f629"
+  }
+ },
+ "scorecard": {
+  "train": {
+   "scope": "Train · 7 pumps (PUMP-01..07) · 26 events · 49 asset-days",
+   "b1": {
+    "events": "26",
+    "detected": "18",
+    "type_correct": "8",
+    "class_correct": "14",
+    "false_episodes": "3",
+    "excess_repeats": "3",
+    "false_plus_excess": "6",
+    "nuisance_benign": "2",
+    "alerts": "43",
+    "sensor_events": "8",
+    "sensor_type_and_channel": "3",
+    "wrong_specific_first": "8",
+    "composite_score": "59.20719120527966"
+   },
+   "z995": {
+    "events": "26",
+    "detected": "18",
+    "type_correct": "10",
+    "class_correct": "14",
+    "false_episodes": "3",
+    "excess_repeats": "3",
+    "false_plus_excess": "6",
+    "nuisance_benign": "2",
+    "alerts": "43",
+    "sensor_events": "8",
+    "sensor_type_and_channel": "4",
+    "wrong_specific_first": "7",
+    "composite_score": "61.13026812835659"
+   },
+   "changedAlerts": [
+    {
+     "assetId": "PUMP-02",
+     "alertUtc": "2025-12-07T10:32:00Z",
+     "b1": "MACHINE · UNKNOWN",
+     "b1Channel": "vibration_crest_factor",
+     "z995": "MACHINE · MISALIGNMENT",
+     "z995Channel": null,
+     "source": "W1"
+    },
+    {
+     "assetId": "PUMP-04",
+     "alertUtc": "2025-06-18T22:06:00Z",
+     "b1": "SENSOR · SENSOR_CALIBRATION_SHIFT",
+     "b1Channel": "motor_winding_temp_c",
+     "z995": "SENSOR · SENSOR_NOISE_SPIKES",
+     "z995Channel": "flow_m3_h",
+     "source": "E995"
+    }
+   ],
+   "events": [
+    {
+     "eventId": "PUMP-01-E01",
+     "assetId": "PUMP-01",
+     "eventClass": "MACHINE",
+     "faultType": "SUCTION_STRAINER_CLOGGING",
+     "sensorTag": null,
+     "b1": {
+      "detected": true,
+      "type": "SENSOR_CALIBRATION_SHIFT",
+      "channel": "suction_pressure_kpa",
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "SENSOR_CALIBRATION_SHIFT",
+      "channel": "suction_pressure_kpa",
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-01-E02",
+     "assetId": "PUMP-01",
+     "eventClass": "MACHINE",
+     "faultType": "SUCTION_STRAINER_CLOGGING",
+     "sensorTag": null,
+     "b1": {
+      "detected": true,
+      "type": "SUCTION_STRAINER_CLOGGING",
+      "channel": "suction_pressure_kpa",
+      "typeCorrect": true,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "SUCTION_STRAINER_CLOGGING",
+      "channel": "suction_pressure_kpa",
+      "typeCorrect": true,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-01-E03",
+     "assetId": "PUMP-01",
+     "eventClass": "SENSOR",
+     "faultType": "COMMUNICATION_LOSS",
+     "sensorTag": "GATEWAY",
+     "b1": {
+      "detected": true,
+      "type": "COMMUNICATION_LOSS",
+      "channel": "GATEWAY",
+      "typeCorrect": true,
+      "typeAndChannel": true
+     },
+     "z995": {
+      "detected": true,
+      "type": "COMMUNICATION_LOSS",
+      "channel": "GATEWAY",
+      "typeCorrect": true,
+      "typeAndChannel": true
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-01-E04",
+     "assetId": "PUMP-01",
+     "eventClass": "SENSOR",
+     "faultType": "SENSOR_STUCK",
+     "sensorTag": "bearing_temp_c",
+     "b1": {
+      "detected": false,
+      "type": null,
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": false,
+      "type": null,
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-02-E01",
+     "assetId": "PUMP-02",
+     "eventClass": "MACHINE",
+     "faultType": "BEARING_WEAR",
+     "sensorTag": null,
+     "b1": {
+      "detected": true,
+      "type": "BEARING_WEAR",
+      "channel": null,
+      "typeCorrect": true,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "BEARING_WEAR",
+      "channel": null,
+      "typeCorrect": true,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-02-E02",
+     "assetId": "PUMP-02",
+     "eventClass": "MACHINE",
+     "faultType": "MISALIGNMENT",
+     "sensorTag": null,
+     "b1": {
+      "detected": true,
+      "type": "UNKNOWN",
+      "channel": "vibration_crest_factor",
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "MISALIGNMENT",
+      "channel": null,
+      "typeCorrect": true,
+      "typeAndChannel": false
+     },
+     "changed": true
+    },
+    {
+     "eventId": "PUMP-02-E03",
+     "assetId": "PUMP-02",
+     "eventClass": "SENSOR",
+     "faultType": "SENSOR_DRIFT",
+     "sensorTag": "suction_pressure_kpa",
+     "b1": {
+      "detected": true,
+      "type": "SENSOR_CALIBRATION_SHIFT",
+      "channel": "suction_pressure_kpa",
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "SENSOR_CALIBRATION_SHIFT",
+      "channel": "suction_pressure_kpa",
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-03-E01",
+     "assetId": "PUMP-03",
+     "eventClass": "MACHINE",
+     "faultType": "DISCHARGE_RESTRICTION",
+     "sensorTag": null,
+     "b1": {
+      "detected": true,
+      "type": "DISCHARGE_RESTRICTION",
+      "channel": null,
+      "typeCorrect": true,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "DISCHARGE_RESTRICTION",
+      "channel": null,
+      "typeCorrect": true,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-03-E02",
+     "assetId": "PUMP-03",
+     "eventClass": "SENSOR",
+     "faultType": "SENSOR_CALIBRATION_SHIFT",
+     "sensorTag": "discharge_pressure_kpa",
+     "b1": {
+      "detected": true,
+      "type": "SENSOR_CALIBRATION_SHIFT",
+      "channel": "discharge_pressure_kpa",
+      "typeCorrect": true,
+      "typeAndChannel": true
+     },
+     "z995": {
+      "detected": true,
+      "type": "SENSOR_CALIBRATION_SHIFT",
+      "channel": "discharge_pressure_kpa",
+      "typeCorrect": true,
+      "typeAndChannel": true
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-03-E03",
+     "assetId": "PUMP-03",
+     "eventClass": "MACHINE",
+     "faultType": "IMPELLER_WEAR",
+     "sensorTag": null,
+     "b1": {
+      "detected": true,
+      "type": "UNKNOWN",
+      "channel": "discharge_pressure_kpa",
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "UNKNOWN",
+      "channel": "discharge_pressure_kpa",
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-04-E01",
+     "assetId": "PUMP-04",
+     "eventClass": "MACHINE",
+     "faultType": "IMBALANCE",
+     "sensorTag": null,
+     "b1": {
+      "detected": true,
+      "type": "IMBALANCE",
+      "channel": "vibration_rms_mm_s",
+      "typeCorrect": true,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "IMBALANCE",
+      "channel": "vibration_rms_mm_s",
+      "typeCorrect": true,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-04-E02",
+     "assetId": "PUMP-04",
+     "eventClass": "MACHINE",
+     "faultType": "BEARING_WEAR",
+     "sensorTag": null,
+     "b1": {
+      "detected": true,
+      "type": "DISCHARGE_RESTRICTION",
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "DISCHARGE_RESTRICTION",
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-04-E03",
+     "assetId": "PUMP-04",
+     "eventClass": "SENSOR",
+     "faultType": "SENSOR_NOISE_SPIKES",
+     "sensorTag": "flow_m3_h",
+     "b1": {
+      "detected": true,
+      "type": "SENSOR_CALIBRATION_SHIFT",
+      "channel": "motor_winding_temp_c",
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "SENSOR_NOISE_SPIKES",
+      "channel": "flow_m3_h",
+      "typeCorrect": true,
+      "typeAndChannel": true
+     },
+     "changed": true
+    },
+    {
+     "eventId": "PUMP-04-E04",
+     "assetId": "PUMP-04",
+     "eventClass": "MACHINE",
+     "faultType": "DISCHARGE_RESTRICTION",
+     "sensorTag": null,
+     "b1": {
+      "detected": false,
+      "type": null,
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": false,
+      "type": null,
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-05-E01",
+     "assetId": "PUMP-05",
+     "eventClass": "MACHINE",
+     "faultType": "IMPELLER_WEAR",
+     "sensorTag": null,
+     "b1": {
+      "detected": false,
+      "type": null,
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": false,
+      "type": null,
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-05-E02",
+     "assetId": "PUMP-05",
+     "eventClass": "SENSOR",
+     "faultType": "SENSOR_STUCK",
+     "sensorTag": "discharge_pressure_kpa",
+     "b1": {
+      "detected": true,
+      "type": "SENSOR_STUCK",
+      "channel": "discharge_pressure_kpa",
+      "typeCorrect": true,
+      "typeAndChannel": true
+     },
+     "z995": {
+      "detected": true,
+      "type": "SENSOR_STUCK",
+      "channel": "discharge_pressure_kpa",
+      "typeCorrect": true,
+      "typeAndChannel": true
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-06-E02",
+     "assetId": "PUMP-06",
+     "eventClass": "MACHINE",
+     "faultType": "MISALIGNMENT",
+     "sensorTag": null,
+     "b1": {
+      "detected": true,
+      "type": "SENSOR_CALIBRATION_SHIFT",
+      "channel": "suction_pressure_kpa",
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "SENSOR_CALIBRATION_SHIFT",
+      "channel": "suction_pressure_kpa",
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-06-E03",
+     "assetId": "PUMP-06",
+     "eventClass": "MACHINE",
+     "faultType": "SUCTION_STRAINER_CLOGGING",
+     "sensorTag": null,
+     "b1": {
+      "detected": true,
+      "type": "SUCTION_STRAINER_CLOGGING",
+      "channel": "suction_pressure_kpa",
+      "typeCorrect": true,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "SUCTION_STRAINER_CLOGGING",
+      "channel": "suction_pressure_kpa",
+      "typeCorrect": true,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-06-E04",
+     "assetId": "PUMP-06",
+     "eventClass": "SENSOR",
+     "faultType": "SENSOR_DRIFT",
+     "sensorTag": "bearing_temp_c",
+     "b1": {
+      "detected": false,
+      "type": null,
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": false,
+      "type": null,
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-06-E05",
+     "assetId": "PUMP-06",
+     "eventClass": "MACHINE",
+     "faultType": "CAVITATION",
+     "sensorTag": null,
+     "b1": {
+      "detected": false,
+      "type": null,
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": false,
+      "type": null,
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-06-E06",
+     "assetId": "PUMP-06",
+     "eventClass": "MACHINE",
+     "faultType": "CAVITATION",
+     "sensorTag": null,
+     "b1": {
+      "detected": false,
+      "type": null,
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": false,
+      "type": null,
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-06-E07",
+     "assetId": "PUMP-06",
+     "eventClass": "MACHINE",
+     "faultType": "CAVITATION",
+     "sensorTag": null,
+     "b1": {
+      "detected": false,
+      "type": null,
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": false,
+      "type": null,
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-06-E08",
+     "assetId": "PUMP-06",
+     "eventClass": "MACHINE",
+     "faultType": "CAVITATION",
+     "sensorTag": null,
+     "b1": {
+      "detected": false,
+      "type": null,
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": false,
+      "type": null,
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-07-E01",
+     "assetId": "PUMP-07",
+     "eventClass": "MACHINE",
+     "faultType": "BEARING_WEAR",
+     "sensorTag": null,
+     "b1": {
+      "detected": true,
+      "type": "SENSOR_CALIBRATION_SHIFT",
+      "channel": "motor_winding_temp_c",
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "SENSOR_CALIBRATION_SHIFT",
+      "channel": "motor_winding_temp_c",
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-07-E02",
+     "assetId": "PUMP-07",
+     "eventClass": "SENSOR",
+     "faultType": "SENSOR_CALIBRATION_SHIFT",
+     "sensorTag": "flow_m3_h",
+     "b1": {
+      "detected": true,
+      "type": "DISCHARGE_RESTRICTION",
+      "channel": "flow_m3_h",
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "DISCHARGE_RESTRICTION",
+      "channel": "flow_m3_h",
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-07-E03",
+     "assetId": "PUMP-07",
+     "eventClass": "MACHINE",
+     "faultType": "AIR_ENTRAINMENT",
+     "sensorTag": null,
+     "b1": {
+      "detected": true,
+      "type": "DISCHARGE_RESTRICTION",
+      "channel": "flow_m3_h",
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "DISCHARGE_RESTRICTION",
+      "channel": "flow_m3_h",
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    }
+   ]
+  },
+  "validation": {
+   "scope": "Validation · 2 pumps (PUMP-08/09) · 9 events · 14 asset-days · previously inspected",
+   "b1": {
+    "events": "9",
+    "detected": "8",
+    "type_correct": "4",
+    "class_correct": "8",
+    "false_episodes": "1",
+    "excess_repeats": "0",
+    "false_plus_excess": "1",
+    "nuisance_benign": "1",
+    "alerts": "15",
+    "sensor_events": "4",
+    "sensor_type_and_channel": "2",
+    "wrong_specific_first": "3",
+    "composite_score": "76.01253946421124"
+   },
+   "z995": {
+    "events": "9",
+    "detected": "8",
+    "type_correct": "5",
+    "class_correct": "8",
+    "false_episodes": "1",
+    "excess_repeats": "0",
+    "false_plus_excess": "1",
+    "nuisance_benign": "1",
+    "alerts": "15",
+    "sensor_events": "4",
+    "sensor_type_and_channel": "2",
+    "wrong_specific_first": "3",
+    "composite_score": "78.79031724198903"
+   },
+   "changedAlerts": [
+    {
+     "assetId": "PUMP-08",
+     "alertUtc": "2025-09-11T20:47:00Z",
+     "b1": "MACHINE · UNKNOWN",
+     "b1Channel": "fluid_temp_c",
+     "z995": "MACHINE · BEARING_WEAR",
+     "z995Channel": null,
+     "source": "W1"
+    },
+    {
+     "assetId": "PUMP-08",
+     "alertUtc": "2025-09-13T13:07:00Z",
+     "b1": "MACHINE · UNKNOWN",
+     "b1Channel": "fluid_temp_c",
+     "z995": "MACHINE · BEARING_WEAR",
+     "z995Channel": null,
+     "source": "W1"
+    },
+    {
+     "assetId": "PUMP-08",
+     "alertUtc": "2025-09-14T04:09:00Z",
+     "b1": "MACHINE · UNKNOWN",
+     "b1Channel": null,
+     "z995": "MACHINE · BEARING_WEAR",
+     "z995Channel": null,
+     "source": "W1"
+    }
+   ],
+   "events": [
+    {
+     "eventId": "PUMP-08-E02",
+     "assetId": "PUMP-08",
+     "eventClass": "MACHINE",
+     "faultType": "BEARING_WEAR",
+     "sensorTag": null,
+     "b1": {
+      "detected": true,
+      "type": "UNKNOWN",
+      "channel": "fluid_temp_c",
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "BEARING_WEAR",
+      "channel": null,
+      "typeCorrect": true,
+      "typeAndChannel": false
+     },
+     "changed": true
+    },
+    {
+     "eventId": "PUMP-08-E01",
+     "assetId": "PUMP-08",
+     "eventClass": "MACHINE",
+     "faultType": "SUCTION_STRAINER_CLOGGING",
+     "sensorTag": null,
+     "b1": {
+      "detected": true,
+      "type": "SUCTION_STRAINER_CLOGGING",
+      "channel": "suction_pressure_kpa",
+      "typeCorrect": true,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "SUCTION_STRAINER_CLOGGING",
+      "channel": "suction_pressure_kpa",
+      "typeCorrect": true,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-08-E03",
+     "assetId": "PUMP-08",
+     "eventClass": "SENSOR",
+     "faultType": "COMMUNICATION_LOSS",
+     "sensorTag": "GATEWAY",
+     "b1": {
+      "detected": true,
+      "type": "COMMUNICATION_LOSS",
+      "channel": "GATEWAY",
+      "typeCorrect": true,
+      "typeAndChannel": true
+     },
+     "z995": {
+      "detected": true,
+      "type": "COMMUNICATION_LOSS",
+      "channel": "GATEWAY",
+      "typeCorrect": true,
+      "typeAndChannel": true
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-08-E04",
+     "assetId": "PUMP-08",
+     "eventClass": "SENSOR",
+     "faultType": "SENSOR_NOISE_SPIKES",
+     "sensorTag": "discharge_pressure_kpa",
+     "b1": {
+      "detected": false,
+      "type": null,
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": false,
+      "type": null,
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-09-E04",
+     "assetId": "PUMP-09",
+     "eventClass": "SENSOR",
+     "faultType": "SENSOR_DRIFT",
+     "sensorTag": "motor_current_a",
+     "b1": {
+      "detected": true,
+      "type": "SENSOR_CALIBRATION_SHIFT",
+      "channel": "vibration_rms_mm_s",
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "SENSOR_CALIBRATION_SHIFT",
+      "channel": "vibration_rms_mm_s",
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-09-E01",
+     "assetId": "PUMP-09",
+     "eventClass": "MACHINE",
+     "faultType": "MISALIGNMENT",
+     "sensorTag": null,
+     "b1": {
+      "detected": true,
+      "type": "IMBALANCE",
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "IMBALANCE",
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-09-E03",
+     "assetId": "PUMP-09",
+     "eventClass": "SENSOR",
+     "faultType": "SENSOR_STUCK",
+     "sensorTag": "bearing_temp_c",
+     "b1": {
+      "detected": true,
+      "type": "SENSOR_STUCK",
+      "channel": "bearing_temp_c",
+      "typeCorrect": true,
+      "typeAndChannel": true
+     },
+     "z995": {
+      "detected": true,
+      "type": "SENSOR_STUCK",
+      "channel": "bearing_temp_c",
+      "typeCorrect": true,
+      "typeAndChannel": true
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-09-E02",
+     "assetId": "PUMP-09",
+     "eventClass": "MACHINE",
+     "faultType": "DISCHARGE_RESTRICTION",
+     "sensorTag": null,
+     "b1": {
+      "detected": true,
+      "type": "DISCHARGE_RESTRICTION",
+      "channel": null,
+      "typeCorrect": true,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "DISCHARGE_RESTRICTION",
+      "channel": null,
+      "typeCorrect": true,
+      "typeAndChannel": false
+     },
+     "changed": false
+    },
+    {
+     "eventId": "PUMP-09-E06",
+     "assetId": "PUMP-09",
+     "eventClass": "MACHINE",
+     "faultType": "AIR_ENTRAINMENT",
+     "sensorTag": null,
+     "b1": {
+      "detected": true,
+      "type": "SUCTION_STRAINER_CLOGGING",
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "z995": {
+      "detected": true,
+      "type": "SUCTION_STRAINER_CLOGGING",
+      "channel": null,
+      "typeCorrect": false,
+      "typeAndChannel": false
+     },
+     "changed": false
+    }
+   ],
+   "rawAggregationChecks": 0,
+   "rawNote": "Zero applicable raw-aggregation checks: PUMP-08 has no flow meter and PUMP-09 no measured speed, so the hydraulic residual could not be applied. The validation gain comes from the waveform refinement only."
+  }
+ },
+ "cases": [
+  {
+   "caseId": "pump04-train",
+   "assetId": "PUMP-04",
+   "split": "train",
+   "alertUtc": "2025-06-18T22:06:00Z",
+   "minuteStartUtc": "2025-06-18T22:05:00Z",
+   "minuteEndUtc": "2025-06-18T22:06:00Z",
+   "b1": {
+    "event_class": "SENSOR",
+    "fault_type": "SENSOR_CALIBRATION_SHIFT",
+    "confidence": "0.99",
+    "evidence": "B1 mode-aware z: motor_winding_temp_c deviates alone (z=-7.5)",
+    "recommended_action": "Verify motor_winding_temp_c against a reference gauge.",
+    "suspected_channel": "motor_winding_temp_c"
+   },
+   "z995": {
+    "event_class": "SENSOR",
+    "fault_type": "SENSOR_NOISE_SPIKES",
+    "confidence": "0.99",
+    "evidence": "E995 synchronized residual: minute 2025-06-18T22:05:00+00:00..2025-06-18T22:06:00+00:00 (60 paired 1 Hz rows of 60), std(E) 7.326309667 kPa vs first-day reference median 3.453518143 kPa, empirical upper-tail rank (1+b)/(N+1) = 0.000698324 with N=1431, b=0, limit 0.005 (not a fault probability, valid p-value or calibrated false-alarm rate); covariance shares discharge_pressure_kpa=0.138045205, suction_pressure_kpa=0.102942361, flow_m3_h=0.763355865, motor_speed_rpm=-0.004343431 (sum 1.0; variance decomposition, not causal probabilities); flow_m3_h spread z 26.266450209; assumes water-like fluid, rho=1000 kg/m3, g=9.80665 m/s2, assumed atmospheric 101.325 kPa, pure-water vapor pressure, equal tap elevations and no velocity-head difference; a strong residual can also come from dynamics or a wrong model; confidence is B1's anomaly score; B1 rule said SENSOR_CALIBRATION_SHIFT",
+    "recommended_action": "Inspect synchronized traces and check flow_m3_h with an independent instrument before replacement.",
+    "suspected_channel": "flow_m3_h",
+    "diagnosis_source": "E995",
+    "b1_fault_type": "SENSOR_CALIBRATION_SHIFT",
+    "b1_event_class": "SENSOR",
+    "waveform": {
+     "wf_status": "FRESH",
+     "wf_speed_check": "MATCH",
+     "wf_snapshot_id": "PUMP-04-S018",
+     "wf_complete_utc": "2025-06-18T21:43:43+00:00",
+     "wf_age_s": "1337.0",
+     "wf_reference_snapshots": "6",
+     "features": {
+      "wf_2x_over_1x": 0.154915,
+      "wf_log_1x_gain": 1.396847,
+      "wf_log_2x_gain": -0.400387,
+      "wf_log_env_gain": 1.284742,
+      "wf_log_env_ratio": 3.667767
+     }
+    },
+    "ruleDetail": {
+     "applicability": {
+      "curve": {
+       "head_curve_m": 27.535546,
+       "head_observed_m": 26.617482,
+       "relative_mismatch": 0.033341
+      },
+      "measured": {
+       "n": {
+        "channel": "motor_speed_rpm",
+        "count": 60,
+        "mean": 1344.199951,
+        "std": 1.560096,
+        "unit": "rpm"
+       },
+       "pd": {
+        "channel": "discharge_pressure_kpa",
+        "count": 60,
+        "mean": 274.231659,
+        "std": 2.396572,
+        "unit": "kPa(g)"
+       },
+       "ps": {
+        "channel": "suction_pressure_kpa",
+        "count": 60,
+        "mean": 13.203334,
+        "std": 1.539201,
+        "unit": "kPa(g)"
+       },
+       "q": {
+        "channel": "flow_m3_h",
+        "count": 60,
+        "mean": 282.141663,
+        "std": 17.116276,
+        "unit": "m3/h"
+       },
+       "tf": {
+        "channel": "fluid_temp_c",
+        "count": 60,
+        "mean": 24.309999,
+        "std": 0.081719,
+        "unit": "degC"
+       }
+      },
+      "npsh": {
+       "margin_required": 1.5,
+       "npsh3_m": 2.710983,
+       "npsha_lower_m": 11.368776,
+       "vapor_pressure_kpa": 3.038731
+      },
+      "operating_point": {
+       "flow_ratio_at_speed": 0.970767,
+       "speed_ratio": 0.908243
+      },
+      "passed": true,
+      "passport": {
+       "motor_rated_rpm": 1480.0,
+       "npsh3_at_bep_m": 3.4,
+       "pump_rated_flow_m3_h": 320.0,
+       "pump_rated_head_m": 33.0,
+       "pump_shutoff_head_m": 39.6
+      },
+      "unsupported_reason": null
+     },
+     "assumptions": "water-like fluid, rho=1000 kg/m3, g=9.80665 m/s2, assumed atmospheric 101.325 kPa, pure-water vapor pressure, equal tap elevations and no velocity-head difference",
+     "contribution_sum": 1.0,
+     "contributions": {
+      "n": -0.004343431,
+      "pd": 0.138045205,
+      "ps": 0.102942361,
+      "q": 0.763355865
+     },
+     "covariances_kpa2": {
+      "n": -0.233132829,
+      "pd": 7.409550628,
+      "ps": 5.525412002,
+      "q": 40.97298354
+     },
+     "dominant": "flow_m3_h",
+     "emitted_source": "E995",
+     "evaluated_rule": "E995",
+     "factor": null,
+     "minute": {
+      "end": "2025-06-18T22:06:00+00:00",
+      "invalid_reason": null,
+      "mean_E_kpa": -8.82148101,
+      "paired": 60,
+      "rows_running": 60,
+      "rows_total": 60,
+      "start": "2025-06-18T22:05:00+00:00",
+      "std_E_kpa": 7.326309667,
+      "var_E_kpa2": 53.674813341
+     },
+     "outcome": "emitted",
+     "reason": null,
+     "reference": {
+      "median_raw": 3.453518143,
+      "minutes": 1431,
+      "reference_std_kpa": 3.453518143
+     },
+     "source": "flow_m3_h",
+     "source_spread_z": 26.266450209,
+     "tail": {
+      "N": 1431,
+      "b": 0,
+      "limit": 0.005,
+      "reference_median_kpa": 3.453518143,
+      "tail_rank": 0.000698324
+     },
+     "tail_limit": 0.005,
+     "term_variances_kpa2": {
+      "n": 0.552929051,
+      "pd": 5.743555114,
+      "ps": 2.369141346,
+      "q": 37.592756727
+     }
+    }
+   },
+   "label": {
+    "event_id": "PUMP-04-E03",
+    "asset_id": "PUMP-04",
+    "event_class": "SENSOR",
+    "fault_type": "SENSOR_NOISE_SPIKES",
+    "sensor_tag": "flow_m3_h",
+    "onset_utc": "2025-06-18T21:13:02Z",
+    "end_utc": "2025-06-19T08:56:30Z"
+   },
+   "passport": {
+    "asset_id": "PUMP-04",
+    "split": "train",
+    "site": "Plant C (food processing, fictional)",
+    "system": "Cooling-tower circulation pump CW-1",
+    "instrumentation_tier": "T2_FULL",
+    "channels_available": "ambient_temp_c|bearing_temp_c|discharge_pressure_kpa|flow_m3_h|fluid_temp_c|motor_current_a|motor_power_kw|motor_speed_rpm|motor_winding_temp_c|suction_pressure_kpa|valve_position_pct|vibration_accel_rms_g|vibration_crest_factor|vibration_rms_mm_s",
+    "control": "VFD_PRESSURE"
+   },
+   "rawMinute": {
+    "source": "vendor/benchmark/data/full/telemetry/asset_id=PUMP-04/day=2025-06-18/part-0.parquet",
+    "window": "2025-06-18T22:05:00Z <= t < 2025-06-18T22:06:00Z (a row exactly at the minute end belongs to the next minute)",
+    "equation": "E = Pd - Ps + (rho g/1000)(H0-Hb)(Q/Qb)^2 - (rho g/1000) H0 (n/nr)^2; measured rise = Pd - Ps; curve-derived rise = (rho g/1000)[H0 (n/nr)^2 - (H0-Hb)(Q/Qb)^2]",
+    "passport": {
+     "pump_rated_flow_m3_h": 320.0,
+     "pump_rated_head_m": 33.0,
+     "pump_shutoff_head_m": 39.6,
+     "motor_rated_rpm": 1480.0,
+     "npsh3_at_bep_m": 3.4
+    },
+    "recomputedStdE_kpa": 7.326309667,
+    "t": [
+     "2025-06-18T22:05:00Z",
+     "2025-06-18T22:05:01Z",
+     "2025-06-18T22:05:02Z",
+     "2025-06-18T22:05:03Z",
+     "2025-06-18T22:05:04Z",
+     "2025-06-18T22:05:05Z",
+     "2025-06-18T22:05:06Z",
+     "2025-06-18T22:05:07Z",
+     "2025-06-18T22:05:08Z",
+     "2025-06-18T22:05:09Z",
+     "2025-06-18T22:05:10Z",
+     "2025-06-18T22:05:11Z",
+     "2025-06-18T22:05:12Z",
+     "2025-06-18T22:05:13Z",
+     "2025-06-18T22:05:14Z",
+     "2025-06-18T22:05:15Z",
+     "2025-06-18T22:05:16Z",
+     "2025-06-18T22:05:17Z",
+     "2025-06-18T22:05:18Z",
+     "2025-06-18T22:05:19Z",
+     "2025-06-18T22:05:20Z",
+     "2025-06-18T22:05:21Z",
+     "2025-06-18T22:05:22Z",
+     "2025-06-18T22:05:23Z",
+     "2025-06-18T22:05:24Z",
+     "2025-06-18T22:05:25Z",
+     "2025-06-18T22:05:26Z",
+     "2025-06-18T22:05:27Z",
+     "2025-06-18T22:05:28Z",
+     "2025-06-18T22:05:29Z",
+     "2025-06-18T22:05:30Z",
+     "2025-06-18T22:05:31Z",
+     "2025-06-18T22:05:32Z",
+     "2025-06-18T22:05:33Z",
+     "2025-06-18T22:05:34Z",
+     "2025-06-18T22:05:35Z",
+     "2025-06-18T22:05:36Z",
+     "2025-06-18T22:05:37Z",
+     "2025-06-18T22:05:38Z",
+     "2025-06-18T22:05:39Z",
+     "2025-06-18T22:05:40Z",
+     "2025-06-18T22:05:41Z",
+     "2025-06-18T22:05:42Z",
+     "2025-06-18T22:05:43Z",
+     "2025-06-18T22:05:44Z",
+     "2025-06-18T22:05:45Z",
+     "2025-06-18T22:05:46Z",
+     "2025-06-18T22:05:47Z",
+     "2025-06-18T22:05:48Z",
+     "2025-06-18T22:05:49Z",
+     "2025-06-18T22:05:50Z",
+     "2025-06-18T22:05:51Z",
+     "2025-06-18T22:05:52Z",
+     "2025-06-18T22:05:53Z",
+     "2025-06-18T22:05:54Z",
+     "2025-06-18T22:05:55Z",
+     "2025-06-18T22:05:56Z",
+     "2025-06-18T22:05:57Z",
+     "2025-06-18T22:05:58Z",
+     "2025-06-18T22:05:59Z"
+    ],
+    "q_m3_h": [
+     311.299988,
+     260.799988,
+     275.700012,
+     262.200012,
+     285.299988,
+     283.100006,
+     295.600006,
+     280.5,
+     302.600006,
+     282.200012,
+     267.700012,
+     298.5,
+     283.100006,
+     298.0,
+     268.5,
+     285.399994,
+     302.100006,
+     273.5,
+     274.700012,
+     276.399994,
+     290.700012,
+     270.100006,
+     271.299988,
+     289.100006,
+     290.700012,
+     291.200012,
+     256.600006,
+     315.399994,
+     302.5,
+     263.299988,
+     275.399994,
+     282.899994,
+     291.899994,
+     256.399994,
+     300.399994,
+     287.600006,
+     325.600006,
+     279.200012,
+     294.600006,
+     256.5,
+     258.5,
+     281.0,
+     301.799988,
+     294.700012,
+     275.299988,
+     247.600006,
+     307.600006,
+     273.299988,
+     282.299988,
+     252.199997,
+     276.899994,
+     259.399994,
+     272.100006,
+     296.899994,
+     268.399994,
+     257.5,
+     272.799988,
+     299.5,
+     289.200012,
+     302.899994
+    ],
+    "ps_kpa": [
+     13.0,
+     13.0,
+     16.1,
+     12.9,
+     15.6,
+     13.3,
+     12.5,
+     15.2,
+     12.2,
+     15.1,
+     11.4,
+     10.3,
+     13.5,
+     13.4,
+     11.6,
+     11.8,
+     10.8,
+     15.0,
+     9.7,
+     14.5,
+     12.1,
+     14.5,
+     12.6,
+     13.2,
+     14.4,
+     12.8,
+     13.5,
+     12.0,
+     13.8,
+     12.6,
+     14.6,
+     11.4,
+     14.3,
+     13.2,
+     12.0,
+     14.9,
+     11.5,
+     13.2,
+     13.1,
+     16.1,
+     11.7,
+     14.1,
+     11.8,
+     13.8,
+     16.9,
+     14.6,
+     12.2,
+     11.7,
+     13.5,
+     12.4,
+     14.1,
+     15.2,
+     11.9,
+     13.0,
+     15.2,
+     12.4,
+     14.5,
+     12.2,
+     14.0,
+     10.3
+    ],
+    "pd_kpa": [
+     271.200012,
+     272.5,
+     274.100006,
+     269.5,
+     271.200012,
+     271.700012,
+     271.0,
+     274.5,
+     272.899994,
+     276.700012,
+     273.600006,
+     274.899994,
+     273.0,
+     275.0,
+     276.700012,
+     274.0,
+     277.399994,
+     272.100006,
+     276.0,
+     270.399994,
+     271.200012,
+     272.700012,
+     275.0,
+     272.799988,
+     272.0,
+     275.0,
+     274.200012,
+     278.5,
+     276.5,
+     278.399994,
+     276.700012,
+     276.299988,
+     274.899994,
+     275.200012,
+     269.0,
+     274.200012,
+     275.399994,
+     278.0,
+     276.0,
+     273.799988,
+     275.899994,
+     274.899994,
+     277.100006,
+     276.0,
+     278.5,
+     271.0,
+     271.799988,
+     270.0,
+     275.5,
+     276.700012,
+     273.899994,
+     273.200012,
+     276.100006,
+     275.5,
+     273.299988,
+     271.5,
+     272.700012,
+     273.799988,
+     278.5,
+     273.799988
+    ],
+    "n_rpm": [
+     1347.0,
+     1344.0,
+     1344.0,
+     1343.0,
+     1345.0,
+     1346.0,
+     1343.0,
+     1345.0,
+     1347.0,
+     1346.0,
+     1346.0,
+     1343.0,
+     1346.0,
+     1348.0,
+     1345.0,
+     1345.0,
+     1344.0,
+     1345.0,
+     1345.0,
+     1345.0,
+     1346.0,
+     1347.0,
+     1345.0,
+     1345.0,
+     1343.0,
+     1344.0,
+     1343.0,
+     1345.0,
+     1344.0,
+     1344.0,
+     1345.0,
+     1344.0,
+     1345.0,
+     1343.0,
+     1344.0,
+     1343.0,
+     1344.0,
+     1344.0,
+     1343.0,
+     1344.0,
+     1344.0,
+     1343.0,
+     1347.0,
+     1345.0,
+     1344.0,
+     1344.0,
+     1345.0,
+     1345.0,
+     1341.0,
+     1344.0,
+     1344.0,
+     1343.0,
+     1343.0,
+     1341.0,
+     1342.0,
+     1341.0,
+     1342.0,
+     1341.0,
+     1344.0,
+     1342.0
+    ],
+    "measuredRise_kpa": [
+     258.200012,
+     259.5,
+     258.000006,
+     256.6,
+     255.600012,
+     258.400012,
+     258.5,
+     259.3,
+     260.699994,
+     261.600012,
+     262.200006,
+     264.599994,
+     259.5,
+     261.6,
+     265.100012,
+     262.2,
+     266.599994,
+     257.100006,
+     266.3,
+     255.899994,
+     259.100012,
+     258.200012,
+     262.4,
+     259.599988,
+     257.6,
+     262.2,
+     260.700012,
+     266.5,
+     262.7,
+     265.799994,
+     262.100012,
+     264.899988,
+     260.599994,
+     262.000012,
+     257.0,
+     259.300013,
+     263.899994,
+     264.8,
+     262.9,
+     257.699987,
+     264.199994,
+     260.799994,
+     265.300006,
+     262.2,
+     261.6,
+     256.4,
+     259.599988,
+     258.3,
+     262.0,
+     264.300013,
+     259.799994,
+     258.000012,
+     264.200006,
+     262.5,
+     258.099988,
+     259.1,
+     258.200012,
+     261.599988,
+     264.5,
+     263.499988
+    ],
+    "curveRise_kpa": [
+     260.430273,
+     277.260127,
+     272.207452,
+     276.320931,
+     269.280131,
+     270.547611,
+     264.545154,
+     270.996725,
+     263.806104,
+     270.869186,
+     275.909022,
+     263.456171,
+     270.547611,
+     266.030167,
+     275.160798,
+     269.244056,
+     262.565921,
+     273.44789,
+     273.032085,
+     272.439925,
+     267.79123,
+     275.570651,
+     274.205467,
+     267.900494,
+     266.361005,
+     266.653491,
+     278.157271,
+     257.851641,
+     262.413064,
+     276.431959,
+     272.788701,
+     269.665327,
+     266.872248,
+     278.222126,
+     263.213322,
+     267.494137,
+     253.242299,
+     270.979879,
+     264.918202,
+     278.666092,
+     278.015061,
+     269.866143,
+     264.111729,
+     265.83408,
+     272.346769,
+     281.501862,
+     260.923113,
+     273.517017,
+     268.451579,
+     280.048687,
+     271.788321,
+     277.244062,
+     272.977559,
+     263.106597,
+     273.765574,
+     276.91311,
+     272.260442,
+     262.126483,
+     267.387197,
+     261.307584
+    ]
+   }
+  },
+  {
+   "caseId": "pump02-train",
+   "assetId": "PUMP-02",
+   "split": "train",
+   "alertUtc": "2025-12-07T10:32:00Z",
+   "minuteStartUtc": "2025-12-07T10:31:00Z",
+   "minuteEndUtc": "2025-12-07T10:32:00Z",
+   "b1": {
+    "event_class": "MACHINE",
+    "fault_type": "UNKNOWN",
+    "confidence": "0.5352806266530998",
+    "evidence": "B1 mode-aware z: vibration_crest_factor z=-6.4",
+    "recommended_action": "Inspect pump.",
+    "suspected_channel": "vibration_crest_factor"
+   },
+   "z995": {
+    "event_class": "MACHINE",
+    "fault_type": "MISALIGNMENT",
+    "confidence": "0.5352806266530998",
+    "evidence": "W1 waveform refines B1 UNKNOWN: 1x line 2.7x commissioning with 2x/1x=2.48; one radial axis is consistent with, not proof of, misalignment; snapshot PUMP-02-S035 completed 2025-12-07T07:29:50+00:00, age 10930 s, speed check MATCH, 6 reference snapshots; confidence is B1's anomaly score; B1 rule said UNKNOWN",
+    "recommended_action": "Check coupling alignment (a second axis / phase reading is needed to confirm).",
+    "suspected_channel": null,
+    "diagnosis_source": "W1",
+    "b1_fault_type": "UNKNOWN",
+    "b1_event_class": "MACHINE",
+    "waveform": {
+     "wf_status": "FRESH",
+     "wf_speed_check": "MATCH",
+     "wf_snapshot_id": "PUMP-02-S035",
+     "wf_complete_utc": "2025-12-07T07:29:50+00:00",
+     "wf_age_s": "10930.0",
+     "wf_reference_snapshots": "6",
+     "features": {
+      "wf_2x_over_1x": 2.484893,
+      "wf_log_1x_gain": 0.988664,
+      "wf_log_2x_gain": 1.497241,
+      "wf_log_env_gain": -1.558503,
+      "wf_log_env_ratio": 0.774681
+     }
+    },
+    "ruleDetail": {
+     "applicability": {
+      "curve": {
+       "head_curve_m": 7.16421,
+       "head_observed_m": 6.982167,
+       "relative_mismatch": 0.02541
+      },
+      "measured": {
+       "n": {
+        "channel": "motor_speed_rpm",
+        "count": 58,
+        "mean": 899.741394,
+        "std": 1.163183,
+        "unit": "rpm"
+       },
+       "pd": {
+        "channel": "discharge_pressure_kpa",
+        "count": 60,
+        "mean": 112.474998,
+        "std": 2.676364,
+        "unit": "kPa(g)"
+       },
+       "ps": {
+        "channel": "suction_pressure_kpa",
+        "count": 60,
+        "mean": 44.003334,
+        "std": 2.087653,
+        "unit": "kPa(g)"
+       },
+       "q": {
+        "channel": "flow_m3_h",
+        "count": 60,
+        "mean": 210.631668,
+        "std": 4.85671,
+        "unit": "m3/h"
+       },
+       "tf": {
+        "channel": "fluid_temp_c",
+        "count": 60,
+        "mean": 1.756667,
+        "std": 0.106352,
+        "unit": "degC"
+       }
+      },
+      "npsh": {
+       "margin_required": 1.5,
+       "npsh3_m": 0.861727,
+       "npsha_lower_m": 14.748668,
+       "vapor_pressure_kpa": 0.693307
+      },
+      "operating_point": {
+       "flow_ratio_at_speed": 0.801351,
+       "speed_ratio": 0.505473
+      },
+      "passed": true,
+      "passport": {
+       "motor_rated_rpm": 1780.0,
+       "npsh3_at_bep_m": 4.2,
+       "pump_rated_flow_m3_h": 520.0,
+       "pump_rated_head_m": 26.0,
+       "pump_shutoff_head_m": 31.7
+      },
+      "unsupported_reason": null
+     },
+     "assumptions": "water-like fluid, rho=1000 kg/m3, g=9.80665 m/s2, assumed atmospheric 101.325 kPa, pure-water vapor pressure, equal tap elevations and no velocity-head difference",
+     "emitted_source": "W1",
+     "evaluated_rule": "E995",
+     "factor": null,
+     "minute": {
+      "end": "2025-12-07T10:32:00+00:00",
+      "invalid_reason": null,
+      "mean_E_kpa": -1.745016202,
+      "paired": 58,
+      "rows_running": 60,
+      "rows_total": 60,
+      "start": "2025-12-07T10:31:00+00:00",
+      "std_E_kpa": 3.18344899,
+      "var_E_kpa2": 10.134347473
+     },
+     "outcome": "abstained",
+     "reason": "residual_not_in_empirical_tail",
+     "reference": {
+      "median_raw": 3.057936564,
+      "minutes": 1431,
+      "reference_std_kpa": 3.057936564
+     },
+     "tail": {
+      "N": 1431,
+      "b": 461,
+      "limit": 0.005,
+      "reference_median_kpa": 3.057936564,
+      "tail_rank": 0.322625698
+     },
+     "tail_limit": 0.005
+    }
+   },
+   "label": {
+    "event_id": "PUMP-02-E02",
+    "asset_id": "PUMP-02",
+    "event_class": "MACHINE",
+    "fault_type": "MISALIGNMENT",
+    "sensor_tag": null,
+    "onset_utc": "2025-12-07T05:37:05Z",
+    "end_utc": null
+   },
+   "passport": {
+    "asset_id": "PUMP-02",
+    "split": "train",
+    "site": "Vessel A (RoPax, fictional)",
+    "system": "Seawater cooling, pump No. 2",
+    "instrumentation_tier": "T2_FULL",
+    "channels_available": "ambient_temp_c|bearing_temp_c|discharge_pressure_kpa|flow_m3_h|fluid_temp_c|motor_current_a|motor_power_kw|motor_speed_rpm|motor_winding_temp_c|suction_pressure_kpa|vibration_accel_rms_g|vibration_crest_factor|vibration_rms_mm_s",
+    "control": "VFD_TEMPERATURE"
+   }
+  },
+  {
+   "caseId": "pump08-validation",
+   "assetId": "PUMP-08",
+   "split": "validation",
+   "alertUtc": "2025-09-11T20:47:00Z",
+   "minuteStartUtc": "2025-09-11T20:46:00Z",
+   "minuteEndUtc": "2025-09-11T20:47:00Z",
+   "b1": {
+    "event_class": "MACHINE",
+    "fault_type": "UNKNOWN",
+    "confidence": "0.5298386917890457",
+    "evidence": "B1 mode-aware z: fluid_temp_c z=-6.4",
+    "recommended_action": "Inspect pump.",
+    "suspected_channel": "fluid_temp_c"
+   },
+   "z995": {
+    "event_class": "MACHINE",
+    "fault_type": "BEARING_WEAR",
+    "confidence": "0.5298386917890457",
+    "evidence": "W1 waveform refines B1 UNKNOWN: envelope line at BPFO 4.8x local floor (2.6x commissioning); one radial axis is consistent with, not proof of, outer-race damage; snapshot PUMP-08-S023 completed 2025-09-11T17:07:23+00:00, age 13177 s, speed check MATCH, 6 reference snapshots; confidence is B1's anomaly score; B1 rule said UNKNOWN",
+    "recommended_action": "Inspect pump bearing; plan replacement; check lubrication.",
+    "suspected_channel": null,
+    "diagnosis_source": "W1",
+    "b1_fault_type": "UNKNOWN",
+    "b1_event_class": "MACHINE",
+    "waveform": {
+     "wf_status": "FRESH",
+     "wf_speed_check": "MATCH",
+     "wf_snapshot_id": "PUMP-08-S023",
+     "wf_complete_utc": "2025-09-11T17:07:23+00:00",
+     "wf_age_s": "13177.0",
+     "wf_reference_snapshots": "6",
+     "features": {
+      "wf_2x_over_1x": 2.140681,
+      "wf_log_1x_gain": -0.025386,
+      "wf_log_2x_gain": 0.342734,
+      "wf_log_env_gain": 0.937918,
+      "wf_log_env_ratio": 1.57119
+     }
+    },
+    "ruleDetail": {
+     "applicability": {
+      "curve": null,
+      "measured": {
+       "n": {
+        "channel": "motor_speed_rpm",
+        "count": 60,
+        "mean": 1081.966675,
+        "std": 1.08872,
+        "unit": "rpm"
+       },
+       "pd": {
+        "channel": "discharge_pressure_kpa",
+        "count": 60,
+        "mean": 133.331665,
+        "std": 2.571124,
+        "unit": "kPa(g)"
+       },
+       "ps": {
+        "channel": "suction_pressure_kpa",
+        "count": 59,
+        "mean": 42.538982,
+        "std": 1.576992,
+        "unit": "kPa(g)"
+       },
+       "q": null,
+       "tf": {
+        "channel": "fluid_temp_c",
+        "count": 60,
+        "mean": 12.058333,
+        "std": 0.096184,
+        "unit": "degC"
+       }
+      },
+      "npsh": null,
+      "operating_point": null,
+      "passed": false,
+      "passport": {
+       "motor_rated_rpm": 1785.0,
+       "npsh3_at_bep_m": 4.6,
+       "pump_rated_flow_m3_h": 650.0,
+       "pump_rated_head_m": 24.0,
+       "pump_shutoff_head_m": 29.3
+      },
+      "unsupported_reason": "input_unavailable_flow_m3_h"
+     },
+     "assumptions": "water-like fluid, rho=1000 kg/m3, g=9.80665 m/s2, assumed atmospheric 101.325 kPa, pure-water vapor pressure, equal tap elevations and no velocity-head difference",
+     "emitted_source": "W1",
+     "evaluated_rule": "E995",
+     "factor": null,
+     "outcome": "unsupported",
+     "reason": "applicability:input_unavailable_flow_m3_h",
+     "reference": {
+      "median_raw": null,
+      "minutes": 0,
+      "reference_std_kpa": null
+     },
+     "tail_limit": 0.005
+    }
+   },
+   "label": {
+    "event_id": "PUMP-08-E02",
+    "asset_id": "PUMP-08",
+    "event_class": "MACHINE",
+    "fault_type": "BEARING_WEAR",
+    "sensor_tag": null,
+    "onset_utc": "2025-09-08T00:00:00Z",
+    "end_utc": null
+   },
+   "passport": {
+    "asset_id": "PUMP-08",
+    "split": "validation",
+    "site": "Vessel B (RoPax, fictional)",
+    "system": "Seawater cooling, pump No. 2",
+    "instrumentation_tier": "T1_RETROFIT",
+    "channels_available": "ambient_temp_c|bearing_temp_c|discharge_pressure_kpa|fluid_temp_c|motor_current_a|motor_power_kw|motor_speed_rpm|suction_pressure_kpa|vibration_accel_rms_g|vibration_crest_factor|vibration_rms_mm_s",
+    "control": "VFD_TEMPERATURE"
+   }
+  },
+  {
+   "caseId": "pump01-train",
+   "assetId": "PUMP-01",
+   "split": "train",
+   "alertUtc": "2025-08-12T19:27:00Z",
+   "minuteStartUtc": "2025-08-12T19:26:00Z",
+   "minuteEndUtc": "2025-08-12T19:27:00Z",
+   "b1": {
+    "event_class": "SENSOR",
+    "fault_type": "SENSOR_CALIBRATION_SHIFT",
+    "confidence": "0.5365934371948242",
+    "evidence": "B1 mode-aware z: suction_pressure_kpa deviates alone (z=-6.4)",
+    "recommended_action": "Verify suction_pressure_kpa against a reference gauge.",
+    "suspected_channel": "suction_pressure_kpa"
+   },
+   "z995": {
+    "event_class": "SENSOR",
+    "fault_type": "SENSOR_CALIBRATION_SHIFT",
+    "confidence": "0.5365934371948242",
+    "evidence": "B1 mode-aware z: suction_pressure_kpa deviates alone (z=-6.4)",
+    "recommended_action": "Verify suction_pressure_kpa against a reference gauge.",
+    "suspected_channel": "suction_pressure_kpa",
+    "diagnosis_source": "B1",
+    "b1_fault_type": "SENSOR_CALIBRATION_SHIFT",
+    "b1_event_class": "SENSOR",
+    "waveform": {
+     "wf_status": "FRESH",
+     "wf_speed_check": "MATCH",
+     "wf_snapshot_id": "PUMP-01-S011",
+     "wf_complete_utc": "2025-08-12T18:48:08+00:00",
+     "wf_age_s": "2332.0",
+     "wf_reference_snapshots": "6",
+     "features": {
+      "wf_2x_over_1x": 1.378045,
+      "wf_log_1x_gain": -0.245635,
+      "wf_log_2x_gain": -0.015661,
+      "wf_log_env_gain": 0.507375,
+      "wf_log_env_ratio": 0.6924
+     }
+    },
+    "ruleDetail": {
+     "applicability": {
+      "curve": null,
+      "measured": {
+       "n": {
+        "channel": "motor_speed_rpm",
+        "count": 60,
+        "mean": 1133.18335,
+        "std": 3.159552,
+        "unit": "rpm"
+       },
+       "pd": {
+        "channel": "discharge_pressure_kpa",
+        "count": 60,
+        "mean": 147.199997,
+        "std": 2.42599,
+        "unit": "kPa(g)"
+       },
+       "ps": {
+        "channel": "suction_pressure_kpa",
+        "count": 59,
+        "mean": 36.84407,
+        "std": 2.013341,
+        "unit": "kPa(g)"
+       },
+       "q": null,
+       "tf": {
+        "channel": "fluid_temp_c",
+        "count": 59,
+        "mean": 17.574577,
+        "std": 0.093943,
+        "unit": "degC"
+       }
+      },
+      "npsh": null,
+      "operating_point": null,
+      "passed": false,
+      "passport": {
+       "motor_rated_rpm": 1780.0,
+       "npsh3_at_bep_m": 4.2,
+       "pump_rated_flow_m3_h": 520.0,
+       "pump_rated_head_m": 26.0,
+       "pump_shutoff_head_m": 31.7
+      },
+      "unsupported_reason": "input_unavailable_flow_m3_h"
+     },
+     "assumptions": "water-like fluid, rho=1000 kg/m3, g=9.80665 m/s2, assumed atmospheric 101.325 kPa, pure-water vapor pressure, equal tap elevations and no velocity-head difference",
+     "emitted_source": "B1",
+     "evaluated_rule": "E995",
+     "factor": null,
+     "outcome": "unsupported",
+     "reason": "applicability:input_unavailable_flow_m3_h",
+     "reference": {
+      "median_raw": null,
+      "minutes": 0,
+      "reference_std_kpa": null
+     },
+     "tail_limit": 0.005
+    }
+   },
+   "label": {
+    "event_id": "PUMP-01-E01",
+    "asset_id": "PUMP-01",
+    "event_class": "MACHINE",
+    "fault_type": "SUCTION_STRAINER_CLOGGING",
+    "sensor_tag": null,
+    "onset_utc": "2025-08-11T20:41:39Z",
+    "end_utc": "2025-08-13T14:41:44Z"
+   },
+   "passport": {
+    "asset_id": "PUMP-01",
+    "split": "train",
+    "site": "Vessel A (RoPax, fictional)",
+    "system": "Seawater cooling, pump No. 1",
+    "instrumentation_tier": "T1_RETROFIT",
+    "channels_available": "ambient_temp_c|bearing_temp_c|discharge_pressure_kpa|fluid_temp_c|motor_current_a|motor_power_kw|motor_speed_rpm|suction_pressure_kpa|vibration_accel_rms_g|vibration_crest_factor|vibration_rms_mm_s",
+    "control": "VFD_TEMPERATURE"
+   }
+  }
+ ]
+}

@@ -56,7 +56,7 @@ export function renderExperiments(ex) {
   const ab = ex.ablation;
   return `<section class="panel" aria-labelledby="ex-h"><h2 id="ex-h">Reviewed diagnostic experiments</h2>
       <p class="small">${esc(ex.notice)}</p>
-      <p>${pill('s-info', 'Selected for replay')} ${esc(ex.selectedModel)}. Rejected candidates are shown only on this page and never in the operator replay.</p>
+      <p>${pill('s-info', 'Selected for replay')} ${esc(ex.selectedModel)}. Rejected candidates are shown only on this page and never in the operator replay. <span class="small muted">Historical rounds; the later Z995 comparison is on <a href="#/diagnosis">Diagnosis comparison</a>.</span></p>
       <div class="table-wrap" role="region" aria-label="Hypothesis outcomes" tabindex="0"><table>
         <caption>Hypothesis outcomes, verbatim from <span class="mono">${esc(ex.hypothesesSource)}</span>.</caption>
         <thead><tr><th scope="col">Hypothesis</th><th scope="col">Completed work</th><th scope="col">Result and implication</th></tr></thead>

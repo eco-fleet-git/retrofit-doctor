@@ -14,7 +14,7 @@ A static server is needed because browsers block `fetch()` of local files from `
 
 Verified on 2026-11-07 from a fresh clone of commit `971fbaf` without `vendor/benchmark/data/` or a virtual environment, using `/usr/bin/python3` 3.9.6: every referenced HTML/CSS/JS file and data file returned HTTP 200, and no external URL appears in `web/`. In the same clone, `node --test tests/` (Node 26.12) passed 44/44 on the committed bundle. This was an HTTP-level and unit-test check, not a browser rendering check.
 
-Only PUMP-08/09 (validation) have replay files. Train pumps are listed but not replayed, and PUMP-10/11/12 (blind test) are metadata only.
+Only PUMP-08/09 (validation) have full replay files. The new `#/diagnosis` view provides four source-verified historical cases from train/validation and the frozen Z995 comparison with B1. It has a separate `diagnosis-comparison.json` bundle; original replay files remain unchanged. PUMP-10/11/12 (test) are metadata only. See `../docs/tasks/015-coordinator-review.md` and the Task015 handoff for checks and limits.
 
 ## Regenerate the bundle (analysis environment only)
 
@@ -37,5 +37,7 @@ node --test tests/web_replay.test.mjs                            # as-of slicing
 - `js/replay.js` — pure as-of logic: `sliceReplay()` is the only path from bundle to rendering; reference, freshness, packet and diagnostic states.
 - `js/knowledge.js` — rule paraphrases of vendor B1 `diagnose()` and engineering prompts (alternatives, missing measurements, next checks), labelled as not evaluated by the detector.
 - `js/explain.js` — pure selected-alert explanation (hypothesis, observations at the alert minute, gaps, alternatives, next check, technical fields); inputs are only the as-of view, the selected alert and the static passport.
-- `js/app.js` — hash routes `#/fleet`, `#/pumps/:id?t=<UTC>`, `#/pumps/:id/retrofit`, `#/evidence`.
+- `js/app.js` — hash routes `#/fleet`, `#/pumps/:id?t=<UTC>`, `#/pumps/:id/retrofit`, `#/evidence`, `#/diagnosis`.
 - `data/` — generated bundle (synthetic benchmark data, provenance + SHA-256 of inputs inside `fleet.json`).
+
+The comparison exporter is `scripts/export_diagnosis_comparison.py`; it reads only the frozen train/validation results and the documented source inputs, without re-scoring. The browser explanation helper is `js/comparison.js`, with view code in `js/diagnosis-view.js`. Run `node --test tests/web_comparison.test.mjs` for focused source/clock checks; source-hash verification requires the restored analytical inputs. Viewing the committed app does not.

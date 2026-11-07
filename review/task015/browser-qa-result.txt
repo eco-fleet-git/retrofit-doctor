@@ -1,0 +1,37 @@
+PASS  Nav         Sidebar links to Diagnosis Comparison
+PASS  Residual    PUMP-04 at alert: flow source headline, B1 → Z995, measured table, derived spread/rank/share
+PASS  Residual    Measured vs calculated chart labelled; not a healthy band
+PASS  Footer      Route footer names the comparison exporter and its 19 sources
+PASS  Copy        Main next check uses "flow"; minute shown as 2025-06-18 22:05–22:06 UTC
+PASS  Disclosure  Technical details collapsed by default; labels off by default
+PASS  Keyboard    Enter opens technical details: verbatim outputs, equation, full rule_detail with covariances
+PASS  Gating      1 s before alert: no result, no chart, no statistics
+PASS  Gating      Before alert: opt-in label is withheld
+PASS  Labels      At alert: opt-in label appears in its own panel; end withheld
+PASS  Later       +1 day: same historical explanation; timing names the age
+PASS  URL         Clock and case are kept in the URL
+PASS  Waveform    PUMP-02: consistent with misalignment; older snapshot age; 1x/2x evidence; alignment + second axis check
+PASS  Copy        PUMP-08 before box says cause unresolved (UNKNOWN)
+PASS  Disclosure  Switching case collapses technical details again
+PASS  Waveform    PUMP-08 (validation) +1 day: bearing pattern, age at alert fixed, age now grows, flow not installed ≠ healthy
+PASS  Copy        PUMP-01 main card: human suction label in next check; missing-input wording
+PASS  Unsupported PUMP-01: flow not installed, B1 kept, not assessed ≠ healthy, retrofit link
+PASS  Scorecard   Retrospective: correct type 8→10 / 4→5, sensor T+C 3→4 / 2→2, detected 18 / 8
+PASS  Scorecard   All 26 train + 9 validation events listed; PUMP-08-E04 missed visible  [35 rows]
+PASS  Overflow    No page overflow at 1440
+PASS  Gating      Deep link 1 s before PUMP-02 alert: pending, snapshot only announced, no interpretation
+PASS  Footer      Evidence route keeps the baseline bundle footer
+PASS  Evidence    Historical scope note links the comparison
+PASS  Regression  Baseline pump detail still explains PUMP-08 12:38 (causal B1)
+PASS  Boundary    No test-asset replay requested
+PASS  Console     No console errors (1440)
+PASS  Overflow    No page overflow at 390 (PUMP-04 at alert)  [0]
+PASS  Chart       Legend labels fully inside the viewport at 390  [172,355]
+PASS  Chart       All SVG text inside the narrow viewBox; chart and measured table need no horizontal scroll at 390  [chart true, table true]
+PASS  Mobile      Next check and its reason are in the default card; technical details collapsed
+PASS  Overflow    No page overflow at 390 (pump02-train)
+PASS  Overflow    No page overflow at 390 (pump08-validation)
+PASS  Overflow    No page overflow at 390 (pump01-train)
+PASS  Keyboard    Technical details open by keyboard at 390 without page overflow
+PASS  Console     No console errors (390)
+36/36 passed
